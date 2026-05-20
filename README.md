@@ -1,6 +1,9 @@
 # timeweb-rs
 
+[![crates.io](https://img.shields.io/crates/v/timeweb-rs.svg)](https://crates.io/crates/timeweb-rs)
+[![docs.rs](https://img.shields.io/docsrs/timeweb-rs)](https://docs.rs/timeweb-rs)
 [![CI](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml)
+[![MSRV](https://img.shields.io/badge/MSRV-1.95-blue.svg)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
