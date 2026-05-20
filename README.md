@@ -94,6 +94,15 @@ mismatches that produce non-compiling code) and swaps the Russian API tags for
 the English names the spec already carries in `x-name-i18n`. Request and
 response schemas are left untouched.
 
+## Releases
+
+This project follows [Semantic Versioning](https://semver.org); changes are
+recorded in [CHANGELOG.md](CHANGELOG.md). To cut a release: move the
+`Unreleased` changelog section under a new version heading, bump `version` in
+`Cargo.toml`, commit, and push a `vX.Y.Z` tag. CI publishes the crate to
+crates.io once the version is ahead of the registry, and the release workflow
+creates the matching GitHub release from the changelog entry.
+
 ## License
 
 [MIT](LICENSE)
