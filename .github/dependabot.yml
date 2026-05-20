@@ -13,3 +13,7 @@ updates:
       interval: weekly
     commit-message:
       prefix: ci
+    ignore:
+      # `dtolnay/rust-toolchain@1.95.0` pins the MSRV toolchain, not an
+      # action release — its version must not be bumped automatically.
+      - dependency-name: dtolnay/rust-toolchain
