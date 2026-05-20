@@ -35,6 +35,8 @@
 //!   credentials; build it with [`authenticated`].
 //! * [`apis::Error`] — the error type returned by every API call.
 
+#![forbid(unsafe_code)]
+
 /// Generated API client modules, one per Timeweb Cloud API area.
 ///
 /// Produced by `openapi-generator`; lint groups are relaxed for this generated
