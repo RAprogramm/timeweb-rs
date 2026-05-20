@@ -1,6 +1,6 @@
 //! # timeweb-rs
 //!
-//! Unofficial async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
+//! Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
 //!
 //! The [`apis`] and [`models`] modules are generated from the official Timeweb
 //! Cloud OpenAPI specification, so the SDK covers the full public API surface:

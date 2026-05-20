@@ -1,6 +1,6 @@
 # timeweb-rs
 
-Unofficial async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
+Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
 
 ## Overview
 
