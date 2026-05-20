@@ -1,0 +1,127 @@
+name: API spec sync
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: spec-sync
+  cancel-in-progress: false
+
+env:
+  SPEC_URL: https://timeweb.cloud/api-docs-data/bundle.json
+
+jobs:
+  sync:
+    name: Check and regenerate from upstream spec
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Download the latest Timeweb Cloud spec
+        run: curl -fsSL -o /tmp/latest.json "$SPEC_URL"
+
+      - name: Detect spec changes
+        id: diff
+        run: |
+          if cmp -s openapi/timeweb-cloud.json /tmp/latest.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Spec is unchanged."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Spec changed upstream."
+          fi
+
+      - name: Install Java
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install Rust
+        if: steps.diff.outputs.changed == 'true'
+        uses: dtolnay/rust-toolchain@nightly
+
+      - name: Install stable Rust
+        if: steps.diff.outputs.changed == 'true'
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        if: steps.diff.outputs.changed == 'true'
+
+      - name: Regenerate the SDK from the new spec
+        id: regen
+        if: steps.diff.outputs.changed == 'true'
+        continue-on-error: true
+        run: |
+          cp /tmp/latest.json openapi/timeweb-cloud.json
+          python3 openapi/normalize_spec.py openapi/timeweb-cloud.json /tmp/normalized.json
+          npx --yes @openapitools/openapi-generator-cli@latest generate \
+            -i /tmp/normalized.json -g rust -o /tmp/twgen \
+            -p packageName=timeweb_client,library=reqwest
+          rm -rf src/apis src/models
+          cp -r /tmp/twgen/src/apis src/apis
+          cp -r /tmp/twgen/src/models src/models
+          cargo +nightly fmt
+
+      - name: Verify the regenerated SDK
+        id: verify
+        if: steps.diff.outputs.changed == 'true' && steps.regen.outcome == 'success'
+        continue-on-error: true
+        run: |
+          cargo build --all-features
+          cargo test --all-features
+
+      - name: Open a pull request with the update
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && steps.regen.outcome == 'success'
+          && steps.verify.outcome == 'success'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automated/timeweb-api-update
+          delete-branch: true
+          title: chore regenerate SDK from updated Timeweb API spec
+          commit-message: chore regenerate SDK from updated Timeweb API spec
+          body: |
+            The upstream Timeweb Cloud OpenAPI specification changed.
+
+            This pull request was opened automatically: it vendors the new
+            spec and regenerates `src/apis` and `src/models`. The regenerated
+            SDK builds and its tests pass. Review the diff before merging.
+
+      - name: Open an issue when automatic update fails
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && (steps.regen.outcome == 'failure' || steps.verify.outcome == 'failure')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          open_issues=$(gh issue list --state open \
+            --search 'Timeweb API spec in:title' --json number --jq 'length')
+          if [ "$open_issues" -gt 0 ]; then
+            echo "A spec-update issue is already open; skipping."
+            exit 0
+          fi
+          run_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          {
+            echo "The upstream Timeweb Cloud OpenAPI specification changed, but"
+            echo "automatic regeneration failed."
+            echo
+            echo "- regenerate: ${{ steps.regen.outcome }}"
+            echo "- verify: ${{ steps.verify.outcome }}"
+            echo
+            echo "The spec normalizer or generator settings likely need a manual"
+            echo "update. Failed run: ${run_url}"
+          } > /tmp/issue-body.md
+          gh issue create \
+            --title "Timeweb API spec changed — manual SDK update required" \
+            --body-file /tmp/issue-body.md
