@@ -6,7 +6,7 @@
 [![MSRV](https://img.shields.io/badge/MSRV-1.95-blue.svg)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
+Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud/?i=137383) API.
 
 ## Overview
 
