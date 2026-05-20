@@ -11,7 +11,7 @@ documentation = "https://docs.rs/timeweb-rs"
 readme = "README.md"
 keywords = ["timeweb", "cloud", "sdk", "api"]
 categories = ["api-bindings", "asynchronous"]
-exclude = ["/.github", "/openapi", "/openapitools.json"]
+exclude = ["/.github", "/openapi", "/openapitools.json", "/release-plz.toml"]
 
 [dependencies]
 serde = { version = "1", features = ["derive"] }

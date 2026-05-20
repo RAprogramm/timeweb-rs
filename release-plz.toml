@@ -1,0 +1,19 @@
+# release-plz configuration — https://release-plz.dev/docs/config
+#
+# Version bumps are driven primarily by `cargo-semver-checks` (real public-API
+# diffs against the published crate), since this project's commit messages do
+# not use the conventional-commits `type:` colon syntax. The parsers below only
+# group commits into changelog sections.
+
+[changelog]
+commit_parsers = [
+  { message = "^feat", group = "added" },
+  { message = "^fix", group = "fixed" },
+  { message = "^perf", group = "performance" },
+  { message = "^refactor", group = "changed" },
+  { message = "^docs", group = "documentation" },
+  { message = "^test", group = "testing" },
+  { message = "^ci", skip = true },
+  { message = "^chore", skip = true },
+  { message = ".*", group = "other" },
+]
