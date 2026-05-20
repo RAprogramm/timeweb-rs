@@ -3,10 +3,10 @@
 //! Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
 //!
 //! The [`apis`] and [`models`] modules are generated from the official Timeweb
-//! Cloud OpenAPI specification, so the SDK covers the full public API surface:
-//! cloud servers, managed databases, Kubernetes, projects, domains, S3 storage,
-//! load balancers, firewalls, mail, AI agents and everything else exposed by
-//! the control panel.
+//! Cloud `OpenAPI` specification, so the SDK covers the full public API
+//! surface: cloud servers, managed databases, Kubernetes, projects, domains, S3
+//! storage, load balancers, firewalls, mail, AI agents and everything else
+//! exposed by the control panel.
 //!
 //! ## Authentication
 //!
@@ -39,13 +39,25 @@
 ///
 /// Produced by `openapi-generator`; lint groups are relaxed for this generated
 /// code so the hand-written crate code stays under strict lints.
-#[allow(clippy::all, clippy::pedantic, unused_imports, rustdoc::all)]
+#[allow(
+    clippy::all,
+    clippy::pedantic,
+    clippy::nursery,
+    unused_imports,
+    rustdoc::all
+)]
 pub mod apis;
 
 /// Generated request and response types.
 ///
 /// Produced by `openapi-generator`; see [`apis`] for the lint rationale.
-#[allow(clippy::all, clippy::pedantic, unused_imports, rustdoc::all)]
+#[allow(
+    clippy::all,
+    clippy::pedantic,
+    clippy::nursery,
+    unused_imports,
+    rustdoc::all
+)]
 pub mod models;
 
 mod client;

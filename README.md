@@ -1,5 +1,8 @@
 # timeweb-rs
 
+[![CI](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud) API.
 
 ## Overview
