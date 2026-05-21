@@ -1,0 +1,7 @@
+# nextest configuration — https://nexte.st/docs/configuration/
+#
+# The `ci` profile is used by the Codecov job in `.github/workflows/ci.yml`:
+# it emits a JUnit report consumed by Codecov Test Analytics.
+
+[profile.ci.junit]
+path = "junit.xml"
