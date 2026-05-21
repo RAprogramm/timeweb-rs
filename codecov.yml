@@ -1,0 +1,23 @@
+# Codecov configuration — https://docs.codecov.com/docs/codecov-yaml
+#
+# Generated `src/apis` and `src/models` are excluded from coverage; only the
+# hand-written layer is measured. The CI `codecov` job enforces the hard 95%
+# line gate — the status checks below add per-PR feedback and comments.
+
+coverage:
+  status:
+    project:
+      default:
+        target: 95%
+        threshold: 1%
+    patch:
+      default:
+        target: 95%
+
+comment:
+  layout: "condensed_header, diff, flags, files"
+  require_changes: false
+
+ignore:
+  - "src/apis"
+  - "src/models"
