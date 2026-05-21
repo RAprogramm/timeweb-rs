@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1](https://github.com/RAprogramm/timeweb-rs/compare/v0.1.0...v0.1.1) - 2026-05-21
+
+### Documentation
+
+- docs add security policy
+- docs use referral link for timeweb cloud
+- docs add changelog and release process
+- docs add crates.io docs.rs and msrv badges
+
 ## [0.1.0] - 2026-05-20
 
 ### Added
