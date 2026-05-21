@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       - name: Download the latest Timeweb Cloud spec
         run: curl -fsSL -o /tmp/latest.json "$SPEC_URL"
@@ -41,20 +41,20 @@ jobs:
 
       - name: Install Java
         if: steps.diff.outputs.changed == 'true'
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5
         with:
           distribution: temurin
           java-version: "17"
 
       - name: Install Rust
         if: steps.diff.outputs.changed == 'true'
-        uses: dtolnay/rust-toolchain@nightly
+        uses: dtolnay/rust-toolchain@5b842231ba77f5c045dba54ac5560fed2db780e2 # nightly
 
       - name: Install stable Rust
         if: steps.diff.outputs.changed == 'true'
-        uses: dtolnay/rust-toolchain@stable
+        uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
 
-      - uses: Swatinem/rust-cache@v2
+      - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
         if: steps.diff.outputs.changed == 'true'
 
       - name: Regenerate the SDK from the new spec
@@ -85,7 +85,7 @@ jobs:
           steps.diff.outputs.changed == 'true'
           && steps.regen.outcome == 'success'
           && steps.verify.outcome == 'success'
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           branch: automated/timeweb-api-update
           delete-branch: true
