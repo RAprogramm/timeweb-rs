@@ -18,14 +18,14 @@ pub struct CreateDatabaseUser201Response {
     pub admin:       Box<models::DatabaseAdmin>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDatabaseUser201Response {
     pub fn new(
         admin: models::DatabaseAdmin,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateDatabaseUser201Response {
         CreateDatabaseUser201Response {
             admin: Box::new(admin),

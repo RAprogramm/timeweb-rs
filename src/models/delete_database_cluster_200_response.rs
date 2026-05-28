@@ -20,12 +20,12 @@ pub struct DeleteDatabaseCluster200Response {
     pub hash:        String,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl DeleteDatabaseCluster200Response {
-    pub fn new(hash: String, response_id: uuid::Uuid) -> DeleteDatabaseCluster200Response {
+    pub fn new(hash: String, response_id: Option<uuid::Uuid>) -> DeleteDatabaseCluster200Response {
         DeleteDatabaseCluster200Response {
             hash,
             response_id

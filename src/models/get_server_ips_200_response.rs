@@ -20,15 +20,15 @@ pub struct GetServerIps200Response {
     pub server_ips:  Vec<models::ServerIp>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetServerIps200Response {
     pub fn new(
         meta: models::Meta,
         server_ips: Vec<models::ServerIp>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetServerIps200Response {
         GetServerIps200Response {
             meta: Box::new(meta),

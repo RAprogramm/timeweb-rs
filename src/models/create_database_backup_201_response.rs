@@ -18,14 +18,14 @@ pub struct CreateDatabaseBackup201Response {
     pub backup:      Box<models::Backup>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDatabaseBackup201Response {
     pub fn new(
         backup: models::Backup,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateDatabaseBackup201Response {
         CreateDatabaseBackup201Response {
             backup: Box::new(backup),

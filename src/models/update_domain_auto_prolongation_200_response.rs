@@ -18,14 +18,14 @@ pub struct UpdateDomainAutoProlongation200Response {
     pub domain:      Box<models::Domain>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl UpdateDomainAutoProlongation200Response {
     pub fn new(
         domain: models::Domain,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> UpdateDomainAutoProlongation200Response {
         UpdateDomainAutoProlongation200Response {
             domain: Box::new(domain),

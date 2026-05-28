@@ -20,15 +20,15 @@ pub struct UpdateAppSettings200Response {
     pub meta:        Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl UpdateAppSettings200Response {
     pub fn new(
         app: models::App,
         meta: models::Meta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> UpdateAppSettings200Response {
         UpdateAppSettings200Response {
             app: Box::new(app),

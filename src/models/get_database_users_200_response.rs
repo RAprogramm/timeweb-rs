@@ -20,15 +20,15 @@ pub struct GetDatabaseUsers200Response {
     pub admins:      Vec<models::DatabaseAdmin>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetDatabaseUsers200Response {
     pub fn new(
         meta: models::Meta,
         admins: Vec<models::DatabaseAdmin>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDatabaseUsers200Response {
         GetDatabaseUsers200Response {
             meta: Box::new(meta),

@@ -20,15 +20,15 @@ pub struct GetBalancersPresets200Response {
     pub balancers_presets: Vec<models::PresetsBalancer>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:       uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:       Option<uuid::Uuid>
 }
 
 impl GetBalancersPresets200Response {
     pub fn new(
         meta: models::Meta,
         balancers_presets: Vec<models::PresetsBalancer>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetBalancersPresets200Response {
         GetBalancersPresets200Response {
             meta: Box::new(meta),

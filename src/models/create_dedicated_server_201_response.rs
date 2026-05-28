@@ -18,14 +18,14 @@ pub struct CreateDedicatedServer201Response {
     pub dedicated_server: Box<models::DedicatedServer>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:      uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:      Option<uuid::Uuid>
 }
 
 impl CreateDedicatedServer201Response {
     pub fn new(
         dedicated_server: models::DedicatedServer,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateDedicatedServer201Response {
         CreateDedicatedServer201Response {
             dedicated_server: Box::new(dedicated_server),

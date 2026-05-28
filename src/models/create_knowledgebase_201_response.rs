@@ -18,14 +18,14 @@ pub struct CreateKnowledgebase201Response {
     pub knowledgebase: Box<models::Knowledgebase>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:   uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:   Option<uuid::Uuid>
 }
 
 impl CreateKnowledgebase201Response {
     pub fn new(
         knowledgebase: models::Knowledgebase,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateKnowledgebase201Response {
         CreateKnowledgebase201Response {
             knowledgebase: Box::new(knowledgebase),

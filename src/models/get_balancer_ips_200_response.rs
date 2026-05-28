@@ -20,15 +20,15 @@ pub struct GetBalancerIps200Response {
     pub ips:         Vec<String>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetBalancerIps200Response {
     pub fn new(
         meta: models::Meta,
         ips: Vec<String>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetBalancerIps200Response {
         GetBalancerIps200Response {
             meta: Box::new(meta),

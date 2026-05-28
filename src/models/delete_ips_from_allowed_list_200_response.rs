@@ -18,14 +18,14 @@ pub struct DeleteIpsFromAllowedList200Response {
     pub ips:         Box<models::RemoveIps>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl DeleteIpsFromAllowedList200Response {
     pub fn new(
         ips: models::RemoveIps,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> DeleteIpsFromAllowedList200Response {
         DeleteIpsFromAllowedList200Response {
             ips: Box::new(ips),

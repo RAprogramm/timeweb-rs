@@ -20,12 +20,12 @@ pub struct GetAppsPresets200Response {
     pub frontend_presets: Option<Vec<models::AppsPresetsFrontendPresetsInner>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:      uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:      Option<uuid::Uuid>
 }
 
 impl GetAppsPresets200Response {
-    pub fn new(response_id: uuid::Uuid) -> GetAppsPresets200Response {
+    pub fn new(response_id: Option<uuid::Uuid>) -> GetAppsPresets200Response {
         GetAppsPresets200Response {
             backend_presets: None,
             frontend_presets: None,

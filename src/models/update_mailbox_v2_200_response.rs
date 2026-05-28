@@ -18,14 +18,14 @@ pub struct UpdateMailboxV2200Response {
     pub mailbox:     Box<models::MailboxResponse>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl UpdateMailboxV2200Response {
     pub fn new(
         mailbox: models::MailboxResponse,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> UpdateMailboxV2200Response {
         UpdateMailboxV2200Response {
             mailbox: Box::new(mailbox),

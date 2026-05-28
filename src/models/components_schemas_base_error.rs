@@ -20,8 +20,13 @@ pub struct ComponentsSchemasBaseError {
     pub error_code:  String,
     #[serde(rename = "message")]
     pub message:     Box<models::Message>,
-    #[serde(rename = "response_id", skip_serializing_if = "Option::is_none")]
-    pub response_id: Option<String>
+    #[serde(
+        rename = "response_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response_id: Option<Option<String>>
 }
 
 impl ComponentsSchemasBaseError {

@@ -18,14 +18,14 @@ pub struct DeleteServer200Response {
     pub server_delete: Box<models::DeleteServiceResponse>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:   uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:   Option<uuid::Uuid>
 }
 
 impl DeleteServer200Response {
     pub fn new(
         server_delete: models::DeleteServiceResponse,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> DeleteServer200Response {
         DeleteServer200Response {
             server_delete: Box::new(server_delete),

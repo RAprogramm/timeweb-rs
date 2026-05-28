@@ -30,8 +30,8 @@ pub struct GetAllProjectResources200Response {
     pub meta:              Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:       uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:       Option<uuid::Uuid>
 }
 
 impl GetAllProjectResources200Response {
@@ -43,7 +43,7 @@ impl GetAllProjectResources200Response {
         databases: Vec<models::Db>,
         dedicated_servers: Vec<models::DedicatedServer>,
         meta: models::Meta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetAllProjectResources200Response {
         GetAllProjectResources200Response {
             servers,

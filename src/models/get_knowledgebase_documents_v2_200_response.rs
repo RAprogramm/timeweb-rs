@@ -21,15 +21,15 @@ pub struct GetKnowledgebaseDocumentsV2200Response {
     pub meta:                    Box<models::GetKnowledgebaseDocumentsV2200ResponseAllOfMeta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:             uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:             Option<uuid::Uuid>
 }
 
 impl GetKnowledgebaseDocumentsV2200Response {
     pub fn new(
         knowledgebase_documents: Vec<models::Document>,
         meta: models::GetKnowledgebaseDocumentsV2200ResponseAllOfMeta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetKnowledgebaseDocumentsV2200Response {
         GetKnowledgebaseDocumentsV2200Response {
             knowledgebase_documents,

@@ -18,12 +18,15 @@ pub struct CreateFloatingIp201Response {
     pub ip:          Box<models::FloatingIp>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateFloatingIp201Response {
-    pub fn new(ip: models::FloatingIp, response_id: uuid::Uuid) -> CreateFloatingIp201Response {
+    pub fn new(
+        ip: models::FloatingIp,
+        response_id: Option<uuid::Uuid>
+    ) -> CreateFloatingIp201Response {
         CreateFloatingIp201Response {
             ip: Box::new(ip),
             response_id

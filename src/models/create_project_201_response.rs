@@ -18,12 +18,15 @@ pub struct CreateProject201Response {
     pub project:     Box<models::Project>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateProject201Response {
-    pub fn new(project: models::Project, response_id: uuid::Uuid) -> CreateProject201Response {
+    pub fn new(
+        project: models::Project,
+        response_id: Option<uuid::Uuid>
+    ) -> CreateProject201Response {
         CreateProject201Response {
             project: Box::new(project),
             response_id

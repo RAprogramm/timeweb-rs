@@ -18,12 +18,12 @@ pub struct CreateAgent201Response {
     pub agent:       Box<models::Agent>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateAgent201Response {
-    pub fn new(agent: models::Agent, response_id: uuid::Uuid) -> CreateAgent201Response {
+    pub fn new(agent: models::Agent, response_id: Option<uuid::Uuid>) -> CreateAgent201Response {
         CreateAgent201Response {
             agent: Box::new(agent),
             response_id

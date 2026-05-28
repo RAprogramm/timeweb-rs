@@ -16,8 +16,8 @@ use crate::models;
 pub struct CreateClusterNodeGroup201Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     /// Группа нод
     #[serde(rename = "node_group")]
     pub node_group:  Box<models::NodeGroupOut>
@@ -25,7 +25,7 @@ pub struct CreateClusterNodeGroup201Response {
 
 impl CreateClusterNodeGroup201Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         node_group: models::NodeGroupOut
     ) -> CreateClusterNodeGroup201Response {
         CreateClusterNodeGroup201Response {

@@ -18,14 +18,14 @@ pub struct CreateServerDisk201Response {
     pub server_disk: Box<models::ServerDisk>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateServerDisk201Response {
     pub fn new(
         server_disk: models::ServerDisk,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateServerDisk201Response {
         CreateServerDisk201Response {
             server_disk: Box::new(server_disk),

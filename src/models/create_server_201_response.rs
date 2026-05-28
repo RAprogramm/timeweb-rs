@@ -18,12 +18,12 @@ pub struct CreateServer201Response {
     pub server:      Box<models::Vds>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateServer201Response {
-    pub fn new(server: models::Vds, response_id: uuid::Uuid) -> CreateServer201Response {
+    pub fn new(server: models::Vds, response_id: Option<uuid::Uuid>) -> CreateServer201Response {
         CreateServer201Response {
             server: Box::new(server),
             response_id

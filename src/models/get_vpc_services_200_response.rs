@@ -20,15 +20,15 @@ pub struct GetVpcServices200Response {
     pub services:    Vec<models::VpcService>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetVpcServices200Response {
     pub fn new(
         meta: models::Meta,
         services: Vec<models::VpcService>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetVpcServices200Response {
         GetVpcServices200Response {
             meta: Box::new(meta),

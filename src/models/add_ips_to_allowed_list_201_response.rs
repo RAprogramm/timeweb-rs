@@ -18,12 +18,15 @@ pub struct AddIpsToAllowedList201Response {
     pub ips:         Box<models::AddIps>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl AddIpsToAllowedList201Response {
-    pub fn new(ips: models::AddIps, response_id: uuid::Uuid) -> AddIpsToAllowedList201Response {
+    pub fn new(
+        ips: models::AddIps,
+        response_id: Option<uuid::Uuid>
+    ) -> AddIpsToAllowedList201Response {
         AddIpsToAllowedList201Response {
             ips: Box::new(ips),
             response_id

@@ -20,15 +20,15 @@ pub struct GetAppLogs200Response {
     pub app_logs:    Vec<String>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetAppLogs200Response {
     pub fn new(
         meta: models::Meta,
         app_logs: Vec<String>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetAppLogs200Response {
         GetAppLogs200Response {
             meta: Box::new(meta),

@@ -18,12 +18,15 @@ pub struct GetAccountStatus200Response {
     pub status:      Box<models::Status>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetAccountStatus200Response {
-    pub fn new(status: models::Status, response_id: uuid::Uuid) -> GetAccountStatus200Response {
+    pub fn new(
+        status: models::Status,
+        response_id: Option<uuid::Uuid>
+    ) -> GetAccountStatus200Response {
         GetAccountStatus200Response {
             status: Box::new(status),
             response_id

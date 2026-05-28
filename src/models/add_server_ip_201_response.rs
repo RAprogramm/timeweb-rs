@@ -18,12 +18,15 @@ pub struct AddServerIp201Response {
     pub server_ip:   Box<models::ServerIp>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl AddServerIp201Response {
-    pub fn new(server_ip: models::ServerIp, response_id: uuid::Uuid) -> AddServerIp201Response {
+    pub fn new(
+        server_ip: models::ServerIp,
+        response_id: Option<uuid::Uuid>
+    ) -> AddServerIp201Response {
         AddServerIp201Response {
             server_ip: Box::new(server_ip),
             response_id

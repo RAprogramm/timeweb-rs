@@ -16,8 +16,8 @@ use crate::models;
 pub struct GetImageDownloadUrls200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     /// Вспомогательная информация о возвращаемой сущности.
     #[serde(rename = "meta")]
     pub meta:        Box<models::Meta>,
@@ -27,7 +27,7 @@ pub struct GetImageDownloadUrls200Response {
 
 impl GetImageDownloadUrls200Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         meta: models::Meta,
         downloads: Vec<models::ImageDownload>
     ) -> GetImageDownloadUrls200Response {

@@ -18,12 +18,15 @@ pub struct AddProvider201Response {
     pub provider:    Box<models::Provider>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl AddProvider201Response {
-    pub fn new(provider: models::Provider, response_id: uuid::Uuid) -> AddProvider201Response {
+    pub fn new(
+        provider: models::Provider,
+        response_id: Option<uuid::Uuid>
+    ) -> AddProvider201Response {
         AddProvider201Response {
             provider: Box::new(provider),
             response_id

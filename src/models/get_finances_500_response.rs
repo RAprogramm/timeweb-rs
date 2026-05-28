@@ -25,15 +25,15 @@ pub struct GetFinances500Response {
     pub error_code:  String,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetFinances500Response {
     pub fn new(
         status_code: f64,
         error_code: String,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetFinances500Response {
         GetFinances500Response {
             status_code,

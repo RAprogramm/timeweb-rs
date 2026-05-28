@@ -20,15 +20,15 @@ pub struct GetDatabaseClusterTypes200Response {
     pub types:       Vec<models::DatabaseType>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetDatabaseClusterTypes200Response {
     pub fn new(
         meta: models::Meta,
         types: Vec<models::DatabaseType>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDatabaseClusterTypes200Response {
         GetDatabaseClusterTypes200Response {
             meta: Box::new(meta),

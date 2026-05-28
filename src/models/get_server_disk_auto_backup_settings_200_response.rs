@@ -18,14 +18,14 @@ pub struct GetServerDiskAutoBackupSettings200Response {
     pub auto_backups_settings: Box<models::AutoBackup>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:           uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:           Option<uuid::Uuid>
 }
 
 impl GetServerDiskAutoBackupSettings200Response {
     pub fn new(
         auto_backups_settings: models::AutoBackup,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetServerDiskAutoBackupSettings200Response {
         GetServerDiskAutoBackupSettings200Response {
             auto_backups_settings: Box::new(auto_backups_settings),

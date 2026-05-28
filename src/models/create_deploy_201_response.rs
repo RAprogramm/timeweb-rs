@@ -18,12 +18,15 @@ pub struct CreateDeploy201Response {
     pub deploy:      Box<models::Deploy>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDeploy201Response {
-    pub fn new(deploy: models::Deploy, response_id: uuid::Uuid) -> CreateDeploy201Response {
+    pub fn new(
+        deploy: models::Deploy,
+        response_id: Option<uuid::Uuid>
+    ) -> CreateDeploy201Response {
         CreateDeploy201Response {
             deploy: Box::new(deploy),
             response_id

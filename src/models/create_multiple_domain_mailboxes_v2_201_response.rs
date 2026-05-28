@@ -18,14 +18,14 @@ pub struct CreateMultipleDomainMailboxesV2201Response {
     pub mailboxes_batch: Box<models::MailboxesBatchV2>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:     uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:     Option<uuid::Uuid>
 }
 
 impl CreateMultipleDomainMailboxesV2201Response {
     pub fn new(
         mailboxes_batch: models::MailboxesBatchV2,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateMultipleDomainMailboxesV2201Response {
         CreateMultipleDomainMailboxesV2201Response {
             mailboxes_batch: Box::new(mailboxes_batch),

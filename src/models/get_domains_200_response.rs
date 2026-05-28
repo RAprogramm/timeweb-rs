@@ -20,15 +20,15 @@ pub struct GetDomains200Response {
     pub domains:     Vec<models::Domain>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetDomains200Response {
     pub fn new(
         meta: models::Meta,
         domains: Vec<models::Domain>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDomains200Response {
         GetDomains200Response {
             meta: Box::new(meta),

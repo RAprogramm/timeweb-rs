@@ -21,12 +21,15 @@ pub struct GetCountries200Response {
     pub countries:   serde_json::Value,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetCountries200Response {
-    pub fn new(countries: serde_json::Value, response_id: uuid::Uuid) -> GetCountries200Response {
+    pub fn new(
+        countries: serde_json::Value,
+        response_id: Option<uuid::Uuid>
+    ) -> GetCountries200Response {
         GetCountries200Response {
             countries,
             response_id

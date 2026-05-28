@@ -18,12 +18,12 @@ pub struct CreateKey201Response {
     pub ssh_key:     Box<models::SshKey>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateKey201Response {
-    pub fn new(ssh_key: models::SshKey, response_id: uuid::Uuid) -> CreateKey201Response {
+    pub fn new(ssh_key: models::SshKey, response_id: Option<uuid::Uuid>) -> CreateKey201Response {
         CreateKey201Response {
             ssh_key: Box::new(ssh_key),
             response_id

@@ -18,12 +18,15 @@ pub struct GetFinances200Response {
     pub finances:    Box<models::Finances>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetFinances200Response {
-    pub fn new(finances: models::Finances, response_id: uuid::Uuid) -> GetFinances200Response {
+    pub fn new(
+        finances: models::Finances,
+        response_id: Option<uuid::Uuid>
+    ) -> GetFinances200Response {
         GetFinances200Response {
             finances: Box::new(finances),
             response_id

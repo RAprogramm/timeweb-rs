@@ -18,12 +18,15 @@ pub struct CreateStorage201Response {
     pub bucket:      Box<models::Bucket>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateStorage201Response {
-    pub fn new(bucket: models::Bucket, response_id: uuid::Uuid) -> CreateStorage201Response {
+    pub fn new(
+        bucket: models::Bucket,
+        response_id: Option<uuid::Uuid>
+    ) -> CreateStorage201Response {
         CreateStorage201Response {
             bucket: Box::new(bucket),
             response_id

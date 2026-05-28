@@ -18,14 +18,14 @@ pub struct GetTld200Response {
     pub top_level_domain: Box<models::TopLevelDomain>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:      uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:      Option<uuid::Uuid>
 }
 
 impl GetTld200Response {
     pub fn new(
         top_level_domain: models::TopLevelDomain,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetTld200Response {
         GetTld200Response {
             top_level_domain: Box::new(top_level_domain),

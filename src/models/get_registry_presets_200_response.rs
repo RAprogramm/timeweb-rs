@@ -16,8 +16,8 @@ use crate::models;
 pub struct GetRegistryPresets200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:                uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:                Option<uuid::Uuid>,
     /// Массив тарифов container registry
     #[serde(rename = "container_registry_presets")]
     pub container_registry_presets: Vec<models::ContainerRegistryPresetsInner>
@@ -25,7 +25,7 @@ pub struct GetRegistryPresets200Response {
 
 impl GetRegistryPresets200Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         container_registry_presets: Vec<models::ContainerRegistryPresetsInner>
     ) -> GetRegistryPresets200Response {
         GetRegistryPresets200Response {
