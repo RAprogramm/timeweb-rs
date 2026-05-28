@@ -18,12 +18,12 @@ pub struct CreateServerDiskBackup201Response {
     pub backup:      Option<Box<models::ServerBackup>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateServerDiskBackup201Response {
-    pub fn new(response_id: uuid::Uuid) -> CreateServerDiskBackup201Response {
+    pub fn new(response_id: Option<uuid::Uuid>) -> CreateServerDiskBackup201Response {
         CreateServerDiskBackup201Response {
             backup: None,
             response_id

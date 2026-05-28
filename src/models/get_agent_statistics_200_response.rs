@@ -20,15 +20,15 @@ pub struct GetAgentStatistics200Response {
     pub meta:             Box<models::GetAgentStatistics200ResponseAllOfMeta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:      uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:      Option<uuid::Uuid>
 }
 
 impl GetAgentStatistics200Response {
     pub fn new(
         agent_statistics: Vec<models::TokenStatistic>,
         meta: models::GetAgentStatistics200ResponseAllOfMeta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetAgentStatistics200Response {
         GetAgentStatistics200Response {
             agent_statistics,

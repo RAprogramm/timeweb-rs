@@ -20,15 +20,15 @@ pub struct GetConfigurators200Response {
     pub server_configurators: Vec<models::ServersConfigurator>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:          uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:          Option<uuid::Uuid>
 }
 
 impl GetConfigurators200Response {
     pub fn new(
         meta: models::Meta,
         server_configurators: Vec<models::ServersConfigurator>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetConfigurators200Response {
         GetConfigurators200Response {
             meta: Box::new(meta),

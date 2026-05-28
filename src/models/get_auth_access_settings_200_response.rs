@@ -26,8 +26,8 @@ pub struct GetAuthAccessSettings200Response {
     pub white_list: Box<models::GetAuthAccessSettings200ResponseAllOfWhiteList>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetAuthAccessSettings200Response {
@@ -35,7 +35,7 @@ impl GetAuthAccessSettings200Response {
         is_ip_restrictions_enabled: bool,
         is_country_restrictions_enabled: bool,
         white_list: models::GetAuthAccessSettings200ResponseAllOfWhiteList,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetAuthAccessSettings200Response {
         GetAuthAccessSettings200Response {
             is_ip_restrictions_enabled,

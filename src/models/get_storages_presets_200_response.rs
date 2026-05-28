@@ -20,15 +20,15 @@ pub struct GetStoragesPresets200Response {
     pub meta:             Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:      uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:      Option<uuid::Uuid>
 }
 
 impl GetStoragesPresets200Response {
     pub fn new(
         storages_presets: Vec<models::PresetsStorage>,
         meta: models::Meta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetStoragesPresets200Response {
         GetStoragesPresets200Response {
             storages_presets,

@@ -18,12 +18,15 @@ pub struct UpdateStorageUser200Response {
     pub user:        Box<models::BucketUser>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl UpdateStorageUser200Response {
-    pub fn new(user: models::BucketUser, response_id: uuid::Uuid) -> UpdateStorageUser200Response {
+    pub fn new(
+        user: models::BucketUser,
+        response_id: Option<uuid::Uuid>
+    ) -> UpdateStorageUser200Response {
         UpdateStorageUser200Response {
             user: Box::new(user),
             response_id

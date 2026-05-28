@@ -18,14 +18,14 @@ pub struct DeleteBalancer200Response {
     pub balancer_delete: Box<models::DeleteServiceResponse>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:     uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:     Option<uuid::Uuid>
 }
 
 impl DeleteBalancer200Response {
     pub fn new(
         balancer_delete: models::DeleteServiceResponse,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> DeleteBalancer200Response {
         DeleteBalancer200Response {
             balancer_delete: Box::new(balancer_delete),

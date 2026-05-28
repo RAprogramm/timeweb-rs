@@ -20,15 +20,15 @@ pub struct GetProjectBalancers200Response {
     pub meta:        Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetProjectBalancers200Response {
     pub fn new(
         balancers: Vec<models::Balancer>,
         meta: models::Meta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetProjectBalancers200Response {
         GetProjectBalancers200Response {
             balancers,

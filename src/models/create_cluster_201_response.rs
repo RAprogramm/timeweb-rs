@@ -16,15 +16,18 @@ use crate::models;
 pub struct CreateCluster201Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     /// Кластер
     #[serde(rename = "cluster")]
     pub cluster:     Box<models::ClusterOut>
 }
 
 impl CreateCluster201Response {
-    pub fn new(response_id: uuid::Uuid, cluster: models::ClusterOut) -> CreateCluster201Response {
+    pub fn new(
+        response_id: Option<uuid::Uuid>,
+        cluster: models::ClusterOut
+    ) -> CreateCluster201Response {
         CreateCluster201Response {
             response_id,
             cluster: Box::new(cluster)

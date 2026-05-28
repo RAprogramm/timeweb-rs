@@ -18,14 +18,14 @@ pub struct CreateDomainMailbox201Response {
     pub mailbox:     Box<models::Mailbox>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDomainMailbox201Response {
     pub fn new(
         mailbox: models::Mailbox,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateDomainMailbox201Response {
         CreateDomainMailbox201Response {
             mailbox: Box::new(mailbox),

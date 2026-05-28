@@ -18,12 +18,12 @@ pub struct CreateApp201Response {
     pub app:         Box<models::App>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateApp201Response {
-    pub fn new(app: models::App, response_id: uuid::Uuid) -> CreateApp201Response {
+    pub fn new(app: models::App, response_id: Option<uuid::Uuid>) -> CreateApp201Response {
         CreateApp201Response {
             app: Box::new(app),
             response_id

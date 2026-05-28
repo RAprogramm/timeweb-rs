@@ -16,8 +16,8 @@ use crate::models;
 pub struct GetKubernetesPresets200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     /// Вспомогательная информация о возвращаемой сущности
     #[serde(rename = "meta")]
     pub meta:        Box<models::SchemasMeta>,
@@ -28,7 +28,7 @@ pub struct GetKubernetesPresets200Response {
 
 impl GetKubernetesPresets200Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         meta: models::SchemasMeta,
         k8s_presets: Vec<models::K8SPresetsInner>
     ) -> GetKubernetesPresets200Response {

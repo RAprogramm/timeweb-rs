@@ -16,15 +16,15 @@ use crate::models;
 pub struct AddResourceToGroup201Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     #[serde(rename = "resource")]
     pub resource:    Box<models::FirewallGroupResource>
 }
 
 impl AddResourceToGroup201Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         resource: models::FirewallGroupResource
     ) -> AddResourceToGroup201Response {
         AddResourceToGroup201Response {

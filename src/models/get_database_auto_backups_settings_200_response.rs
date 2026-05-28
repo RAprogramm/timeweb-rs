@@ -20,15 +20,15 @@ pub struct GetDatabaseAutoBackupsSettings200Response {
     pub auto_backups_settings: Vec<models::AutoBackup>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:           uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:           Option<uuid::Uuid>
 }
 
 impl GetDatabaseAutoBackupsSettings200Response {
     pub fn new(
         meta: models::Meta,
         auto_backups_settings: Vec<models::AutoBackup>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDatabaseAutoBackupsSettings200Response {
         GetDatabaseAutoBackupsSettings200Response {
             meta: Box::new(meta),

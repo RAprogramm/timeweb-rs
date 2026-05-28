@@ -16,8 +16,8 @@ use crate::models;
 pub struct GetClusterResources200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     /// Ресурсы кластера
     #[serde(rename = "resources")]
     pub resources:   Box<models::Resources>
@@ -25,7 +25,7 @@ pub struct GetClusterResources200Response {
 
 impl GetClusterResources200Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         resources: models::Resources
     ) -> GetClusterResources200Response {
         GetClusterResources200Response {

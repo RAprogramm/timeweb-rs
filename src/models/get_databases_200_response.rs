@@ -20,15 +20,15 @@ pub struct GetDatabases200Response {
     pub dbs:         Vec<models::Db>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetDatabases200Response {
     pub fn new(
         meta: models::Meta,
         dbs: Vec<models::Db>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDatabases200Response {
         GetDatabases200Response {
             meta: Box::new(meta),

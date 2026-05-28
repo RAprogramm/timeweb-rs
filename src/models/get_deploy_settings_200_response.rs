@@ -23,12 +23,12 @@ pub struct GetDeploySettings200Response {
     pub meta:                    Option<Box<models::Meta>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:             uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:             Option<uuid::Uuid>
 }
 
 impl GetDeploySettings200Response {
-    pub fn new(response_id: uuid::Uuid) -> GetDeploySettings200Response {
+    pub fn new(response_id: Option<uuid::Uuid>) -> GetDeploySettings200Response {
         GetDeploySettings200Response {
             default_deploy_settings: None,
             meta: None,

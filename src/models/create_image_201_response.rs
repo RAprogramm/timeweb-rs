@@ -16,15 +16,15 @@ use crate::models;
 pub struct CreateImage201Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     /// Образ.
     #[serde(rename = "image")]
     pub image:       Box<models::Image>
 }
 
 impl CreateImage201Response {
-    pub fn new(response_id: uuid::Uuid, image: models::Image) -> CreateImage201Response {
+    pub fn new(response_id: Option<uuid::Uuid>, image: models::Image) -> CreateImage201Response {
         CreateImage201Response {
             response_id,
             image: Box::new(image)

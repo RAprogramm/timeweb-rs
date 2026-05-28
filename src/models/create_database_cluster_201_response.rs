@@ -18,14 +18,14 @@ pub struct CreateDatabaseCluster201Response {
     pub db:          Box<models::DatabaseCluster>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDatabaseCluster201Response {
     pub fn new(
         db: models::DatabaseCluster,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateDatabaseCluster201Response {
         CreateDatabaseCluster201Response {
             db: Box::new(db),

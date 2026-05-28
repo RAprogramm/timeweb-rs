@@ -20,15 +20,15 @@ pub struct GetKey200Response {
     pub ssh_key:     Box<models::SshKey>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetKey200Response {
     pub fn new(
         meta: models::Meta,
         ssh_key: models::SshKey,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetKey200Response {
         GetKey200Response {
             meta: Box::new(meta),

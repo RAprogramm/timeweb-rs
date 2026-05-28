@@ -18,12 +18,15 @@ pub struct CreateBalancerRule200Response {
     pub rule:        Box<models::Rule>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateBalancerRule200Response {
-    pub fn new(rule: models::Rule, response_id: uuid::Uuid) -> CreateBalancerRule200Response {
+    pub fn new(
+        rule: models::Rule,
+        response_id: Option<uuid::Uuid>
+    ) -> CreateBalancerRule200Response {
         CreateBalancerRule200Response {
             rule: Box::new(rule),
             response_id

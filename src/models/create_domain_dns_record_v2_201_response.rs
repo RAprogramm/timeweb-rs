@@ -18,14 +18,14 @@ pub struct CreateDomainDnsRecordV2201Response {
     pub dns_record:  Box<models::DnsRecordV2>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDomainDnsRecordV2201Response {
     pub fn new(
         dns_record: models::DnsRecordV2,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateDomainDnsRecordV2201Response {
         CreateDomainDnsRecordV2201Response {
             dns_record: Box::new(dns_record),

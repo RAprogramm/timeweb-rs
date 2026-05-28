@@ -18,14 +18,14 @@ pub struct CreateMultipleDomainMailboxes201Response {
     pub mailboxes:   Vec<models::Mailbox>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateMultipleDomainMailboxes201Response {
     pub fn new(
         mailboxes: Vec<models::Mailbox>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> CreateMultipleDomainMailboxes201Response {
         CreateMultipleDomainMailboxes201Response {
             mailboxes,

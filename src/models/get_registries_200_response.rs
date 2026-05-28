@@ -16,8 +16,8 @@ use crate::models;
 pub struct GetRegistries200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:             uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:             Option<uuid::Uuid>,
     /// Реестр контейнеров
     #[serde(
         rename = "container_registry_list",
@@ -27,7 +27,7 @@ pub struct GetRegistries200Response {
 }
 
 impl GetRegistries200Response {
-    pub fn new(response_id: uuid::Uuid) -> GetRegistries200Response {
+    pub fn new(response_id: Option<uuid::Uuid>) -> GetRegistries200Response {
         GetRegistries200Response {
             response_id,
             container_registry_list: None

@@ -20,15 +20,15 @@ pub struct GetStorageUsers200Response {
     pub meta:        Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetStorageUsers200Response {
     pub fn new(
         users: Vec<models::BucketUser>,
         meta: models::Meta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetStorageUsers200Response {
         GetStorageUsers200Response {
             users,

@@ -21,15 +21,15 @@ pub struct GetServicePrices200Response {
     pub meta:           Box<models::GetServicePrices200ResponseAllOfMeta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:    uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:    Option<uuid::Uuid>
 }
 
 impl GetServicePrices200Response {
     pub fn new(
         services_costs: Vec<models::ServicePrice>,
         meta: models::GetServicePrices200ResponseAllOfMeta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetServicePrices200Response {
         GetServicePrices200Response {
             services_costs,

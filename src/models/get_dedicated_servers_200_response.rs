@@ -20,15 +20,15 @@ pub struct GetDedicatedServers200Response {
     pub dedicated_servers: Vec<models::DedicatedServer>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:       uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:       Option<uuid::Uuid>
 }
 
 impl GetDedicatedServers200Response {
     pub fn new(
         meta: models::Meta,
         dedicated_servers: Vec<models::DedicatedServer>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDedicatedServers200Response {
         GetDedicatedServers200Response {
             meta: Box::new(meta),

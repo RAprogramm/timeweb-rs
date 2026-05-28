@@ -20,15 +20,15 @@ pub struct GetAgents200Response {
     pub meta:        Box<models::GetAgents200ResponseAllOfMeta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetAgents200Response {
     pub fn new(
         agents: Vec<models::Agent>,
         meta: models::GetAgents200ResponseAllOfMeta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetAgents200Response {
         GetAgents200Response {
             agents,

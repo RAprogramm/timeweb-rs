@@ -20,15 +20,15 @@ pub struct GetNetworkDrives200Response {
     pub network_drives: Vec<models::NetworkDrive>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:    uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:    Option<uuid::Uuid>
 }
 
 impl GetNetworkDrives200Response {
     pub fn new(
         meta: models::Meta,
         network_drives: Vec<models::NetworkDrive>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetNetworkDrives200Response {
         GetNetworkDrives200Response {
             meta: Box::new(meta),

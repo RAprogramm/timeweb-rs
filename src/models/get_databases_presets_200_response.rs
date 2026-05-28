@@ -20,15 +20,15 @@ pub struct GetDatabasesPresets200Response {
     pub databases_presets: Vec<models::PresetsDbs>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:       uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:       Option<uuid::Uuid>
 }
 
 impl GetDatabasesPresets200Response {
     pub fn new(
         meta: models::Meta,
         databases_presets: Vec<models::PresetsDbs>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDatabasesPresets200Response {
         GetDatabasesPresets200Response {
             meta: Box::new(meta),

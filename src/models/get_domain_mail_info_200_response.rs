@@ -18,14 +18,14 @@ pub struct GetDomainMailInfo200Response {
     pub domain_info: Box<models::DomainInfo>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetDomainMailInfo200Response {
     pub fn new(
         domain_info: models::DomainInfo,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetDomainMailInfo200Response {
         GetDomainMailInfo200Response {
             domain_info: Box::new(domain_info),

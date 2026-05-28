@@ -23,8 +23,14 @@ adjustments before a Rust client can be generated cleanly.
    this script swaps the Russian tags for those English names so the generator
    emits one module per API area (``servers_api``, ``databases_api``, ...).
 
-Nothing else is touched: request and response schemas are left exactly as
-upstream published them.
+3. ``response_id`` nullability. The shared ``response_id`` schema is a required
+   ``uuid`` in the response wrappers, but the live API returns ``null`` on some
+   endpoints (e.g. ``GET /account/finances``). It is marked ``nullable`` so the
+   generated client deserializes the null to ``None`` instead of failing with
+   "invalid type: null, expected a formatted UUID string".
+
+Request and response schemas are otherwise left exactly as upstream published
+them.
 
 Usage:
     normalize_spec.py <input.json> <output.json>
@@ -130,10 +136,44 @@ def localize_tags(spec):
                 ]
 
 
+def nullable_response_id(spec):
+    """Mark ``response_id`` nullable so a ``null`` from the API deserializes.
+
+    The upstream spec types ``response_id`` as a required ``uuid`` and the
+    response wrappers list it in ``required``, so the generator emits
+    ``response_id: uuid::Uuid``. The live API does not honour this — some
+    endpoints (e.g. ``GET /account/finances``) return ``response_id: null``,
+    which then fails deserialization with "invalid type: null, expected a
+    formatted UUID string". Marking the shared schema (and any inline
+    occurrence) nullable yields ``Option<uuid::Uuid>``, so ``null`` maps to
+    ``None`` instead of erroring.
+    """
+    schemas = spec.get("components", {}).get("schemas", {})
+    shared = schemas.get("response_id")
+    if isinstance(shared, dict):
+        shared["nullable"] = True
+
+    def walk(node):
+        if isinstance(node, dict):
+            props = node.get("properties")
+            if isinstance(props, dict):
+                inline = props.get("response_id")
+                if isinstance(inline, dict) and "$ref" not in inline:
+                    inline["nullable"] = True
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
     localize_tags(spec)
+    nullable_response_id(spec)
     return spec
 
 

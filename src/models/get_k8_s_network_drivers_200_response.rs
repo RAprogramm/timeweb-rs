@@ -16,8 +16,8 @@ use crate::models;
 pub struct GetK8SNetworkDrivers200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:     uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:     Option<uuid::Uuid>,
     /// Вспомогательная информация о возвращаемой сущности
     #[serde(rename = "meta")]
     pub meta:            Box<models::SchemasMeta>,
@@ -28,7 +28,7 @@ pub struct GetK8SNetworkDrivers200Response {
 
 impl GetK8SNetworkDrivers200Response {
     pub fn new(
-        response_id: uuid::Uuid,
+        response_id: Option<uuid::Uuid>,
         meta: models::SchemasMeta,
         network_drivers: Vec<String>
     ) -> GetK8SNetworkDrivers200Response {

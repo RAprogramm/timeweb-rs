@@ -18,12 +18,12 @@ pub struct CreateDatabase201Response {
     pub db:          Box<models::Db>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl CreateDatabase201Response {
-    pub fn new(db: models::Db, response_id: uuid::Uuid) -> CreateDatabase201Response {
+    pub fn new(db: models::Db, response_id: Option<uuid::Uuid>) -> CreateDatabase201Response {
         CreateDatabase201Response {
             db: Box::new(db),
             response_id

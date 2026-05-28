@@ -20,15 +20,15 @@ pub struct GetProjectStorages200Response {
     pub meta:        Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetProjectStorages200Response {
     pub fn new(
         buckets: Vec<models::Bucket>,
         meta: models::Meta,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetProjectStorages200Response {
         GetProjectStorages200Response {
             buckets,

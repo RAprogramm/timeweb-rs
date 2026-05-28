@@ -20,15 +20,15 @@ pub struct GetServerDiskBackups200Response {
     pub backups:     Vec<models::ServerBackup>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetServerDiskBackups200Response {
     pub fn new(
         meta: models::Meta,
         backups: Vec<models::ServerBackup>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetServerDiskBackups200Response {
         GetServerDiskBackups200Response {
             meta: Box::new(meta),

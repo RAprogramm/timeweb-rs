@@ -20,12 +20,15 @@ pub struct CheckDomain200Response {
     pub is_domain_available: bool,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id:         uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:         Option<uuid::Uuid>
 }
 
 impl CheckDomain200Response {
-    pub fn new(is_domain_available: bool, response_id: uuid::Uuid) -> CheckDomain200Response {
+    pub fn new(
+        is_domain_available: bool,
+        response_id: Option<uuid::Uuid>
+    ) -> CheckDomain200Response {
         CheckDomain200Response {
             is_domain_available,
             response_id

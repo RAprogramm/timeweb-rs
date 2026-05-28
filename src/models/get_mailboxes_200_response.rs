@@ -20,15 +20,15 @@ pub struct GetMailboxes200Response {
     pub mailboxes:   Vec<models::Mailbox>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetMailboxes200Response {
     pub fn new(
         meta: models::Meta,
         mailboxes: Vec<models::Mailbox>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetMailboxes200Response {
         GetMailboxes200Response {
             meta: Box::new(meta),

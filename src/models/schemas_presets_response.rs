@@ -15,8 +15,13 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SchemasPresetsResponse {
     /// ID запроса
-    #[serde(rename = "response_id", skip_serializing_if = "Option::is_none")]
-    pub response_id:                Option<String>,
+    #[serde(
+        rename = "response_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response_id:                Option<Option<String>>,
     /// Массив тарифов container registry
     #[serde(rename = "container_registry_presets")]
     pub container_registry_presets: Vec<models::ContainerRegistryPresetsInner>

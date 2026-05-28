@@ -16,14 +16,17 @@ use crate::models;
 pub struct CreateGroup201Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid,
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>,
     #[serde(rename = "group")]
     pub group:       Box<models::FirewallGroup>
 }
 
 impl CreateGroup201Response {
-    pub fn new(response_id: uuid::Uuid, group: models::FirewallGroup) -> CreateGroup201Response {
+    pub fn new(
+        response_id: Option<uuid::Uuid>,
+        group: models::FirewallGroup
+    ) -> CreateGroup201Response {
         CreateGroup201Response {
             response_id,
             group: Box::new(group)

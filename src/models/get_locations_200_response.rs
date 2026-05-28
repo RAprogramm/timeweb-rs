@@ -20,15 +20,15 @@ pub struct GetLocations200Response {
     pub locations:   Vec<models::LocationDto>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl GetLocations200Response {
     pub fn new(
         meta: models::Meta,
         locations: Vec<models::LocationDto>,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> GetLocations200Response {
         GetLocations200Response {
             meta: Box::new(meta),

@@ -18,14 +18,14 @@ pub struct AddBalancerToProject200Response {
     pub resource:    Box<models::ProjectResource>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
 impl AddBalancerToProject200Response {
     pub fn new(
         resource: models::ProjectResource,
-        response_id: uuid::Uuid
+        response_id: Option<uuid::Uuid>
     ) -> AddBalancerToProject200Response {
         AddBalancerToProject200Response {
             resource: Box::new(resource),
