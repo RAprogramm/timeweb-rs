@@ -107,6 +107,8 @@ jobs:
     name: Codecov
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Install stable Rust
@@ -126,17 +128,17 @@ jobs:
           cargo llvm-cov report --lcov --output-path lcov.info
           --ignore-filename-regex 'src/(apis|models)/'
       - name: Upload coverage to Codecov
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && env.CODECOV_TOKEN != '' }}
         uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe # v5
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ env.CODECOV_TOKEN }}
           files: lcov.info
           fail_ci_if_error: true
       - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && env.CODECOV_TOKEN != '' }}
         uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          token: ${{ env.CODECOV_TOKEN }}
           files: target/nextest/ci/junit.xml
       - name: Enforce 95% line coverage on hand-written code
         if: ${{ !cancelled() }}
