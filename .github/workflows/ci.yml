@@ -90,7 +90,7 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Run cargo-deny
-        uses: EmbarkStudios/cargo-deny-action@6c8f9facfa5047ec02d8485b6bf52b587b7777d1 # v2
+        uses: EmbarkStudios/cargo-deny-action@bb137d7af7e4fb67e5f82a49c4fce4fad40782fe # v2
         with:
           command: check
 
@@ -117,7 +117,7 @@ jobs:
           components: llvm-tools-preview
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
       - name: Install cargo-llvm-cov and cargo-nextest
-        uses: taiki-e/install-action@65851e10cd6c377f11a60e600abc07cb08643468 # v2
+        uses: taiki-e/install-action@873c7452cadb7c034694a1282227095d93fbdf92 # v2
         with:
           tool: cargo-llvm-cov,cargo-nextest
       - name: Run tests under coverage instrumentation
@@ -129,7 +129,7 @@ jobs:
           --ignore-filename-regex 'src/(apis|models)/'
       - name: Upload coverage to Codecov
         if: ${{ !cancelled() && env.CODECOV_TOKEN != '' }}
-        uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe # v5
+        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
         with:
           token: ${{ env.CODECOV_TOKEN }}
           files: lcov.info
