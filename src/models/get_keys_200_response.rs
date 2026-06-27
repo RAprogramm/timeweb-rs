@@ -16,7 +16,7 @@ use crate::models;
 pub struct GetKeys200Response {
     #[serde(rename = "meta")]
     pub meta:        Box<models::Meta>,
-    #[serde(rename = "ssh-keys")]
+    #[serde(rename = "ssh_keys")]
     pub ssh_keys:    Vec<models::SshKey>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
