@@ -169,11 +169,72 @@ def nullable_response_id(spec):
     walk(spec)
 
 
+def add_undocumented_account_status_fields(spec):
+    """Add ``status`` fields the live API returns but the spec omits.
+
+    ``GET /account/status`` returns ``login`` (the account identifier shown to
+    the user), ``registered_at``, ``two_factor_method`` and ``is_password_set``,
+    but the upstream ``status`` schema documents none of them — it stops at
+    ``ym_client_id``. Without ``login`` a client is left with only the
+    hoster's ``company_info`` (the same "ООО ТАЙМВЭБ.КЛАУД" for every account),
+    which is useless for identifying the account.
+
+    The fields are added here, defensively (not marked required), so the
+    generator emits ``Option`` types and a missing field never breaks
+    deserialization. Run on every regeneration, so it survives upstream spec
+    syncs automatically.
+    """
+    status = spec.get("components", {}).get("schemas", {}).get("status")
+    if not isinstance(status, dict):
+        return
+    props = status.setdefault("properties", {})
+    additions = {
+        "login":           {"type": "string"},
+        "registered_at":   {"type": "string"},
+        "is_password_set": {"type": "boolean"},
+        "two_factor_method": {"type": "string", "nullable": True},
+    }
+    for name, schema in additions.items():
+        props.setdefault(name, schema)
+
+
+def fix_ssh_keys_property(spec):
+    """Rename the ``ssh-keys`` response property to ``ssh_keys``.
+
+    The ``GET /api/v1/ssh-keys`` response schema names its collection property
+    ``ssh-keys`` (hyphen), but the live API returns ``ssh_keys`` (underscore).
+    Generated from the hyphen spelling, the client deserializes the real
+    payload to an empty list. Rename the property (and any ``required`` entry)
+    to the underscore spelling the API actually sends, everywhere it appears.
+    """
+
+    def walk(node):
+        if isinstance(node, dict):
+            props = node.get("properties")
+            if isinstance(props, dict) and "ssh-keys" in props:
+                props["ssh_keys"] = props.pop("ssh-keys")
+                required = node.get("required")
+                if isinstance(required, list):
+                    node["required"] = [
+                        "ssh_keys" if name == "ssh-keys" else name
+                        for name in required
+                    ]
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
     localize_tags(spec)
     nullable_response_id(spec)
+    add_undocumented_account_status_fields(spec)
+    fix_ssh_keys_property(spec)
     return spec
 
 
