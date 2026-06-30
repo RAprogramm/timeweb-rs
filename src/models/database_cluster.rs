@@ -25,7 +25,7 @@ pub struct DatabaseCluster {
     pub created_at: String,
     /// Локация сервера.
     #[serde(rename = "location", deserialize_with = "Option::deserialize")]
-    pub location: Option<Location>,
+    pub location: Option<String>,
     /// Название кластера базы данных.
     #[serde(rename = "name")]
     pub name: String,
@@ -68,7 +68,7 @@ impl DatabaseCluster {
     pub fn new(
         id: f64,
         created_at: String,
-        location: Option<Location>,
+        location: Option<String>,
         name: String,
         networks: Vec<models::DatabaseClusterNetworksInner>,
         r#type: models::DbType,
@@ -96,24 +96,6 @@ impl DatabaseCluster {
             config_parameters: Box::new(config_parameters),
             is_enabled_public_network
         }
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-3")]
-    Ru3,
-    #[serde(rename = "nl-1")]
-    Nl1,
-    #[serde(rename = "de-1")]
-    De1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип хеширования кластера базы данных (mysql5 | mysql | postgres).

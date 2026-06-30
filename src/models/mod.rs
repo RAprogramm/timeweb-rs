@@ -782,8 +782,6 @@ pub mod knowledgebase;
 pub use self::knowledgebase::Knowledgebase;
 pub mod knowledgebase_v2;
 pub use self::knowledgebase_v2::KnowledgebaseV2;
-pub mod location;
-pub use self::location::Location;
 pub mod location_dto;
 pub use self::location_dto::LocationDto;
 pub mod mailbox;

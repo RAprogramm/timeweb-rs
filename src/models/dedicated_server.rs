@@ -90,7 +90,7 @@ pub struct DedicatedServer {
     pub price:                 f64,
     /// Локация сервера.
     #[serde(rename = "location")]
-    pub location:              Location,
+    pub location:              String,
     /// Количество готовых к автоматической выдаче серверов. Если значение равно
     /// 0, сервер будет установлен через инженеров.
     #[serde(rename = "autoinstall_ready")]
@@ -138,7 +138,7 @@ impl DedicatedServer {
         additional_ip_addr_id: Option<Vec<f64>>,
         plan_id: Option<f64>,
         price: f64,
-        location: Location,
+        location: String,
         autoinstall_ready: f64,
         password: Option<String>,
         avatar_link: Option<String>,
@@ -196,31 +196,5 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Installing
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1,
-    #[serde(rename = "nl-1")]
-    Nl1,
-    #[serde(rename = "tr-1")]
-    Tr1,
-    #[serde(rename = "us-2")]
-    Us2,
-    #[serde(rename = "de-1")]
-    De1,
-    #[serde(rename = "fi-1")]
-    Fi1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

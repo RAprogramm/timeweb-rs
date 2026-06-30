@@ -37,7 +37,7 @@ pub struct Vds {
     pub preset_id:         Option<f64>,
     /// Локация сервера.
     #[serde(rename = "location")]
-    pub location:          Location,
+    pub location:          String,
     /// ID конфигуратора сервера.
     #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
     pub configurator_id:   Option<f64>,
@@ -115,7 +115,7 @@ impl Vds {
         os: models::VdsOs,
         software: Option<models::VdsSoftware>,
         preset_id: Option<f64>,
-        location: Location,
+        location: String,
         configurator_id: Option<f64>,
         boot_mode: BootMode,
         status: Status,
@@ -177,28 +177,6 @@ impl Vds {
             is_qemu_agent,
             availability_zone
         }
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "ru-3")]
-    Ru3,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1,
-    #[serde(rename = "nl-1")]
-    Nl1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Режим загрузки ОС сервера.

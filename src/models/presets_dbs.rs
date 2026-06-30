@@ -39,7 +39,7 @@ pub struct PresetsDbs {
     pub price:             Option<f64>,
     /// Географическое расположение тарифа.
     #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location:          Option<Location>
+    pub location:          Option<String>
 }
 
 impl PresetsDbs {
@@ -55,21 +55,5 @@ impl PresetsDbs {
             price:             None,
             location:          None
         }
-    }
-}
-/// Географическое расположение тарифа.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

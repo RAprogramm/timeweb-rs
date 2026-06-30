@@ -40,7 +40,7 @@ pub struct DedicatedServerPreset {
     pub memory:           Box<models::DedicatedServerPresetMemory>,
     /// Локация.
     #[serde(rename = "location")]
-    pub location:         Location
+    pub location:         String
 }
 
 impl DedicatedServerPreset {
@@ -54,7 +54,7 @@ impl DedicatedServerPreset {
         disk: models::DedicatedServerPresetDisk,
         price: f64,
         memory: models::DedicatedServerPresetMemory,
-        location: Location
+        location: String
     ) -> DedicatedServerPreset {
         DedicatedServerPreset {
             id,
@@ -67,33 +67,5 @@ impl DedicatedServerPreset {
             memory: Box::new(memory),
             location
         }
-    }
-}
-/// Локация.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "kz-1")]
-    Kz1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "nl-1")]
-    Nl1,
-    #[serde(rename = "us-2")]
-    Us2,
-    #[serde(rename = "tr-1")]
-    Tr1,
-    #[serde(rename = "de-1")]
-    De1,
-    #[serde(rename = "fi-1")]
-    Fi1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

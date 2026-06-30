@@ -31,7 +31,7 @@ pub struct NetworkDrive {
     pub service_list:      Vec<models::NetworkDriveServiceListInner>,
     /// Локация сетевого диска.
     #[serde(rename = "location")]
-    pub location:          Location,
+    pub location:          String,
     /// Статус сетевого диска.
     #[serde(rename = "status")]
     pub status:            Status,
@@ -52,7 +52,7 @@ impl NetworkDrive {
         comment: Option<String>,
         size: f64,
         service_list: Vec<models::NetworkDriveServiceListInner>,
-        location: Location,
+        location: String,
         status: Status,
         availability_zone: models::AvailabilityZone,
         r#type: Type,
@@ -70,18 +70,6 @@ impl NetworkDrive {
             r#type,
             preset_id
         }
-    }
-}
-/// Локация сетевого диска.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Статус сетевого диска.

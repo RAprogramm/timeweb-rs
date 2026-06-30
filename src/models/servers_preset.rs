@@ -19,7 +19,7 @@ pub struct ServersPreset {
     pub id: f64,
     /// Локация сервера.
     #[serde(rename = "location")]
-    pub location: Location,
+    pub location: String,
     /// Стоимость в рублях.
     #[serde(rename = "price")]
     pub price: f64,
@@ -58,7 +58,7 @@ pub struct ServersPreset {
 impl ServersPreset {
     pub fn new(
         id: f64,
-        location: Location,
+        location: String,
         price: f64,
         cpu: f64,
         cpu_frequency: String,
@@ -86,22 +86,6 @@ impl ServersPreset {
             is_allowed_local_network,
             tags
         }
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип диска.

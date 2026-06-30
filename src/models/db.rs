@@ -31,7 +31,7 @@ pub struct Db {
     pub login: String,
     /// Локация сервера.
     #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location: Option<Location>,
+    pub location: Option<String>,
     /// Пароль для подключения к базе данных.
     #[serde(rename = "password")]
     pub password: String,
@@ -120,24 +120,6 @@ impl Db {
             is_only_local_ip_access,
             availability_zone
         }
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип хеширования базы данных (mysql5 | mysql | postgres).

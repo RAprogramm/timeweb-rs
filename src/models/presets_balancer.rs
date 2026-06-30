@@ -37,7 +37,7 @@ pub struct PresetsBalancer {
     pub price:              f64,
     /// Географическое расположение тарифа.
     #[serde(rename = "location")]
-    pub location:           Location
+    pub location:           String
 }
 
 impl PresetsBalancer {
@@ -49,7 +49,7 @@ impl PresetsBalancer {
         replica_count: f64,
         request_per_second: String,
         price: f64,
-        location: Location
+        location: String
     ) -> PresetsBalancer {
         PresetsBalancer {
             id,
@@ -61,21 +61,5 @@ impl PresetsBalancer {
             price,
             location
         }
-    }
-}
-/// Географическое расположение тарифа.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

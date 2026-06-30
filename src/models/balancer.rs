@@ -105,7 +105,7 @@ pub struct Balancer {
     pub ips:                 Vec<String>,
     /// Географическое расположение балансировщика
     #[serde(rename = "location")]
-    pub location:            Location,
+    pub location:            String,
     #[serde(rename = "availability_zone")]
     pub availability_zone:   models::AvailabilityZone,
     /// ID проекта
@@ -146,7 +146,7 @@ impl Balancer {
         is_use_proxy: bool,
         rules: Vec<models::Rule>,
         ips: Vec<String>,
-        location: Location,
+        location: String,
         availability_zone: models::AvailabilityZone,
         project_id: i32,
         networks: Vec<models::BalancerNetworksInner>
@@ -235,19 +235,5 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Started
-    }
-}
-/// Географическое расположение балансировщика
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

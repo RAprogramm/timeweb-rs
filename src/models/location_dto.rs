@@ -15,8 +15,9 @@ use crate::models;
 /// LocationDto : Локация
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct LocationDto {
+    /// Локация.
     #[serde(rename = "location")]
-    pub location:           models::Location,
+    pub location:           String,
     /// Код локации в формате `ISO 3166`
     #[serde(rename = "location_code")]
     pub location_code:      String,
@@ -28,7 +29,7 @@ pub struct LocationDto {
 impl LocationDto {
     /// Локация
     pub fn new(
-        location: models::Location,
+        location: String,
         location_code: String,
         availability_zones: Vec<String>
     ) -> LocationDto {

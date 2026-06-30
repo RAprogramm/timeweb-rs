@@ -228,6 +228,61 @@ def fix_ssh_keys_property(spec):
     walk(spec)
 
 
+_MINIMAL_REQUIRED = {
+    "app": ["id", "name", "status"],
+}
+
+
+def relax_overstrict_required(spec):
+    """Trim ``required`` lists that demand fields the live API omits.
+
+    Some list-item schemas mark many fields ``required`` that the live API
+    does not actually send. The ``app`` schema, for example, requires
+    ``framework``, ``branch_name`` and ``server_id`` — none of which appear in
+    a ``GET /api/v1/apps`` item (the API sends ``branch``, not ``branch_name``,
+    and no ``framework``). One missing required field fails deserialization of
+    the whole collection, so the dashboard shows zero apps despite the account
+    having several.
+
+    Reduce each listed schema's ``required`` to the minimal identifying fields
+    the API reliably returns; the rest become ``Option`` and tolerate absence.
+    """
+    schemas = spec.get("components", {}).get("schemas", {})
+    for name, minimal in _MINIMAL_REQUIRED.items():
+        sch = schemas.get(name)
+        if not isinstance(sch, dict) or not isinstance(sch.get("required"), list):
+            continue
+        props = sch.get("properties", {})
+        sch["required"] = [field for field in minimal if field in props]
+
+
+def relax_location_enums(spec):
+    """Drop the closed enum on availability-zone (location) fields.
+
+    Zones (``ru-1``, ``pl-1``, ``nl-1``, ``de-1``, ...) are added over time,
+    but the spec pins them as a closed enum — both the shared ``Location`` /
+    ``location`` schemas and ~17 inline copies. A resource in a zone the spec
+    has not caught up to (e.g. an app in ``de-1``) then fails enum
+    deserialization, and the whole collection comes back empty. Strip the enum
+    constraint (keeping ``type: string``) wherever a location-like enum
+    appears, so any present or future zone deserializes as a plain string.
+    """
+
+    def walk(node):
+        if isinstance(node, dict):
+            enum = node.get("enum")
+            if isinstance(enum, list) and "ru-1" in enum:
+                node.pop("enum", None)
+                node.setdefault("type", "string")
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
@@ -235,6 +290,8 @@ def normalize(spec):
     nullable_response_id(spec)
     add_undocumented_account_status_fields(spec)
     fix_ssh_keys_property(spec)
+    relax_overstrict_required(spec)
+    relax_location_enums(spec)
     return spec
 
 
