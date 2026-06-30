@@ -17,7 +17,7 @@ use crate::models;
 pub struct Knowledgebase {
     /// Уникальный идентификатор базы знаний
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Название базы знаний
     #[serde(rename = "name")]
     pub name: String,
@@ -31,7 +31,7 @@ pub struct Knowledgebase {
     pub description: Option<Option<String>>,
     /// ID базы данных opensearch
     #[serde(rename = "dbaas_id")]
-    pub dbaas_id: f64,
+    pub dbaas_id: i64,
     /// Статус базы знаний
     #[serde(rename = "status")]
     pub status: Status,
@@ -54,7 +54,7 @@ pub struct Knowledgebase {
     pub remaining_tokens: f64,
     /// ID пакета токенов
     #[serde(rename = "token_package_id")]
-    pub token_package_id: f64,
+    pub token_package_id: i64,
     /// Дата обновления подписки
     #[serde(rename = "subscription_renewal_date")]
     pub subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
@@ -72,14 +72,14 @@ pub struct Knowledgebase {
 impl Knowledgebase {
     /// База знаний
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
-        dbaas_id: f64,
+        dbaas_id: i64,
         status: Status,
         total_tokens: f64,
         used_tokens: f64,
         remaining_tokens: f64,
-        token_package_id: f64,
+        token_package_id: i64,
         subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
         documents: Vec<models::Document>,
         agents_ids: Vec<f64>,

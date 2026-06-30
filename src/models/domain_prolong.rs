@@ -47,7 +47,7 @@ pub struct DomainProlong {
     pub period:                   Option<models::DomainPaymentPeriod>,
     /// ID администратора, на которого зарегистрирован домен.
     #[serde(rename = "person_id", skip_serializing_if = "Option::is_none")]
-    pub person_id:                Option<f64>,
+    pub person_id:                Option<i64>,
     #[serde(rename = "prime", skip_serializing_if = "Option::is_none")]
     pub prime:                    Option<models::DomainPrimeType>
 }

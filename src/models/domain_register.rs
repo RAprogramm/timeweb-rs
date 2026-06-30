@@ -40,12 +40,12 @@ pub struct DomainRegister {
     pub period:                   Option<models::DomainPaymentPeriod>,
     /// ID администратора, на которого регистрируется домен.
     #[serde(rename = "person_id")]
-    pub person_id:                f64
+    pub person_id:                i64
 }
 
 impl DomainRegister {
     /// Заявка на регистрацию домена
-    pub fn new(action: Action, fqdn: String, person_id: f64) -> DomainRegister {
+    pub fn new(action: Action, fqdn: String, person_id: i64) -> DomainRegister {
         DomainRegister {
             action,
             fqdn,

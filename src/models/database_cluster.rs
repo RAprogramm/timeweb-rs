@@ -18,7 +18,7 @@ pub struct DatabaseCluster {
     /// ID для каждого экземпляра базы данных. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда была создана база данных.
     #[serde(rename = "created_at")]
@@ -67,7 +67,7 @@ pub struct DatabaseCluster {
 impl DatabaseCluster {
     /// Кластер базы данных
     pub fn new(
-        id: f64,
+        id: i64,
         created_at: String,
         location: Option<String>,
         name: String,

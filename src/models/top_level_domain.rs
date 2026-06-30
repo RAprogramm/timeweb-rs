@@ -32,7 +32,7 @@ pub struct TopLevelDomain {
     pub grace_period: f64,
     /// ID доменной зоны.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Это логическое значение, которое показывает, опубликована ли доменная
     /// зона.
     #[serde(rename = "is_published")]
@@ -75,7 +75,7 @@ impl TopLevelDomain {
         allowed_buy_periods: Vec<models::TopLevelDomainAllowedBuyPeriodsInner>,
         early_renew_period: Option<f64>,
         grace_period: f64,
-        id: f64,
+        id: i64,
         is_published: bool,
         is_registered: bool,
         is_whois_privacy_default_enabled: bool,

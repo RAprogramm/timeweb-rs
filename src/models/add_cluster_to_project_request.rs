@@ -16,11 +16,11 @@ use crate::models;
 pub struct AddClusterToProjectRequest {
     /// ID добавляемого кластера.
     #[serde(rename = "resource_id")]
-    pub resource_id: f64
+    pub resource_id: i64
 }
 
 impl AddClusterToProjectRequest {
-    pub fn new(resource_id: f64) -> AddClusterToProjectRequest {
+    pub fn new(resource_id: i64) -> AddClusterToProjectRequest {
         AddClusterToProjectRequest {
             resource_id
         }

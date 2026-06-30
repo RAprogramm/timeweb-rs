@@ -328,6 +328,35 @@ def nullable_vpc_optional_fields(spec):
             field["nullable"] = True
 
 
+def integer_id_fields(spec):
+    """Type identifier fields as integers instead of floats.
+
+    The upstream spec types numeric ids (``id`` and ``*_id``) as ``number``,
+    so the generated Rust model uses ``f64`` and JSON output renders them as
+    floats (e.g. ``1873345.0``). Retype id-like ``number`` fields to
+    ``integer`` (``int64``) so ids serialize and display as integers. Genuine
+    decimals (``balance``, ``*_cost``, ...) are left untouched because their
+    names do not match.
+    """
+
+    def walk(node):
+        if isinstance(node, dict):
+            props = node.get("properties")
+            if isinstance(props, dict):
+                for name, schema in props.items():
+                    is_id = name == "id" or name.endswith("_id")
+                    if is_id and isinstance(schema, dict) and schema.get("type") == "number":
+                        schema["type"] = "integer"
+                        schema["format"] = "int64"
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
@@ -338,6 +367,7 @@ def normalize(spec):
     relax_overstrict_required(spec)
     relax_open_enums(spec)
     nullable_vpc_optional_fields(spec)
+    integer_id_fields(spec)
     return spec
 
 

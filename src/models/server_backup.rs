@@ -16,7 +16,7 @@ use crate::models;
 pub struct ServerBackup {
     /// ID бэкапа сервера.
     #[serde(rename = "id")]
-    pub id:         f64,
+    pub id:         i64,
     /// Название бэкапа.
     #[serde(rename = "name")]
     pub name:       String,
@@ -43,7 +43,7 @@ pub struct ServerBackup {
 
 impl ServerBackup {
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
         comment: Option<String>,
         created_at: String,

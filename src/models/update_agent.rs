@@ -29,12 +29,12 @@ pub struct UpdateAgent {
     pub status:           Option<Status>,
     /// ID пакета токенов
     #[serde(rename = "token_package_id", skip_serializing_if = "Option::is_none")]
-    pub token_package_id: Option<f64>,
+    pub token_package_id: Option<i64>,
     #[serde(rename = "settings", skip_serializing_if = "Option::is_none")]
     pub settings:         Option<Box<models::UpdateAgentSettings>>,
     /// ID проекта
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:       Option<f64>
+    pub project_id:       Option<i64>
 }
 
 impl UpdateAgent {

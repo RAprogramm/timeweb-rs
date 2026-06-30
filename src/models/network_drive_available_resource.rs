@@ -16,7 +16,7 @@ use crate::models;
 pub struct NetworkDriveAvailableResource {
     /// ID сервиса.
     #[serde(rename = "resource_id")]
-    pub resource_id:       f64,
+    pub resource_id:       i64,
     /// Тип ресурса.
     #[serde(rename = "resource_type")]
     pub resource_type:     ResourceType,
@@ -34,7 +34,7 @@ pub struct NetworkDriveAvailableResource {
 
 impl NetworkDriveAvailableResource {
     pub fn new(
-        resource_id: f64,
+        resource_id: i64,
         resource_type: ResourceType,
         availability_zone: models::AvailabilityZone
     ) -> NetworkDriveAvailableResource {

@@ -17,7 +17,7 @@ use crate::models;
 pub struct Document {
     /// Уникальный идентификатор документа
     #[serde(rename = "id")]
-    pub id:               f64,
+    pub id:               i64,
     /// Название документа
     #[serde(rename = "name")]
     pub name:             String,
@@ -53,7 +53,7 @@ pub struct Document {
 impl Document {
     /// Документ в базе знаний
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
         size: f64,
         status: Status,

@@ -39,10 +39,10 @@ pub struct DomainRequest {
     pub fqdn: String,
     /// ID группы доменных зон.
     #[serde(rename = "group_id")]
-    pub group_id: f64,
+    pub group_id: i64,
     /// ID заявки.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Это логическое значение, которое показывает включена ли услуга
     /// \"Антиспам\" для домена
     #[serde(rename = "is_antispam_enabled")]
@@ -66,7 +66,7 @@ pub struct DomainRequest {
     pub period: models::DomainPaymentPeriod,
     /// Идентификационный номер персоны для заявки на регистрацию.
     #[serde(rename = "person_id")]
-    pub person_id: f64,
+    pub person_id: i64,
     #[serde(rename = "prime", deserialize_with = "Option::deserialize")]
     pub prime: Option<models::DomainPrimeType>,
     /// Количество дней до конца регистрации домена, за которые мы уведомим о
@@ -91,15 +91,15 @@ impl DomainRequest {
         domain_bundle_id: Option<String>,
         error_code_transfer: Option<String>,
         fqdn: String,
-        group_id: f64,
-        id: f64,
+        group_id: i64,
+        id: i64,
         is_antispam_enabled: bool,
         is_autoprolong_enabled: bool,
         is_whois_privacy_enabled: bool,
         message: Option<String>,
         money_source: Option<MoneySource>,
         period: models::DomainPaymentPeriod,
-        person_id: f64,
+        person_id: i64,
         prime: Option<models::DomainPrimeType>,
         soon_expire: f64,
         sort_order: f64,

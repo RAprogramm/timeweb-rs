@@ -18,7 +18,7 @@ use crate::models;
 pub struct UpdateServerConfigurator {
     /// ID конфигуратора сервера.
     #[serde(rename = "configurator_id", skip_serializing_if = "Option::is_none")]
-    pub configurator_id: Option<f64>,
+    pub configurator_id: Option<i64>,
     /// Размер диска в МБ.
     #[serde(rename = "disk", skip_serializing_if = "Option::is_none")]
     pub disk:            Option<f64>,

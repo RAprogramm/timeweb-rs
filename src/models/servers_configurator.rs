@@ -16,7 +16,7 @@ use crate::models;
 pub struct ServersConfigurator {
     /// ID конфигуратора сервера.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Локация сервера.
     #[serde(rename = "location")]
     pub location: String,
@@ -35,7 +35,7 @@ pub struct ServersConfigurator {
 
 impl ServersConfigurator {
     pub fn new(
-        id: f64,
+        id: i64,
         location: String,
         disk_type: DiskType,
         is_allowed_local_network: bool,

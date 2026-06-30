@@ -16,7 +16,7 @@ use crate::models;
 pub struct PresetsDbs {
     /// ID для каждого экземпляра тарифа базы данных.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id:                Option<f64>,
+    pub id:                Option<i64>,
     /// Описание тарифа.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:       Option<String>,

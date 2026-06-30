@@ -26,15 +26,15 @@ pub struct CreateAgent {
     pub access_type:      AccessType,
     /// ID модели
     #[serde(rename = "model_id")]
-    pub model_id:         f64,
+    pub model_id:         i64,
     /// ID пакета токенов
     #[serde(rename = "token_package_id")]
-    pub token_package_id: f64,
+    pub token_package_id: i64,
     #[serde(rename = "settings")]
     pub settings:         Box<models::AgentSettings>,
     /// ID проекта
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:       Option<f64>
+    pub project_id:       Option<i64>
 }
 
 impl CreateAgent {
@@ -42,8 +42,8 @@ impl CreateAgent {
     pub fn new(
         name: String,
         access_type: AccessType,
-        model_id: f64,
-        token_package_id: f64,
+        model_id: i64,
+        token_package_id: i64,
         settings: models::AgentSettings
     ) -> CreateAgent {
         CreateAgent {

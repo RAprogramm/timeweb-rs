@@ -16,14 +16,14 @@ use crate::models;
 pub struct NetworkDriveServiceListInner {
     /// ID сервиса.
     #[serde(rename = "resource_id")]
-    pub resource_id:   f64,
+    pub resource_id:   i64,
     /// Тип ресурса.
     #[serde(rename = "resource_type")]
     pub resource_type: ResourceType
 }
 
 impl NetworkDriveServiceListInner {
-    pub fn new(resource_id: f64, resource_type: ResourceType) -> NetworkDriveServiceListInner {
+    pub fn new(resource_id: i64, resource_type: ResourceType) -> NetworkDriveServiceListInner {
         NetworkDriveServiceListInner {
             resource_id,
             resource_type

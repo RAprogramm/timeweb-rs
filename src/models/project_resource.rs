@@ -17,7 +17,7 @@ use crate::models;
 pub struct ProjectResource {
     /// ID для каждого ресурса проекта. Автоматически генерируется при создании.
     #[serde(rename = "id")]
-    pub id:          f64,
+    pub id:          i64,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был создан ресурс.
     #[serde(rename = "created_at")]
@@ -25,7 +25,7 @@ pub struct ProjectResource {
     /// ID ресурса проекта (сервера, хранилища, кластера, балансировщика, базы
     /// данных или выделенного сервера).
     #[serde(rename = "resource_id")]
-    pub resource_id: f64,
+    pub resource_id: i64,
     #[serde(rename = "project")]
     pub project:     Box<models::Project>,
     /// Тип ресурса проекта
@@ -36,9 +36,9 @@ pub struct ProjectResource {
 impl ProjectResource {
     /// Ресурс проекта
     pub fn new(
-        id: f64,
+        id: i64,
         created_at: String,
-        resource_id: f64,
+        resource_id: i64,
         project: models::Project,
         r#type: Type
     ) -> ProjectResource {

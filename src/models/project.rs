@@ -17,7 +17,7 @@ use crate::models;
 pub struct Project {
     /// ID для каждого проекта. Автоматически генерируется при создании.
     #[serde(rename = "id")]
-    pub id:          f64,
+    pub id:          i64,
     /// ID пользователя.
     #[serde(rename = "account_id")]
     pub account_id:  String,
@@ -40,7 +40,7 @@ pub struct Project {
 impl Project {
     /// Проект
     pub fn new(
-        id: f64,
+        id: i64,
         account_id: String,
         avatar_id: Option<String>,
         description: String,

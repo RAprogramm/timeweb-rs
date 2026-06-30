@@ -17,7 +17,7 @@ use crate::models;
 pub struct ServiceServicePrice {
     /// Идентификатор сервиса
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id:          Option<f64>,
+    pub id:          Option<i64>,
     /// Стоимость сервиса
     #[serde(rename = "cost", skip_serializing_if = "Option::is_none")]
     pub cost:        Option<f64>,

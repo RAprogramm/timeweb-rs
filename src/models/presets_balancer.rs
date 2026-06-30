@@ -16,7 +16,7 @@ use crate::models;
 pub struct PresetsBalancer {
     /// ID для каждого экземпляра тарифа базы данных.
     #[serde(rename = "id")]
-    pub id:                 f64,
+    pub id:                 i64,
     /// Описание тарифа.
     #[serde(rename = "description")]
     pub description:        String,
@@ -42,7 +42,7 @@ pub struct PresetsBalancer {
 
 impl PresetsBalancer {
     pub fn new(
-        id: f64,
+        id: i64,
         description: String,
         description_short: String,
         bandwidth: f64,

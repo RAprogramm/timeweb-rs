@@ -17,7 +17,7 @@ use crate::models;
 pub struct PresetsStorage {
     /// ID для каждого экземпляра тарифа хранилища.
     #[serde(rename = "id")]
-    pub id:                f64,
+    pub id:                i64,
     /// Описание тарифа.
     #[serde(rename = "description")]
     pub description:       String,
@@ -44,7 +44,7 @@ pub struct PresetsStorage {
 impl PresetsStorage {
     /// Тариф
     pub fn new(
-        id: f64,
+        id: i64,
         description: String,
         description_short: String,
         disk: f64,

@@ -18,7 +18,7 @@ use crate::models;
 pub struct DedicatedServerAdditionalService {
     /// ID дополнительной услуги для выделенного сервера.
     #[serde(rename = "id")]
-    pub id:                f64,
+    pub id:                i64,
     /// Стоимость (в рублях) дополнительной услуги для выделенного сервера.
     #[serde(rename = "price")]
     pub price:             f64,
@@ -39,7 +39,7 @@ pub struct DedicatedServerAdditionalService {
 impl DedicatedServerAdditionalService {
     /// Дополнительная услуга для выделенного сервера
     pub fn new(
-        id: f64,
+        id: i64,
         price: f64,
         period: Period,
         description: String,

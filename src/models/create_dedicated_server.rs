@@ -21,10 +21,10 @@ pub struct CreateDedicatedServer {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub plan_id:               Option<Option<f64>>,
+    pub plan_id:               Option<Option<i64>>,
     /// ID тарифа выделенного сервера.
     #[serde(rename = "preset_id")]
-    pub preset_id:             f64,
+    pub preset_id:             i64,
     /// ID операционной системы, которая будет установлена на выделенный сервер.
     #[serde(
         rename = "os_id",
@@ -32,7 +32,7 @@ pub struct CreateDedicatedServer {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub os_id:                 Option<Option<f64>>,
+    pub os_id:                 Option<Option<i64>>,
     /// ID панели управления, которая будет установлена на выделенный сервер.
     #[serde(
         rename = "cp_id",
@@ -40,7 +40,7 @@ pub struct CreateDedicatedServer {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub cp_id:                 Option<Option<f64>>,
+    pub cp_id:                 Option<Option<i64>>,
     /// ID интернет-канала, который будет установлен на выделенный сервер.
     #[serde(
         rename = "bandwidth_id",
@@ -48,10 +48,10 @@ pub struct CreateDedicatedServer {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub bandwidth_id:          Option<Option<f64>>,
+    pub bandwidth_id:          Option<Option<i64>>,
     /// ID сетевого диска, который будет установлен на выделенный сервер.
     #[serde(rename = "network_drive_id", skip_serializing_if = "Option::is_none")]
-    pub network_drive_id:      Option<f64>,
+    pub network_drive_id:      Option<i64>,
     /// ID дополнительного IP-адреса, который будет установлен на выделенный
     /// сервер.
     #[serde(
@@ -60,7 +60,7 @@ pub struct CreateDedicatedServer {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub additional_ip_addr_id: Option<Option<f64>>,
+    pub additional_ip_addr_id: Option<Option<i64>>,
     /// Период оплаты.
     #[serde(rename = "payment_period")]
     pub payment_period:        PaymentPeriod,
@@ -83,12 +83,12 @@ pub struct CreateDedicatedServer {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub project_id:            Option<Option<f64>>
+    pub project_id:            Option<Option<i64>>
 }
 
 impl CreateDedicatedServer {
     pub fn new(
-        preset_id: f64,
+        preset_id: i64,
         payment_period: PaymentPeriod,
         name: String
     ) -> CreateDedicatedServer {

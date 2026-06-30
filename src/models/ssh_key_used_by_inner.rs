@@ -16,14 +16,14 @@ use crate::models;
 pub struct SshKeyUsedByInner {
     /// ID сервер.а
     #[serde(rename = "id")]
-    pub id:   f64,
+    pub id:   i64,
     /// Название сервера.
     #[serde(rename = "name")]
     pub name: String
 }
 
 impl SshKeyUsedByInner {
-    pub fn new(id: f64, name: String) -> SshKeyUsedByInner {
+    pub fn new(id: i64, name: String) -> SshKeyUsedByInner {
         SshKeyUsedByInner {
             id,
             name

@@ -17,10 +17,10 @@ use crate::models;
 pub struct Model {
     /// Уникальный идентификатор модели
     #[serde(rename = "id")]
-    pub id:            f64,
+    pub id:            i64,
     /// ID провайдера, который предоставляет модель
     #[serde(rename = "provider_id")]
-    pub provider_id:   f64,
+    pub provider_id:   i64,
     /// Название модели
     #[serde(rename = "name")]
     pub name:          String,
@@ -51,8 +51,8 @@ pub struct Model {
 impl Model {
     /// Модель AI
     pub fn new(
-        id: f64,
-        provider_id: f64,
+        id: i64,
+        provider_id: i64,
         name: String,
         public_name: String,
         r#type: Type,

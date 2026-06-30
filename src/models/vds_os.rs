@@ -17,7 +17,7 @@ use crate::models;
 pub struct VdsOs {
     /// ID операционной системы.
     #[serde(rename = "id")]
-    pub id:      f64,
+    pub id:      i64,
     /// Тип операционной системы.
     #[serde(rename = "name")]
     pub name:    Name,
@@ -28,7 +28,7 @@ pub struct VdsOs {
 
 impl VdsOs {
     /// Операционная система сервера.
-    pub fn new(id: f64, name: Name, version: Option<String>) -> VdsOs {
+    pub fn new(id: i64, name: Name, version: Option<String>) -> VdsOs {
         VdsOs {
             id,
             name,

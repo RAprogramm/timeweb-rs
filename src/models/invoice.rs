@@ -21,19 +21,19 @@ pub struct Invoice {
     pub money_source: MoneySource,
     /// ID администратора, на которого зарегистрирован домен.
     #[serde(rename = "person_id", skip_serializing_if = "Option::is_none")]
-    pub person_id:    Option<f64>,
+    pub person_id:    Option<i64>,
     /// Тип платежной системы.
     #[serde(rename = "payment_type")]
     pub payment_type: PaymentType,
     /// Идентификационный номер плательщика
     #[serde(rename = "payer_id")]
-    pub payer_id:     f64
+    pub payer_id:     i64
 }
 
 impl Invoice {
     /// Оплата заявки на продление/регистрацию домена при помощи платежной
     /// системы
-    pub fn new(money_source: MoneySource, payment_type: PaymentType, payer_id: f64) -> Invoice {
+    pub fn new(money_source: MoneySource, payment_type: PaymentType, payer_id: i64) -> Invoice {
         Invoice {
             money_source,
             person_id: None,

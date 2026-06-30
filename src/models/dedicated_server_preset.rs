@@ -17,7 +17,7 @@ use crate::models;
 pub struct DedicatedServerPreset {
     /// ID тарифа выделенного сервера.
     #[serde(rename = "id")]
-    pub id:               f64,
+    pub id:               i64,
     /// Описание характеристик тарифа выделенного сервера.
     #[serde(rename = "description")]
     pub description:      String,
@@ -46,7 +46,7 @@ pub struct DedicatedServerPreset {
 impl DedicatedServerPreset {
     /// Выделенный сервер
     pub fn new(
-        id: f64,
+        id: i64,
         description: String,
         is_ipmi_enabled: bool,
         is_pre_installed: bool,

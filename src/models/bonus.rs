@@ -20,15 +20,15 @@ pub struct Bonus {
     pub money_source: MoneySource,
     /// ID администратора, на которого зарегистрирован домен.
     #[serde(rename = "person_id", skip_serializing_if = "Option::is_none")]
-    pub person_id:    Option<f64>,
+    pub person_id:    Option<i64>,
     /// ID бонуса.
     #[serde(rename = "bonus_id")]
-    pub bonus_id:     f64
+    pub bonus_id:     i64
 }
 
 impl Bonus {
     /// Оплата заявки на продление/регистрацию домена бонусом
-    pub fn new(money_source: MoneySource, bonus_id: f64) -> Bonus {
+    pub fn new(money_source: MoneySource, bonus_id: i64) -> Bonus {
         Bonus {
             money_source,
             person_id: None,

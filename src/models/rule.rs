@@ -18,7 +18,7 @@ pub struct Rule {
     /// ID для каждого экземпляра правила для балансировщика. Автоматически
     /// генерируется при создании.
     #[serde(rename = "id")]
-    pub id:             f64,
+    pub id:             i64,
     /// Протокол балансировщика.
     #[serde(rename = "balancer_proto")]
     pub balancer_proto: BalancerProto,
@@ -36,7 +36,7 @@ pub struct Rule {
 impl Rule {
     /// Правило для балансировщика
     pub fn new(
-        id: f64,
+        id: i64,
         balancer_proto: BalancerProto,
         balancer_port: f64,
         server_proto: ServerProto,

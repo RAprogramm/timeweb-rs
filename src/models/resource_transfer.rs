@@ -20,7 +20,7 @@ pub struct ResourceTransfer {
     /// ID перемещаемого ресурса (сервера, хранилища, кластера, балансировщика,
     /// базы данных или выделенного сервера).
     #[serde(rename = "resource_id")]
-    pub resource_id:   f64,
+    pub resource_id:   i64,
     /// Тип перемещаемого ресурса.
     #[serde(rename = "resource_type")]
     pub resource_type: ResourceType
@@ -29,7 +29,7 @@ pub struct ResourceTransfer {
 impl ResourceTransfer {
     pub fn new(
         to_project: f64,
-        resource_id: f64,
+        resource_id: i64,
         resource_type: ResourceType
     ) -> ResourceTransfer {
         ResourceTransfer {

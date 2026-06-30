@@ -18,7 +18,7 @@ pub struct Balancer {
     /// ID для каждого экземпляра балансировщика. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id:                  f64,
+    pub id:                  i64,
     /// ID пользователя.
     #[serde(rename = "account_id", skip_serializing_if = "Option::is_none")]
     pub account_id:          Option<String>,
@@ -77,7 +77,7 @@ pub struct Balancer {
     pub httprequest_timeout: f64,
     /// ID тарифа.
     #[serde(rename = "preset_id")]
-    pub preset_id:           f64,
+    pub preset_id:           i64,
     /// Это логическое значение, которое показывает, требуется ли
     /// перенаправление на SSL.
     #[serde(rename = "is_ssl")]
@@ -119,7 +119,7 @@ pub struct Balancer {
 impl Balancer {
     /// Балансировщик
     pub fn new(
-        id: f64,
+        id: i64,
         algo: Algo,
         created_at: chrono::DateTime<chrono::FixedOffset>,
         fall: f64,
@@ -137,7 +137,7 @@ impl Balancer {
         client_timeout: f64,
         server_timeout: f64,
         httprequest_timeout: f64,
-        preset_id: f64,
+        preset_id: i64,
         is_ssl: bool,
         status: Status,
         is_sticky: bool,

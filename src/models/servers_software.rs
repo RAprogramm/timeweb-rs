@@ -16,7 +16,7 @@ use crate::models;
 pub struct ServersSoftware {
     /// ID ПО из маркетплейса.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id:            Option<f64>,
+    pub id:            Option<i64>,
     /// Имя ПО из маркетплейса.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name:          Option<String>,

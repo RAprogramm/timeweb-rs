@@ -19,14 +19,14 @@ pub struct Subdomain {
     pub fqdn:      String,
     /// ID поддомена.
     #[serde(rename = "id")]
-    pub id:        f64,
+    pub id:        i64,
     /// Привязанный к поддомену IP-адрес.
     #[serde(rename = "linked_ip", deserialize_with = "Option::deserialize")]
     pub linked_ip: Option<String>
 }
 
 impl Subdomain {
-    pub fn new(fqdn: String, id: f64, linked_ip: Option<String>) -> Subdomain {
+    pub fn new(fqdn: String, id: i64, linked_ip: Option<String>) -> Subdomain {
         Subdomain {
             fqdn,
             id,

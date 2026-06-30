@@ -18,7 +18,7 @@ pub struct App {
     /// ID для каждого экземпляра приложения. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id:             f64,
+    pub id:             i64,
     /// Тип приложения.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
     pub r#type:         Option<Type>,
@@ -68,7 +68,7 @@ pub struct App {
     pub comment:        Option<String>,
     /// ID тарифа.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:      Option<f64>,
+    pub preset_id:      Option<i64>,
     /// Путь к директории с индексным файлом. Определен для приложений `type:
     /// frontend`. Для приложений `type: backend` всегда null.
     #[serde(
@@ -125,7 +125,7 @@ pub struct App {
 
 impl App {
     /// Экземпляр приложения.
-    pub fn new(id: f64, name: String, status: Status) -> App {
+    pub fn new(id: i64, name: String, status: Status) -> App {
         App {
             id,
             r#type: None,

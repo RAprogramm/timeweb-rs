@@ -17,7 +17,7 @@ use crate::models;
 pub struct S3Subdomain {
     /// ID поддомена.
     #[serde(rename = "id")]
-    pub id:            f64,
+    pub id:            i64,
     /// Поддомен.
     #[serde(rename = "subdomain")]
     pub subdomain:     String,
@@ -36,7 +36,7 @@ pub struct S3Subdomain {
 impl S3Subdomain {
     /// Поддомен.
     pub fn new(
-        id: f64,
+        id: i64,
         subdomain: String,
         cert_released: chrono::DateTime<chrono::FixedOffset>,
         tries: f64,

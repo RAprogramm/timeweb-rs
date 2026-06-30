@@ -52,7 +52,7 @@ pub struct UpdateSettings {
     pub comment:        Option<String>,
     /// ID тарифа.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:      Option<f64>
+    pub preset_id:      Option<i64>
 }
 
 impl UpdateSettings {

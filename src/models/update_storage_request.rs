@@ -16,7 +16,7 @@ use crate::models;
 pub struct UpdateStorageRequest {
     /// ID тарифа.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:    Option<f64>,
+    pub preset_id:    Option<i64>,
     #[serde(rename = "configurator", skip_serializing_if = "Option::is_none")]
     pub configurator: Option<Box<models::UpdateStorageRequestConfigurator>>,
     /// Тип хранилища.

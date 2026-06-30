@@ -27,7 +27,7 @@ pub struct CreateAdmin {
     /// доступно только для кластеров MySQL. Если поле не передано, то
     /// привилегии будут применены ко всем инстансам
     #[serde(rename = "instance_id", skip_serializing_if = "Option::is_none")]
-    pub instance_id: Option<f64>,
+    pub instance_id: Option<i64>,
     /// Список привилегий пользователя базы данных
     #[serde(rename = "privileges")]
     pub privileges:  Vec<Privileges>,

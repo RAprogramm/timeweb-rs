@@ -18,7 +18,7 @@ pub struct DedicatedServer {
     /// ID для каждого экземпляра выделенного сервера. Автоматически
     /// генерируется при создании.
     #[serde(rename = "id")]
-    pub id:                    f64,
+    pub id:                    i64,
     /// Описание параметров процессора выделенного сервера.
     #[serde(rename = "cpu_description")]
     pub cpu_description:       String,
@@ -49,7 +49,7 @@ pub struct DedicatedServer {
     pub ipv6:                  Option<String>,
     /// Внутренний дополнительный ID сервера.
     #[serde(rename = "node_id", deserialize_with = "Option::deserialize")]
-    pub node_id:               Option<f64>,
+    pub node_id:               Option<i64>,
     /// Удобочитаемое имя, установленное для выделенного сервера.
     #[serde(rename = "name")]
     pub name:                  String,
@@ -65,13 +65,13 @@ pub struct DedicatedServer {
     pub status:                Status,
     /// ID операционной системы, установленной на выделенный сервер.
     #[serde(rename = "os_id", deserialize_with = "Option::deserialize")]
-    pub os_id:                 Option<f64>,
+    pub os_id:                 Option<i64>,
     /// ID панели управления, установленной на выделенный сервер.
     #[serde(rename = "cp_id", deserialize_with = "Option::deserialize")]
-    pub cp_id:                 Option<f64>,
+    pub cp_id:                 Option<i64>,
     /// ID интернет-канала, установленного на выделенный сервер.
     #[serde(rename = "bandwidth_id", deserialize_with = "Option::deserialize")]
-    pub bandwidth_id:          Option<f64>,
+    pub bandwidth_id:          Option<i64>,
     /// Массив уникальных ID сетевых дисков, подключенных к выделенному серверу.
     #[serde(rename = "network_drive_id", deserialize_with = "Option::deserialize")]
     pub network_drive_id:      Option<Vec<f64>>,
@@ -84,7 +84,7 @@ pub struct DedicatedServer {
     pub additional_ip_addr_id: Option<Vec<f64>>,
     /// ID списка дополнительных услуг выделенного сервера.
     #[serde(rename = "plan_id", deserialize_with = "Option::deserialize")]
-    pub plan_id:               Option<f64>,
+    pub plan_id:               Option<i64>,
     /// Стоимость выделенного сервера.
     #[serde(rename = "price")]
     pub price:                 f64,
@@ -116,7 +116,7 @@ pub struct DedicatedServer {
 impl DedicatedServer {
     /// Выделенный сервер
     pub fn new(
-        id: f64,
+        id: i64,
         cpu_description: String,
         hdd_description: String,
         ram_description: String,
@@ -126,17 +126,17 @@ impl DedicatedServer {
         ipmi_login: Option<String>,
         ipmi_password: Option<String>,
         ipv6: Option<String>,
-        node_id: Option<f64>,
+        node_id: Option<i64>,
         name: String,
         comment: String,
         vnc_pass: Option<String>,
         status: Status,
-        os_id: Option<f64>,
-        cp_id: Option<f64>,
-        bandwidth_id: Option<f64>,
+        os_id: Option<i64>,
+        cp_id: Option<i64>,
+        bandwidth_id: Option<i64>,
         network_drive_id: Option<Vec<f64>>,
         additional_ip_addr_id: Option<Vec<f64>>,
-        plan_id: Option<f64>,
+        plan_id: Option<i64>,
         price: f64,
         location: String,
         autoinstall_ready: f64,

@@ -17,7 +17,7 @@ use crate::models;
 pub struct BucketUser {
     /// ID пользователя.
     #[serde(rename = "id")]
-    pub id:         f64,
+    pub id:         i64,
     /// Логин пользователя.
     #[serde(rename = "access_key")]
     pub access_key: String,
@@ -28,7 +28,7 @@ pub struct BucketUser {
 
 impl BucketUser {
     /// Пользователь хранилища
-    pub fn new(id: f64, access_key: String, secret_key: String) -> BucketUser {
+    pub fn new(id: i64, access_key: String, secret_key: String) -> BucketUser {
         BucketUser {
             id,
             access_key,

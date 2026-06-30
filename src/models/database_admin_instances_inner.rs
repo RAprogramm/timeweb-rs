@@ -16,14 +16,14 @@ use crate::models;
 pub struct DatabaseAdminInstancesInner {
     /// ID базы данных
     #[serde(rename = "instance_id")]
-    pub instance_id: f64,
+    pub instance_id: i64,
     /// Список привилегий пользователя базы данных
     #[serde(rename = "privileges")]
     pub privileges:  Vec<Privileges>
 }
 
 impl DatabaseAdminInstancesInner {
-    pub fn new(instance_id: f64, privileges: Vec<Privileges>) -> DatabaseAdminInstancesInner {
+    pub fn new(instance_id: i64, privileges: Vec<Privileges>) -> DatabaseAdminInstancesInner {
         DatabaseAdminInstancesInner {
             instance_id,
             privileges
