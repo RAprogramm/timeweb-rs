@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.3.0...v0.4.0) - 2026-06-30
+
+### Fixed
+
+- Relax ip type enum and apps frontend preset requests for live deserialization ([#37](https://github.com/RAprogramm/timeweb-rs/pull/37)) ([d204134](https://github.com/RAprogramm/timeweb-rs/commit/d20413455c72dab93df744297ab4e521c894bce7))
+
+
 ## [0.2.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.1.4...v0.2.0) - 2026-06-30
 
 **Breaking release.** Re-publishes the breaking API-model changes that first
