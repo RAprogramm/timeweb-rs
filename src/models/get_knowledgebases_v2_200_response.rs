@@ -14,25 +14,25 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetKnowledgebasesV2200Response {
-    #[serde(rename = "knowledgebases")]
-    pub knowledgebases: Vec<models::KnowledgebaseV2>,
     #[serde(rename = "meta")]
-    pub meta:           Box<models::GetKnowledgebasesV2200ResponseAllOfMeta>,
+    pub meta:            Box<models::GetKnowledgebasesV2200ResponseAllOfMeta>,
+    #[serde(rename = "knowledge_bases")]
+    pub knowledge_bases: Vec<models::KnowledgebaseV2>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id:    Option<uuid::Uuid>
+    pub response_id:     Option<uuid::Uuid>
 }
 
 impl GetKnowledgebasesV2200Response {
     pub fn new(
-        knowledgebases: Vec<models::KnowledgebaseV2>,
         meta: models::GetKnowledgebasesV2200ResponseAllOfMeta,
+        knowledge_bases: Vec<models::KnowledgebaseV2>,
         response_id: Option<uuid::Uuid>
     ) -> GetKnowledgebasesV2200Response {
         GetKnowledgebasesV2200Response {
-            knowledgebases,
             meta: Box::new(meta),
+            knowledge_bases,
             response_id
         }
     }

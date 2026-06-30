@@ -198,27 +198,39 @@ def add_undocumented_account_status_fields(spec):
         props.setdefault(name, schema)
 
 
-def fix_ssh_keys_property(spec):
-    """Rename the ``ssh-keys`` response property to ``ssh_keys``.
+_RENAMED_PROPERTIES = {
+    "ssh-keys": "ssh_keys",
+    "knowledgebases": "knowledge_bases",
+}
 
-    The ``GET /api/v1/ssh-keys`` response schema names its collection property
-    ``ssh-keys`` (hyphen), but the live API returns ``ssh_keys`` (underscore).
-    Generated from the hyphen spelling, the client deserializes the real
-    payload to an empty list. Rename the property (and any ``required`` entry)
-    to the underscore spelling the API actually sends, everywhere it appears.
+
+def rename_mismatched_properties(spec):
+    """Rename response properties whose spec name differs from the API's.
+
+    Some list responses name their collection property differently from what
+    the live API sends, so the generated client deserializes an empty list (or
+    fails on a missing field):
+
+    * ``GET /api/v1/ssh-keys`` — spec ``ssh-keys`` vs API ``ssh_keys``;
+    * ``GET /api/v1/cloud-ai/knowledge-bases`` — spec ``knowledgebases`` vs API
+      ``knowledge_bases``.
+
+    Rename the property (and any matching ``required`` entry) to the spelling
+    the API actually sends, wherever it appears.
     """
 
     def walk(node):
         if isinstance(node, dict):
             props = node.get("properties")
-            if isinstance(props, dict) and "ssh-keys" in props:
-                props["ssh_keys"] = props.pop("ssh-keys")
-                required = node.get("required")
-                if isinstance(required, list):
-                    node["required"] = [
-                        "ssh_keys" if name == "ssh-keys" else name
-                        for name in required
-                    ]
+            if isinstance(props, dict):
+                for old, new in _RENAMED_PROPERTIES.items():
+                    if old in props:
+                        props[new] = props.pop(old)
+                        required = node.get("required")
+                        if isinstance(required, list):
+                            node["required"] = [
+                                new if name == old else name for name in required
+                            ]
             for value in node.values():
                 walk(value)
         elif isinstance(node, list):
@@ -256,22 +268,37 @@ def relax_overstrict_required(spec):
         sch["required"] = [field for field in minimal if field in props]
 
 
-def relax_location_enums(spec):
-    """Drop the closed enum on availability-zone (location) fields.
+def relax_open_enums(spec):
+    """Drop closed enums on fields the API extends with new values over time.
 
-    Zones (``ru-1``, ``pl-1``, ``nl-1``, ``de-1``, ...) are added over time,
-    but the spec pins them as a closed enum — both the shared ``Location`` /
-    ``location`` schemas and ~17 inline copies. A resource in a zone the spec
-    has not caught up to (e.g. an app in ``de-1``) then fails enum
-    deserialization, and the whole collection comes back empty. Strip the enum
-    constraint (keeping ``type: string``) wherever a location-like enum
-    appears, so any present or future zone deserializes as a plain string.
+    Several string enums in the spec are effectively open-ended and lag the
+    live API, so a value the spec has not caught up to fails deserialization
+    and the whole collection comes back empty:
+
+    * availability zones (``ru-1``/``pl-1``/``nl-1``/``de-1``/...) — the shared
+      ``Location``/``location`` schemas plus ~17 inline copies;
+    * database engines (``mysql``/``postgres17``/``postgres18``/...);
+    * floating-ip ``resource_type`` (``server``/``balancer``/``database``/
+      ``network`` — the API also returns ``dbaas``).
+
+    Strip the enum (keeping ``type: string``) wherever one of these appears, so
+    any present or future value deserializes as a plain string. Detected by a
+    distinctive member so unrelated enums (statuses, etc.) are left intact.
     """
+    resource_kinds = {"server", "balancer", "database", "network"}
+
+    def is_open(values):
+        members = set(values)
+        return (
+            "ru-1" in members
+            or "postgres14" in members
+            or members == resource_kinds
+        )
 
     def walk(node):
         if isinstance(node, dict):
             enum = node.get("enum")
-            if isinstance(enum, list) and "ru-1" in enum:
+            if isinstance(enum, list) and is_open(enum):
                 node.pop("enum", None)
                 node.setdefault("type", "string")
             for value in node.values():
@@ -283,15 +310,34 @@ def relax_location_enums(spec):
     walk(spec)
 
 
+def nullable_vpc_optional_fields(spec):
+    """Mark VPC string fields nullable that the live API returns as ``null``.
+
+    The ``vpc`` schema types ``description`` and ``public_ip`` as required
+    strings, but ``GET /api/v2/vpcs`` returns ``null`` for them, failing with
+    "invalid type: null, expected a string". Mark them nullable so they map to
+    ``Option<String>`` instead.
+    """
+    vpc = spec.get("components", {}).get("schemas", {}).get("vpc")
+    if not isinstance(vpc, dict):
+        return
+    props = vpc.get("properties", {})
+    for name in ("description", "public_ip"):
+        field = props.get(name)
+        if isinstance(field, dict) and "$ref" not in field:
+            field["nullable"] = True
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
     localize_tags(spec)
     nullable_response_id(spec)
     add_undocumented_account_status_fields(spec)
-    fix_ssh_keys_property(spec)
+    rename_mismatched_properties(spec)
     relax_overstrict_required(spec)
-    relax_location_enums(spec)
+    relax_open_enums(spec)
+    nullable_vpc_optional_fields(spec)
     return spec
 
 

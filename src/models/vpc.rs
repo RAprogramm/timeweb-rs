@@ -30,8 +30,8 @@ pub struct Vpc {
     #[serde(rename = "created_at")]
     pub created_at:        chrono::DateTime<chrono::FixedOffset>,
     /// Описание.
-    #[serde(rename = "description")]
-    pub description:       String,
+    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    pub description:       Option<String>,
     #[serde(rename = "availability_zone")]
     pub availability_zone: models::AvailabilityZone,
     /// Публичный IP-адрес сети.
@@ -52,7 +52,7 @@ impl Vpc {
         subnet_v4: String,
         location: String,
         created_at: chrono::DateTime<chrono::FixedOffset>,
-        description: String,
+        description: Option<String>,
         availability_zone: models::AvailabilityZone,
         public_ip: Option<String>,
         r#type: Type,

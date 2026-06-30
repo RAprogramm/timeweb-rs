@@ -350,8 +350,6 @@ pub mod db_disk_stats;
 pub use self::db_disk_stats::DbDiskStats;
 pub mod db_replication;
 pub use self::db_replication::DbReplication;
-pub mod db_type;
-pub use self::db_type::DbType;
 pub mod dedicated_server;
 pub use self::dedicated_server::DedicatedServer;
 pub mod dedicated_server_additional_service;

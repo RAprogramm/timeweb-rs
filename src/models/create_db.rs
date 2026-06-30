@@ -23,8 +23,9 @@ pub struct CreateDb {
     /// Название базы данных.
     #[serde(rename = "name")]
     pub name:              String,
+    /// Тип базы данных.
     #[serde(rename = "type")]
-    pub r#type:            models::DbType,
+    pub r#type:            String,
     /// Тип хеширования базы данных (mysql5 | mysql | postgres).
     #[serde(rename = "hash_type", skip_serializing_if = "Option::is_none")]
     pub hash_type:         Option<HashType>,
@@ -38,12 +39,7 @@ pub struct CreateDb {
 }
 
 impl CreateDb {
-    pub fn new(
-        password: String,
-        name: String,
-        r#type: models::DbType,
-        preset_id: i32
-    ) -> CreateDb {
+    pub fn new(password: String, name: String, r#type: String, preset_id: i32) -> CreateDb {
         CreateDb {
             login: None,
             password,

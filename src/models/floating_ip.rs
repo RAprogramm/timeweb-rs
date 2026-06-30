@@ -27,7 +27,7 @@ pub struct FloatingIp {
     pub availability_zone: models::AvailabilityZone,
     /// Тип ресурса.
     #[serde(rename = "resource_type", deserialize_with = "Option::deserialize")]
-    pub resource_type:     Option<ResourceType>,
+    pub resource_type:     Option<String>,
     #[serde(rename = "resource_id", deserialize_with = "Option::deserialize")]
     pub resource_id:       Option<Box<models::FloatingIpResourceId>>,
     /// Комментарий
@@ -44,7 +44,7 @@ impl FloatingIp {
         ip: Option<String>,
         is_ddos_guard: bool,
         availability_zone: models::AvailabilityZone,
-        resource_type: Option<ResourceType>,
+        resource_type: Option<String>,
         resource_id: Option<models::FloatingIpResourceId>,
         comment: Option<String>,
         ptr: Option<String>
@@ -63,23 +63,5 @@ impl FloatingIp {
             comment,
             ptr
         }
-    }
-}
-/// Тип ресурса.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ResourceType {
-    #[serde(rename = "server")]
-    Server,
-    #[serde(rename = "balancer")]
-    Balancer,
-    #[serde(rename = "database")]
-    Database,
-    #[serde(rename = "network")]
-    Network
-}
-
-impl Default for ResourceType {
-    fn default() -> ResourceType {
-        Self::Server
     }
 }

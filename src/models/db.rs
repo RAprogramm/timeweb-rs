@@ -41,8 +41,9 @@ pub struct Db {
     /// Хост.
     #[serde(rename = "host", deserialize_with = "Option::deserialize")]
     pub host: Option<String>,
+    /// Тип базы данных.
     #[serde(rename = "type")]
-    pub r#type: models::DbType,
+    pub r#type: String,
     /// Тип хеширования базы данных (mysql5 | mysql | postgres).
     #[serde(rename = "hash_type", deserialize_with = "Option::deserialize")]
     pub hash_type: Option<HashType>,
@@ -83,7 +84,7 @@ impl Db {
         password: String,
         name: String,
         host: Option<String>,
-        r#type: models::DbType,
+        r#type: String,
         hash_type: Option<HashType>,
         port: i32,
         ip: Option<String>,

@@ -17,8 +17,9 @@ pub struct CreateCluster {
     /// Название кластера базы данных.
     #[serde(rename = "name")]
     pub name:              String,
+    /// Тип базы данных.
     #[serde(rename = "type")]
-    pub r#type:            models::DbType,
+    pub r#type:            String,
     #[serde(rename = "admin", skip_serializing_if = "Option::is_none")]
     pub admin:             Option<Box<models::CreateClusterAdmin>>,
     #[serde(rename = "instance", skip_serializing_if = "Option::is_none")]
@@ -51,7 +52,7 @@ pub struct CreateCluster {
 }
 
 impl CreateCluster {
-    pub fn new(name: String, r#type: models::DbType) -> CreateCluster {
+    pub fn new(name: String, r#type: String) -> CreateCluster {
         CreateCluster {
             name,
             r#type,
