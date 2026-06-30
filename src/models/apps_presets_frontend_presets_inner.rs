@@ -30,8 +30,8 @@ pub struct AppsPresetsFrontendPresetsInner {
     #[serde(rename = "location")]
     pub location:          String,
     /// Количество запросов.
-    #[serde(rename = "requests")]
-    pub requests:          i32,
+    #[serde(rename = "requests", skip_serializing_if = "Option::is_none")]
+    pub requests:          Option<i32>,
     /// Объем диска в МБ.
     #[serde(rename = "disk")]
     pub disk:              i32
@@ -43,7 +43,6 @@ impl AppsPresetsFrontendPresetsInner {
         description_short: String,
         price: i32,
         location: String,
-        requests: i32,
         disk: i32
     ) -> AppsPresetsFrontendPresetsInner {
         AppsPresetsFrontendPresetsInner {
@@ -52,7 +51,7 @@ impl AppsPresetsFrontendPresetsInner {
             description_short,
             price,
             location,
-            requests,
+            requests: None,
             disk
         }
     }
