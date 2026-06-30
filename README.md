@@ -4,7 +4,7 @@
 [![docs.rs](https://img.shields.io/docsrs/timeweb-rs)](https://docs.rs/timeweb-rs)
 [![CI](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/RAprogramm/timeweb-rs/graph/badge.svg?token=iKNwLuK8au)](https://codecov.io/gh/RAprogramm/timeweb-rs)
-[![MSRV](https://img.shields.io/badge/MSRV-1.95-blue.svg)](https://www.rust-lang.org)
+[![MSRV](https://img.shields.io/badge/MSRV-1.96-blue.svg)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud/?i=137383) API.
@@ -98,11 +98,16 @@ response schemas are left untouched.
 ## Releases
 
 This project follows [Semantic Versioning](https://semver.org); changes are
-recorded in [CHANGELOG.md](CHANGELOG.md). To cut a release: move the
-`Unreleased` changelog section under a new version heading, bump `version` in
-`Cargo.toml`, commit, and push a `vX.Y.Z` tag. CI publishes the crate to
-crates.io once the version is ahead of the registry, and the release workflow
-creates the matching GitHub release from the changelog entry.
+recorded in [CHANGELOG.md](CHANGELOG.md). Releases are automated with
+[release-plz](https://release-plz.dev): every push to `main` is analysed, and a
+"release" pull request that bumps `version` in `Cargo.toml` and updates the
+changelog is opened (or refreshed) from the [Conventional Commits](https://www.conventionalcommits.org)
+in the diff. Merging that PR — or pushing a version bump directly to `main` —
+makes the release job publish the crate to crates.io via crates.io trusted
+publishing, push the `vX.Y.Z` tag and create the matching GitHub release from
+the changelog entry. Use `feat:`/`fix:`/`docs:`/`refactor:` commit prefixes and
+`!` for breaking changes so the version bump and changelog are generated
+correctly.
 
 ## License
 
