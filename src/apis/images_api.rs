@@ -10,6 +10,8 @@
 
 use reqwest;
 use serde::{Deserialize, Serialize, de::Error as _};
+use tokio::fs::File as TokioFile;
+use tokio_util::codec::{BytesCodec, FramedRead};
 
 use super::{ContentType, Error, configuration};
 use crate::{apis::ResponseContent, models};
@@ -677,10 +679,12 @@ pub async fn update_image(
 pub async fn upload_image(
     configuration: &configuration::Configuration,
     image_id: &str,
+    body: std::path::PathBuf,
     content_disposition: Option<&str>
 ) -> Result<models::UploadImage200Response, Error<UploadImageError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_image_id = image_id;
+    let p_body_body = body;
     let p_header_content_disposition = content_disposition;
 
     let uri_str = format!(
@@ -701,6 +705,9 @@ pub async fn upload_image(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
+    let file = TokioFile::open(p_body_body).await?;
+    let stream = FramedRead::new(file, BytesCodec::new());
+    req_builder = req_builder.body(reqwest::Body::wrap_stream(stream));
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;

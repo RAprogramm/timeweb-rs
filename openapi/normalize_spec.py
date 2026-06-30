@@ -357,6 +357,29 @@ def integer_id_fields(spec):
     walk(spec)
 
 
+def add_image_upload_body(spec):
+    """Add the missing binary request body to the image-upload operation.
+
+    The upstream spec declares ``POST /api/v1/images/{image_id}`` (operationId
+    ``uploadImage``) with only a ``Content-Disposition`` header parameter and no
+    ``requestBody`` — so the generated client cannot send the image file at all.
+    The endpoint accepts the raw file as the request body; inject an
+    ``application/octet-stream`` binary body so the generated function gains a
+    body parameter.
+    """
+
+    op = spec.get("paths", {}).get("/api/v1/images/{image_id}", {}).get("post")
+    if isinstance(op, dict) and "requestBody" not in op:
+        op["requestBody"] = {
+            "required": True,
+            "content": {
+                "application/octet-stream": {
+                    "schema": {"type": "string", "format": "binary"}
+                }
+            },
+        }
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
@@ -368,6 +391,7 @@ def normalize(spec):
     relax_open_enums(spec)
     nullable_vpc_optional_fields(spec)
     integer_id_fields(spec)
+    add_image_upload_body(spec)
     return spec
 
 
