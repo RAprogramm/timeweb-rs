@@ -16,31 +16,17 @@ use crate::models;
 pub struct DatabaseClusterNetworksInnerIpsInner {
     /// Тип IP-адреса сети
     #[serde(rename = "type")]
-    pub r#type: Type,
+    pub r#type: String,
     /// IP-адрес сети
     #[serde(rename = "ip")]
     pub ip:     String
 }
 
 impl DatabaseClusterNetworksInnerIpsInner {
-    pub fn new(r#type: Type, ip: String) -> DatabaseClusterNetworksInnerIpsInner {
+    pub fn new(r#type: String, ip: String) -> DatabaseClusterNetworksInnerIpsInner {
         DatabaseClusterNetworksInnerIpsInner {
             r#type,
             ip
         }
-    }
-}
-/// Тип IP-адреса сети
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "ipv4")]
-    Ipv4,
-    #[serde(rename = "ipv6")]
-    Ipv6
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Ipv4
     }
 }

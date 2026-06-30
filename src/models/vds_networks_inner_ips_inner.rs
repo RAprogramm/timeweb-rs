@@ -16,7 +16,7 @@ use crate::models;
 pub struct VdsNetworksInnerIpsInner {
     /// Тип IP-адреса сети
     #[serde(rename = "type")]
-    pub r#type:  Type,
+    pub r#type:  String,
     /// IP-адрес сети.
     #[serde(rename = "ip")]
     pub ip:      String,
@@ -29,26 +29,12 @@ pub struct VdsNetworksInnerIpsInner {
 }
 
 impl VdsNetworksInnerIpsInner {
-    pub fn new(r#type: Type, ip: String, is_main: bool) -> VdsNetworksInnerIpsInner {
+    pub fn new(r#type: String, ip: String, is_main: bool) -> VdsNetworksInnerIpsInner {
         VdsNetworksInnerIpsInner {
             r#type,
             ip,
             ptr: None,
             is_main
         }
-    }
-}
-/// Тип IP-адреса сети
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "ipv4")]
-    Ipv4,
-    #[serde(rename = "ipv6")]
-    Ipv6
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Ipv4
     }
 }

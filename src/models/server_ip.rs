@@ -17,7 +17,7 @@ use crate::models;
 pub struct ServerIp {
     /// Тип IP-адреса сети.
     #[serde(rename = "type")]
-    pub r#type:  Type,
+    pub r#type:  String,
     /// IP-адрес сети.
     #[serde(rename = "ip")]
     pub ip:      String,
@@ -31,26 +31,12 @@ pub struct ServerIp {
 
 impl ServerIp {
     /// IP-адрес сервера
-    pub fn new(r#type: Type, ip: String, ptr: String, is_main: bool) -> ServerIp {
+    pub fn new(r#type: String, ip: String, ptr: String, is_main: bool) -> ServerIp {
         ServerIp {
             r#type,
             ip,
             ptr,
             is_main
         }
-    }
-}
-/// Тип IP-адреса сети.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "ipv4")]
-    Ipv4,
-    #[serde(rename = "ipv6")]
-    Ipv6
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Ipv4
     }
 }

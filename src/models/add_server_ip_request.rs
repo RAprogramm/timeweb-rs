@@ -16,31 +16,17 @@ use crate::models;
 pub struct AddServerIpRequest {
     /// Тип IP-адреса
     #[serde(rename = "type")]
-    pub r#type: Type,
+    pub r#type: String,
     /// PTR-запись IP-адреса
     #[serde(rename = "ptr", skip_serializing_if = "Option::is_none")]
     pub ptr:    Option<String>
 }
 
 impl AddServerIpRequest {
-    pub fn new(r#type: Type) -> AddServerIpRequest {
+    pub fn new(r#type: String) -> AddServerIpRequest {
         AddServerIpRequest {
             r#type,
             ptr: None
         }
-    }
-}
-/// Тип IP-адреса
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "ipv4")]
-    Ipv4,
-    #[serde(rename = "ipv6")]
-    Ipv6
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Ipv4
     }
 }

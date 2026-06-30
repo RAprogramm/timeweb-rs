@@ -16,7 +16,7 @@ use crate::models;
 pub struct BalancerNetworksInnerIpsInner {
     /// Тип IP-адреса сети
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type: Option<Type>,
+    pub r#type: Option<String>,
     /// IP-адрес сети.
     #[serde(rename = "ip", skip_serializing_if = "Option::is_none")]
     pub ip:     Option<String>
@@ -28,19 +28,5 @@ impl BalancerNetworksInnerIpsInner {
             r#type: None,
             ip:     None
         }
-    }
-}
-/// Тип IP-адреса сети
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Type {
-    #[serde(rename = "ipv4")]
-    Ipv4,
-    #[serde(rename = "ipv6")]
-    Ipv6
-}
-
-impl Default for Type {
-    fn default() -> Type {
-        Self::Ipv4
     }
 }

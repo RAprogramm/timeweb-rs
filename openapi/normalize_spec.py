@@ -268,6 +268,26 @@ def relax_overstrict_required(spec):
         sch["required"] = [field for field in minimal if field in props]
 
 
+def relax_apps_preset_required(spec):
+    """Drop ``requests`` from the apps frontend-preset required list.
+
+    ``apps-presets.frontend_presets.items`` marks ``requests`` as required, but
+    ``GET /api/v1/presets/apps`` never sends it (the backend-preset schema does
+    not require it either). The missing field fails deserialization of the whole
+    presets collection, so ``apps list-presets`` errors out. Drop it from the
+    required list so it maps to ``Option`` and tolerates absence.
+    """
+    presets = spec.get("components", {}).get("schemas", {}).get("apps-presets")
+    if not isinstance(presets, dict):
+        return
+    items = (
+        presets.get("properties", {}).get("frontend_presets", {}).get("items", {})
+    )
+    required = items.get("required")
+    if isinstance(required, list):
+        items["required"] = [field for field in required if field != "requests"]
+
+
 def relax_open_enums(spec):
     """Drop closed enums on fields the API extends with new values over time.
 
@@ -279,7 +299,9 @@ def relax_open_enums(spec):
       ``Location``/``location`` schemas plus ~17 inline copies;
     * database engines (``mysql``/``postgres17``/``postgres18``/...);
     * floating-ip ``resource_type`` (``server``/``balancer``/``database``/
-      ``network`` — the API also returns ``dbaas``).
+      ``network`` — the API also returns ``dbaas``);
+    * network ip ``type`` (``ipv4``/``ipv6`` — the API returns the malformed
+      ``ipv_4`` on database-cluster/balancer/vds/server-ip networks).
 
     Strip the enum (keeping ``type: string``) wherever one of these appears, so
     any present or future value deserializes as a plain string. Detected by a
@@ -292,6 +314,7 @@ def relax_open_enums(spec):
         return (
             "ru-1" in members
             or "postgres14" in members
+            or "ipv4" in members
             or members == resource_kinds
         )
 
@@ -388,6 +411,7 @@ def normalize(spec):
     add_undocumented_account_status_fields(spec)
     rename_mismatched_properties(spec)
     relax_overstrict_required(spec)
+    relax_apps_preset_required(spec)
     relax_open_enums(spec)
     nullable_vpc_optional_fields(spec)
     integer_id_fields(spec)
