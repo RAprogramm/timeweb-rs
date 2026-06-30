@@ -73,13 +73,13 @@ jobs:
       - run: cargo doc --no-deps --all-features
 
   msrv:
-    name: MSRV (1.95)
+    name: MSRV (1.96)
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Install Rust 1.95
-        uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582 # 1.95.0
+      - name: Install Rust 1.96
+        uses: dtolnay/rust-toolchain@1.96.0
       - uses: Swatinem/rust-cache@e18b497796c12c097a38f9edb9d0641fb99eee32 # v2
       - run: cargo check --all-features --all-targets
 
