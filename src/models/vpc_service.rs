@@ -16,7 +16,7 @@ use crate::models;
 pub struct VpcService {
     /// ID сервисв.
     #[serde(rename = "id")]
-    pub id:        f64,
+    pub id:        i64,
     /// Имя сервиса.
     #[serde(rename = "name")]
     pub name:      String,
@@ -32,7 +32,7 @@ pub struct VpcService {
 }
 
 impl VpcService {
-    pub fn new(id: f64, name: String) -> VpcService {
+    pub fn new(id: i64, name: String) -> VpcService {
         VpcService {
             id,
             name,

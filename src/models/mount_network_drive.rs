@@ -19,11 +19,11 @@ pub struct MountNetworkDrive {
     pub resource_type: ResourceType,
     /// Id ресурса.
     #[serde(rename = "resource_id")]
-    pub resource_id:   f64
+    pub resource_id:   i64
 }
 
 impl MountNetworkDrive {
-    pub fn new(resource_type: ResourceType, resource_id: f64) -> MountNetworkDrive {
+    pub fn new(resource_type: ResourceType, resource_id: i64) -> MountNetworkDrive {
         MountNetworkDrive {
             resource_type,
             resource_id

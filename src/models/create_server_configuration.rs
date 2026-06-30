@@ -18,7 +18,7 @@ use crate::models;
 pub struct CreateServerConfiguration {
     /// ID конфигуратора сервера.
     #[serde(rename = "configurator_id")]
-    pub configurator_id: f64,
+    pub configurator_id: i64,
     /// Размер диска в МБ.
     #[serde(rename = "disk")]
     pub disk:            f64,
@@ -35,7 +35,7 @@ pub struct CreateServerConfiguration {
 
 impl CreateServerConfiguration {
     /// Параметры конфигурации сервера. Нельзя передавать вместе с `preset_id`.
-    pub fn new(configurator_id: f64, disk: f64, cpu: f64, ram: f64) -> CreateServerConfiguration {
+    pub fn new(configurator_id: i64, disk: f64, cpu: f64, ram: f64) -> CreateServerConfiguration {
         CreateServerConfiguration {
             configurator_id,
             disk,

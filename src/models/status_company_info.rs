@@ -17,7 +17,7 @@ use crate::models;
 pub struct StatusCompanyInfo {
     /// ID компании.
     #[serde(rename = "id")]
-    pub id:   f64,
+    pub id:   i64,
     /// Название компании.
     #[serde(rename = "name")]
     pub name: String
@@ -25,7 +25,7 @@ pub struct StatusCompanyInfo {
 
 impl StatusCompanyInfo {
     /// Информация о компании.
-    pub fn new(id: f64, name: String) -> StatusCompanyInfo {
+    pub fn new(id: i64, name: String) -> StatusCompanyInfo {
         StatusCompanyInfo {
             id,
             name

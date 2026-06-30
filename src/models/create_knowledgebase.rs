@@ -23,25 +23,25 @@ pub struct CreateKnowledgebase {
     pub description:      Option<String>,
     /// ID пресета базы данных
     #[serde(rename = "dbaas_preset_id")]
-    pub dbaas_preset_id:  f64,
+    pub dbaas_preset_id:  i64,
     /// ID сети
     #[serde(rename = "network_id")]
     pub network_id:       String,
     /// ID пакета токенов
     #[serde(rename = "token_package_id")]
-    pub token_package_id: f64,
+    pub token_package_id: i64,
     /// ID проекта
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:       Option<f64>
+    pub project_id:       Option<i64>
 }
 
 impl CreateKnowledgebase {
     /// Данные для создания базы знаний
     pub fn new(
         name: String,
-        dbaas_preset_id: f64,
+        dbaas_preset_id: i64,
         network_id: String,
-        token_package_id: f64
+        token_package_id: i64
     ) -> CreateKnowledgebase {
         CreateKnowledgebase {
             name,

@@ -169,11 +169,205 @@ def nullable_response_id(spec):
     walk(spec)
 
 
+def add_undocumented_account_status_fields(spec):
+    """Add ``status`` fields the live API returns but the spec omits.
+
+    ``GET /account/status`` returns ``login`` (the account identifier shown to
+    the user), ``registered_at``, ``two_factor_method`` and ``is_password_set``,
+    but the upstream ``status`` schema documents none of them — it stops at
+    ``ym_client_id``. Without ``login`` a client is left with only the
+    hoster's ``company_info`` (the same "ООО ТАЙМВЭБ.КЛАУД" for every account),
+    which is useless for identifying the account.
+
+    The fields are added here, defensively (not marked required), so the
+    generator emits ``Option`` types and a missing field never breaks
+    deserialization. Run on every regeneration, so it survives upstream spec
+    syncs automatically.
+    """
+    status = spec.get("components", {}).get("schemas", {}).get("status")
+    if not isinstance(status, dict):
+        return
+    props = status.setdefault("properties", {})
+    additions = {
+        "login":           {"type": "string"},
+        "registered_at":   {"type": "string"},
+        "is_password_set": {"type": "boolean"},
+        "two_factor_method": {"type": "string", "nullable": True},
+    }
+    for name, schema in additions.items():
+        props.setdefault(name, schema)
+
+
+_RENAMED_PROPERTIES = {
+    "ssh-keys": "ssh_keys",
+    "knowledgebases": "knowledge_bases",
+}
+
+
+def rename_mismatched_properties(spec):
+    """Rename response properties whose spec name differs from the API's.
+
+    Some list responses name their collection property differently from what
+    the live API sends, so the generated client deserializes an empty list (or
+    fails on a missing field):
+
+    * ``GET /api/v1/ssh-keys`` — spec ``ssh-keys`` vs API ``ssh_keys``;
+    * ``GET /api/v1/cloud-ai/knowledge-bases`` — spec ``knowledgebases`` vs API
+      ``knowledge_bases``.
+
+    Rename the property (and any matching ``required`` entry) to the spelling
+    the API actually sends, wherever it appears.
+    """
+
+    def walk(node):
+        if isinstance(node, dict):
+            props = node.get("properties")
+            if isinstance(props, dict):
+                for old, new in _RENAMED_PROPERTIES.items():
+                    if old in props:
+                        props[new] = props.pop(old)
+                        required = node.get("required")
+                        if isinstance(required, list):
+                            node["required"] = [
+                                new if name == old else name for name in required
+                            ]
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
+_MINIMAL_REQUIRED = {
+    "app": ["id", "name", "status"],
+}
+
+
+def relax_overstrict_required(spec):
+    """Trim ``required`` lists that demand fields the live API omits.
+
+    Some list-item schemas mark many fields ``required`` that the live API
+    does not actually send. The ``app`` schema, for example, requires
+    ``framework``, ``branch_name`` and ``server_id`` — none of which appear in
+    a ``GET /api/v1/apps`` item (the API sends ``branch``, not ``branch_name``,
+    and no ``framework``). One missing required field fails deserialization of
+    the whole collection, so the dashboard shows zero apps despite the account
+    having several.
+
+    Reduce each listed schema's ``required`` to the minimal identifying fields
+    the API reliably returns; the rest become ``Option`` and tolerate absence.
+    """
+    schemas = spec.get("components", {}).get("schemas", {})
+    for name, minimal in _MINIMAL_REQUIRED.items():
+        sch = schemas.get(name)
+        if not isinstance(sch, dict) or not isinstance(sch.get("required"), list):
+            continue
+        props = sch.get("properties", {})
+        sch["required"] = [field for field in minimal if field in props]
+
+
+def relax_open_enums(spec):
+    """Drop closed enums on fields the API extends with new values over time.
+
+    Several string enums in the spec are effectively open-ended and lag the
+    live API, so a value the spec has not caught up to fails deserialization
+    and the whole collection comes back empty:
+
+    * availability zones (``ru-1``/``pl-1``/``nl-1``/``de-1``/...) — the shared
+      ``Location``/``location`` schemas plus ~17 inline copies;
+    * database engines (``mysql``/``postgres17``/``postgres18``/...);
+    * floating-ip ``resource_type`` (``server``/``balancer``/``database``/
+      ``network`` — the API also returns ``dbaas``).
+
+    Strip the enum (keeping ``type: string``) wherever one of these appears, so
+    any present or future value deserializes as a plain string. Detected by a
+    distinctive member so unrelated enums (statuses, etc.) are left intact.
+    """
+    resource_kinds = {"server", "balancer", "database", "network"}
+
+    def is_open(values):
+        members = set(values)
+        return (
+            "ru-1" in members
+            or "postgres14" in members
+            or members == resource_kinds
+        )
+
+    def walk(node):
+        if isinstance(node, dict):
+            enum = node.get("enum")
+            if isinstance(enum, list) and is_open(enum):
+                node.pop("enum", None)
+                node.setdefault("type", "string")
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
+def nullable_vpc_optional_fields(spec):
+    """Mark VPC string fields nullable that the live API returns as ``null``.
+
+    The ``vpc`` schema types ``description`` and ``public_ip`` as required
+    strings, but ``GET /api/v2/vpcs`` returns ``null`` for them, failing with
+    "invalid type: null, expected a string". Mark them nullable so they map to
+    ``Option<String>`` instead.
+    """
+    vpc = spec.get("components", {}).get("schemas", {}).get("vpc")
+    if not isinstance(vpc, dict):
+        return
+    props = vpc.get("properties", {})
+    for name in ("description", "public_ip"):
+        field = props.get(name)
+        if isinstance(field, dict) and "$ref" not in field:
+            field["nullable"] = True
+
+
+def integer_id_fields(spec):
+    """Type identifier fields as integers instead of floats.
+
+    The upstream spec types numeric ids (``id`` and ``*_id``) as ``number``,
+    so the generated Rust model uses ``f64`` and JSON output renders them as
+    floats (e.g. ``1873345.0``). Retype id-like ``number`` fields to
+    ``integer`` (``int64``) so ids serialize and display as integers. Genuine
+    decimals (``balance``, ``*_cost``, ...) are left untouched because their
+    names do not match.
+    """
+
+    def walk(node):
+        if isinstance(node, dict):
+            props = node.get("properties")
+            if isinstance(props, dict):
+                for name, schema in props.items():
+                    is_id = name == "id" or name.endswith("_id")
+                    if is_id and isinstance(schema, dict) and schema.get("type") == "number":
+                        schema["type"] = "integer"
+                        schema["format"] = "int64"
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
     localize_tags(spec)
     nullable_response_id(spec)
+    add_undocumented_account_status_fields(spec)
+    rename_mismatched_properties(spec)
+    relax_overstrict_required(spec)
+    relax_open_enums(spec)
+    nullable_vpc_optional_fields(spec)
+    integer_id_fields(spec)
     return spec
 
 

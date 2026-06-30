@@ -16,7 +16,7 @@ use crate::models;
 pub struct NetworkDrivePreset {
     /// ID тарифа.
     #[serde(rename = "id")]
-    pub id:          f64,
+    pub id:          i64,
     /// Стоимость тарифа сетевого диска.
     #[serde(rename = "cost_per_gb")]
     pub cost_per_gb: f64,
@@ -40,7 +40,7 @@ pub struct NetworkDrivePreset {
 
 impl NetworkDrivePreset {
     pub fn new(
-        id: f64,
+        id: i64,
         cost_per_gb: f64,
         min: f64,
         max: f64,

@@ -25,13 +25,13 @@ pub struct Vpc {
     pub subnet_v4:         String,
     /// Локация сети.
     #[serde(rename = "location")]
-    pub location:          Location,
+    pub location:          String,
     /// Дата создания сети.
     #[serde(rename = "created_at")]
     pub created_at:        chrono::DateTime<chrono::FixedOffset>,
     /// Описание.
-    #[serde(rename = "description")]
-    pub description:       String,
+    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    pub description:       Option<String>,
     #[serde(rename = "availability_zone")]
     pub availability_zone: models::AvailabilityZone,
     /// Публичный IP-адрес сети.
@@ -50,9 +50,9 @@ impl Vpc {
         id: String,
         name: String,
         subnet_v4: String,
-        location: Location,
+        location: String,
         created_at: chrono::DateTime<chrono::FixedOffset>,
-        description: String,
+        description: Option<String>,
         availability_zone: models::AvailabilityZone,
         public_ip: Option<String>,
         r#type: Type,
@@ -70,24 +70,6 @@ impl Vpc {
             r#type,
             busy_address
         }
-    }
-}
-/// Локация сети.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "nl-1")]
-    Nl1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип сети.

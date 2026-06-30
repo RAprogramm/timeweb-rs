@@ -16,7 +16,7 @@ use crate::models;
 pub struct PresetsBalancer {
     /// ID для каждого экземпляра тарифа базы данных.
     #[serde(rename = "id")]
-    pub id:                 f64,
+    pub id:                 i64,
     /// Описание тарифа.
     #[serde(rename = "description")]
     pub description:        String,
@@ -37,19 +37,19 @@ pub struct PresetsBalancer {
     pub price:              f64,
     /// Географическое расположение тарифа.
     #[serde(rename = "location")]
-    pub location:           Location
+    pub location:           String
 }
 
 impl PresetsBalancer {
     pub fn new(
-        id: f64,
+        id: i64,
         description: String,
         description_short: String,
         bandwidth: f64,
         replica_count: f64,
         request_per_second: String,
         price: f64,
-        location: Location
+        location: String
     ) -> PresetsBalancer {
         PresetsBalancer {
             id,
@@ -61,21 +61,5 @@ impl PresetsBalancer {
             price,
             location
         }
-    }
-}
-/// Географическое расположение тарифа.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

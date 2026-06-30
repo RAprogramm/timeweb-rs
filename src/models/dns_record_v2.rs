@@ -25,7 +25,7 @@ pub struct DnsRecordV2 {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub id:     Option<Option<f64>>,
+    pub id:     Option<Option<i64>>,
     /// Полное имя основного домена.
     #[serde(rename = "fqdn", skip_serializing_if = "Option::is_none")]
     pub fqdn:   Option<String>,

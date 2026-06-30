@@ -77,7 +77,7 @@ pub struct CreateBalancer {
     pub httprequest_timeout: Option<f64>,
     /// ID тарифа.
     #[serde(rename = "preset_id")]
-    pub preset_id:           f64,
+    pub preset_id:           i64,
     #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
     pub network:             Option<Box<models::Network>>,
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
@@ -104,7 +104,7 @@ impl CreateBalancer {
         timeout: f64,
         fall: f64,
         rise: f64,
-        preset_id: f64
+        preset_id: i64
     ) -> CreateBalancer {
         CreateBalancer {
             name,

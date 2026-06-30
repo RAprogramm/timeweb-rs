@@ -28,14 +28,14 @@ pub struct ImageInApi {
     pub upload_url:  Option<String>,
     /// Локация, в которой будет создан образ.
     #[serde(rename = "location")]
-    pub location:    models::Location,
+    pub location:    String,
     /// Операционная система образа.
     #[serde(rename = "os")]
     pub os:          models::Os
 }
 
 impl ImageInApi {
-    pub fn new(location: models::Location, os: models::Os) -> ImageInApi {
+    pub fn new(location: String, os: models::Os) -> ImageInApi {
         ImageInApi {
             name: None,
             description: None,

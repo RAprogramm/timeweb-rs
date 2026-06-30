@@ -17,7 +17,7 @@ use crate::models;
 pub struct Agent {
     /// Уникальный идентификатор агента
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Название агента
     #[serde(rename = "name")]
     pub name: String,
@@ -26,10 +26,10 @@ pub struct Agent {
     pub description: String,
     /// ID модели
     #[serde(rename = "model_id")]
-    pub model_id: f64,
+    pub model_id: i64,
     /// ID провайдера
     #[serde(rename = "provider_id")]
-    pub provider_id: f64,
+    pub provider_id: i64,
     #[serde(rename = "settings")]
     pub settings: Box<models::AgentSettings>,
     /// Статус агента
@@ -49,7 +49,7 @@ pub struct Agent {
     pub remaining_tokens: f64,
     /// ID пакета токенов
     #[serde(rename = "token_package_id")]
-    pub token_package_id: f64,
+    pub token_package_id: i64,
     /// Дата обновления подписки
     #[serde(rename = "subscription_renewal_date")]
     pub subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
@@ -58,7 +58,7 @@ pub struct Agent {
     pub knowledge_bases_ids: Vec<f64>,
     /// ID доступа
     #[serde(rename = "access_id")]
-    pub access_id: f64,
+    pub access_id: i64,
     /// Дата создания агента
     #[serde(rename = "created_at")]
     pub created_at: chrono::DateTime<chrono::FixedOffset>
@@ -67,21 +67,21 @@ pub struct Agent {
 impl Agent {
     /// AI Agent
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
         description: String,
-        model_id: f64,
-        provider_id: f64,
+        model_id: i64,
+        provider_id: i64,
         settings: models::AgentSettings,
         status: Status,
         access_type: AccessType,
         total_tokens: f64,
         used_tokens: f64,
         remaining_tokens: f64,
-        token_package_id: f64,
+        token_package_id: i64,
         subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
         knowledge_bases_ids: Vec<f64>,
-        access_id: f64,
+        access_id: i64,
         created_at: chrono::DateTime<chrono::FixedOffset>
     ) -> Agent {
         Agent {

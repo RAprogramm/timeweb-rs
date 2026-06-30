@@ -18,146 +18,141 @@ pub struct App {
     /// ID для каждого экземпляра приложения. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id:             f64,
+    pub id:             i64,
     /// Тип приложения.
-    #[serde(rename = "type")]
-    pub r#type:         Type,
+    #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
+    pub r#type:         Option<Type>,
     /// Удобочитаемое имя, установленное для приложения.
     #[serde(rename = "name")]
     pub name:           String,
     /// Статус приложения.
     #[serde(rename = "status")]
     pub status:         Status,
-    #[serde(rename = "provider")]
-    pub provider:       Box<models::AppProvider>,
+    #[serde(rename = "provider", skip_serializing_if = "Option::is_none")]
+    pub provider:       Option<Box<models::AppProvider>>,
     /// IPv4-адрес приложения.
-    #[serde(rename = "ip")]
-    pub ip:             String,
-    #[serde(rename = "domains")]
-    pub domains:        Vec<models::AppDomainsInner>,
-    #[serde(rename = "framework")]
-    pub framework:      Box<models::Frameworks>,
+    #[serde(rename = "ip", skip_serializing_if = "Option::is_none")]
+    pub ip:             Option<String>,
+    #[serde(rename = "domains", skip_serializing_if = "Option::is_none")]
+    pub domains:        Option<Vec<models::AppDomainsInner>>,
+    #[serde(rename = "framework", skip_serializing_if = "Option::is_none")]
+    pub framework:      Option<Box<models::Frameworks>>,
     /// Локация сервера.
-    #[serde(rename = "location")]
-    pub location:       Location,
-    #[serde(rename = "repository")]
-    pub repository:     Box<models::Repository>,
+    #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
+    pub location:       Option<String>,
+    #[serde(rename = "repository", skip_serializing_if = "Option::is_none")]
+    pub repository:     Option<Box<models::Repository>>,
     /// Версия окружения.
-    #[serde(rename = "env_version", deserialize_with = "Option::deserialize")]
-    pub env_version:    Option<String>,
+    #[serde(
+        rename = "env_version",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub env_version:    Option<Option<String>>,
     /// Переменные окружения приложения. Объект с ключами и значениями типа
     /// string.
-    #[serde(rename = "envs")]
-    pub envs:           serde_json::Value,
+    #[serde(rename = "envs", skip_serializing_if = "Option::is_none")]
+    pub envs:           Option<serde_json::Value>,
     /// Название ветки репозитория из которой собрано приложение.
-    #[serde(rename = "branch_name")]
-    pub branch_name:    String,
+    #[serde(rename = "branch_name", skip_serializing_if = "Option::is_none")]
+    pub branch_name:    Option<String>,
     /// Включен ли автоматический деплой.
-    #[serde(rename = "is_auto_deploy")]
-    pub is_auto_deploy: bool,
+    #[serde(rename = "is_auto_deploy", skip_serializing_if = "Option::is_none")]
+    pub is_auto_deploy: Option<bool>,
     /// Хэш коммита из которого собрано приложеие.
-    #[serde(rename = "commit_sha")]
-    pub commit_sha:     String,
+    #[serde(rename = "commit_sha", skip_serializing_if = "Option::is_none")]
+    pub commit_sha:     Option<String>,
     /// Комментарий к приложению.
-    #[serde(rename = "comment")]
-    pub comment:        String,
+    #[serde(rename = "comment", skip_serializing_if = "Option::is_none")]
+    pub comment:        Option<String>,
     /// ID тарифа.
-    #[serde(rename = "preset_id")]
-    pub preset_id:      f64,
+    #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
+    pub preset_id:      Option<i64>,
     /// Путь к директории с индексным файлом. Определен для приложений `type:
     /// frontend`. Для приложений `type: backend` всегда null.
-    #[serde(rename = "index_dir", deserialize_with = "Option::deserialize")]
-    pub index_dir:      Option<String>,
+    #[serde(
+        rename = "index_dir",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub index_dir:      Option<Option<String>>,
     /// Команда сборки приложения.
-    #[serde(rename = "build_cmd")]
-    pub build_cmd:      String,
+    #[serde(rename = "build_cmd", skip_serializing_if = "Option::is_none")]
+    pub build_cmd:      Option<String>,
     /// Ссылка на аватар приложения.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
-    pub avatar_link:    Option<String>,
+    #[serde(
+        rename = "avatar_link",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub avatar_link:    Option<Option<String>>,
     /// Команда для запуска приложения. Определена для приложений `type:
     /// backend`. Для приложений `type: frontend` всегда null.
-    #[serde(rename = "run_cmd", deserialize_with = "Option::deserialize")]
-    pub run_cmd:        Option<String>,
-    #[serde(rename = "configuration", deserialize_with = "Option::deserialize")]
-    pub configuration:  Option<Box<models::AppConfiguration>>,
-    #[serde(rename = "disk_status", deserialize_with = "Option::deserialize")]
-    pub disk_status:    Option<Box<models::AppDiskStatus>>,
+    #[serde(
+        rename = "run_cmd",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub run_cmd:        Option<Option<String>>,
+    #[serde(
+        rename = "configuration",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub configuration:  Option<Option<Box<models::AppConfiguration>>>,
+    #[serde(
+        rename = "disk_status",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub disk_status:    Option<Option<Box<models::AppDiskStatus>>>,
     /// Включен ли агент QEMU.
-    #[serde(rename = "is_qemu_agent")]
-    pub is_qemu_agent:  bool,
+    #[serde(rename = "is_qemu_agent", skip_serializing_if = "Option::is_none")]
+    pub is_qemu_agent:  Option<bool>,
     /// Язык программирования приложения.
-    #[serde(rename = "language")]
-    pub language:       String,
+    #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
+    pub language:       Option<String>,
     /// Время запуска приложения.
-    #[serde(rename = "start_time")]
-    pub start_time:     chrono::DateTime<chrono::FixedOffset>
+    #[serde(rename = "start_time", skip_serializing_if = "Option::is_none")]
+    pub start_time:     Option<chrono::DateTime<chrono::FixedOffset>>
 }
 
 impl App {
     /// Экземпляр приложения.
-    pub fn new(
-        id: f64,
-        r#type: Type,
-        name: String,
-        status: Status,
-        provider: models::AppProvider,
-        ip: String,
-        domains: Vec<models::AppDomainsInner>,
-        framework: models::Frameworks,
-        location: Location,
-        repository: models::Repository,
-        env_version: Option<String>,
-        envs: serde_json::Value,
-        branch_name: String,
-        is_auto_deploy: bool,
-        commit_sha: String,
-        comment: String,
-        preset_id: f64,
-        index_dir: Option<String>,
-        build_cmd: String,
-        avatar_link: Option<String>,
-        run_cmd: Option<String>,
-        configuration: Option<models::AppConfiguration>,
-        disk_status: Option<models::AppDiskStatus>,
-        is_qemu_agent: bool,
-        language: String,
-        start_time: chrono::DateTime<chrono::FixedOffset>
-    ) -> App {
+    pub fn new(id: i64, name: String, status: Status) -> App {
         App {
             id,
-            r#type,
+            r#type: None,
             name,
             status,
-            provider: Box::new(provider),
-            ip,
-            domains,
-            framework: Box::new(framework),
-            location,
-            repository: Box::new(repository),
-            env_version,
-            envs,
-            branch_name,
-            is_auto_deploy,
-            commit_sha,
-            comment,
-            preset_id,
-            index_dir,
-            build_cmd,
-            avatar_link,
-            run_cmd,
-            configuration: if let Some(x) = configuration {
-                Some(Box::new(x))
-            } else {
-                None
-            },
-            disk_status: if let Some(x) = disk_status {
-                Some(Box::new(x))
-            } else {
-                None
-            },
-            is_qemu_agent,
-            language,
-            start_time
+            provider: None,
+            ip: None,
+            domains: None,
+            framework: None,
+            location: None,
+            repository: None,
+            env_version: None,
+            envs: None,
+            branch_name: None,
+            is_auto_deploy: None,
+            commit_sha: None,
+            comment: None,
+            preset_id: None,
+            index_dir: None,
+            build_cmd: None,
+            avatar_link: None,
+            run_cmd: None,
+            configuration: None,
+            disk_status: None,
+            is_qemu_agent: None,
+            language: None,
+            start_time: None
         }
     }
 }
@@ -199,21 +194,5 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::Active
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "nl-1")]
-    Nl1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

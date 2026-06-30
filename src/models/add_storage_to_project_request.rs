@@ -16,11 +16,11 @@ use crate::models;
 pub struct AddStorageToProjectRequest {
     /// ID добавляемого хранилища.
     #[serde(rename = "resource_id")]
-    pub resource_id: f64
+    pub resource_id: i64
 }
 
 impl AddStorageToProjectRequest {
-    pub fn new(resource_id: f64) -> AddStorageToProjectRequest {
+    pub fn new(resource_id: i64) -> AddStorageToProjectRequest {
         AddStorageToProjectRequest {
             resource_id
         }

@@ -18,7 +18,7 @@ pub struct Db {
     /// ID для каждого экземпляра базы данных. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда была создана база данных.
     #[serde(rename = "created_at")]
@@ -31,7 +31,7 @@ pub struct Db {
     pub login: String,
     /// Локация сервера.
     #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location: Option<Location>,
+    pub location: Option<String>,
     /// Пароль для подключения к базе данных.
     #[serde(rename = "password")]
     pub password: String,
@@ -41,8 +41,9 @@ pub struct Db {
     /// Хост.
     #[serde(rename = "host", deserialize_with = "Option::deserialize")]
     pub host: Option<String>,
+    /// Тип базы данных.
     #[serde(rename = "type")]
-    pub r#type: models::DbType,
+    pub r#type: String,
     /// Тип хеширования базы данных (mysql5 | mysql | postgres).
     #[serde(rename = "hash_type", deserialize_with = "Option::deserialize")]
     pub hash_type: Option<HashType>,
@@ -76,14 +77,14 @@ pub struct Db {
 impl Db {
     /// База данных
     pub fn new(
-        id: f64,
+        id: i64,
         created_at: String,
         account_id: String,
         login: String,
         password: String,
         name: String,
         host: Option<String>,
-        r#type: models::DbType,
+        r#type: String,
         hash_type: Option<HashType>,
         port: i32,
         ip: Option<String>,
@@ -120,24 +121,6 @@ impl Db {
             is_only_local_ip_access,
             availability_zone
         }
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип хеширования базы данных (mysql5 | mysql | postgres).

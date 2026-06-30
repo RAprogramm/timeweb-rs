@@ -24,17 +24,17 @@ pub struct CreateServer {
     /// ID операционной системы, которая будет установлена на облачный сервер.
     /// Нельзя передавать вместе с `image_id`.
     #[serde(rename = "os_id", skip_serializing_if = "Option::is_none")]
-    pub os_id:             Option<f64>,
+    pub os_id:             Option<i64>,
     /// ID образа, который будет установлен на облачный сервер. Нельзя
     /// передавать вместе с `os_id`.
     #[serde(rename = "image_id", skip_serializing_if = "Option::is_none")]
     pub image_id:          Option<uuid::Uuid>,
     /// ID программного обеспечения сервера.
     #[serde(rename = "software_id", skip_serializing_if = "Option::is_none")]
-    pub software_id:       Option<f64>,
+    pub software_id:       Option<i64>,
     /// ID тарифа сервера. Нельзя передавать вместе с ключом `configurator`.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:         Option<f64>,
+    pub preset_id:         Option<i64>,
     /// Пропускная способность тарифа. Доступные значения от 100 до 1000 с шагом
     /// 100.
     #[serde(rename = "bandwidth", skip_serializing_if = "Option::is_none")]
@@ -63,7 +63,7 @@ pub struct CreateServer {
     pub availability_zone: Option<models::AvailabilityZone>,
     /// ID проекта.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:        Option<f64>,
+    pub project_id:        Option<i64>,
     /// Сетевое имя сервера
     #[serde(rename = "hostname", skip_serializing_if = "Option::is_none")]
     pub hostname:          Option<String>

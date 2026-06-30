@@ -47,7 +47,7 @@ pub struct CreateApp {
     pub comment:             String,
     /// ID тарифа.
     #[serde(rename = "preset_id")]
-    pub preset_id:           f64,
+    pub preset_id:           i64,
     /// Версия окружения.
     #[serde(rename = "env_version", skip_serializing_if = "Option::is_none")]
     pub env_version:         Option<String>,
@@ -70,7 +70,7 @@ pub struct CreateApp {
     pub system_dependencies: Option<Vec<String>>,
     /// ID проекта.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:          Option<f64>
+    pub project_id:          Option<i64>
 }
 
 impl CreateApp {
@@ -84,7 +84,7 @@ impl CreateApp {
         commit_sha: String,
         name: String,
         comment: String,
-        preset_id: f64,
+        preset_id: i64,
         framework: models::Frameworks
     ) -> CreateApp {
         CreateApp {

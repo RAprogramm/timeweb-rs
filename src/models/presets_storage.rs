@@ -17,7 +17,7 @@ use crate::models;
 pub struct PresetsStorage {
     /// ID для каждого экземпляра тарифа хранилища.
     #[serde(rename = "id")]
-    pub id:                f64,
+    pub id:                i64,
     /// Описание тарифа.
     #[serde(rename = "description")]
     pub description:       String,
@@ -32,7 +32,7 @@ pub struct PresetsStorage {
     pub price:             f64,
     /// Географическое расположение тарифа.
     #[serde(rename = "location")]
-    pub location:          Location,
+    pub location:          String,
     /// Теги тарифа.
     #[serde(rename = "tags")]
     pub tags:              Vec<String>,
@@ -44,12 +44,12 @@ pub struct PresetsStorage {
 impl PresetsStorage {
     /// Тариф
     pub fn new(
-        id: f64,
+        id: i64,
         description: String,
         description_short: String,
         disk: f64,
         price: f64,
-        location: Location,
+        location: String,
         tags: Vec<String>,
         storage_class: StorageClass
     ) -> PresetsStorage {
@@ -63,18 +63,6 @@ impl PresetsStorage {
             tags,
             storage_class
         }
-    }
-}
-/// Географическое расположение тарифа.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Класс хранилища.

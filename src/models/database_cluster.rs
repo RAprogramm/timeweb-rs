@@ -18,22 +18,23 @@ pub struct DatabaseCluster {
     /// ID для каждого экземпляра базы данных. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда была создана база данных.
     #[serde(rename = "created_at")]
     pub created_at: String,
     /// Локация сервера.
     #[serde(rename = "location", deserialize_with = "Option::deserialize")]
-    pub location: Option<Location>,
+    pub location: Option<String>,
     /// Название кластера базы данных.
     #[serde(rename = "name")]
     pub name: String,
     /// Список сетей кластера базы данных.
     #[serde(rename = "networks")]
     pub networks: Vec<models::DatabaseClusterNetworksInner>,
+    /// Тип базы данных.
     #[serde(rename = "type")]
-    pub r#type: models::DbType,
+    pub r#type: String,
     /// Тип хеширования кластера базы данных (mysql5 | mysql | postgres).
     #[serde(rename = "hash_type", deserialize_with = "Option::deserialize")]
     pub hash_type: Option<HashType>,
@@ -66,12 +67,12 @@ pub struct DatabaseCluster {
 impl DatabaseCluster {
     /// Кластер базы данных
     pub fn new(
-        id: f64,
+        id: i64,
         created_at: String,
-        location: Option<Location>,
+        location: Option<String>,
         name: String,
         networks: Vec<models::DatabaseClusterNetworksInner>,
-        r#type: models::DbType,
+        r#type: String,
         hash_type: Option<HashType>,
         avatar_link: Option<String>,
         port: Option<i32>,
@@ -96,24 +97,6 @@ impl DatabaseCluster {
             config_parameters: Box::new(config_parameters),
             is_enabled_public_network
         }
-    }
-}
-/// Локация сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-3")]
-    Ru3,
-    #[serde(rename = "nl-1")]
-    Nl1,
-    #[serde(rename = "de-1")]
-    De1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип хеширования кластера базы данных (mysql5 | mysql | postgres).

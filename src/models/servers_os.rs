@@ -16,7 +16,7 @@ use crate::models;
 pub struct ServersOs {
     /// ID операционной системы.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id:               Option<f64>,
+    pub id:               Option<i64>,
     /// Семейство операционной системы.
     #[serde(rename = "family", skip_serializing_if = "Option::is_none")]
     pub family:           Option<String>,

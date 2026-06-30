@@ -17,7 +17,7 @@ use crate::models;
 pub struct ServerLog {
     /// ID диска.
     #[serde(rename = "id")]
-    pub id:        f64,
+    pub id:        i64,
     /// Дата лога.
     #[serde(rename = "logged_at")]
     pub logged_at: chrono::DateTime<chrono::FixedOffset>,
@@ -29,7 +29,7 @@ pub struct ServerLog {
 impl ServerLog {
     /// Лог сервера
     pub fn new(
-        id: f64,
+        id: i64,
         logged_at: chrono::DateTime<chrono::FixedOffset>,
         event: String
     ) -> ServerLog {

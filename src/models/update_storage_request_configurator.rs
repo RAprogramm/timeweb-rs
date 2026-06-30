@@ -20,7 +20,7 @@ pub struct UpdateStorageRequestConfigurator {
     pub disk: Option<f64>,
     /// ID конфигуратора хранилища.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id:   Option<f64>
+    pub id:   Option<i64>
 }
 
 impl UpdateStorageRequestConfigurator {

@@ -25,12 +25,12 @@ pub struct CreateStorageRequest {
     pub r#type:       Type,
     /// ID тарифа. Нельзя передавать вместе с `configurator`.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:    Option<f64>,
+    pub preset_id:    Option<i64>,
     #[serde(rename = "configurator", skip_serializing_if = "Option::is_none")]
     pub configurator: Option<Box<models::CreateStorageRequestConfigurator>>,
     /// ID проекта.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:   Option<f64>
+    pub project_id:   Option<i64>
 }
 
 impl CreateStorageRequest {

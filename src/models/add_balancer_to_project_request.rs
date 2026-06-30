@@ -16,11 +16,11 @@ use crate::models;
 pub struct AddBalancerToProjectRequest {
     /// ID добавляемого балансировщика.
     #[serde(rename = "resource_id")]
-    pub resource_id: f64
+    pub resource_id: i64
 }
 
 impl AddBalancerToProjectRequest {
-    pub fn new(resource_id: f64) -> AddBalancerToProjectRequest {
+    pub fn new(resource_id: i64) -> AddBalancerToProjectRequest {
         AddBalancerToProjectRequest {
             resource_id
         }

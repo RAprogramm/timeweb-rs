@@ -32,7 +32,7 @@ pub struct ServicePrice {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub project_id:    Option<Option<f64>>,
+    pub project_id:    Option<Option<i64>>,
     /// Список вложенных сервисов
     #[serde(rename = "services", skip_serializing_if = "Option::is_none")]
     pub services:      Option<Vec<models::ServiceServicePrice>>,

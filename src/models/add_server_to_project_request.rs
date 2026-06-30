@@ -16,11 +16,11 @@ use crate::models;
 pub struct AddServerToProjectRequest {
     /// ID добавляемого сервера.
     #[serde(rename = "resource_id")]
-    pub resource_id: f64
+    pub resource_id: i64
 }
 
 impl AddServerToProjectRequest {
-    pub fn new(resource_id: f64) -> AddServerToProjectRequest {
+    pub fn new(resource_id: i64) -> AddServerToProjectRequest {
         AddServerToProjectRequest {
             resource_id
         }

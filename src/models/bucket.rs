@@ -18,7 +18,7 @@ pub struct Bucket {
     /// ID для каждого экземпляра хранилища. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id:                     f64,
+    pub id:                     i64,
     /// Удобочитаемое имя, установленное для хранилища.
     #[serde(rename = "name")]
     pub name:                   String,
@@ -32,10 +32,10 @@ pub struct Bucket {
     pub r#type:                 Type,
     /// ID тарифа хранилища.
     #[serde(rename = "preset_id", deserialize_with = "Option::deserialize")]
-    pub preset_id:              Option<f64>,
+    pub preset_id:              Option<i64>,
     /// ID конфигуратора хранилища.
     #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
-    pub configurator_id:        Option<f64>,
+    pub configurator_id:        Option<i64>,
     /// Ссылка на аватар хранилища.
     #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
     pub avatar_link:            Option<String>,
@@ -68,10 +68,10 @@ pub struct Bucket {
     pub storage_class:          StorageClass,
     /// ID проекта.
     #[serde(rename = "project_id")]
-    pub project_id:             f64,
+    pub project_id:             i64,
     /// ID тарифа.
     #[serde(rename = "rate_id")]
-    pub rate_id:                f64,
+    pub rate_id:                i64,
     #[serde(rename = "website_config", deserialize_with = "Option::deserialize")]
     pub website_config:         Option<Box<models::BucketWebsiteConfig>>,
     /// Разрешено ли автоматическое повышение тарифа.
@@ -82,13 +82,13 @@ pub struct Bucket {
 impl Bucket {
     /// Хранилище S3
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
         description: String,
         disk_stats: models::BucketDiskStats,
         r#type: Type,
-        preset_id: Option<f64>,
-        configurator_id: Option<f64>,
+        preset_id: Option<i64>,
+        configurator_id: Option<i64>,
         avatar_link: Option<String>,
         status: Status,
         object_amount: f64,
@@ -98,8 +98,8 @@ impl Bucket {
         secret_key: String,
         moved_in_quarantine_at: Option<chrono::DateTime<chrono::FixedOffset>>,
         storage_class: StorageClass,
-        project_id: f64,
-        rate_id: f64,
+        project_id: i64,
+        rate_id: i64,
         website_config: Option<models::BucketWebsiteConfig>,
         is_allow_auto_upgrade: bool
     ) -> Bucket {

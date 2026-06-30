@@ -18,7 +18,7 @@ pub struct Clusterk8s {
     /// ID для каждого экземпляра кластера. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id:             f64,
+    pub id:             i64,
     /// Удобочитаемое имя, установленное для кластера.
     #[serde(rename = "name")]
     pub name:           String,
@@ -55,13 +55,13 @@ pub struct Clusterk8s {
     pub disk:           f64,
     /// Тип сервиса кластера.
     #[serde(rename = "preset_id")]
-    pub preset_id:      f64
+    pub preset_id:      i64
 }
 
 impl Clusterk8s {
     /// Кластер
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
         created_at: chrono::DateTime<chrono::FixedOffset>,
         status: Status,
@@ -73,7 +73,7 @@ impl Clusterk8s {
         cpu: f64,
         ram: f64,
         disk: f64,
-        preset_id: f64
+        preset_id: i64
     ) -> Clusterk8s {
         Clusterk8s {
             id,

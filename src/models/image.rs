@@ -45,7 +45,7 @@ pub struct Image {
     pub disk_id:      i32,
     /// Локация образа.
     #[serde(rename = "location")]
-    pub location:     Location,
+    pub location:     String,
     /// Операционная система образа.
     #[serde(rename = "os")]
     pub os:           models::Os,
@@ -71,7 +71,7 @@ impl Image {
         name: String,
         description: String,
         disk_id: i32,
-        location: Location,
+        location: String,
         os: models::Os,
         progress: i32,
         is_custom: bool,
@@ -93,26 +93,6 @@ impl Image {
             is_custom,
             r#type
         }
-    }
-}
-/// Локация образа.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1,
-    #[serde(rename = "nl-1")]
-    Nl1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
 /// Тип образа.

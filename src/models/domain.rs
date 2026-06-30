@@ -33,7 +33,7 @@ pub struct Domain {
     pub fqdn: String,
     /// ID домена.
     #[serde(rename = "id")]
-    pub id: f64,
+    pub id: i64,
     /// Ссылка на аватар домена.
     #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
     pub avatar_link: Option<String>,
@@ -72,7 +72,7 @@ pub struct Domain {
     pub paid_till: Option<String>,
     /// ID администратора, на которого зарегистрирован домен.
     #[serde(rename = "person_id", deserialize_with = "Option::deserialize")]
-    pub person_id: Option<f64>,
+    pub person_id: Option<i64>,
     /// Стоимость премиального домена.
     #[serde(
         rename = "premium_prolong_cost",
@@ -90,7 +90,7 @@ pub struct Domain {
     pub subdomains: Vec<models::Subdomain>,
     /// ID доменной зоны.
     #[serde(rename = "tld_id", deserialize_with = "Option::deserialize")]
-    pub tld_id: Option<f64>
+    pub tld_id: Option<i64>
 }
 
 impl Domain {
@@ -101,7 +101,7 @@ impl Domain {
         domain_status: DomainStatus,
         expiration: String,
         fqdn: String,
-        id: f64,
+        id: i64,
         avatar_link: Option<String>,
         is_autoprolong_enabled: Option<bool>,
         is_premium: bool,
@@ -110,12 +110,12 @@ impl Domain {
         is_whois_privacy_enabled: Option<bool>,
         linked_ip: Option<String>,
         paid_till: Option<String>,
-        person_id: Option<f64>,
+        person_id: Option<i64>,
         premium_prolong_cost: Option<f64>,
         provider: Option<String>,
         request_status: Option<RequestStatus>,
         subdomains: Vec<models::Subdomain>,
-        tld_id: Option<f64>
+        tld_id: Option<i64>
     ) -> Domain {
         Domain {
             allowed_buy_periods,

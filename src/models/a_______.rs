@@ -26,7 +26,7 @@ pub struct A {
     /// Идентификатор приложения в App Platform, к которому будет привязан домен
     /// или поддомен.
     #[serde(rename = "app_id", skip_serializing_if = "Option::is_none")]
-    pub app_id: Option<f64>
+    pub app_id: Option<i64>
 }
 
 impl A {

@@ -16,7 +16,7 @@ use crate::models;
 pub struct PresetsDbs {
     /// ID для каждого экземпляра тарифа базы данных.
     #[serde(rename = "id", skip_serializing_if = "Option::is_none")]
-    pub id:                Option<f64>,
+    pub id:                Option<i64>,
     /// Описание тарифа.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:       Option<String>,
@@ -32,14 +32,15 @@ pub struct PresetsDbs {
     /// Описание диска тарифа.
     #[serde(rename = "disk", skip_serializing_if = "Option::is_none")]
     pub disk:              Option<f64>,
+    /// Тип базы данных.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type:            Option<models::DbType>,
+    pub r#type:            Option<String>,
     /// Стоимость тарифа базы данных
     #[serde(rename = "price", skip_serializing_if = "Option::is_none")]
     pub price:             Option<f64>,
     /// Географическое расположение тарифа.
     #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location:          Option<Location>
+    pub location:          Option<String>
 }
 
 impl PresetsDbs {
@@ -55,21 +56,5 @@ impl PresetsDbs {
             price:             None,
             location:          None
         }
-    }
-}
-/// Географическое расположение тарифа.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "kz-1")]
-    Kz1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }

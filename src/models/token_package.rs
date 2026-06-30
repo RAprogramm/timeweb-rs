@@ -17,10 +17,10 @@ use crate::models;
 pub struct TokenPackage {
     /// Уникальный идентификатор пакета
     #[serde(rename = "id")]
-    pub id:            f64,
+    pub id:            i64,
     /// ID модели, к которой применяется пакет токенов
     #[serde(rename = "model_id")]
-    pub model_id:      f64,
+    pub model_id:      i64,
     /// Название пакета токенов
     #[serde(rename = "name")]
     pub name:          String,
@@ -53,8 +53,8 @@ pub struct TokenPackage {
 impl TokenPackage {
     /// Пакет токенов
     pub fn new(
-        id: f64,
-        model_id: f64,
+        id: i64,
+        model_id: i64,
         name: String,
         package_type: PackageType,
         r#type: Type,

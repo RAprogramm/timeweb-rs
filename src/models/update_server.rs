@@ -18,13 +18,13 @@ pub struct UpdateServer {
     pub configurator: Option<Box<models::UpdateServerConfigurator>>,
     /// ID операционной системы, которая будет установлена на облачный сервер.
     #[serde(rename = "os_id", skip_serializing_if = "Option::is_none")]
-    pub os_id:        Option<f64>,
+    pub os_id:        Option<i64>,
     /// ID программного обеспечения сервера.
     #[serde(rename = "software_id", skip_serializing_if = "Option::is_none")]
-    pub software_id:  Option<f64>,
+    pub software_id:  Option<i64>,
     /// ID тарифа сервера. Нельзя передавать вместе с ключом `configurator`.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:    Option<f64>,
+    pub preset_id:    Option<i64>,
     /// Пропускная способность тарифа. Доступные значения от 100 до 1000 с шагом
     /// 100.
     #[serde(rename = "bandwidth", skip_serializing_if = "Option::is_none")]

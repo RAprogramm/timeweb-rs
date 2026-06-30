@@ -20,7 +20,7 @@ pub struct Free {
     pub money_source: MoneySource,
     /// ID администратора, на которого зарегистрирован домен.
     #[serde(rename = "person_id", skip_serializing_if = "Option::is_none")]
-    pub person_id:    Option<f64>,
+    pub person_id:    Option<i64>,
     /// Код авторизации для переноса домена.
     #[serde(rename = "auth_code")]
     pub auth_code:    String

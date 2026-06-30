@@ -34,7 +34,20 @@ pub struct Status {
     pub last_password_changed_at: String,
     /// ID аккаунта для яндекс метрики.
     #[serde(rename = "ym_client_id", deserialize_with = "Option::deserialize")]
-    pub ym_client_id:             Option<String>
+    pub ym_client_id:             Option<String>,
+    #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
+    pub login:                    Option<String>,
+    #[serde(rename = "registered_at", skip_serializing_if = "Option::is_none")]
+    pub registered_at:            Option<String>,
+    #[serde(rename = "is_password_set", skip_serializing_if = "Option::is_none")]
+    pub is_password_set:          Option<bool>,
+    #[serde(
+        rename = "two_factor_method",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub two_factor_method:        Option<Option<String>>
 }
 
 impl Status {
@@ -53,7 +66,11 @@ impl Status {
             is_send_bill_letters,
             company_info: Box::new(company_info),
             last_password_changed_at,
-            ym_client_id
+            ym_client_id,
+            login: None,
+            registered_at: None,
+            is_password_set: None,
+            two_factor_method: None
         }
     }
 }

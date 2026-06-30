@@ -16,7 +16,7 @@ use crate::models;
 pub struct VdsDisksInner {
     /// ID диска.
     #[serde(rename = "id")]
-    pub id:          f64,
+    pub id:          i64,
     /// Размер диска (в Мб).
     #[serde(rename = "size")]
     pub size:        f64,
@@ -42,7 +42,7 @@ pub struct VdsDisksInner {
 
 impl VdsDisksInner {
     pub fn new(
-        id: f64,
+        id: i64,
         size: f64,
         used: f64,
         r#type: String,

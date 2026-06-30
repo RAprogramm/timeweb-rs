@@ -16,11 +16,11 @@ use crate::models;
 pub struct AddDatabaseToProjectRequest {
     /// ID добавляемой базы данных.
     #[serde(rename = "resource_id")]
-    pub resource_id: f64
+    pub resource_id: i64
 }
 
 impl AddDatabaseToProjectRequest {
-    pub fn new(resource_id: f64) -> AddDatabaseToProjectRequest {
+    pub fn new(resource_id: i64) -> AddDatabaseToProjectRequest {
         AddDatabaseToProjectRequest {
             resource_id
         }

@@ -16,7 +16,7 @@ use crate::models;
 pub struct SshKey {
     /// ID SSH-ключа.
     #[serde(rename = "id")]
-    pub id:         f64,
+    pub id:         i64,
     /// Название SSH-ключа.
     #[serde(rename = "name")]
     pub name:       String,
@@ -38,7 +38,7 @@ pub struct SshKey {
 
 impl SshKey {
     pub fn new(
-        id: f64,
+        id: i64,
         name: String,
         body: String,
         created_at: chrono::DateTime<chrono::FixedOffset>,

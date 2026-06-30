@@ -16,37 +16,19 @@ use crate::models;
 pub struct BindFloatingIp {
     /// Тип ресурса.
     #[serde(rename = "resource_type")]
-    pub resource_type: ResourceType,
+    pub resource_type: String,
     #[serde(rename = "resource_id")]
     pub resource_id:   Box<models::BindFloatingIpResourceId>
 }
 
 impl BindFloatingIp {
     pub fn new(
-        resource_type: ResourceType,
+        resource_type: String,
         resource_id: models::BindFloatingIpResourceId
     ) -> BindFloatingIp {
         BindFloatingIp {
             resource_type,
             resource_id: Box::new(resource_id)
         }
-    }
-}
-/// Тип ресурса.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ResourceType {
-    #[serde(rename = "server")]
-    Server,
-    #[serde(rename = "balancer")]
-    Balancer,
-    #[serde(rename = "database")]
-    Database,
-    #[serde(rename = "network")]
-    Network
-}
-
-impl Default for ResourceType {
-    fn default() -> ResourceType {
-        Self::Server
     }
 }

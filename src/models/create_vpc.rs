@@ -22,7 +22,7 @@ pub struct CreateVpc {
     pub subnet_v4:         String,
     /// Локация сети.
     #[serde(rename = "location")]
-    pub location:          Location,
+    pub location:          String,
     /// Описание.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:       Option<String>,
@@ -31,7 +31,7 @@ pub struct CreateVpc {
 }
 
 impl CreateVpc {
-    pub fn new(name: String, subnet_v4: String, location: Location) -> CreateVpc {
+    pub fn new(name: String, subnet_v4: String, location: String) -> CreateVpc {
         CreateVpc {
             name,
             subnet_v4,
@@ -39,23 +39,5 @@ impl CreateVpc {
             description: None,
             availability_zone: None
         }
-    }
-}
-/// Локация сети.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum Location {
-    #[serde(rename = "ru-1")]
-    Ru1,
-    #[serde(rename = "ru-2")]
-    Ru2,
-    #[serde(rename = "pl-1")]
-    Pl1,
-    #[serde(rename = "nl-1")]
-    Nl1
-}
-
-impl Default for Location {
-    fn default() -> Location {
-        Self::Ru1
     }
 }
