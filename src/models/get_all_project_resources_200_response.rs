@@ -28,6 +28,13 @@ pub struct GetAllProjectResources200Response {
     pub dedicated_servers: Vec<models::DedicatedServer>,
     #[serde(rename = "meta")]
     pub meta:              Box<models::Meta>,
+    #[serde(
+        rename = "apps",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub apps:              Option<Option<Vec<models::App>>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
@@ -53,6 +60,7 @@ impl GetAllProjectResources200Response {
             databases,
             dedicated_servers,
             meta: Box::new(meta),
+            apps: None,
             response_id
         }
     }

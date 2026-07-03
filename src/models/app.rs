@@ -120,7 +120,14 @@ pub struct App {
     pub language:       Option<String>,
     /// Время запуска приложения.
     #[serde(rename = "start_time", skip_serializing_if = "Option::is_none")]
-    pub start_time:     Option<chrono::DateTime<chrono::FixedOffset>>
+    pub start_time:     Option<chrono::DateTime<chrono::FixedOffset>>,
+    #[serde(
+        rename = "project_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub project_id:     Option<Option<i32>>
 }
 
 impl App {
@@ -152,7 +159,8 @@ impl App {
             disk_status: None,
             is_qemu_agent: None,
             language: None,
-            start_time: None
+            start_time: None,
+            project_id: None
         }
     }
 }
