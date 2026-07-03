@@ -198,6 +198,53 @@ def add_undocumented_account_status_fields(spec):
         props.setdefault(name, schema)
 
 
+def add_undocumented_project_resource_fields(spec):
+    """Expose project resources and app→project linkage the API returns.
+
+    The live ``GET /projects/{project_id}/resources`` returns far more
+    collections than the spec documents (verified against production):
+    ``apps``, ``agents``, ``domains``, ``knowledgebases``, ``mailboxes``,
+    ``registries``, ``cdn``, ``monitorings`` and ``routers`` alongside the six
+    documented ones. Only ``apps`` is added here — its element shape was
+    verified to match the documented ``app`` schema exactly; the other
+    collections stay untouched until their shapes can be checked against live
+    data.
+
+    Live ``app`` objects also carry a ``project_id`` the spec omits — the only
+    way to attribute an app to a project from the apps list.
+
+    Both additions are defensive (optional, nullable) so a missing field never
+    breaks deserialization. Run on every regeneration, so they survive
+    upstream spec syncs automatically.
+    """
+    app = spec.get("components", {}).get("schemas", {}).get("app")
+    if isinstance(app, dict):
+        app.setdefault("properties", {}).setdefault(
+            "project_id", {"type": "integer", "nullable": True}
+        )
+
+    path = spec.get("paths", {}).get("/api/v1/projects/{project_id}/resources", {})
+    schema = (
+        path.get("get", {})
+        .get("responses", {})
+        .get("200", {})
+        .get("content", {})
+        .get("application/json", {})
+        .get("schema", {})
+    )
+    for part in schema.get("allOf", []):
+        props = part.get("properties")
+        if isinstance(props, dict) and "servers" in props:
+            props.setdefault(
+                "apps",
+                {
+                    "type": "array",
+                    "items": {"$ref": "#/components/schemas/app"},
+                    "nullable": True,
+                },
+            )
+
+
 _RENAMED_PROPERTIES = {
     "ssh-keys": "ssh_keys",
     "knowledgebases": "knowledge_bases",
@@ -409,6 +456,7 @@ def normalize(spec):
     localize_tags(spec)
     nullable_response_id(spec)
     add_undocumented_account_status_fields(spec)
+    add_undocumented_project_resource_fields(spec)
     rename_mismatched_properties(spec)
     relax_overstrict_required(spec)
     relax_apps_preset_required(spec)
