@@ -25,10 +25,10 @@ pub struct Deploy {
     pub id:         uuid::Uuid,
     /// Время запуска деплоя.
     #[serde(rename = "started_at")]
-    pub started_at: chrono::DateTime<chrono::FixedOffset>,
+    pub started_at: String,
     /// Время окончания деплоя. Определено для завершенных деплоев
     #[serde(rename = "ended_at", deserialize_with = "Option::deserialize")]
-    pub ended_at:   Option<chrono::DateTime<chrono::FixedOffset>>,
+    pub ended_at:   Option<String>,
     #[serde(rename = "status")]
     pub status:     models::DeployStatus,
     /// Сообщение коммита.
@@ -41,8 +41,8 @@ impl Deploy {
         app_id: String,
         commit_sha: String,
         id: uuid::Uuid,
-        started_at: chrono::DateTime<chrono::FixedOffset>,
-        ended_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+        started_at: String,
+        ended_at: Option<String>,
         status: models::DeployStatus,
         commit_msg: String
     ) -> Deploy {
