@@ -450,6 +450,27 @@ def add_image_upload_body(spec):
         }
 
 
+def naive_deploy_datetimes(spec):
+    """Type deploy timestamps as plain strings.
+
+    The spec declares ``deploy.started_at``/``ended_at`` as ``format:
+    date-time`` with RFC 3339 examples, but the live API returns naive
+    timestamps without a UTC offset (e.g. ``2026-07-04T05:43:00``). The
+    generated ``chrono::DateTime<FixedOffset>`` fields then fail
+    deserialization with "premature end of input". Dropping the format yields
+    ``String`` fields that survive both shapes; ISO-ordered strings still sort
+    chronologically.
+    """
+
+    deploy = spec.get("components", {}).get("schemas", {}).get("deploy")
+    if not isinstance(deploy, dict):
+        return
+    for name in ("started_at", "ended_at"):
+        prop = deploy.get("properties", {}).get(name)
+        if isinstance(prop, dict):
+            prop.pop("format", None)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
@@ -464,6 +485,7 @@ def normalize(spec):
     nullable_vpc_optional_fields(spec)
     integer_id_fields(spec)
     add_image_upload_body(spec)
+    naive_deploy_datetimes(spec)
     return spec
 
 
