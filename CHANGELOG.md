@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.1](https://github.com/RAprogramm/timeweb-rs/compare/v0.5.0...v0.5.1) - 2026-07-05
+
+### Other
+
+- #42 fix: type deploy timestamps as strings to survive naive API datetimes ([#43](https://github.com/RAprogramm/timeweb-rs/pull/43)) ([f90bff3](https://github.com/RAprogramm/timeweb-rs/commit/f90bff3b158443eae293d91e4a75b8bd47c97a9a))
+
+
 ## [0.5.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.4.0...v0.5.0) - 2026-07-03
 
 ### Other
