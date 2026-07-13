@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.5.1...v0.6.0) - 2026-07-13
+
+### Added
+
+- **BREAKING:** Regenerate SDK from updated Timeweb API spec (#50) ([bd8a602](https://github.com/RAprogramm/timeweb-rs/commit/bd8a60241564451b98501e1d2b5534a14d5ce93b))
+
+- Gate every API area behind its own Cargo feature (#59) ([5adead7](https://github.com/RAprogramm/timeweb-rs/commit/5adead7a5ce7e306d3271f65046d3876325fb9c6))
+
+- Add retrying client, pagination stream and error envelope parsing (#57) ([74a35a3](https://github.com/RAprogramm/timeweb-rs/commit/74a35a37178432565550d5666e8297110799f4fe))
+
+
+### Testing
+
+- Generate deserialization tests from spec response examples (#55) ([da85c02](https://github.com/RAprogramm/timeweb-rs/commit/da85c028fa13ebef4b7e921a0847aff18a3906ec))
+
+
 ## [0.5.1](https://github.com/RAprogramm/timeweb-rs/compare/v0.5.0...v0.5.1) - 2026-07-05
 
 ### Other
