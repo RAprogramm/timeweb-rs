@@ -92,6 +92,10 @@ The generated code is committed. To refresh it after an upstream API update:
    ```sh
    python3 openapi/update_readme.py
    ```
+6. Regenerate the example-based deserialization tests:
+   ```sh
+   python3 openapi/generate_example_tests.py
+   ```
 
 `openapi/normalize_spec.py` is a small, documented pre-processor: it reconciles
 path parameters with their route templates (the upstream spec has a few
