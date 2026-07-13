@@ -74,6 +74,7 @@ jobs:
           cp -r /tmp/twgen/src/models src/models
           python3 openapi/update_readme.py
           python3 openapi/generate_example_tests.py
+          python3 openapi/generate_feature_gates.py
           cargo +nightly fmt
 
       - name: Verify the regenerated SDK

@@ -35,7 +35,16 @@ cargo add timeweb-rs
 The crate uses `native-tls` by default. To use `rustls` instead:
 
 ```toml
-timeweb-rs = { version = "0.1", default-features = false, features = ["rustls"] }
+timeweb-rs = { version = "0.1", default-features = false, features = ["rustls", "full"] }
+```
+
+By default every API area is compiled (the `full` feature). Each area also
+has its own feature named after its module (`servers`, `databases`,
+`kubernetes`, `dedicated-servers`, ...), so a consumer that needs one area
+can skip compiling the other ~500 generated models:
+
+```toml
+timeweb-rs = { version = "0.1", default-features = false, features = ["native-tls", "servers"] }
 ```
 
 ## Usage
@@ -121,6 +130,10 @@ The generated code is committed. To refresh it after an upstream API update:
 6. Regenerate the example-based deserialization tests:
    ```sh
    python3 openapi/generate_example_tests.py
+   ```
+7. Regenerate the per-area feature gates:
+   ```sh
+   python3 openapi/generate_feature_gates.py
    ```
 
 `openapi/normalize_spec.py` is a small, documented pre-processor: it reconciles

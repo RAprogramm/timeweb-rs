@@ -37,9 +37,34 @@ reqwest = { version = "0.13", default-features = false, features = [
 ] }
 
 [features]
-default = ["native-tls"]
+default = ["native-tls", "full"]
 native-tls = ["reqwest/native-tls"]
 rustls = ["reqwest/rustls"]
+# BEGIN generated area features — openapi/generate_feature_gates.py
+account = []
+ai-agents = []
+apps = []
+balancers = []
+container-registry = []
+databases = []
+dedicated-servers = []
+domains = []
+firewall = []
+floating-ip = []
+images = []
+knowledge-bases = []
+kubernetes = []
+locations = []
+mail = []
+network-drives = []
+payments = []
+projects = []
+s3 = []
+servers = []
+ssh = []
+vpc = []
+full = ["account", "ai-agents", "apps", "balancers", "container-registry", "databases", "dedicated-servers", "domains", "firewall", "floating-ip", "images", "knowledge-bases", "kubernetes", "locations", "mail", "network-drives", "payments", "projects", "s3", "servers", "ssh", "vpc"]
+# END generated area features
 
 [dev-dependencies]
 futures-util = { version = "0.3", default-features = false }
