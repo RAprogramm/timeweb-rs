@@ -1,66 +1,130 @@
+#[cfg(feature = "domains")]
 pub mod a_______;
+#[cfg(feature = "domains")]
 pub use self::a_______::A;
+#[cfg(feature = "domains")]
 pub mod aaaa_______;
+#[cfg(feature = "domains")]
 pub use self::aaaa_______::Aaaa;
+#[cfg(feature = "projects")]
 pub mod add_balancer_to_project_200_response;
+#[cfg(feature = "projects")]
 pub use self::add_balancer_to_project_200_response::AddBalancerToProject200Response;
+#[cfg(feature = "projects")]
 pub mod add_balancer_to_project_request;
+#[cfg(feature = "projects")]
 pub use self::add_balancer_to_project_request::AddBalancerToProjectRequest;
+#[cfg(feature = "apps")]
 pub mod add_bitbucket;
+#[cfg(feature = "apps")]
 pub use self::add_bitbucket::AddBitbucket;
+#[cfg(feature = "projects")]
 pub mod add_cluster_to_project_request;
+#[cfg(feature = "projects")]
 pub use self::add_cluster_to_project_request::AddClusterToProjectRequest;
+#[cfg(feature = "account")]
 pub mod add_countries;
+#[cfg(feature = "account")]
 pub use self::add_countries::AddCountries;
+#[cfg(feature = "account")]
 pub mod add_countries_to_allowed_list_201_response;
+#[cfg(feature = "account")]
 pub use self::add_countries_to_allowed_list_201_response::AddCountriesToAllowedList201Response;
+#[cfg(feature = "account")]
 pub mod add_countries_to_allowed_list_request;
+#[cfg(feature = "account")]
 pub use self::add_countries_to_allowed_list_request::AddCountriesToAllowedListRequest;
+#[cfg(feature = "projects")]
 pub mod add_database_to_project_request;
+#[cfg(feature = "projects")]
 pub use self::add_database_to_project_request::AddDatabaseToProjectRequest;
+#[cfg(feature = "projects")]
 pub mod add_dedicated_server_to_project_request;
+#[cfg(feature = "projects")]
 pub use self::add_dedicated_server_to_project_request::AddDedicatedServerToProjectRequest;
+#[cfg(feature = "apps")]
 pub mod add_git;
+#[cfg(feature = "apps")]
 pub use self::add_git::AddGit;
+#[cfg(feature = "apps")]
 pub mod add_github;
+#[cfg(feature = "apps")]
 pub use self::add_github::AddGithub;
+#[cfg(feature = "apps")]
 pub mod add_gitlab;
+#[cfg(feature = "apps")]
 pub use self::add_gitlab::AddGitlab;
+#[cfg(feature = "account")]
 pub mod add_ips;
+#[cfg(feature = "account")]
 pub use self::add_ips::AddIps;
+#[cfg(feature = "account")]
 pub mod add_ips_to_allowed_list_201_response;
+#[cfg(feature = "account")]
 pub use self::add_ips_to_allowed_list_201_response::AddIpsToAllowedList201Response;
+#[cfg(feature = "account")]
 pub mod add_ips_to_allowed_list_request;
+#[cfg(feature = "account")]
 pub use self::add_ips_to_allowed_list_request::AddIpsToAllowedListRequest;
+#[cfg(feature = "balancers")]
 pub mod add_ips_to_balancer_request;
+#[cfg(feature = "balancers")]
 pub use self::add_ips_to_balancer_request::AddIpsToBalancerRequest;
+#[cfg(feature = "ssh")]
 pub mod add_key_to_server_request;
+#[cfg(feature = "ssh")]
 pub use self::add_key_to_server_request::AddKeyToServerRequest;
+#[cfg(feature = "apps")]
 pub mod add_provider_201_response;
+#[cfg(feature = "apps")]
 pub use self::add_provider_201_response::AddProvider201Response;
+#[cfg(feature = "apps")]
 pub mod add_provider_request;
+#[cfg(feature = "apps")]
 pub use self::add_provider_request::AddProviderRequest;
+#[cfg(feature = "firewall")]
 pub mod add_resource_to_group_201_response;
+#[cfg(feature = "firewall")]
 pub use self::add_resource_to_group_201_response::AddResourceToGroup201Response;
+#[cfg(feature = "servers")]
 pub mod add_server_ip_201_response;
+#[cfg(feature = "servers")]
 pub use self::add_server_ip_201_response::AddServerIp201Response;
+#[cfg(feature = "servers")]
 pub mod add_server_ip_request;
+#[cfg(feature = "servers")]
 pub use self::add_server_ip_request::AddServerIpRequest;
+#[cfg(feature = "projects")]
 pub mod add_server_to_project_request;
+#[cfg(feature = "projects")]
 pub use self::add_server_to_project_request::AddServerToProjectRequest;
+#[cfg(feature = "s3")]
 pub mod add_storage_subdomain_certificate_request;
+#[cfg(feature = "s3")]
 pub use self::add_storage_subdomain_certificate_request::AddStorageSubdomainCertificateRequest;
+#[cfg(feature = "s3")]
 pub mod add_storage_subdomains_200_response;
+#[cfg(feature = "s3")]
 pub use self::add_storage_subdomains_200_response::AddStorageSubdomains200Response;
+#[cfg(feature = "s3")]
 pub mod add_storage_subdomains_request;
+#[cfg(feature = "s3")]
 pub use self::add_storage_subdomains_request::AddStorageSubdomainsRequest;
+#[cfg(feature = "projects")]
 pub mod add_storage_to_project_request;
+#[cfg(feature = "projects")]
 pub use self::add_storage_to_project_request::AddStorageToProjectRequest;
+#[cfg(feature = "domains")]
 pub mod add_subdomain_201_response;
+#[cfg(feature = "domains")]
 pub use self::add_subdomain_201_response::AddSubdomain201Response;
+#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
 pub mod add_token_package;
+#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
 pub use self::add_token_package::AddTokenPackage;
+#[cfg(feature = "s3")]
 pub mod added_subdomain;
+#[cfg(feature = "s3")]
 pub use self::added_subdomain::AddedSubdomain;
 pub mod addon_config_out;
 pub use self::addon_config_out::AddonConfigOut;
@@ -70,23 +134,41 @@ pub mod addons_config_response;
 pub use self::addons_config_response::AddonsConfigResponse;
 pub mod addons_response;
 pub use self::addons_response::AddonsResponse;
+#[cfg(feature = "ai-agents")]
 pub mod agent;
+#[cfg(feature = "ai-agents")]
 pub use self::agent::Agent;
+#[cfg(feature = "ai-agents")]
 pub mod agent_model_settings;
+#[cfg(feature = "ai-agents")]
 pub use self::agent_model_settings::AgentModelSettings;
+#[cfg(feature = "ai-agents")]
 pub mod agent_settings;
+#[cfg(feature = "ai-agents")]
 pub use self::agent_settings::AgentSettings;
+#[cfg(feature = "ai-agents")]
 pub mod agent_settings_widget;
+#[cfg(feature = "ai-agents")]
 pub use self::agent_settings_widget::AgentSettingsWidget;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod app;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::app::App;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod app_configuration;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::app_configuration::AppConfiguration;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod app_disk_status;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::app_disk_status::AppDiskStatus;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod app_domains_inner;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::app_domains_inner::AppDomainsInner;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod app_provider;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::app_provider::AppProvider;
 pub mod apps_presets;
 pub use self::apps_presets::AppsPresets;
@@ -94,17 +176,45 @@ pub mod apps_presets_backend_presets_inner;
 pub use self::apps_presets_backend_presets_inner::AppsPresetsBackendPresetsInner;
 pub mod apps_presets_frontend_presets_inner;
 pub use self::apps_presets_frontend_presets_inner::AppsPresetsFrontendPresetsInner;
+#[cfg(any(feature = "databases", feature = "servers"))]
 pub mod auto_backup;
+#[cfg(any(feature = "databases", feature = "servers"))]
 pub use self::auto_backup::AutoBackup;
+#[cfg(feature = "mail")]
 pub mod auto_reply_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::auto_reply_is_disabled::AutoReplyIsDisabled;
+#[cfg(feature = "mail")]
 pub mod auto_reply_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::auto_reply_is_enabled::AutoReplyIsEnabled;
+#[cfg(feature = "mail")]
 pub mod autoreply_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::autoreply_is_disabled::AutoreplyIsDisabled;
+#[cfg(feature = "mail")]
 pub mod autoreply_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::autoreply_is_enabled::AutoreplyIsEnabled;
+#[cfg(any(
+    feature = "balancers",
+    feature = "databases",
+    feature = "floating-ip",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "servers",
+    feature = "vpc"
+))]
 pub mod availability_zone;
+#[cfg(any(
+    feature = "balancers",
+    feature = "databases",
+    feature = "floating-ip",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "servers",
+    feature = "vpc"
+))]
 pub use self::availability_zone::AvailabilityZone;
 pub mod available_frameworks;
 pub use self::available_frameworks::AvailableFrameworks;
@@ -112,337 +222,705 @@ pub mod available_frameworks_backend_frameworks_inner;
 pub use self::available_frameworks_backend_frameworks_inner::AvailableFrameworksBackendFrameworksInner;
 pub mod available_frameworks_frontend_frameworks_inner;
 pub use self::available_frameworks_frontend_frameworks_inner::AvailableFrameworksFrontendFrameworksInner;
+#[cfg(feature = "databases")]
 pub mod backup;
+#[cfg(feature = "databases")]
 pub use self::backup::Backup;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub mod balancer;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub use self::balancer::Balancer;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub mod balancer_networks_inner;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub use self::balancer_networks_inner::BalancerNetworksInner;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub mod balancer_networks_inner_ips_inner;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub use self::balancer_networks_inner_ips_inner::BalancerNetworksInnerIpsInner;
+#[cfg(feature = "images")]
 pub mod base_error;
+#[cfg(feature = "images")]
 pub use self::base_error::BaseError;
 pub mod base_error_message;
 pub use self::base_error_message::BaseErrorMessage;
+#[cfg(feature = "floating-ip")]
 pub mod bind_floating_ip;
+#[cfg(feature = "floating-ip")]
 pub use self::bind_floating_ip::BindFloatingIp;
+#[cfg(feature = "floating-ip")]
 pub mod bind_floating_ip_resource_id;
+#[cfg(feature = "floating-ip")]
 pub use self::bind_floating_ip_resource_id::BindFloatingIpResourceId;
+#[cfg(feature = "domains")]
 pub mod bonus;
+#[cfg(feature = "domains")]
 pub use self::bonus::Bonus;
+#[cfg(feature = "apps")]
 pub mod branch;
+#[cfg(feature = "apps")]
 pub use self::branch::Branch;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub mod bucket;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub use self::bucket::Bucket;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub mod bucket_disk_stats;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub use self::bucket_disk_stats::BucketDiskStats;
+#[cfg(feature = "s3")]
 pub mod bucket_user;
+#[cfg(feature = "s3")]
 pub use self::bucket_user::BucketUser;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub mod bucket_website_config;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub use self::bucket_website_config::BucketWebsiteConfig;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub mod bucket_website_config_error_pages_inner;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub use self::bucket_website_config_error_pages_inner::BucketWebsiteConfigErrorPagesInner;
+#[cfg(feature = "domains")]
 pub mod check_domain_200_response;
+#[cfg(feature = "domains")]
 pub use self::check_domain_200_response::CheckDomain200Response;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_edit;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_edit::ClusterEdit;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_edit_oidc_provider;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_edit_oidc_provider::ClusterEditOidcProvider;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_in;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_in::ClusterIn;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_in_1;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_in_1::ClusterIn1;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_in_cluster_network_cidr;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_in_cluster_network_cidr::ClusterInClusterNetworkCidr;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_in_configuration;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_in_configuration::ClusterInConfiguration;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_in_maintenance_slot;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_in_maintenance_slot::ClusterInMaintenanceSlot;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_in_oidc_provider;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_in_oidc_provider::ClusterInOidcProvider;
 pub mod cluster_out;
 pub use self::cluster_out::ClusterOut;
 pub mod cluster_response;
 pub use self::cluster_response::ClusterResponse;
+#[cfg(feature = "kubernetes")]
 pub mod cluster_version_edit;
+#[cfg(feature = "kubernetes")]
 pub use self::cluster_version_edit::ClusterVersionEdit;
+#[cfg(feature = "projects")]
 pub mod clusterk8s;
+#[cfg(feature = "projects")]
 pub use self::clusterk8s::Clusterk8s;
 pub mod clusters_response;
 pub use self::clusters_response::ClustersResponse;
+#[cfg(feature = "domains")]
 pub mod cname_______;
+#[cfg(feature = "domains")]
 pub use self::cname_______::Cname;
+#[cfg(feature = "apps")]
 pub mod commit;
+#[cfg(feature = "apps")]
 pub use self::commit::Commit;
 pub mod components_schemas_base_error;
 pub use self::components_schemas_base_error::ComponentsSchemasBaseError;
+#[cfg(any(feature = "databases", feature = "projects"))]
 pub mod config_parameters;
+#[cfg(any(feature = "databases", feature = "projects"))]
 pub use self::config_parameters::ConfigParameters;
 pub mod container_registry_presets_inner;
 pub use self::container_registry_presets_inner::ContainerRegistryPresetsInner;
 pub mod container_registry_repositories_inner;
 pub use self::container_registry_repositories_inner::ContainerRegistryRepositoriesInner;
+#[cfg(feature = "databases")]
 pub mod create_admin;
+#[cfg(feature = "databases")]
 pub use self::create_admin::CreateAdmin;
+#[cfg(feature = "ai-agents")]
 pub mod create_agent;
+#[cfg(feature = "ai-agents")]
 pub use self::create_agent::CreateAgent;
+#[cfg(feature = "ai-agents")]
 pub mod create_agent_201_response;
+#[cfg(feature = "ai-agents")]
 pub use self::create_agent_201_response::CreateAgent201Response;
+#[cfg(feature = "apps")]
 pub mod create_app;
+#[cfg(feature = "apps")]
 pub use self::create_app::CreateApp;
+#[cfg(feature = "apps")]
 pub mod create_app_201_response;
+#[cfg(feature = "apps")]
 pub use self::create_app_201_response::CreateApp201Response;
+#[cfg(feature = "balancers")]
 pub mod create_balancer;
+#[cfg(feature = "balancers")]
 pub use self::create_balancer::CreateBalancer;
+#[cfg(feature = "balancers")]
 pub mod create_balancer_200_response;
+#[cfg(feature = "balancers")]
 pub use self::create_balancer_200_response::CreateBalancer200Response;
+#[cfg(feature = "balancers")]
 pub mod create_balancer_certificates;
+#[cfg(feature = "balancers")]
 pub use self::create_balancer_certificates::CreateBalancerCertificates;
+#[cfg(feature = "balancers")]
 pub mod create_balancer_rule_200_response;
+#[cfg(feature = "balancers")]
 pub use self::create_balancer_rule_200_response::CreateBalancerRule200Response;
+#[cfg(feature = "databases")]
 pub mod create_cluster;
+#[cfg(feature = "databases")]
 pub use self::create_cluster::CreateCluster;
+#[cfg(feature = "kubernetes")]
 pub mod create_cluster_201_response;
+#[cfg(feature = "kubernetes")]
 pub use self::create_cluster_201_response::CreateCluster201Response;
+#[cfg(feature = "databases")]
 pub mod create_cluster_admin;
+#[cfg(feature = "databases")]
 pub use self::create_cluster_admin::CreateClusterAdmin;
+#[cfg(feature = "databases")]
 pub mod create_cluster_instance;
+#[cfg(feature = "databases")]
 pub use self::create_cluster_instance::CreateClusterInstance;
+#[cfg(feature = "kubernetes")]
 pub mod create_cluster_node_group_201_response;
+#[cfg(feature = "kubernetes")]
 pub use self::create_cluster_node_group_201_response::CreateClusterNodeGroup201Response;
+#[cfg(feature = "databases")]
 pub mod create_database_201_response;
+#[cfg(feature = "databases")]
 pub use self::create_database_201_response::CreateDatabase201Response;
+#[cfg(feature = "databases")]
 pub mod create_database_backup_201_response;
+#[cfg(feature = "databases")]
 pub use self::create_database_backup_201_response::CreateDatabaseBackup201Response;
+#[cfg(any(
+    feature = "apps",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod create_database_backup_409_response;
+#[cfg(any(
+    feature = "apps",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::create_database_backup_409_response::CreateDatabaseBackup409Response;
+#[cfg(any(
+    feature = "apps",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod create_database_backup_409_response_message;
+#[cfg(any(
+    feature = "apps",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::create_database_backup_409_response_message::CreateDatabaseBackup409ResponseMessage;
+#[cfg(feature = "databases")]
 pub mod create_database_cluster_201_response;
+#[cfg(feature = "databases")]
 pub use self::create_database_cluster_201_response::CreateDatabaseCluster201Response;
+#[cfg(feature = "databases")]
 pub mod create_database_instance_201_response;
+#[cfg(feature = "databases")]
 pub use self::create_database_instance_201_response::CreateDatabaseInstance201Response;
+#[cfg(feature = "databases")]
 pub mod create_database_user_201_response;
+#[cfg(feature = "databases")]
 pub use self::create_database_user_201_response::CreateDatabaseUser201Response;
+#[cfg(feature = "databases")]
 pub mod create_db;
+#[cfg(feature = "databases")]
 pub use self::create_db::CreateDb;
+#[cfg(feature = "databases")]
 pub mod create_db_auto_backups;
+#[cfg(feature = "databases")]
 pub use self::create_db_auto_backups::CreateDbAutoBackups;
+#[cfg(feature = "dedicated-servers")]
 pub mod create_dedicated_server;
+#[cfg(feature = "dedicated-servers")]
 pub use self::create_dedicated_server::CreateDedicatedServer;
+#[cfg(feature = "dedicated-servers")]
 pub mod create_dedicated_server_201_response;
+#[cfg(feature = "dedicated-servers")]
 pub use self::create_dedicated_server_201_response::CreateDedicatedServer201Response;
+#[cfg(feature = "apps")]
 pub mod create_deploy_201_response;
+#[cfg(feature = "apps")]
 pub use self::create_deploy_201_response::CreateDeploy201Response;
+#[cfg(feature = "apps")]
 pub mod create_deploy_request;
+#[cfg(feature = "apps")]
 pub use self::create_deploy_request::CreateDeployRequest;
+#[cfg(feature = "domains")]
 pub mod create_dns;
+#[cfg(feature = "domains")]
 pub use self::create_dns::CreateDns;
+#[cfg(feature = "domains")]
 pub mod create_dns_v2;
+#[cfg(feature = "domains")]
 pub use self::create_dns_v2::CreateDnsV2;
+#[cfg(feature = "domains")]
 pub mod create_domain_dns_record_201_response;
+#[cfg(feature = "domains")]
 pub use self::create_domain_dns_record_201_response::CreateDomainDnsRecord201Response;
+#[cfg(feature = "domains")]
 pub mod create_domain_dns_record_v2_201_response;
+#[cfg(feature = "domains")]
 pub use self::create_domain_dns_record_v2_201_response::CreateDomainDnsRecordV2201Response;
+#[cfg(feature = "mail")]
 pub mod create_domain_mailbox_201_response;
+#[cfg(feature = "mail")]
 pub use self::create_domain_mailbox_201_response::CreateDomainMailbox201Response;
+#[cfg(feature = "mail")]
 pub mod create_domain_mailbox_request;
+#[cfg(feature = "mail")]
 pub use self::create_domain_mailbox_request::CreateDomainMailboxRequest;
+#[cfg(feature = "mail")]
 pub mod create_domain_mailbox_v2_201_response;
+#[cfg(feature = "mail")]
 pub use self::create_domain_mailbox_v2_201_response::CreateDomainMailboxV2201Response;
+#[cfg(feature = "mail")]
 pub mod create_domain_mailbox_v2_request;
+#[cfg(feature = "mail")]
 pub use self::create_domain_mailbox_v2_request::CreateDomainMailboxV2Request;
+#[cfg(feature = "domains")]
 pub mod create_domain_request_201_response;
+#[cfg(feature = "domains")]
 pub use self::create_domain_request_201_response::CreateDomainRequest201Response;
+#[cfg(feature = "domains")]
 pub mod create_domain_request_request;
+#[cfg(feature = "domains")]
 pub use self::create_domain_request_request::CreateDomainRequestRequest;
+#[cfg(feature = "floating-ip")]
 pub mod create_floating_ip;
+#[cfg(feature = "floating-ip")]
 pub use self::create_floating_ip::CreateFloatingIp;
+#[cfg(feature = "floating-ip")]
 pub mod create_floating_ip_201_response;
+#[cfg(feature = "floating-ip")]
 pub use self::create_floating_ip_201_response::CreateFloatingIp201Response;
+#[cfg(feature = "firewall")]
 pub mod create_group_201_response;
+#[cfg(feature = "firewall")]
 pub use self::create_group_201_response::CreateGroup201Response;
+#[cfg(feature = "firewall")]
 pub mod create_group_rule_201_response;
+#[cfg(feature = "firewall")]
 pub use self::create_group_rule_201_response::CreateGroupRule201Response;
+#[cfg(feature = "images")]
 pub mod create_image_201_response;
+#[cfg(feature = "images")]
 pub use self::create_image_201_response::CreateImage201Response;
+#[cfg(feature = "images")]
 pub mod create_image_download_url_201_response;
+#[cfg(feature = "images")]
 pub use self::create_image_download_url_201_response::CreateImageDownloadUrl201Response;
+#[cfg(feature = "databases")]
 pub mod create_instance;
+#[cfg(feature = "databases")]
 pub use self::create_instance::CreateInstance;
+#[cfg(feature = "ssh")]
 pub mod create_key_201_response;
+#[cfg(feature = "ssh")]
 pub use self::create_key_201_response::CreateKey201Response;
+#[cfg(feature = "ssh")]
 pub mod create_key_request;
+#[cfg(feature = "ssh")]
 pub use self::create_key_request::CreateKeyRequest;
+#[cfg(feature = "knowledge-bases")]
 pub mod create_knowledgebase;
+#[cfg(feature = "knowledge-bases")]
 pub use self::create_knowledgebase::CreateKnowledgebase;
+#[cfg(feature = "knowledge-bases")]
 pub mod create_knowledgebase_201_response;
+#[cfg(feature = "knowledge-bases")]
 pub use self::create_knowledgebase_201_response::CreateKnowledgebase201Response;
+#[cfg(feature = "mail")]
 pub mod create_multiple_domain_mailboxes_201_response;
+#[cfg(feature = "mail")]
 pub use self::create_multiple_domain_mailboxes_201_response::CreateMultipleDomainMailboxes201Response;
+#[cfg(feature = "mail")]
 pub mod create_multiple_domain_mailboxes_request;
+#[cfg(feature = "mail")]
 pub use self::create_multiple_domain_mailboxes_request::CreateMultipleDomainMailboxesRequest;
+#[cfg(feature = "mail")]
 pub mod create_multiple_domain_mailboxes_request_mailboxes_inner;
+#[cfg(feature = "mail")]
 pub use self::create_multiple_domain_mailboxes_request_mailboxes_inner::CreateMultipleDomainMailboxesRequestMailboxesInner;
+#[cfg(feature = "mail")]
 pub mod create_multiple_domain_mailboxes_v2_201_response;
+#[cfg(feature = "mail")]
 pub use self::create_multiple_domain_mailboxes_v2_201_response::CreateMultipleDomainMailboxesV2201Response;
+#[cfg(feature = "mail")]
 pub mod create_multiple_domain_mailboxes_v2_request_inner;
+#[cfg(feature = "mail")]
 pub use self::create_multiple_domain_mailboxes_v2_request_inner::CreateMultipleDomainMailboxesV2RequestInner;
+#[cfg(feature = "network-drives")]
 pub mod create_network_drive;
+#[cfg(feature = "network-drives")]
 pub use self::create_network_drive::CreateNetworkDrive;
+#[cfg(feature = "network-drives")]
 pub mod create_network_drive_201_response;
+#[cfg(feature = "network-drives")]
 pub use self::create_network_drive_201_response::CreateNetworkDrive201Response;
+#[cfg(feature = "projects")]
 pub mod create_project;
+#[cfg(feature = "projects")]
 pub use self::create_project::CreateProject;
+#[cfg(feature = "projects")]
 pub mod create_project_201_response;
+#[cfg(feature = "projects")]
 pub use self::create_project_201_response::CreateProject201Response;
+#[cfg(feature = "container-registry")]
 pub mod create_registry_201_response;
+#[cfg(feature = "container-registry")]
 pub use self::create_registry_201_response::CreateRegistry201Response;
+#[cfg(feature = "balancers")]
 pub mod create_rule;
+#[cfg(feature = "balancers")]
 pub use self::create_rule::CreateRule;
+#[cfg(feature = "servers")]
 pub mod create_server;
+#[cfg(feature = "servers")]
 pub use self::create_server::CreateServer;
+#[cfg(feature = "servers")]
 pub mod create_server_201_response;
+#[cfg(feature = "servers")]
 pub use self::create_server_201_response::CreateServer201Response;
+#[cfg(feature = "servers")]
 pub mod create_server_configuration;
+#[cfg(feature = "servers")]
 pub use self::create_server_configuration::CreateServerConfiguration;
+#[cfg(feature = "servers")]
 pub mod create_server_disk_201_response;
+#[cfg(feature = "servers")]
 pub use self::create_server_disk_201_response::CreateServerDisk201Response;
+#[cfg(feature = "servers")]
 pub mod create_server_disk_backup_201_response;
+#[cfg(feature = "servers")]
 pub use self::create_server_disk_backup_201_response::CreateServerDiskBackup201Response;
+#[cfg(feature = "servers")]
 pub mod create_server_disk_backup_request;
+#[cfg(feature = "servers")]
 pub use self::create_server_disk_backup_request::CreateServerDiskBackupRequest;
+#[cfg(feature = "servers")]
 pub mod create_server_disk_request;
+#[cfg(feature = "servers")]
 pub use self::create_server_disk_request::CreateServerDiskRequest;
+#[cfg(feature = "servers")]
 pub mod create_server_network;
+#[cfg(feature = "servers")]
 pub use self::create_server_network::CreateServerNetwork;
+#[cfg(feature = "s3")]
 pub mod create_storage_201_response;
+#[cfg(feature = "s3")]
 pub use self::create_storage_201_response::CreateStorage201Response;
+#[cfg(feature = "s3")]
 pub mod create_storage_request;
+#[cfg(feature = "s3")]
 pub use self::create_storage_request::CreateStorageRequest;
+#[cfg(feature = "s3")]
 pub mod create_storage_request_configurator;
+#[cfg(feature = "s3")]
 pub use self::create_storage_request_configurator::CreateStorageRequestConfigurator;
+#[cfg(feature = "vpc")]
 pub mod create_vpc;
+#[cfg(feature = "vpc")]
 pub use self::create_vpc::CreateVpc;
+#[cfg(feature = "vpc")]
 pub mod create_vpc_201_response;
+#[cfg(feature = "vpc")]
 pub use self::create_vpc_201_response::CreateVpc201Response;
+#[cfg(feature = "databases")]
 pub mod database_admin;
+#[cfg(feature = "databases")]
 pub use self::database_admin::DatabaseAdmin;
+#[cfg(feature = "databases")]
 pub mod database_admin_instances_inner;
+#[cfg(feature = "databases")]
 pub use self::database_admin_instances_inner::DatabaseAdminInstancesInner;
+#[cfg(feature = "databases")]
 pub mod database_cluster;
+#[cfg(feature = "databases")]
 pub use self::database_cluster::DatabaseCluster;
+#[cfg(feature = "databases")]
 pub mod database_cluster_disk;
+#[cfg(feature = "databases")]
 pub use self::database_cluster_disk::DatabaseClusterDisk;
+#[cfg(feature = "databases")]
 pub mod database_cluster_networks_inner;
+#[cfg(feature = "databases")]
 pub use self::database_cluster_networks_inner::DatabaseClusterNetworksInner;
+#[cfg(feature = "databases")]
 pub mod database_cluster_networks_inner_ips_inner;
+#[cfg(feature = "databases")]
 pub use self::database_cluster_networks_inner_ips_inner::DatabaseClusterNetworksInnerIpsInner;
+#[cfg(feature = "databases")]
 pub mod database_instance;
+#[cfg(feature = "databases")]
 pub use self::database_instance::DatabaseInstance;
+#[cfg(feature = "databases")]
 pub mod database_type;
+#[cfg(feature = "databases")]
 pub use self::database_type::DatabaseType;
+#[cfg(feature = "databases")]
 pub mod database_type_requirements;
+#[cfg(feature = "databases")]
 pub use self::database_type_requirements::DatabaseTypeRequirements;
+#[cfg(any(feature = "databases", feature = "projects"))]
 pub mod db;
+#[cfg(any(feature = "databases", feature = "projects"))]
 pub use self::db::Db;
+#[cfg(any(feature = "databases", feature = "projects"))]
 pub mod db_disk_stats;
+#[cfg(any(feature = "databases", feature = "projects"))]
 pub use self::db_disk_stats::DbDiskStats;
+#[cfg(feature = "databases")]
 pub mod db_replication;
+#[cfg(feature = "databases")]
 pub use self::db_replication::DbReplication;
+#[cfg(any(feature = "dedicated-servers", feature = "projects"))]
 pub mod dedicated_server;
+#[cfg(any(feature = "dedicated-servers", feature = "projects"))]
 pub use self::dedicated_server::DedicatedServer;
+#[cfg(feature = "dedicated-servers")]
 pub mod dedicated_server_additional_service;
+#[cfg(feature = "dedicated-servers")]
 pub use self::dedicated_server_additional_service::DedicatedServerAdditionalService;
+#[cfg(feature = "dedicated-servers")]
 pub mod dedicated_server_preset;
+#[cfg(feature = "dedicated-servers")]
 pub use self::dedicated_server_preset::DedicatedServerPreset;
+#[cfg(feature = "dedicated-servers")]
 pub mod dedicated_server_preset_cpu;
+#[cfg(feature = "dedicated-servers")]
 pub use self::dedicated_server_preset_cpu::DedicatedServerPresetCpu;
+#[cfg(feature = "dedicated-servers")]
 pub mod dedicated_server_preset_disk;
+#[cfg(feature = "dedicated-servers")]
 pub use self::dedicated_server_preset_disk::DedicatedServerPresetDisk;
+#[cfg(feature = "dedicated-servers")]
 pub mod dedicated_server_preset_memory;
+#[cfg(feature = "dedicated-servers")]
 pub use self::dedicated_server_preset_memory::DedicatedServerPresetMemory;
+#[cfg(feature = "balancers")]
 pub mod delete_balancer_200_response;
+#[cfg(feature = "balancers")]
 pub use self::delete_balancer_200_response::DeleteBalancer200Response;
+#[cfg(feature = "kubernetes")]
 pub mod delete_cluster_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::delete_cluster_200_response::DeleteCluster200Response;
+#[cfg(feature = "account")]
 pub mod delete_countries_from_allowed_list_200_response;
+#[cfg(feature = "account")]
 pub use self::delete_countries_from_allowed_list_200_response::DeleteCountriesFromAllowedList200Response;
+#[cfg(feature = "account")]
 pub mod delete_countries_from_allowed_list_request;
+#[cfg(feature = "account")]
 pub use self::delete_countries_from_allowed_list_request::DeleteCountriesFromAllowedListRequest;
+#[cfg(feature = "databases")]
 pub mod delete_database_200_response;
+#[cfg(feature = "databases")]
 pub use self::delete_database_200_response::DeleteDatabase200Response;
+#[cfg(feature = "databases")]
 pub mod delete_database_cluster_200_response;
+#[cfg(feature = "databases")]
 pub use self::delete_database_cluster_200_response::DeleteDatabaseCluster200Response;
+#[cfg(feature = "account")]
 pub mod delete_ips_from_allowed_list_200_response;
+#[cfg(feature = "account")]
 pub use self::delete_ips_from_allowed_list_200_response::DeleteIpsFromAllowedList200Response;
+#[cfg(feature = "account")]
 pub mod delete_ips_from_allowed_list_request;
+#[cfg(feature = "account")]
 pub use self::delete_ips_from_allowed_list_request::DeleteIpsFromAllowedListRequest;
+#[cfg(feature = "servers")]
 pub mod delete_server_200_response;
+#[cfg(feature = "servers")]
 pub use self::delete_server_200_response::DeleteServer200Response;
+#[cfg(feature = "servers")]
 pub mod delete_server_ip_request;
+#[cfg(feature = "servers")]
 pub use self::delete_server_ip_request::DeleteServerIpRequest;
+#[cfg(any(
+    feature = "balancers",
+    feature = "databases",
+    feature = "kubernetes",
+    feature = "s3",
+    feature = "servers"
+))]
 pub mod delete_service_response;
+#[cfg(any(
+    feature = "balancers",
+    feature = "databases",
+    feature = "kubernetes",
+    feature = "s3",
+    feature = "servers"
+))]
 pub use self::delete_service_response::DeleteServiceResponse;
+#[cfg(feature = "s3")]
 pub mod delete_storage_200_response;
+#[cfg(feature = "s3")]
 pub use self::delete_storage_200_response::DeleteStorage200Response;
+#[cfg(feature = "apps")]
 pub mod deploy;
+#[cfg(feature = "apps")]
 pub use self::deploy::Deploy;
+#[cfg(feature = "apps")]
 pub mod deploy_settings_inner;
+#[cfg(feature = "apps")]
 pub use self::deploy_settings_inner::DeploySettingsInner;
+#[cfg(feature = "apps")]
 pub mod deploy_status;
+#[cfg(feature = "apps")]
 pub use self::deploy_status::DeployStatus;
+#[cfg(feature = "domains")]
 pub mod dns_record;
+#[cfg(feature = "domains")]
 pub use self::dns_record::DnsRecord;
+#[cfg(feature = "domains")]
 pub mod dns_record_data;
+#[cfg(feature = "domains")]
 pub use self::dns_record_data::DnsRecordData;
+#[cfg(feature = "domains")]
 pub mod dns_record_v2;
+#[cfg(feature = "domains")]
 pub use self::dns_record_v2::DnsRecordV2;
+#[cfg(feature = "domains")]
 pub mod dns_record_v2_data;
+#[cfg(feature = "domains")]
 pub use self::dns_record_v2_data::DnsRecordV2Data;
+#[cfg(feature = "knowledge-bases")]
 pub mod document;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document::Document;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info::DocumentStatusInfo;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details::DocumentStatusInfoDetails;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details_one_of;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details_one_of::DocumentStatusInfoDetailsOneOf;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details_one_of_1;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details_one_of_1::DocumentStatusInfoDetailsOneOf1;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details_one_of_2;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details_one_of_2::DocumentStatusInfoDetailsOneOf2;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details_one_of_3;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details_one_of_3::DocumentStatusInfoDetailsOneOf3;
+#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details_one_of_4;
+#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details_one_of_4::DocumentStatusInfoDetailsOneOf4;
+#[cfg(feature = "domains")]
 pub mod domain;
+#[cfg(feature = "domains")]
 pub use self::domain::Domain;
+#[cfg(feature = "domains")]
 pub mod domain_allowed_buy_periods_inner;
+#[cfg(feature = "domains")]
 pub use self::domain_allowed_buy_periods_inner::DomainAllowedBuyPeriodsInner;
+#[cfg(feature = "mail")]
 pub mod domain_info;
+#[cfg(feature = "mail")]
 pub use self::domain_info::DomainInfo;
+#[cfg(feature = "domains")]
 pub mod domain_name_server;
+#[cfg(feature = "domains")]
 pub use self::domain_name_server::DomainNameServer;
+#[cfg(feature = "domains")]
 pub mod domain_name_server_items_inner;
+#[cfg(feature = "domains")]
 pub use self::domain_name_server_items_inner::DomainNameServerItemsInner;
+#[cfg(feature = "domains")]
 pub mod domain_payment_period;
+#[cfg(feature = "domains")]
 pub use self::domain_payment_period::DomainPaymentPeriod;
+#[cfg(feature = "domains")]
 pub mod domain_prime_type;
+#[cfg(feature = "domains")]
 pub use self::domain_prime_type::DomainPrimeType;
+#[cfg(feature = "domains")]
 pub mod domain_prolong;
+#[cfg(feature = "domains")]
 pub use self::domain_prolong::DomainProlong;
+#[cfg(feature = "domains")]
 pub mod domain_register;
+#[cfg(feature = "domains")]
 pub use self::domain_register::DomainRegister;
+#[cfg(feature = "domains")]
 pub mod domain_request;
+#[cfg(feature = "domains")]
 pub use self::domain_request::DomainRequest;
+#[cfg(feature = "domains")]
 pub mod domain_transfer;
+#[cfg(feature = "domains")]
 pub use self::domain_transfer::DomainTransfer;
+#[cfg(feature = "payments")]
 pub mod finances;
+#[cfg(feature = "payments")]
 pub use self::finances::Finances;
 pub mod firewall_group;
 pub use self::firewall_group::FirewallGroup;
+#[cfg(feature = "firewall")]
 pub mod firewall_group_in_api;
+#[cfg(feature = "firewall")]
 pub use self::firewall_group_in_api::FirewallGroupInApi;
 pub mod firewall_group_out_response;
 pub use self::firewall_group_out_response::FirewallGroupOutResponse;
@@ -460,9 +938,13 @@ pub mod firewall_rule_cidr;
 pub use self::firewall_rule_cidr::FirewallRuleCidr;
 pub mod firewall_rule_direction;
 pub use self::firewall_rule_direction::FirewallRuleDirection;
+#[cfg(feature = "firewall")]
 pub mod firewall_rule_in_api;
+#[cfg(feature = "firewall")]
 pub use self::firewall_rule_in_api::FirewallRuleInApi;
+#[cfg(feature = "firewall")]
 pub mod firewall_rule_in_api_cidr;
+#[cfg(feature = "firewall")]
 pub use self::firewall_rule_in_api_cidr::FirewallRuleInApiCidr;
 pub mod firewall_rule_out_response;
 pub use self::firewall_rule_out_response::FirewallRuleOutResponse;
@@ -470,125 +952,321 @@ pub mod firewall_rule_protocol;
 pub use self::firewall_rule_protocol::FirewallRuleProtocol;
 pub mod firewall_rules_out_response;
 pub use self::firewall_rules_out_response::FirewallRulesOutResponse;
+#[cfg(feature = "floating-ip")]
 pub mod floating_ip;
+#[cfg(feature = "floating-ip")]
 pub use self::floating_ip::FloatingIp;
+#[cfg(feature = "floating-ip")]
 pub mod floating_ip_resource_id;
+#[cfg(feature = "floating-ip")]
 pub use self::floating_ip_resource_id::FloatingIpResourceId;
+#[cfg(feature = "mail")]
 pub mod forward_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::forward_is_disabled::ForwardIsDisabled;
+#[cfg(feature = "mail")]
 pub mod forward_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::forward_is_enabled::ForwardIsEnabled;
+#[cfg(feature = "mail")]
 pub mod forwarding_incoming_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::forwarding_incoming_is_disabled::ForwardingIncomingIsDisabled;
+#[cfg(feature = "mail")]
 pub mod forwarding_incoming_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::forwarding_incoming_is_enabled::ForwardingIncomingIsEnabled;
+#[cfg(feature = "mail")]
 pub mod forwarding_outgoing_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::forwarding_outgoing_is_disabled::ForwardingOutgoingIsDisabled;
+#[cfg(feature = "mail")]
 pub mod forwarding_outgoing_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::forwarding_outgoing_is_enabled::ForwardingOutgoingIsEnabled;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod frameworks;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::frameworks::Frameworks;
+#[cfg(feature = "domains")]
 pub mod free;
+#[cfg(feature = "domains")]
 pub use self::free::Free;
+#[cfg(feature = "account")]
 pub mod get_account_status_200_response;
+#[cfg(feature = "account")]
 pub use self::get_account_status_200_response::GetAccountStatus200Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "floating-ip",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_account_status_403_response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "floating-ip",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_account_status_403_response::GetAccountStatus403Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "floating-ip",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_account_status_403_response_message;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "floating-ip",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_account_status_403_response_message::GetAccountStatus403ResponseMessage;
+#[cfg(feature = "ai-agents")]
 pub mod get_agent_statistics_200_response;
+#[cfg(feature = "ai-agents")]
 pub use self::get_agent_statistics_200_response::GetAgentStatistics200Response;
+#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
 pub mod get_agent_statistics_200_response_all_of_meta;
+#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
 pub use self::get_agent_statistics_200_response_all_of_meta::GetAgentStatistics200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
 pub mod get_agents_200_response;
+#[cfg(feature = "ai-agents")]
 pub use self::get_agents_200_response::GetAgents200Response;
+#[cfg(feature = "ai-agents")]
 pub mod get_agents_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
 pub use self::get_agents_200_response_all_of_meta::GetAgents200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
 pub mod get_agents_token_packages_200_response;
+#[cfg(feature = "ai-agents")]
 pub use self::get_agents_token_packages_200_response::GetAgentsTokenPackages200Response;
+#[cfg(feature = "ai-agents")]
 pub mod get_agents_token_packages_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
 pub use self::get_agents_token_packages_200_response_all_of_meta::GetAgentsTokenPackages200ResponseAllOfMeta;
+#[cfg(feature = "mail")]
 pub mod get_all_mailboxes_v2_200_response;
+#[cfg(feature = "mail")]
 pub use self::get_all_mailboxes_v2_200_response::GetAllMailboxesV2200Response;
+#[cfg(feature = "projects")]
 pub mod get_all_project_resources_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_all_project_resources_200_response::GetAllProjectResources200Response;
+#[cfg(feature = "apps")]
 pub mod get_app_deploys_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_app_deploys_200_response::GetAppDeploys200Response;
+#[cfg(feature = "apps")]
 pub mod get_app_logs_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_app_logs_200_response::GetAppLogs200Response;
+#[cfg(feature = "apps")]
 pub mod get_apps_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_apps_200_response::GetApps200Response;
+#[cfg(feature = "apps")]
 pub mod get_apps_presets_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_apps_presets_200_response::GetAppsPresets200Response;
+#[cfg(feature = "account")]
 pub mod get_auth_access_settings_200_response;
+#[cfg(feature = "account")]
 pub use self::get_auth_access_settings_200_response::GetAuthAccessSettings200Response;
+#[cfg(feature = "account")]
 pub mod get_auth_access_settings_200_response_all_of_white_list;
+#[cfg(feature = "account")]
 pub use self::get_auth_access_settings_200_response_all_of_white_list::GetAuthAccessSettings200ResponseAllOfWhiteList;
+#[cfg(feature = "balancers")]
 pub mod get_balancer_ips_200_response;
+#[cfg(feature = "balancers")]
 pub use self::get_balancer_ips_200_response::GetBalancerIps200Response;
+#[cfg(feature = "balancers")]
 pub mod get_balancer_rules_200_response;
+#[cfg(feature = "balancers")]
 pub use self::get_balancer_rules_200_response::GetBalancerRules200Response;
+#[cfg(feature = "balancers")]
 pub mod get_balancers_200_response;
+#[cfg(feature = "balancers")]
 pub use self::get_balancers_200_response::GetBalancers200Response;
+#[cfg(feature = "balancers")]
 pub mod get_balancers_presets_200_response;
+#[cfg(feature = "balancers")]
 pub use self::get_balancers_presets_200_response::GetBalancersPresets200Response;
+#[cfg(feature = "apps")]
 pub mod get_branches_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_branches_200_response::GetBranches200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_cluster_node_groups_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_cluster_node_groups_200_response::GetClusterNodeGroups200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_cluster_nodes_from_group_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_cluster_nodes_from_group_200_response::GetClusterNodesFromGroup200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_cluster_resources_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_cluster_resources_200_response::GetClusterResources200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_clusters_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_clusters_200_response::GetClusters200Response;
+#[cfg(feature = "apps")]
 pub mod get_commits_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_commits_200_response::GetCommits200Response;
+#[cfg(feature = "servers")]
 pub mod get_configurators_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_configurators_200_response::GetConfigurators200Response;
+#[cfg(feature = "account")]
 pub mod get_countries_200_response;
+#[cfg(feature = "account")]
 pub use self::get_countries_200_response::GetCountries200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_auto_backups_settings_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_auto_backups_settings_200_response::GetDatabaseAutoBackupsSettings200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_backups_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_backups_200_response::GetDatabaseBackups200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_cluster_types_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_cluster_types_200_response::GetDatabaseClusterTypes200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_clusters_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_clusters_200_response::GetDatabaseClusters200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_instances_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_instances_200_response::GetDatabaseInstances200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_parameters_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_parameters_200_response::GetDatabaseParameters200Response;
+#[cfg(feature = "databases")]
 pub mod get_database_users_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_database_users_200_response::GetDatabaseUsers200Response;
+#[cfg(feature = "databases")]
 pub mod get_databases_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_databases_200_response::GetDatabases200Response;
+#[cfg(feature = "databases")]
 pub mod get_databases_presets_200_response;
+#[cfg(feature = "databases")]
 pub use self::get_databases_presets_200_response::GetDatabasesPresets200Response;
+#[cfg(feature = "dedicated-servers")]
 pub mod get_dedicated_server_preset_additional_services_200_response;
+#[cfg(feature = "dedicated-servers")]
 pub use self::get_dedicated_server_preset_additional_services_200_response::GetDedicatedServerPresetAdditionalServices200Response;
+#[cfg(feature = "dedicated-servers")]
 pub mod get_dedicated_servers_200_response;
+#[cfg(feature = "dedicated-servers")]
 pub use self::get_dedicated_servers_200_response::GetDedicatedServers200Response;
+#[cfg(feature = "dedicated-servers")]
 pub mod get_dedicated_servers_presets_200_response;
+#[cfg(feature = "dedicated-servers")]
 pub use self::get_dedicated_servers_presets_200_response::GetDedicatedServersPresets200Response;
+#[cfg(feature = "apps")]
 pub mod get_deploy_logs_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_deploy_logs_200_response::GetDeployLogs200Response;
+#[cfg(feature = "apps")]
 pub mod get_deploy_settings_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_deploy_settings_200_response::GetDeploySettings200Response;
+#[cfg(feature = "domains")]
 pub mod get_domain_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_domain_200_response::GetDomain200Response;
+#[cfg(feature = "domains")]
 pub mod get_domain_dns_records_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_domain_dns_records_200_response::GetDomainDnsRecords200Response;
+#[cfg(feature = "mail")]
 pub mod get_domain_mail_info_200_response;
+#[cfg(feature = "mail")]
 pub use self::get_domain_mail_info_200_response::GetDomainMailInfo200Response;
+#[cfg(feature = "domains")]
 pub mod get_domain_name_servers_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_domain_name_servers_200_response::GetDomainNameServers200Response;
+#[cfg(feature = "domains")]
 pub mod get_domain_requests_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_domain_requests_200_response::GetDomainRequests200Response;
+#[cfg(feature = "domains")]
 pub mod get_domains_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_domains_200_response::GetDomains200Response;
+#[cfg(feature = "payments")]
 pub mod get_finances_200_response;
+#[cfg(feature = "payments")]
 pub use self::get_finances_200_response::GetFinances200Response;
 pub mod get_finances_400_response;
 pub use self::get_finances_400_response::GetFinances400Response;
@@ -606,143 +1284,361 @@ pub mod get_finances_500_response;
 pub use self::get_finances_500_response::GetFinances500Response;
 pub mod get_finances_500_response_message;
 pub use self::get_finances_500_response_message::GetFinances500ResponseMessage;
+#[cfg(feature = "floating-ip")]
 pub mod get_floating_ips_200_response;
+#[cfg(feature = "floating-ip")]
 pub use self::get_floating_ips_200_response::GetFloatingIps200Response;
+#[cfg(feature = "apps")]
 pub mod get_frameworks_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_frameworks_200_response::GetFrameworks200Response;
+#[cfg(feature = "firewall")]
 pub mod get_group_resources_200_response;
+#[cfg(feature = "firewall")]
 pub use self::get_group_resources_200_response::GetGroupResources200Response;
+#[cfg(feature = "firewall")]
 pub mod get_group_rules_200_response;
+#[cfg(feature = "firewall")]
 pub use self::get_group_rules_200_response::GetGroupRules200Response;
+#[cfg(feature = "firewall")]
 pub mod get_groups_200_response;
+#[cfg(feature = "firewall")]
 pub use self::get_groups_200_response::GetGroups200Response;
+#[cfg(any(
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_image_404_response;
+#[cfg(any(
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_image_404_response::GetImage404Response;
+#[cfg(any(
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_image_404_response_message;
+#[cfg(any(
+    feature = "ai-agents",
+    feature = "apps",
+    feature = "balancers",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "projects",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_image_404_response_message::GetImage404ResponseMessage;
+#[cfg(feature = "images")]
 pub mod get_image_download_urls_200_response;
+#[cfg(feature = "images")]
 pub use self::get_image_download_urls_200_response::GetImageDownloadUrls200Response;
+#[cfg(feature = "images")]
 pub mod get_images_200_response;
+#[cfg(feature = "images")]
 pub use self::get_images_200_response::GetImages200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_k8_s_network_drivers_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_k8_s_network_drivers_200_response::GetK8SNetworkDrivers200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_k8_s_versions_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_k8_s_versions_200_response::GetK8SVersions200Response;
+#[cfg(feature = "ssh")]
 pub mod get_key_200_response;
+#[cfg(feature = "ssh")]
 pub use self::get_key_200_response::GetKey200Response;
+#[cfg(feature = "ssh")]
 pub mod get_keys_200_response;
+#[cfg(feature = "ssh")]
 pub use self::get_keys_200_response::GetKeys200Response;
+#[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebase_documents_v2_200_response;
+#[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebase_documents_v2_200_response::GetKnowledgebaseDocumentsV2200Response;
+#[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebase_documents_v2_200_response_all_of_meta;
+#[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebase_documents_v2_200_response_all_of_meta::GetKnowledgebaseDocumentsV2200ResponseAllOfMeta;
+#[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebase_statistics_200_response;
+#[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebase_statistics_200_response::GetKnowledgebaseStatistics200Response;
+#[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebases_200_response;
+#[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebases_200_response::GetKnowledgebases200Response;
+#[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebases_v2_200_response;
+#[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebases_v2_200_response::GetKnowledgebasesV2200Response;
+#[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebases_v2_200_response_all_of_meta;
+#[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebases_v2_200_response_all_of_meta::GetKnowledgebasesV2200ResponseAllOfMeta;
+#[cfg(feature = "kubernetes")]
 pub mod get_kubernetes_addons_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_kubernetes_addons_200_response::GetKubernetesAddons200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_kubernetes_addons_config_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_kubernetes_addons_config_200_response::GetKubernetesAddonsConfig200Response;
+#[cfg(feature = "kubernetes")]
 pub mod get_kubernetes_presets_200_response;
+#[cfg(feature = "kubernetes")]
 pub use self::get_kubernetes_presets_200_response::GetKubernetesPresets200Response;
+#[cfg(feature = "locations")]
 pub mod get_locations_200_response;
+#[cfg(feature = "locations")]
 pub use self::get_locations_200_response::GetLocations200Response;
+#[cfg(feature = "mail")]
 pub mod get_mailboxes_200_response;
+#[cfg(feature = "mail")]
 pub use self::get_mailboxes_200_response::GetMailboxes200Response;
+#[cfg(feature = "ai-agents")]
 pub mod get_models_200_response;
+#[cfg(feature = "ai-agents")]
 pub use self::get_models_200_response::GetModels200Response;
+#[cfg(feature = "ai-agents")]
 pub mod get_models_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
 pub use self::get_models_200_response_all_of_meta::GetModels200ResponseAllOfMeta;
+#[cfg(feature = "network-drives")]
 pub mod get_network_drives_200_response;
+#[cfg(feature = "network-drives")]
 pub use self::get_network_drives_200_response::GetNetworkDrives200Response;
+#[cfg(feature = "network-drives")]
 pub mod get_network_drives_available_resources_200_response;
+#[cfg(feature = "network-drives")]
 pub use self::get_network_drives_available_resources_200_response::GetNetworkDrivesAvailableResources200Response;
+#[cfg(feature = "network-drives")]
 pub mod get_network_drives_presets_200_response;
+#[cfg(feature = "network-drives")]
 pub use self::get_network_drives_presets_200_response::GetNetworkDrivesPresets200Response;
+#[cfg(feature = "account")]
 pub mod get_notification_settings_200_response;
+#[cfg(feature = "account")]
 pub use self::get_notification_settings_200_response::GetNotificationSettings200Response;
+#[cfg(feature = "servers")]
 pub mod get_os_list_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_os_list_200_response::GetOsList200Response;
+#[cfg(feature = "projects")]
 pub mod get_project_balancers_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_project_balancers_200_response::GetProjectBalancers200Response;
+#[cfg(feature = "projects")]
 pub mod get_project_clusters_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_project_clusters_200_response::GetProjectClusters200Response;
+#[cfg(feature = "projects")]
 pub mod get_project_databases_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_project_databases_200_response::GetProjectDatabases200Response;
+#[cfg(feature = "projects")]
 pub mod get_project_dedicated_servers_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_project_dedicated_servers_200_response::GetProjectDedicatedServers200Response;
+#[cfg(feature = "projects")]
 pub mod get_project_servers_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_project_servers_200_response::GetProjectServers200Response;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub mod get_project_storages_200_response;
+#[cfg(any(feature = "projects", feature = "s3"))]
 pub use self::get_project_storages_200_response::GetProjectStorages200Response;
+#[cfg(feature = "projects")]
 pub mod get_projects_200_response;
+#[cfg(feature = "projects")]
 pub use self::get_projects_200_response::GetProjects200Response;
+#[cfg(feature = "apps")]
 pub mod get_providers_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_providers_200_response::GetProviders200Response;
+#[cfg(feature = "container-registry")]
 pub mod get_registries_200_response;
+#[cfg(feature = "container-registry")]
 pub use self::get_registries_200_response::GetRegistries200Response;
+#[cfg(feature = "container-registry")]
 pub mod get_registry_presets_200_response;
+#[cfg(feature = "container-registry")]
 pub use self::get_registry_presets_200_response::GetRegistryPresets200Response;
+#[cfg(feature = "container-registry")]
 pub mod get_registry_repositories_200_response;
+#[cfg(feature = "container-registry")]
 pub use self::get_registry_repositories_200_response::GetRegistryRepositories200Response;
+#[cfg(feature = "apps")]
 pub mod get_repositories_200_response;
+#[cfg(feature = "apps")]
 pub use self::get_repositories_200_response::GetRepositories200Response;
+#[cfg(feature = "servers")]
 pub mod get_server_disk_auto_backup_settings_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_disk_auto_backup_settings_200_response::GetServerDiskAutoBackupSettings200Response;
+#[cfg(feature = "servers")]
 pub mod get_server_disk_backup_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_disk_backup_200_response::GetServerDiskBackup200Response;
+#[cfg(feature = "servers")]
 pub mod get_server_disk_backups_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_disk_backups_200_response::GetServerDiskBackups200Response;
+#[cfg(feature = "servers")]
 pub mod get_server_disks_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_disks_200_response::GetServerDisks200Response;
+#[cfg(feature = "servers")]
 pub mod get_server_ips_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_ips_200_response::GetServerIps200Response;
+#[cfg(feature = "servers")]
 pub mod get_server_logs_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_logs_200_response::GetServerLogs200Response;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub mod get_server_statistics_200_response;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub use self::get_server_statistics_200_response::GetServerStatistics200Response;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub mod get_server_statistics_200_response_all_of_cpu_inner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub use self::get_server_statistics_200_response_all_of_cpu_inner::GetServerStatistics200ResponseAllOfCpuInner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub mod get_server_statistics_200_response_all_of_disk_inner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub use self::get_server_statistics_200_response_all_of_disk_inner::GetServerStatistics200ResponseAllOfDiskInner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub mod get_server_statistics_200_response_all_of_network_traffic_inner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub use self::get_server_statistics_200_response_all_of_network_traffic_inner::GetServerStatistics200ResponseAllOfNetworkTrafficInner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub mod get_server_statistics_200_response_all_of_ram_inner;
+#[cfg(any(feature = "apps", feature = "servers"))]
 pub use self::get_server_statistics_200_response_all_of_ram_inner::GetServerStatistics200ResponseAllOfRamInner;
+#[cfg(feature = "servers")]
 pub mod get_server_statistics_new_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_server_statistics_new_200_response::GetServerStatisticsNew200Response;
+#[cfg(feature = "servers")]
 pub mod get_servers_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_servers_200_response::GetServers200Response;
+#[cfg(feature = "servers")]
 pub mod get_servers_presets_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_servers_presets_200_response::GetServersPresets200Response;
+#[cfg(feature = "payments")]
 pub mod get_service_prices_200_response;
+#[cfg(feature = "payments")]
 pub use self::get_service_prices_200_response::GetServicePrices200Response;
+#[cfg(feature = "payments")]
 pub mod get_service_prices_200_response_all_of_meta;
+#[cfg(feature = "payments")]
 pub use self::get_service_prices_200_response_all_of_meta::GetServicePrices200ResponseAllOfMeta;
+#[cfg(feature = "servers")]
 pub mod get_software_200_response;
+#[cfg(feature = "servers")]
 pub use self::get_software_200_response::GetSoftware200Response;
+#[cfg(feature = "s3")]
 pub mod get_storage_subdomains_200_response;
+#[cfg(feature = "s3")]
 pub use self::get_storage_subdomains_200_response::GetStorageSubdomains200Response;
+#[cfg(feature = "s3")]
 pub mod get_storage_transfer_status_200_response;
+#[cfg(feature = "s3")]
 pub use self::get_storage_transfer_status_200_response::GetStorageTransferStatus200Response;
+#[cfg(feature = "s3")]
 pub mod get_storage_users_200_response;
+#[cfg(feature = "s3")]
 pub use self::get_storage_users_200_response::GetStorageUsers200Response;
+#[cfg(feature = "s3")]
 pub mod get_storages_presets_200_response;
+#[cfg(feature = "s3")]
 pub use self::get_storages_presets_200_response::GetStoragesPresets200Response;
+#[cfg(feature = "domains")]
 pub mod get_tld_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_tld_200_response::GetTld200Response;
+#[cfg(feature = "domains")]
 pub mod get_tlds_200_response;
+#[cfg(feature = "domains")]
 pub use self::get_tlds_200_response::GetTlds200Response;
+#[cfg(feature = "vpc")]
 pub mod get_vpc_ports_200_response;
+#[cfg(feature = "vpc")]
 pub use self::get_vpc_ports_200_response::GetVpcPorts200Response;
+#[cfg(feature = "vpc")]
 pub mod get_vpc_services_200_response;
+#[cfg(feature = "vpc")]
 pub use self::get_vpc_services_200_response::GetVpcServices200Response;
+#[cfg(feature = "vpc")]
 pub mod get_vpcs_200_response;
+#[cfg(feature = "vpc")]
 pub use self::get_vpcs_200_response::GetVpcs200Response;
 pub mod image;
 pub use self::image::Image;
@@ -752,51 +1648,87 @@ pub mod image_download_response;
 pub use self::image_download_response::ImageDownloadResponse;
 pub mod image_downloads_response;
 pub use self::image_downloads_response::ImageDownloadsResponse;
+#[cfg(feature = "images")]
 pub mod image_in_api;
+#[cfg(feature = "images")]
 pub use self::image_in_api::ImageInApi;
 pub mod image_out_response;
 pub use self::image_out_response::ImageOutResponse;
 pub mod image_status;
 pub use self::image_status::ImageStatus;
+#[cfg(feature = "images")]
 pub mod image_update_api;
+#[cfg(feature = "images")]
 pub use self::image_update_api::ImageUpdateApi;
+#[cfg(feature = "images")]
 pub mod image_url_auth;
+#[cfg(feature = "images")]
 pub use self::image_url_auth::ImageUrlAuth;
+#[cfg(feature = "images")]
 pub mod image_url_in;
+#[cfg(feature = "images")]
 pub use self::image_url_in::ImageUrlIn;
 pub mod images_out_response;
 pub use self::images_out_response::ImagesOutResponse;
+#[cfg(feature = "kubernetes")]
 pub mod increase_nodes;
+#[cfg(feature = "kubernetes")]
 pub use self::increase_nodes::IncreaseNodes;
+#[cfg(feature = "payments")]
 pub mod info_service_price;
+#[cfg(feature = "payments")]
 pub use self::info_service_price::InfoServicePrice;
+#[cfg(feature = "domains")]
 pub mod invoice;
+#[cfg(feature = "domains")]
 pub use self::invoice::Invoice;
 pub mod k8_s_presets_inner;
 pub use self::k8_s_presets_inner::K8SPresetsInner;
 pub mod k8_s_versions_response;
 pub use self::k8_s_versions_response::K8SVersionsResponse;
+#[cfg(feature = "knowledge-bases")]
 pub mod knowledgebase;
+#[cfg(feature = "knowledge-bases")]
 pub use self::knowledgebase::Knowledgebase;
+#[cfg(feature = "knowledge-bases")]
 pub mod knowledgebase_v2;
+#[cfg(feature = "knowledge-bases")]
 pub use self::knowledgebase_v2::KnowledgebaseV2;
+#[cfg(feature = "locations")]
 pub mod location_dto;
+#[cfg(feature = "locations")]
 pub use self::location_dto::LocationDto;
+#[cfg(feature = "mail")]
 pub mod mailbox;
+#[cfg(feature = "mail")]
 pub use self::mailbox::Mailbox;
+#[cfg(feature = "mail")]
 pub mod mailbox_auto_reply;
+#[cfg(feature = "mail")]
 pub use self::mailbox_auto_reply::MailboxAutoReply;
+#[cfg(feature = "mail")]
 pub mod mailbox_forwarding_incoming;
+#[cfg(feature = "mail")]
 pub use self::mailbox_forwarding_incoming::MailboxForwardingIncoming;
+#[cfg(feature = "mail")]
 pub mod mailbox_forwarding_outgoing;
+#[cfg(feature = "mail")]
 pub use self::mailbox_forwarding_outgoing::MailboxForwardingOutgoing;
+#[cfg(feature = "mail")]
 pub mod mailbox_response;
+#[cfg(feature = "mail")]
 pub use self::mailbox_response::MailboxResponse;
+#[cfg(feature = "mail")]
 pub mod mailbox_spam_filter;
+#[cfg(feature = "mail")]
 pub use self::mailbox_spam_filter::MailboxSpamFilter;
+#[cfg(feature = "mail")]
 pub mod mailbox_v2;
+#[cfg(feature = "mail")]
 pub use self::mailbox_v2::MailboxV2;
+#[cfg(feature = "mail")]
 pub mod mailboxes_batch_v2;
+#[cfg(feature = "mail")]
 pub use self::mailboxes_batch_v2::MailboxesBatchV2;
 pub mod master_preset_out_api;
 pub use self::master_preset_out_api::MasterPresetOutApi;
@@ -806,39 +1738,71 @@ pub mod meta;
 pub use self::meta::Meta;
 pub mod meta_1;
 pub use self::meta_1::Meta1;
+#[cfg(feature = "ai-agents")]
 pub mod model;
+#[cfg(feature = "ai-agents")]
 pub use self::model::Model;
+#[cfg(feature = "ai-agents")]
 pub mod model_params_info;
+#[cfg(feature = "ai-agents")]
 pub use self::model_params_info::ModelParamsInfo;
+#[cfg(feature = "ai-agents")]
 pub mod model_params_info_max_tokens;
+#[cfg(feature = "ai-agents")]
 pub use self::model_params_info_max_tokens::ModelParamsInfoMaxTokens;
+#[cfg(feature = "ai-agents")]
 pub mod model_params_info_reasoning_effort;
+#[cfg(feature = "ai-agents")]
 pub use self::model_params_info_reasoning_effort::ModelParamsInfoReasoningEffort;
+#[cfg(feature = "ai-agents")]
 pub mod model_params_info_temperature;
+#[cfg(feature = "ai-agents")]
 pub use self::model_params_info_temperature::ModelParamsInfoTemperature;
+#[cfg(feature = "network-drives")]
 pub mod mount_network_drive;
+#[cfg(feature = "network-drives")]
 pub use self::mount_network_drive::MountNetworkDrive;
+#[cfg(feature = "domains")]
 pub mod mx_______;
+#[cfg(feature = "domains")]
 pub use self::mx_______::Mx;
+#[cfg(any(feature = "balancers", feature = "databases"))]
 pub mod network;
+#[cfg(any(feature = "balancers", feature = "databases"))]
 pub use self::network::Network;
+#[cfg(feature = "network-drives")]
 pub mod network_drive;
+#[cfg(feature = "network-drives")]
 pub use self::network_drive::NetworkDrive;
+#[cfg(feature = "network-drives")]
 pub mod network_drive_available_resource;
+#[cfg(feature = "network-drives")]
 pub use self::network_drive_available_resource::NetworkDriveAvailableResource;
+#[cfg(feature = "network-drives")]
 pub mod network_drive_preset;
+#[cfg(feature = "network-drives")]
 pub use self::network_drive_preset::NetworkDrivePreset;
+#[cfg(feature = "network-drives")]
 pub mod network_drive_preset_read;
+#[cfg(feature = "network-drives")]
 pub use self::network_drive_preset_read::NetworkDrivePresetRead;
+#[cfg(feature = "network-drives")]
 pub mod network_drive_preset_write;
+#[cfg(feature = "network-drives")]
 pub use self::network_drive_preset_write::NetworkDrivePresetWrite;
+#[cfg(feature = "network-drives")]
 pub mod network_drive_service_list_inner;
+#[cfg(feature = "network-drives")]
 pub use self::network_drive_service_list_inner::NetworkDriveServiceListInner;
 pub mod network_drivers_response;
 pub use self::network_drivers_response::NetworkDriversResponse;
+#[cfg(feature = "kubernetes")]
 pub mod node_group_in;
+#[cfg(feature = "kubernetes")]
 pub use self::node_group_in::NodeGroupIn;
+#[cfg(feature = "kubernetes")]
 pub mod node_group_in_configuration;
+#[cfg(feature = "kubernetes")]
 pub use self::node_group_in_configuration::NodeGroupInConfiguration;
 pub mod node_group_out;
 pub use self::node_group_out::NodeGroupOut;
@@ -850,51 +1814,89 @@ pub mod node_out;
 pub use self::node_out::NodeOut;
 pub mod nodes_response;
 pub use self::nodes_response::NodesResponse;
+#[cfg(feature = "account")]
 pub mod notification_setting;
+#[cfg(feature = "account")]
 pub use self::notification_setting::NotificationSetting;
+#[cfg(feature = "account")]
 pub mod notification_setting_channel;
+#[cfg(feature = "account")]
 pub use self::notification_setting_channel::NotificationSettingChannel;
+#[cfg(feature = "account")]
 pub mod notification_setting_channels;
+#[cfg(feature = "account")]
 pub use self::notification_setting_channels::NotificationSettingChannels;
+#[cfg(feature = "account")]
 pub mod notification_setting_type;
+#[cfg(feature = "account")]
 pub use self::notification_setting_type::NotificationSettingType;
 pub mod os;
 pub use self::os::Os;
+#[cfg(feature = "mail")]
 pub mod outgoing_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::outgoing_is_disabled::OutgoingIsDisabled;
+#[cfg(feature = "mail")]
 pub mod outgoing_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::outgoing_is_enabled::OutgoingIsEnabled;
+#[cfg(feature = "servers")]
 pub mod perform_action_on_backup_request;
+#[cfg(feature = "servers")]
 pub use self::perform_action_on_backup_request::PerformActionOnBackupRequest;
+#[cfg(feature = "servers")]
 pub mod perform_action_on_server_request;
+#[cfg(feature = "servers")]
 pub use self::perform_action_on_server_request::PerformActionOnServerRequest;
 pub mod policy;
 pub use self::policy::Policy;
+#[cfg(feature = "balancers")]
 pub mod presets_balancer;
+#[cfg(feature = "balancers")]
 pub use self::presets_balancer::PresetsBalancer;
+#[cfg(feature = "databases")]
 pub mod presets_dbs;
+#[cfg(feature = "databases")]
 pub use self::presets_dbs::PresetsDbs;
 pub mod presets_response;
 pub use self::presets_response::PresetsResponse;
+#[cfg(feature = "s3")]
 pub mod presets_storage;
+#[cfg(feature = "s3")]
 pub use self::presets_storage::PresetsStorage;
+#[cfg(feature = "projects")]
 pub mod project;
+#[cfg(feature = "projects")]
 pub use self::project::Project;
+#[cfg(feature = "projects")]
 pub mod project_resource;
+#[cfg(feature = "projects")]
 pub use self::project_resource::ProjectResource;
+#[cfg(feature = "apps")]
 pub mod provider;
+#[cfg(feature = "apps")]
 pub use self::provider::Provider;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod providers;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::providers::Providers;
+#[cfg(feature = "kubernetes")]
 pub mod reduce_nodes;
+#[cfg(feature = "kubernetes")]
 pub use self::reduce_nodes::ReduceNodes;
 pub mod registries_response;
 pub use self::registries_response::RegistriesResponse;
+#[cfg(feature = "container-registry")]
 pub mod registry_edit;
+#[cfg(feature = "container-registry")]
 pub use self::registry_edit::RegistryEdit;
+#[cfg(feature = "container-registry")]
 pub mod registry_in;
+#[cfg(feature = "container-registry")]
 pub use self::registry_in::RegistryIn;
+#[cfg(feature = "container-registry")]
 pub mod registry_in_configuration;
+#[cfg(feature = "container-registry")]
 pub use self::registry_in_configuration::RegistryInConfiguration;
 pub mod registry_out;
 pub use self::registry_out::RegistryOut;
@@ -902,17 +1904,25 @@ pub mod registry_out_disk_stats;
 pub use self::registry_out_disk_stats::RegistryOutDiskStats;
 pub mod registry_response;
 pub use self::registry_response::RegistryResponse;
+#[cfg(feature = "account")]
 pub mod remove_countries;
+#[cfg(feature = "account")]
 pub use self::remove_countries::RemoveCountries;
+#[cfg(feature = "account")]
 pub mod remove_ips;
+#[cfg(feature = "account")]
 pub use self::remove_ips::RemoveIps;
 pub mod repositories_response;
 pub use self::repositories_response::RepositoriesResponse;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub mod repository;
+#[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::repository::Repository;
 pub mod resource;
 pub use self::resource::Resource;
+#[cfg(feature = "projects")]
 pub mod resource_transfer;
+#[cfg(feature = "projects")]
 pub use self::resource_transfer::ResourceTransfer;
 pub mod resource_type;
 pub use self::resource_type::ResourceType;
@@ -920,9 +1930,13 @@ pub mod resources;
 pub use self::resources::Resources;
 pub mod resources_response;
 pub use self::resources_response::ResourcesResponse;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub mod rule;
+#[cfg(any(feature = "balancers", feature = "projects"))]
 pub use self::rule::Rule;
+#[cfg(feature = "s3")]
 pub mod s3_subdomain;
+#[cfg(feature = "s3")]
 pub use self::s3_subdomain::S3Subdomain;
 pub mod schemas_base_error;
 pub use self::schemas_base_error::SchemasBaseError;
@@ -930,191 +1944,375 @@ pub mod schemas_meta;
 pub use self::schemas_meta::SchemasMeta;
 pub mod schemas_presets_response;
 pub use self::schemas_presets_response::SchemasPresetsResponse;
+#[cfg(feature = "servers")]
 pub mod server_backup;
+#[cfg(feature = "servers")]
 pub use self::server_backup::ServerBackup;
+#[cfg(feature = "servers")]
 pub mod server_disk;
+#[cfg(feature = "servers")]
 pub use self::server_disk::ServerDisk;
+#[cfg(feature = "servers")]
 pub mod server_ip;
+#[cfg(feature = "servers")]
 pub use self::server_ip::ServerIp;
+#[cfg(feature = "servers")]
 pub mod server_log;
+#[cfg(feature = "servers")]
 pub use self::server_log::ServerLog;
+#[cfg(feature = "servers")]
 pub mod servers_configurator;
+#[cfg(feature = "servers")]
 pub use self::servers_configurator::ServersConfigurator;
+#[cfg(feature = "servers")]
 pub mod servers_configurator_requirements;
+#[cfg(feature = "servers")]
 pub use self::servers_configurator_requirements::ServersConfiguratorRequirements;
+#[cfg(feature = "servers")]
 pub mod servers_os;
+#[cfg(feature = "servers")]
 pub use self::servers_os::ServersOs;
+#[cfg(feature = "servers")]
 pub mod servers_os_requirements;
+#[cfg(feature = "servers")]
 pub use self::servers_os_requirements::ServersOsRequirements;
+#[cfg(feature = "servers")]
 pub mod servers_preset;
+#[cfg(feature = "servers")]
 pub use self::servers_preset::ServersPreset;
+#[cfg(feature = "servers")]
 pub mod servers_software;
+#[cfg(feature = "servers")]
 pub use self::servers_software::ServersSoftware;
+#[cfg(feature = "servers")]
 pub mod servers_software_requirements;
+#[cfg(feature = "servers")]
 pub use self::servers_software_requirements::ServersSoftwareRequirements;
+#[cfg(feature = "servers")]
 pub mod servers_statistics;
+#[cfg(feature = "servers")]
 pub use self::servers_statistics::ServersStatistics;
+#[cfg(feature = "servers")]
 pub mod servers_statistics_list_inner;
+#[cfg(feature = "servers")]
 pub use self::servers_statistics_list_inner::ServersStatisticsListInner;
+#[cfg(feature = "servers")]
 pub mod servers_statistics_meta;
+#[cfg(feature = "servers")]
 pub use self::servers_statistics_meta::ServersStatisticsMeta;
+#[cfg(feature = "payments")]
 pub mod service_cost_type;
+#[cfg(feature = "payments")]
 pub use self::service_cost_type::ServiceCostType;
+#[cfg(feature = "payments")]
 pub mod service_price;
+#[cfg(feature = "payments")]
 pub use self::service_price::ServicePrice;
+#[cfg(feature = "payments")]
 pub mod service_price_configuration;
+#[cfg(feature = "payments")]
 pub use self::service_price_configuration::ServicePriceConfiguration;
+#[cfg(feature = "payments")]
 pub mod service_price_service_id;
+#[cfg(feature = "payments")]
 pub use self::service_price_service_id::ServicePriceServiceId;
+#[cfg(feature = "payments")]
 pub mod service_price_type;
+#[cfg(feature = "payments")]
 pub use self::service_price_type::ServicePriceType;
+#[cfg(feature = "payments")]
 pub mod service_service_price;
+#[cfg(feature = "payments")]
 pub use self::service_service_price::ServiceServicePrice;
+#[cfg(feature = "payments")]
 pub mod service_service_price_node_groups_inner;
+#[cfg(feature = "payments")]
 pub use self::service_service_price_node_groups_inner::ServiceServicePriceNodeGroupsInner;
+#[cfg(feature = "kubernetes")]
 pub mod set_labels;
+#[cfg(feature = "kubernetes")]
 pub use self::set_labels::SetLabels;
+#[cfg(feature = "account")]
 pub mod setting_condition;
+#[cfg(feature = "account")]
 pub use self::setting_condition::SettingCondition;
+#[cfg(feature = "mail")]
 pub mod spam_filter_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::spam_filter_is_disabled::SpamFilterIsDisabled;
+#[cfg(feature = "mail")]
 pub mod spam_filter_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::spam_filter_is_enabled::SpamFilterIsEnabled;
+#[cfg(feature = "mail")]
 pub mod spam_protection_is_disabled;
+#[cfg(feature = "mail")]
 pub use self::spam_protection_is_disabled::SpamProtectionIsDisabled;
+#[cfg(feature = "mail")]
 pub mod spam_protection_is_enabled;
+#[cfg(feature = "mail")]
 pub use self::spam_protection_is_enabled::SpamProtectionIsEnabled;
+#[cfg(feature = "domains")]
 pub mod srv_______;
+#[cfg(feature = "domains")]
 pub use self::srv_______::Srv;
+#[cfg(feature = "ssh")]
 pub mod ssh_key;
+#[cfg(feature = "ssh")]
 pub use self::ssh_key::SshKey;
+#[cfg(feature = "ssh")]
 pub mod ssh_key_used_by_inner;
+#[cfg(feature = "ssh")]
 pub use self::ssh_key_used_by_inner::SshKeyUsedByInner;
+#[cfg(feature = "account")]
 pub mod status;
+#[cfg(feature = "account")]
 pub use self::status::Status;
+#[cfg(feature = "account")]
 pub mod status_company_info;
+#[cfg(feature = "account")]
 pub use self::status_company_info::StatusCompanyInfo;
+#[cfg(feature = "domains")]
 pub mod subdomain;
+#[cfg(feature = "domains")]
 pub use self::subdomain::Subdomain;
 pub mod tags;
 pub use self::tags::Tags;
+#[cfg(feature = "ai-agents")]
 pub mod token_package;
+#[cfg(feature = "ai-agents")]
 pub use self::token_package::TokenPackage;
+#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
 pub mod token_statistic;
+#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
 pub use self::token_statistic::TokenStatistic;
+#[cfg(feature = "domains")]
 pub mod top_level_domain;
+#[cfg(feature = "domains")]
 pub use self::top_level_domain::TopLevelDomain;
+#[cfg(feature = "domains")]
 pub mod top_level_domain_allowed_buy_periods_inner;
+#[cfg(feature = "domains")]
 pub use self::top_level_domain_allowed_buy_periods_inner::TopLevelDomainAllowedBuyPeriodsInner;
+#[cfg(feature = "s3")]
 pub mod transfer_status;
+#[cfg(feature = "s3")]
 pub use self::transfer_status::TransferStatus;
+#[cfg(feature = "s3")]
 pub mod transfer_status_errors_inner;
+#[cfg(feature = "s3")]
 pub use self::transfer_status_errors_inner::TransferStatusErrorsInner;
+#[cfg(feature = "s3")]
 pub mod transfer_storage_request;
+#[cfg(feature = "s3")]
 pub use self::transfer_storage_request::TransferStorageRequest;
+#[cfg(feature = "domains")]
 pub mod txt_______;
+#[cfg(feature = "domains")]
 pub use self::txt_______::Txt;
+#[cfg(feature = "databases")]
 pub mod update_admin;
+#[cfg(feature = "databases")]
 pub use self::update_admin::UpdateAdmin;
+#[cfg(feature = "ai-agents")]
 pub mod update_agent;
+#[cfg(feature = "ai-agents")]
 pub use self::update_agent::UpdateAgent;
+#[cfg(feature = "ai-agents")]
 pub mod update_agent_settings;
+#[cfg(feature = "ai-agents")]
 pub use self::update_agent_settings::UpdateAgentSettings;
+#[cfg(feature = "apps")]
 pub mod update_app_settings_200_response;
+#[cfg(feature = "apps")]
 pub use self::update_app_settings_200_response::UpdateAppSettings200Response;
+#[cfg(feature = "account")]
 pub mod update_auth_restrictions_by_countries_request;
+#[cfg(feature = "account")]
 pub use self::update_auth_restrictions_by_countries_request::UpdateAuthRestrictionsByCountriesRequest;
+#[cfg(feature = "balancers")]
 pub mod update_balancer;
+#[cfg(feature = "balancers")]
 pub use self::update_balancer::UpdateBalancer;
+#[cfg(feature = "databases")]
 pub mod update_cluster;
+#[cfg(feature = "databases")]
 pub use self::update_cluster::UpdateCluster;
+#[cfg(feature = "databases")]
 pub mod update_db;
+#[cfg(feature = "databases")]
 pub use self::update_db::UpdateDb;
+#[cfg(feature = "dedicated-servers")]
 pub mod update_dedicated_server_request;
+#[cfg(feature = "dedicated-servers")]
 pub use self::update_dedicated_server_request::UpdateDedicatedServerRequest;
+#[cfg(feature = "domains")]
 pub mod update_domain;
+#[cfg(feature = "domains")]
 pub use self::update_domain::UpdateDomain;
+#[cfg(feature = "domains")]
 pub mod update_domain_auto_prolongation_200_response;
+#[cfg(feature = "domains")]
 pub use self::update_domain_auto_prolongation_200_response::UpdateDomainAutoProlongation200Response;
+#[cfg(feature = "mail")]
 pub mod update_domain_mail_info_request;
+#[cfg(feature = "mail")]
 pub use self::update_domain_mail_info_request::UpdateDomainMailInfoRequest;
+#[cfg(feature = "domains")]
 pub mod update_domain_name_servers;
+#[cfg(feature = "domains")]
 pub use self::update_domain_name_servers::UpdateDomainNameServers;
+#[cfg(feature = "domains")]
 pub mod update_domain_name_servers_name_servers_inner;
+#[cfg(feature = "domains")]
 pub use self::update_domain_name_servers_name_servers_inner::UpdateDomainNameServersNameServersInner;
+#[cfg(feature = "domains")]
 pub mod update_domain_request_request;
+#[cfg(feature = "domains")]
 pub use self::update_domain_request_request::UpdateDomainRequestRequest;
+#[cfg(feature = "floating-ip")]
 pub mod update_floating_ip;
+#[cfg(feature = "floating-ip")]
 pub use self::update_floating_ip::UpdateFloatingIp;
+#[cfg(feature = "databases")]
 pub mod update_instance;
+#[cfg(feature = "databases")]
 pub use self::update_instance::UpdateInstance;
+#[cfg(feature = "ssh")]
 pub mod update_key_request;
+#[cfg(feature = "ssh")]
 pub use self::update_key_request::UpdateKeyRequest;
+#[cfg(feature = "knowledge-bases")]
 pub mod update_knowledgebase;
+#[cfg(feature = "knowledge-bases")]
 pub use self::update_knowledgebase::UpdateKnowledgebase;
+#[cfg(feature = "mail")]
 pub mod update_mailbox;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox::UpdateMailbox;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_auto_reply;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_auto_reply::UpdateMailboxAutoReply;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_forwarding_incoming;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_forwarding_incoming::UpdateMailboxForwardingIncoming;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_forwarding_outgoing;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_forwarding_outgoing::UpdateMailboxForwardingOutgoing;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_spam_filter;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_spam_filter::UpdateMailboxSpamFilter;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_v2;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_v2::UpdateMailboxV2;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_v2_200_response;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_v2_200_response::UpdateMailboxV2200Response;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_v2_autoreply_settings;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_v2_autoreply_settings::UpdateMailboxV2AutoreplySettings;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_v2_forward_settings;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_v2_forward_settings::UpdateMailboxV2ForwardSettings;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_v2_outgoing_settings;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_v2_outgoing_settings::UpdateMailboxV2OutgoingSettings;
+#[cfg(feature = "mail")]
 pub mod update_mailbox_v2_spam_protection_settings;
+#[cfg(feature = "mail")]
 pub use self::update_mailbox_v2_spam_protection_settings::UpdateMailboxV2SpamProtectionSettings;
+#[cfg(feature = "network-drives")]
 pub mod update_network_drive;
+#[cfg(feature = "network-drives")]
 pub use self::update_network_drive::UpdateNetworkDrive;
+#[cfg(feature = "account")]
 pub mod update_notification_settings_request;
+#[cfg(feature = "account")]
 pub use self::update_notification_settings_request::UpdateNotificationSettingsRequest;
+#[cfg(feature = "account")]
 pub mod update_notification_settings_request_settings_inner;
+#[cfg(feature = "account")]
 pub use self::update_notification_settings_request_settings_inner::UpdateNotificationSettingsRequestSettingsInner;
+#[cfg(feature = "account")]
 pub mod update_notification_settings_request_settings_inner_channels;
+#[cfg(feature = "account")]
 pub use self::update_notification_settings_request_settings_inner_channels::UpdateNotificationSettingsRequestSettingsInnerChannels;
+#[cfg(feature = "projects")]
 pub mod update_project;
+#[cfg(feature = "projects")]
 pub use self::update_project::UpdateProject;
+#[cfg(feature = "balancers")]
 pub mod update_rule;
+#[cfg(feature = "balancers")]
 pub use self::update_rule::UpdateRule;
+#[cfg(feature = "servers")]
 pub mod update_server;
+#[cfg(feature = "servers")]
 pub use self::update_server::UpdateServer;
+#[cfg(feature = "servers")]
 pub mod update_server_configurator;
+#[cfg(feature = "servers")]
 pub use self::update_server_configurator::UpdateServerConfigurator;
+#[cfg(feature = "servers")]
 pub mod update_server_disk_backup_request;
+#[cfg(feature = "servers")]
 pub use self::update_server_disk_backup_request::UpdateServerDiskBackupRequest;
+#[cfg(feature = "servers")]
 pub mod update_server_disk_request;
+#[cfg(feature = "servers")]
 pub use self::update_server_disk_request::UpdateServerDiskRequest;
+#[cfg(feature = "servers")]
 pub mod update_server_ip_request;
+#[cfg(feature = "servers")]
 pub use self::update_server_ip_request::UpdateServerIpRequest;
+#[cfg(feature = "servers")]
 pub mod update_server_nat_request;
+#[cfg(feature = "servers")]
 pub use self::update_server_nat_request::UpdateServerNatRequest;
+#[cfg(feature = "servers")]
 pub mod update_server_os_boot_mode_request;
+#[cfg(feature = "servers")]
 pub use self::update_server_os_boot_mode_request::UpdateServerOsBootModeRequest;
+#[cfg(feature = "apps")]
 pub mod update_settings;
+#[cfg(feature = "apps")]
 pub use self::update_settings::UpdateSettings;
+#[cfg(feature = "s3")]
 pub mod update_storage_request;
+#[cfg(feature = "s3")]
 pub use self::update_storage_request::UpdateStorageRequest;
+#[cfg(feature = "s3")]
 pub mod update_storage_request_configurator;
+#[cfg(feature = "s3")]
 pub use self::update_storage_request_configurator::UpdateStorageRequestConfigurator;
+#[cfg(feature = "s3")]
 pub mod update_storage_user_200_response;
+#[cfg(feature = "s3")]
 pub use self::update_storage_user_200_response::UpdateStorageUser200Response;
+#[cfg(feature = "s3")]
 pub mod update_storage_user_request;
+#[cfg(feature = "s3")]
 pub use self::update_storage_user_request::UpdateStorageUserRequest;
+#[cfg(feature = "vpc")]
 pub mod update_vpc;
+#[cfg(feature = "vpc")]
 pub use self::update_vpc::UpdateVpc;
+#[cfg(feature = "knowledge-bases")]
 pub mod upload_files_to_knowledgebase_200_response;
+#[cfg(feature = "knowledge-bases")]
 pub use self::upload_files_to_knowledgebase_200_response::UploadFilesToKnowledgebase200Response;
+#[cfg(feature = "images")]
 pub mod upload_image_200_response;
+#[cfg(feature = "images")]
 pub use self::upload_image_200_response::UploadImage200Response;
 pub mod upload_successful;
 pub use self::upload_successful::UploadSuccessful;
@@ -1124,29 +2322,53 @@ pub mod url_status;
 pub use self::url_status::UrlStatus;
 pub mod url_type;
 pub use self::url_type::UrlType;
+#[cfg(feature = "domains")]
 pub mod model_use;
+#[cfg(feature = "domains")]
 pub use self::model_use::Use;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds::Vds;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds_disks_inner;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds_disks_inner::VdsDisksInner;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds_image;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds_image::VdsImage;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds_networks_inner;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds_networks_inner::VdsNetworksInner;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds_networks_inner_ips_inner;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds_networks_inner_ips_inner::VdsNetworksInnerIpsInner;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds_os;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds_os::VdsOs;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds_software;
+#[cfg(any(feature = "projects", feature = "servers"))]
 pub use self::vds_software::VdsSoftware;
+#[cfg(feature = "vpc")]
 pub mod vpc;
+#[cfg(feature = "vpc")]
 pub use self::vpc::Vpc;
+#[cfg(feature = "vpc")]
 pub mod vpc_port;
+#[cfg(feature = "vpc")]
 pub use self::vpc_port::VpcPort;
+#[cfg(feature = "vpc")]
 pub mod vpc_port_service;
+#[cfg(feature = "vpc")]
 pub use self::vpc_port_service::VpcPortService;
+#[cfg(feature = "vpc")]
 pub mod vpc_service;
+#[cfg(feature = "vpc")]
 pub use self::vpc_service::VpcService;
 pub mod worker_preset_out_api;
 pub use self::worker_preset_out_api::WorkerPresetOutApi;

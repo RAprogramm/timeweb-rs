@@ -111,28 +111,49 @@ impl From<&str> for ContentType {
         }
     }
 }
-
+#[cfg(feature = "account")]
 pub mod account_api;
+#[cfg(feature = "ai-agents")]
 pub mod ai_agents_api;
+#[cfg(feature = "apps")]
 pub mod apps_api;
+#[cfg(feature = "balancers")]
 pub mod balancers_api;
+#[cfg(feature = "container-registry")]
 pub mod container_registry_api;
+#[cfg(feature = "databases")]
 pub mod databases_api;
+#[cfg(feature = "dedicated-servers")]
 pub mod dedicated_servers_api;
+#[cfg(feature = "domains")]
 pub mod domains_api;
+#[cfg(feature = "firewall")]
 pub mod firewall_api;
+#[cfg(feature = "floating-ip")]
 pub mod floating_ip_api;
+#[cfg(feature = "images")]
 pub mod images_api;
+#[cfg(feature = "knowledge-bases")]
 pub mod knowledge_bases_api;
+#[cfg(feature = "kubernetes")]
 pub mod kubernetes_api;
+#[cfg(feature = "locations")]
 pub mod locations_api;
+#[cfg(feature = "mail")]
 pub mod mail_api;
+#[cfg(feature = "network-drives")]
 pub mod network_drives_api;
+#[cfg(feature = "payments")]
 pub mod payments_api;
+#[cfg(feature = "projects")]
 pub mod projects_api;
+#[cfg(feature = "s3")]
 pub mod s3_api;
+#[cfg(feature = "servers")]
 pub mod servers_api;
+#[cfg(feature = "ssh")]
 pub mod ssh_api;
+#[cfg(feature = "vpc")]
 pub mod vpc_api;
 
 pub mod configuration;
