@@ -43,6 +43,12 @@ body = """
 protect_breaking_commits = true
 sort_commits = "newest"
 
+# PR titles follow the `#N type: description` convention (branch-per-issue
+# workflow). git-cliff only recognizes the conventional type when it is the
+# first token, so the leading issue reference is stripped before parsing —
+# without this every squashed commit lands in the "Other" group.
+commit_preprocessors = [{ pattern = '^#\d+ +', replace = "" }]
+
 commit_parsers = [
   { message = "^feat", group = "<!-- 0 -->Added" },
   { message = "^fix", group = "<!-- 1 -->Fixed" },
