@@ -14,19 +14,6 @@ use serde::{Deserialize, Serialize, de::Error as _};
 use super::{ContentType, Error, configuration};
 use crate::{apis::ResponseContent, models};
 
-/// struct for typed errors of method [`create_database`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateDatabaseError {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
 /// struct for typed errors of method [`create_database_backup`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -80,19 +67,6 @@ pub enum CreateDatabaseUserError {
     UnknownValue(serde_json::Value)
 }
 
-/// struct for typed errors of method [`delete_database`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum DeleteDatabaseError {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
 /// struct for typed errors of method [`delete_database_backup`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -136,19 +110,6 @@ pub enum DeleteDatabaseInstanceError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteDatabaseUserError {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
-/// struct for typed errors of method [`get_database`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetDatabaseError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
@@ -301,19 +262,6 @@ pub enum GetDatabaseUsersError {
     UnknownValue(serde_json::Value)
 }
 
-/// struct for typed errors of method [`get_databases`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetDatabasesError {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
 /// struct for typed errors of method [`get_databases_presets`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -336,19 +284,6 @@ pub enum RestoreDatabaseFromBackupError {
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
     Status409(models::CreateDatabaseBackup409Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
-/// struct for typed errors of method [`update_database`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum UpdateDatabaseError {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -404,68 +339,6 @@ pub enum UpdateDatabaseUserError {
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
-}
-
-/// Чтобы создать базу данных на вашем аккаунте, отправьте POST-запрос на
-/// `/api/v1/dbs`, задав необходимые атрибуты.  База данных будет создана с
-/// использованием предоставленной информации. Тело ответа будет содержать
-/// объект JSON с информацией о созданной базе данных.
-#[deprecated]
-pub async fn create_database(
-    configuration: &configuration::Configuration,
-    create_db: models::CreateDb
-) -> Result<models::CreateDatabase201Response, Error<CreateDatabaseError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_body_create_db = create_db;
-
-    let uri_str = format!("{}/api/v1/dbs", configuration.base_path);
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::POST, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_create_db);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabase201Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabase201Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<CreateDatabaseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
 }
 
 /// Чтобы создать бэкап базы данных, отправьте запрос POST в
@@ -729,78 +602,6 @@ pub async fn create_database_user(
     }
 }
 
-/// Чтобы удалить базу данных, отправьте запрос DELETE в `api/v1/dbs/{db_id}`.
-#[deprecated]
-pub async fn delete_database(
-    configuration: &configuration::Configuration,
-    db_id: i32,
-    hash: Option<&str>,
-    code: Option<&str>
-) -> Result<models::DeleteDatabase200Response, Error<DeleteDatabaseError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_db_id = db_id;
-    let p_query_hash = hash;
-    let p_query_code = code;
-
-    let uri_str = format!(
-        "{}/api/v1/dbs/{db_id}",
-        configuration.base_path,
-        db_id = p_path_db_id
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::DELETE, &uri_str);
-
-    if let Some(ref param_value) = p_query_hash {
-        req_builder = req_builder.query(&[("hash", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_code {
-        req_builder = req_builder.query(&[("code", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::DeleteDatabase200Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::DeleteDatabase200Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<DeleteDatabaseError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
 /// Чтобы удалить бэкап базы данных, отправьте запрос DELETE в
 /// `api/v1/dbs/{db_id}/backups/{backup_id}`.
 pub async fn delete_database_backup(
@@ -1003,67 +804,6 @@ pub async fn delete_database_user(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseUserError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
-/// Чтобы отобразить информацию об отдельной базе данных, отправьте запрос GET
-/// на `api/v1/dbs/{db_id}`.
-#[deprecated]
-pub async fn get_database(
-    configuration: &configuration::Configuration,
-    db_id: i32
-) -> Result<models::CreateDatabase201Response, Error<GetDatabaseError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_db_id = db_id;
-
-    let uri_str = format!(
-        "{}/api/v1/dbs/{db_id}",
-        configuration.base_path,
-        db_id = p_path_db_id
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabase201Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabase201Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetDatabaseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1744,72 +1484,6 @@ pub async fn get_database_users(
     }
 }
 
-/// Чтобы получить список всех баз данных на вашем аккаунте, отправьте
-/// GET-запрос на `/api/v1/dbs`.   Тело ответа будет представлять собой объект
-/// JSON с ключом `dbs`.
-#[deprecated]
-pub async fn get_databases(
-    configuration: &configuration::Configuration,
-    limit: Option<i32>,
-    offset: Option<i32>
-) -> Result<models::GetDatabases200Response, Error<GetDatabasesError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_limit = limit;
-    let p_query_offset = offset;
-
-    let uri_str = format!("{}/api/v1/dbs", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref param_value) = p_query_limit {
-        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_offset {
-        req_builder = req_builder.query(&[("offset", &param_value.to_string())]);
-    }
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabases200Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabases200Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetDatabasesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
 /// Чтобы получить список тарифов для баз данных, отправьте GET-запрос на
 /// `/api/v2/presets/dbs`.   Тело ответа будет представлять собой объект JSON с
 /// ключом `databases_presets`.
@@ -1906,72 +1580,6 @@ pub async fn restore_database_from_backup(
     } else {
         let content = resp.text().await?;
         let entity: Option<RestoreDatabaseFromBackupError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
-/// Чтобы обновить только определенные атрибуты базы данных, отправьте запрос
-/// PATCH в `api/v1/dbs/{db_id}`.
-#[deprecated]
-pub async fn update_database(
-    configuration: &configuration::Configuration,
-    db_id: i32,
-    update_db: models::UpdateDb
-) -> Result<models::CreateDatabase201Response, Error<UpdateDatabaseError>> {
-    // add a prefix to parameters to efficiently prevent name collisions
-    let p_path_db_id = db_id;
-    let p_body_update_db = update_db;
-
-    let uri_str = format!(
-        "{}/api/v1/dbs/{db_id}",
-        configuration.base_path,
-        db_id = p_path_db_id
-    );
-    let mut req_builder = configuration
-        .client
-        .request(reqwest::Method::PATCH, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-    req_builder = req_builder.json(&p_body_update_db);
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabase201Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabase201Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<UpdateDatabaseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

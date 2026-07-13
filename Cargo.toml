@@ -59,11 +59,12 @@ mail = []
 network-drives = []
 payments = []
 projects = []
+routers = []
 s3 = []
 servers = []
 ssh = []
 vpc = []
-full = ["account", "ai-agents", "apps", "balancers", "container-registry", "databases", "dedicated-servers", "domains", "firewall", "floating-ip", "images", "knowledge-bases", "kubernetes", "locations", "mail", "network-drives", "payments", "projects", "s3", "servers", "ssh", "vpc"]
+full = ["account", "ai-agents", "apps", "balancers", "container-registry", "databases", "dedicated-servers", "domains", "firewall", "floating-ip", "images", "knowledge-bases", "kubernetes", "locations", "mail", "network-drives", "payments", "projects", "routers", "s3", "servers", "ssh", "vpc"]
 # END generated area features
 
 [dev-dependencies]

@@ -12,34 +12,33 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// UpdateDb : Дополнительные параметры конфигурации базы данных.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct UpdateDb {
-    /// Пароль для подключения к базе данных.
-    #[serde(rename = "password", skip_serializing_if = "Option::is_none")]
-    pub password:          Option<String>,
-    /// Название базы данных.
-    #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name:              Option<String>,
-    /// ID тарифа.
-    #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
-    pub preset_id:         Option<i32>,
-    #[serde(rename = "config_parameters", skip_serializing_if = "Option::is_none")]
-    pub config_parameters: Option<Box<models::ConfigParameters>>,
-    /// Использовать или нет внешний IP.
-    #[serde(rename = "is_external_ip", skip_serializing_if = "Option::is_none")]
-    pub is_external_ip:    Option<bool>
+pub struct AvailableStaticRoute {
+    /// Имя сервиса
+    #[serde(rename = "service_name")]
+    pub service_name: String,
+    /// Тип сервиса
+    #[serde(rename = "service_type")]
+    pub service_type: String,
+    /// IP-адрес следующего узла
+    #[serde(rename = "nexthop")]
+    pub nexthop:      String,
+    /// Доступные подсети
+    #[serde(rename = "subnets", skip_serializing_if = "Option::is_none")]
+    pub subnets:      Option<Vec<models::AvailableStaticRouteSubnetsInner>>
 }
 
-impl UpdateDb {
-    /// Дополнительные параметры конфигурации базы данных.
-    pub fn new() -> UpdateDb {
-        UpdateDb {
-            password:          None,
-            name:              None,
-            preset_id:         None,
-            config_parameters: None,
-            is_external_ip:    None
+impl AvailableStaticRoute {
+    pub fn new(
+        service_name: String,
+        service_type: String,
+        nexthop: String
+    ) -> AvailableStaticRoute {
+        AvailableStaticRoute {
+            service_name,
+            service_type,
+            nexthop,
+            subnets: None
         }
     }
 }

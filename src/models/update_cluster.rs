@@ -20,6 +20,8 @@ pub struct UpdateCluster {
     /// ID тарифа.
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
     pub preset_id: Option<i32>,
+    #[serde(rename = "config_parameters", skip_serializing_if = "Option::is_none")]
+    pub config_parameters: Option<Box<models::UpdateClusterConfigParameters>>,
     /// Описание кластера базы данных
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -28,7 +30,10 @@ pub struct UpdateCluster {
         rename = "is_enabled_public_network",
         skip_serializing_if = "Option::is_none"
     )]
-    pub is_enabled_public_network: Option<bool>
+    pub is_enabled_public_network: Option<bool>,
+    /// Использование IPv6 адреса.
+    #[serde(rename = "is_public_ipv6", skip_serializing_if = "Option::is_none")]
+    pub is_public_ipv6: Option<bool>
 }
 
 impl UpdateCluster {
@@ -36,8 +41,10 @@ impl UpdateCluster {
         UpdateCluster {
             name: None,
             preset_id: None,
+            config_parameters: None,
             description: None,
-            is_enabled_public_network: None
+            is_enabled_public_network: None,
+            is_public_ipv6: None
         }
     }
 }

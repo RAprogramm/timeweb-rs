@@ -13,20 +13,37 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateDatabase201Response {
-    #[serde(rename = "db")]
-    pub db:          Box<models::Db>,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id: Option<uuid::Uuid>
+pub struct RouterNetworkMeta {
+    /// ID сети
+    #[serde(rename = "id")]
+    pub id:      String,
+    /// Имя сети
+    #[serde(rename = "name")]
+    pub name:    String,
+    /// IP-адрес NAT
+    #[serde(rename = "nat_ip", deserialize_with = "Option::deserialize")]
+    pub nat_ip:  Option<String>,
+    /// Шлюз
+    #[serde(rename = "gateway", deserialize_with = "Option::deserialize")]
+    pub gateway: Option<String>,
+    #[serde(rename = "dhcp")]
+    pub dhcp:    Box<models::RouterNetworkMetaDhcp>
 }
 
-impl CreateDatabase201Response {
-    pub fn new(db: models::Db, response_id: Option<uuid::Uuid>) -> CreateDatabase201Response {
-        CreateDatabase201Response {
-            db: Box::new(db),
-            response_id
+impl RouterNetworkMeta {
+    pub fn new(
+        id: String,
+        name: String,
+        nat_ip: Option<String>,
+        gateway: Option<String>,
+        dhcp: models::RouterNetworkMetaDhcp
+    ) -> RouterNetworkMeta {
+        RouterNetworkMeta {
+            id,
+            name,
+            nat_ip,
+            gateway,
+            dhcp: Box::new(dhcp)
         }
     }
 }

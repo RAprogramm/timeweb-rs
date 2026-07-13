@@ -13,23 +13,16 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct DeleteDatabase200Response {
-    #[serde(rename = "database_delete")]
-    pub database_delete: Box<models::DeleteServiceResponse>,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id:     Option<uuid::Uuid>
+pub struct RouterOutNodesInner {
+    /// ID ноды
+    #[serde(rename = "id")]
+    pub id: String
 }
 
-impl DeleteDatabase200Response {
-    pub fn new(
-        database_delete: models::DeleteServiceResponse,
-        response_id: Option<uuid::Uuid>
-    ) -> DeleteDatabase200Response {
-        DeleteDatabase200Response {
-            database_delete: Box::new(database_delete),
-            response_id
+impl RouterOutNodesInner {
+    pub fn new(id: String) -> RouterOutNodesInner {
+        RouterOutNodesInner {
+            id
         }
     }
 }

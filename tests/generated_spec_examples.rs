@@ -1076,6 +1076,700 @@ fn get_cluster_resources_200_example_deserializes() {
 }
 
 #[test]
+fn get_router_presets_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "router_presets": [
+    {
+      "id": 2009,
+      "node_count": 1,
+      "cpu": 1,
+      "cpu_frequency": "3.3",
+      "ram": 1,
+      "bandwidth": 1000,
+      "cost": 450,
+      "location": "ru-3"
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetRouterPresets200Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/presets/routers 200 must deserialize");
+}
+
+#[test]
+fn get_routers_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "routers": [
+    {
+      "id": "ca79642f-4b03-457b-bc43-714c126eda34",
+      "account_id": "1",
+      "avatar_link": null,
+      "name": "router",
+      "comment": "comment",
+      "status": "started",
+      "zone": "msk-1",
+      "ips": [
+        {
+          "ip": "203.0.113.10",
+          "nat": null
+        }
+      ],
+      "preset_id": 2009,
+      "preset": {
+        "id": 2009,
+        "node_count": 1,
+        "cpu": 1,
+        "cpu_frequency": "3.3",
+        "ram": 1,
+        "bandwidth": 1000,
+        "cost": 450,
+        "location": "ru-3"
+      },
+      "nodes": [
+        {
+          "id": "f4f4a43d-be27-4dec-ae16-cd062540caa3"
+        }
+      ],
+      "networks": [
+        {
+          "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+          "name": "network",
+          "nat_ip": null,
+          "gateway": "192.168.0.1",
+          "dhcp": {
+            "is_enabled": false,
+            "is_available": true
+          }
+        }
+      ],
+      "created_at": "2026-03-11T13:43:54.000Z",
+      "project_id": 1,
+      "parent_services": []
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetRouters200Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers 200 must deserialize");
+}
+
+#[test]
+fn create_router_201_example_deserializes() {
+    let body = r##"
+{
+  "router": {
+    "id": "ca79642f-4b03-457b-bc43-714c126eda34",
+    "account_id": "1",
+    "avatar_link": null,
+    "name": "router",
+    "comment": "comment",
+    "status": "starting",
+    "zone": "msk-1",
+    "ips": [
+      {
+        "ip": "203.0.113.10",
+        "nat": null
+      }
+    ],
+    "preset_id": 2009,
+    "preset": {
+      "id": 2009,
+      "node_count": 1,
+      "cpu": 1,
+      "cpu_frequency": "3.3",
+      "ram": 1,
+      "bandwidth": 1000,
+      "cost": 450,
+      "location": "ru-3"
+    },
+    "nodes": [
+      {
+        "id": "f4f4a43d-be27-4dec-ae16-cd062540caa3"
+      }
+    ],
+    "networks": [
+      {
+        "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+        "name": "network",
+        "nat_ip": null,
+        "gateway": "192.168.0.1",
+        "dhcp": {
+          "is_enabled": false,
+          "is_available": true
+        }
+      }
+    ],
+    "created_at": "2026-03-11T13:43:54.000Z",
+    "project_id": 1,
+    "parent_services": []
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::CreateRouter201Response = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/routers 201 must deserialize");
+}
+
+#[test]
+fn get_router_available_networks_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "available_networks": [
+    {
+      "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+      "description": "",
+      "name": "network",
+      "subnet_v4": "192.168.0.0/24",
+      "location": "ru-1",
+      "created_at": "2026-03-11T13:43:54.000Z",
+      "availability_zone": "spb-3",
+      "public_ip": null,
+      "type": "local",
+      "busy_address": [
+        "192.168.0.1"
+      ]
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetRouterAvailableNetworks200Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers/networks/available 200 must deserialize");
+}
+
+#[test]
+fn get_router_200_example_deserializes() {
+    let body = r##"
+{
+  "router": {
+    "id": "ca79642f-4b03-457b-bc43-714c126eda34",
+    "account_id": "1",
+    "avatar_link": null,
+    "name": "router",
+    "comment": "comment",
+    "status": "started",
+    "zone": "msk-1",
+    "ips": [
+      {
+        "ip": "203.0.113.10",
+        "nat": null
+      }
+    ],
+    "preset_id": 2009,
+    "preset": {
+      "id": 2009,
+      "node_count": 1,
+      "cpu": 1,
+      "cpu_frequency": "3.3",
+      "ram": 1,
+      "bandwidth": 1000,
+      "cost": 450,
+      "location": "ru-3"
+    },
+    "nodes": [
+      {
+        "id": "f4f4a43d-be27-4dec-ae16-cd062540caa3"
+      }
+    ],
+    "networks": [
+      {
+        "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+        "name": "network",
+        "nat_ip": null,
+        "gateway": "192.168.0.1",
+        "dhcp": {
+          "is_enabled": false,
+          "is_available": true
+        }
+      }
+    ],
+    "created_at": "2026-03-11T13:43:54.000Z",
+    "project_id": 1,
+    "parent_services": []
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::CreateRouter201Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers/{router_id} 200 must deserialize");
+}
+
+#[test]
+fn update_router_200_example_deserializes() {
+    let body = r##"
+{
+  "router": {
+    "id": "ca79642f-4b03-457b-bc43-714c126eda34",
+    "account_id": "1",
+    "avatar_link": null,
+    "name": "new name",
+    "comment": "new comment",
+    "status": "started",
+    "zone": "msk-1",
+    "ips": [
+      {
+        "ip": "203.0.113.10",
+        "nat": null
+      }
+    ],
+    "preset_id": 2009,
+    "preset": {
+      "id": 2009,
+      "node_count": 1,
+      "cpu": 1,
+      "cpu_frequency": "3.3",
+      "ram": 1,
+      "bandwidth": 1000,
+      "cost": 450,
+      "location": "ru-3"
+    },
+    "nodes": [
+      {
+        "id": "f4f4a43d-be27-4dec-ae16-cd062540caa3"
+      }
+    ],
+    "networks": [
+      {
+        "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+        "name": "network",
+        "nat_ip": null,
+        "gateway": "192.168.0.1",
+        "dhcp": {
+          "is_enabled": false,
+          "is_available": true
+        }
+      }
+    ],
+    "created_at": "2026-03-11T13:43:54.000Z",
+    "project_id": 1,
+    "parent_services": []
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::CreateRouter201Response = serde_json::from_str(body)
+        .expect("spec example for PATCH /api/v1/routers/{router_id} 200 must deserialize");
+}
+
+#[test]
+fn get_dnat_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "dnat_rules": [
+    {
+      "id": "12326e51-5e19-4359-9362-b4433b8eba80",
+      "local_ip": "192.168.0.17",
+      "local_port": "1-65535",
+      "public_ip": "203.0.113.10",
+      "public_port": "1-65535",
+      "protocol": "tcp_udp"
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetDnat200Response = serde_json::from_str(body).expect(
+        "spec example for GET /api/v1/routers/{router_id}/dnat-rules 200 must deserialize"
+    );
+}
+
+#[test]
+fn post_dnat_201_example_deserializes() {
+    let body = r##"
+{
+  "dnat_rule": {
+    "id": "12326e51-5e19-4359-9362-b4433b8eba80",
+    "local_ip": "192.168.0.17",
+    "local_port": "1-65535",
+    "public_ip": "203.0.113.10",
+    "public_port": "1-65535",
+    "protocol": "tcp_udp"
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::PostDnat201Response = serde_json::from_str(body).expect(
+        "spec example for POST /api/v1/routers/{router_id}/dnat-rules 201 must deserialize"
+    );
+}
+
+#[test]
+fn get_dnat_rule_200_example_deserializes() {
+    let body = r##"
+{
+  "dnat_rule": {
+    "id": "12326e51-5e19-4359-9362-b4433b8eba80",
+    "local_ip": "192.168.0.17",
+    "local_port": "1-65535",
+    "public_ip": "203.0.113.10",
+    "public_port": "1-65535",
+    "protocol": "tcp_udp"
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::PostDnat201Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers/{router_id}/dnat-rules/{dnat_id} 200 must deserialize");
+}
+
+#[test]
+fn get_networks_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "router_networks": [
+    {
+      "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+      "name": "network",
+      "subnet": "192.168.0.0/24",
+      "nat_ip": null,
+      "gateway": "192.168.0.1",
+      "reserved_ips": [
+        "192.168.0.4"
+      ],
+      "dhcp": {
+        "is_enabled": false,
+        "is_available": true
+      },
+      "busy_addresses": [
+        "192.168.0.0",
+        "192.168.0.1",
+        "192.168.0.255"
+      ]
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetNetworks200Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers/{router_id}/networks 200 must deserialize");
+}
+
+#[test]
+fn add_networks_201_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "router_networks": [
+    {
+      "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+      "name": "network",
+      "subnet": "192.168.0.0/24",
+      "nat_ip": null,
+      "gateway": "192.168.0.1",
+      "reserved_ips": [
+        "192.168.0.4"
+      ],
+      "dhcp": {
+        "is_enabled": false,
+        "is_available": true
+      },
+      "busy_addresses": [
+        "192.168.0.0",
+        "192.168.0.1",
+        "192.168.0.255"
+      ]
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetNetworks200Response = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/routers/{router_id}/networks 201 must deserialize");
+}
+
+#[test]
+fn patch_networks_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "router_networks": [
+    {
+      "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+      "name": "network",
+      "subnet": "192.168.0.0/24",
+      "nat_ip": null,
+      "gateway": "192.168.0.1",
+      "reserved_ips": [
+        "192.168.0.4"
+      ],
+      "dhcp": {
+        "is_enabled": false,
+        "is_available": true
+      },
+      "busy_addresses": [
+        "192.168.0.0",
+        "192.168.0.1",
+        "192.168.0.255"
+      ]
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetNetworks200Response = serde_json::from_str(body).expect(
+        "spec example for PATCH /api/v1/routers/{router_id}/networks 200 must deserialize"
+    );
+}
+
+#[test]
+fn patch_network_200_example_deserializes() {
+    let body = r##"
+{
+  "router_network": {
+    "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+    "name": "network",
+    "subnet": "192.168.0.0/24",
+    "nat_ip": null,
+    "gateway": "192.168.0.1",
+    "reserved_ips": [
+      "192.168.0.4"
+    ],
+    "dhcp": {
+      "is_enabled": true,
+      "is_available": false
+    },
+    "busy_addresses": [
+      "192.168.0.0",
+      "192.168.0.1",
+      "192.168.0.255"
+    ]
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::PatchNetwork200Response = serde_json::from_str(body)
+        .expect("spec example for PATCH /api/v1/routers/{router_id}/networks/{network_name} 200 must deserialize");
+}
+
+#[test]
+fn update_router_nat_200_example_deserializes() {
+    let body = r##"
+{
+  "router": {
+    "id": "ca79642f-4b03-457b-bc43-714c126eda34",
+    "account_id": "1",
+    "avatar_link": null,
+    "name": "router",
+    "comment": "comment",
+    "status": "started",
+    "zone": "msk-1",
+    "ips": [
+      {
+        "ip": "203.0.113.10",
+        "nat": null
+      }
+    ],
+    "preset_id": 2009,
+    "preset": {
+      "id": 2009,
+      "node_count": 1,
+      "cpu": 1,
+      "cpu_frequency": "3.3",
+      "ram": 1,
+      "bandwidth": 1000,
+      "cost": 450,
+      "location": "ru-3"
+    },
+    "nodes": [
+      {
+        "id": "f4f4a43d-be27-4dec-ae16-cd062540caa3"
+      }
+    ],
+    "networks": [
+      {
+        "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+        "name": "network",
+        "nat_ip": "203.0.113.10",
+        "gateway": "192.168.0.1",
+        "dhcp": {
+          "is_enabled": false,
+          "is_available": true
+        }
+      }
+    ],
+    "created_at": "2026-03-11T13:43:54.000Z",
+    "project_id": 1,
+    "parent_services": []
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::CreateRouter201Response = serde_json::from_str(body)
+        .expect("spec example for PATCH /api/v1/routers/{router_id}/networks/{network_name}/nat 200 must deserialize");
+}
+
+#[test]
+fn delete_router_nat_200_example_deserializes() {
+    let body = r##"
+{
+  "router": {
+    "id": "ca79642f-4b03-457b-bc43-714c126eda34",
+    "account_id": "1",
+    "avatar_link": null,
+    "name": "router",
+    "comment": "comment",
+    "status": "started",
+    "zone": "msk-1",
+    "ips": [
+      {
+        "ip": "203.0.113.10",
+        "nat": null
+      }
+    ],
+    "preset_id": 2009,
+    "preset": {
+      "id": 2009,
+      "node_count": 1,
+      "cpu": 1,
+      "cpu_frequency": "3.3",
+      "ram": 1,
+      "bandwidth": 1000,
+      "cost": 450,
+      "location": "ru-3"
+    },
+    "nodes": [
+      {
+        "id": "f4f4a43d-be27-4dec-ae16-cd062540caa3"
+      }
+    ],
+    "networks": [
+      {
+        "id": "network-8ea2cef4765c422c9b2a22d6ec283bf3",
+        "name": "network",
+        "nat_ip": null,
+        "gateway": "192.168.0.1",
+        "dhcp": {
+          "is_enabled": false,
+          "is_available": true
+        }
+      }
+    ],
+    "created_at": "2026-03-11T13:43:54.000Z",
+    "project_id": 1,
+    "parent_services": []
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::CreateRouter201Response = serde_json::from_str(body)
+        .expect("spec example for DELETE /api/v1/routers/{router_id}/networks/{network_name}/nat 200 must deserialize");
+}
+
+#[test]
+fn get_static_routes_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "static_routes": [
+    {
+      "id": "12eeadc2-f9db-4421-987d-a30ed9bdb78b",
+      "nexthop": "192.168.1.4",
+      "subnet": "10.0.0.0/24"
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetStaticRoutes200Response = serde_json::from_str(body).expect(
+        "spec example for GET /api/v1/routers/{router_id}/static-routes 200 must deserialize"
+    );
+}
+
+#[test]
+fn post_static_route_201_example_deserializes() {
+    let body = r##"
+{
+  "static_route": {
+    "id": "12eeadc2-f9db-4421-987d-a30ed9bdb78b",
+    "nexthop": "192.168.1.4",
+    "subnet": "10.0.0.0/24"
+  },
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::PostStaticRoute201Response = serde_json::from_str(body).expect(
+        "spec example for POST /api/v1/routers/{router_id}/static-routes 201 must deserialize"
+    );
+}
+
+#[test]
+fn get_available_static_routes_200_example_deserializes() {
+    let body = r##"
+{
+  "meta": {
+    "total": 1
+  },
+  "available_networks": [
+    {
+      "service_name": "server",
+      "service_type": "server",
+      "nexthop": "192.168.1.4",
+      "subnets": [
+        {
+          "subnet": "10.0.0.0/24",
+          "network_name": "network-8ea2cef4765c422c9b2a22d6ec283bf3"
+        }
+      ]
+    }
+  ],
+  "response_id": "64c76353-f111-455b-a4e9-52734f877887"
+}
+"##;
+    let _: timeweb_rs::models::GetAvailableStaticRoutes200Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers/{router_id}/static-routes/available 200 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn get_router_statistics_200_example_deserializes() {
+    let body = r##"
+{
+  "statistics": [
+    {
+      "name": "cpu",
+      "list": [
+        {
+          "value": 12,
+          "time": "2026-03-11T13:43:54.000Z"
+        }
+      ],
+      "meta": {
+        "amount": 1
+      }
+    }
+  ]
+}
+"##;
+    let _: timeweb_rs::models::GetRouterStatistics200Response = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/routers/{router_id}/statistics/{time_from}/{period}/{keys} 200 must deserialize");
+}
+
+#[test]
 #[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
 fn create_domain_dns_record_v2_201_a_example_deserializes() {
     let body = r##"

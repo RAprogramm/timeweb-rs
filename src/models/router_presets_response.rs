@@ -13,27 +13,32 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetDatabases200Response {
+pub struct RouterPresetsResponse {
+    /// ID запроса
+    #[serde(
+        rename = "response_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub response_id:    Option<Option<String>>,
+    /// Тарифы роутеров
+    #[serde(rename = "router_presets")]
+    pub router_presets: Vec<models::RouterPreset>,
+    /// Вспомогательная информация о возвращаемой сущности
     #[serde(rename = "meta")]
-    pub meta:        Box<models::Meta>,
-    #[serde(rename = "dbs")]
-    pub dbs:         Vec<models::Db>,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id: Option<uuid::Uuid>
+    pub meta:           Box<models::ComponentsSchemasMeta>
 }
 
-impl GetDatabases200Response {
+impl RouterPresetsResponse {
     pub fn new(
-        meta: models::Meta,
-        dbs: Vec<models::Db>,
-        response_id: Option<uuid::Uuid>
-    ) -> GetDatabases200Response {
-        GetDatabases200Response {
-            meta: Box::new(meta),
-            dbs,
-            response_id
+        router_presets: Vec<models::RouterPreset>,
+        meta: models::ComponentsSchemasMeta
+    ) -> RouterPresetsResponse {
+        RouterPresetsResponse {
+            response_id: None,
+            router_presets,
+            meta: Box::new(meta)
         }
     }
 }

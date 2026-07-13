@@ -37,11 +37,14 @@ pub struct CreateCluster {
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
     pub project_id:        Option<i32>,
     #[serde(rename = "config_parameters", skip_serializing_if = "Option::is_none")]
-    pub config_parameters: Option<Box<models::ConfigParameters>>,
+    pub config_parameters: Option<Box<models::CreateClusterConfigParameters>>,
     #[serde(rename = "replication", skip_serializing_if = "Option::is_none")]
     pub replication:       Option<Box<models::DbReplication>>,
     #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
     pub network:           Option<Box<models::Network>>,
+    /// Использование IPv6 адреса.
+    #[serde(rename = "is_public_ipv6", skip_serializing_if = "Option::is_none")]
+    pub is_public_ipv6:    Option<bool>,
     /// Описание кластера базы данных
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:       Option<String>,
@@ -65,6 +68,7 @@ impl CreateCluster {
             config_parameters: None,
             replication: None,
             network: None,
+            is_public_ipv6: None,
             description: None,
             availability_zone: None,
             auto_backups: None
