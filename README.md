@@ -106,7 +106,15 @@ One module per API area: `account_api`, `ai_agents_api`, `apps_api`,
 
 ## Regenerating from the spec
 
-The generated code is committed. To refresh it after an upstream API update:
+The generated code is committed. A scheduled workflow compares the vendored
+spec with the upstream bundle daily; when it changes, the workflow regenerates
+the SDK, opens a pull request with an [`oasdiff`](https://github.com/oasdiff/oasdiff)
+summary of the API changes and merges it automatically once CI is green —
+unless [`cargo-semver-checks`](https://github.com/obi1kenobi/cargo-semver-checks)
+finds breaking changes, in which case the pull request stays open for review
+under a `breaking-change` label.
+
+To refresh manually:
 
 1. Download the latest spec:
    ```sh

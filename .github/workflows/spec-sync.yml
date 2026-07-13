@@ -22,6 +22,10 @@ jobs:
     name: Check and regenerate from upstream spec
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      pr_number: ${{ steps.pr.outputs.pull-request-number }}
+      head_sha: ${{ steps.pr.outputs.pull-request-head-sha }}
+      breaking: ${{ steps.semver.outputs.breaking }}
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
@@ -64,6 +68,7 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         continue-on-error: true
         run: |
+          cp openapi/timeweb-cloud.json /tmp/base-spec.json
           cp /tmp/latest.json openapi/timeweb-cloud.json
           python3 openapi/normalize_spec.py openapi/timeweb-cloud.json /tmp/normalized.json
           npx --yes @openapitools/openapi-generator-cli@latest generate \
@@ -84,6 +89,79 @@ jobs:
         run: |
           cargo build --all-features
           cargo test --all-features
+
+      - name: Install cargo-semver-checks
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && steps.regen.outcome == 'success'
+          && steps.verify.outcome == 'success'
+        uses: taiki-e/install-action@16b05812d776ae1dfaabc8277e421fb6d2506419 # v2
+        with:
+          tool: cargo-semver-checks
+
+      - name: Classify the regeneration with cargo-semver-checks
+        id: semver
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && steps.regen.outcome == 'success'
+          && steps.verify.outcome == 'success'
+        run: |
+          if cargo semver-checks --all-features --baseline-rev HEAD; then
+            echo "breaking=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "breaking=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Summarize the API changes with oasdiff
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && steps.regen.outcome == 'success'
+          && steps.verify.outcome == 'success'
+        env:
+          OASDIFF_VERSION: "1.23.0"
+        run: |
+          curl -fsSL -o /tmp/oasdiff.tar.gz \
+            "https://github.com/oasdiff/oasdiff/releases/download/v${OASDIFF_VERSION}/oasdiff_${OASDIFF_VERSION}_linux_amd64.tar.gz"
+          tar -xzf /tmp/oasdiff.tar.gz -C /tmp oasdiff
+          /tmp/oasdiff changelog /tmp/base-spec.json /tmp/latest.json \
+            --format markdown > /tmp/api-changes.md || true
+
+      - name: Compose the pull request body
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && steps.regen.outcome == 'success'
+          && steps.verify.outcome == 'success'
+        env:
+          BREAKING: ${{ steps.semver.outputs.breaking }}
+        run: |
+          {
+            echo "The upstream Timeweb Cloud OpenAPI specification changed."
+            echo
+            echo "This pull request was opened automatically: it vendors the new"
+            echo "spec, regenerates \`src/apis\` and \`src/models\` and refreshes"
+            echo "the README statistics. The regenerated SDK builds and its tests"
+            echo "pass."
+            echo
+            if [ "$BREAKING" = "true" ]; then
+              echo "**cargo-semver-checks reports breaking changes** (or could"
+              echo "not complete); this pull request stays open for review."
+            else
+              echo "cargo-semver-checks found no breaking changes; this pull"
+              echo "request merges automatically once CI is green."
+            fi
+            echo
+            echo "## API changes"
+            echo
+            if [ -s /tmp/api-changes.md ]; then
+              head -c 60000 /tmp/api-changes.md
+              if [ "$(stat -c%s /tmp/api-changes.md)" -gt 60000 ]; then
+                echo
+                echo "_Summary truncated; see the spec diff for the rest._"
+              fi
+            else
+              echo "_No summary available (oasdiff produced no output)._"
+            fi
+          } > /tmp/pr-body.md
 
       - name: Mint GitHub App token
         id: app_token
@@ -107,15 +185,28 @@ jobs:
           token: ${{ steps.app_token.outputs.token }}
           branch: automated/timeweb-api-update
           delete-branch: true
-          title: "feat: regenerate SDK from updated Timeweb API spec"
-          commit-message: "feat: regenerate SDK from updated Timeweb API spec"
-          body: |
-            The upstream Timeweb Cloud OpenAPI specification changed.
+          title: >-
+            ${{ steps.semver.outputs.breaking == 'true'
+                && 'feat!: regenerate SDK from updated Timeweb API spec'
+                || 'feat: regenerate SDK from updated Timeweb API spec' }}
+          commit-message: >-
+            ${{ steps.semver.outputs.breaking == 'true'
+                && 'feat!: regenerate SDK from updated Timeweb API spec'
+                || 'feat: regenerate SDK from updated Timeweb API spec' }}
+          body-path: /tmp/pr-body.md
 
-            This pull request was opened automatically: it vendors the new
-            spec, regenerates `src/apis` and `src/models` and refreshes the
-            README statistics. The regenerated SDK builds and its tests pass.
-            Review the diff before merging.
+      - name: Label breaking updates
+        if: >-
+          steps.pr.outputs.pull-request-number != ''
+          && steps.semver.outputs.breaking == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create breaking-change \
+            --description "Changes the public API surface" \
+            --color B60205 --force
+          gh pr edit "${{ steps.pr.outputs.pull-request-number }}" \
+            --add-label breaking-change
 
       - name: Close stale spec-update failure issues
         if: steps.pr.outputs.pull-request-url != ''
@@ -158,3 +249,53 @@ jobs:
           gh issue create \
             --title "Timeweb API spec changed — manual SDK update required" \
             --body-file /tmp/issue-body.md
+
+  automerge:
+    name: Merge compatible updates after green CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: sync
+    if: >-
+      needs.sync.outputs.pr_number != ''
+      && needs.sync.outputs.breaking == 'false'
+    steps:
+      - name: Wait for the CI workflow to succeed on the PR head
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ needs.sync.outputs.pr_number }}
+          HEAD_SHA: ${{ needs.sync.outputs.head_sha }}
+        run: |
+          if [ -z "$HEAD_SHA" ]; then
+            HEAD_SHA=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --json headRefOid --jq .headRefOid)
+          fi
+          echo "HEAD_SHA=$HEAD_SHA" >> "$GITHUB_ENV"
+          run_id=""
+          for _ in $(seq 1 30); do
+            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" \
+              --workflow ci.yml --commit "$HEAD_SHA" \
+              --json databaseId --jq '.[0].databaseId // empty')
+            [ -n "$run_id" ] && break
+            sleep 10
+          done
+          if [ -z "$run_id" ]; then
+            echo "No CI run appeared for $HEAD_SHA." >&2
+            exit 1
+          fi
+          gh run watch --repo "$GITHUB_REPOSITORY" "$run_id" \
+            --interval 30 --exit-status
+
+      - name: Mint GitHub App token
+        id: app_token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.RELEASE_PLZ_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_PLZ_APP_PRIVATE_KEY }}
+
+      - name: Merge the update
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+          PR_NUMBER: ${{ needs.sync.outputs.pr_number }}
+        run: |
+          gh pr merge --repo "$GITHUB_REPOSITORY" --squash \
+            --match-head-commit "$HEAD_SHA" "$PR_NUMBER"
