@@ -88,6 +88,10 @@ The generated code is committed. To refresh it after an upstream API update:
        -p packageName=timeweb_client,library=reqwest
    ```
 4. Replace `src/apis` and `src/models` with the freshly generated directories.
+5. Refresh the README statistics and module list:
+   ```sh
+   python3 openapi/update_readme.py
+   ```
 
 `openapi/normalize_spec.py` is a small, documented pre-processor: it reconciles
 path parameters with their route templates (the upstream spec has a few

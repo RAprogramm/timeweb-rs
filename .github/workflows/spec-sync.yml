@@ -46,9 +46,11 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Install Rust
+      - name: Install nightly rustfmt
         if: steps.diff.outputs.changed == 'true'
         uses: dtolnay/rust-toolchain@5b842231ba77f5c045dba54ac5560fed2db780e2 # nightly
+        with:
+          components: rustfmt
 
       - name: Install stable Rust
         if: steps.diff.outputs.changed == 'true'
@@ -70,6 +72,7 @@ jobs:
           rm -rf src/apis src/models
           cp -r /tmp/twgen/src/apis src/apis
           cp -r /tmp/twgen/src/models src/models
+          python3 openapi/update_readme.py
           cargo +nightly fmt
 
       - name: Verify the regenerated SDK
@@ -80,23 +83,51 @@ jobs:
           cargo build --all-features
           cargo test --all-features
 
+      - name: Mint GitHub App token
+        id: app_token
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && steps.regen.outcome == 'success'
+          && steps.verify.outcome == 'success'
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.RELEASE_PLZ_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_PLZ_APP_PRIVATE_KEY }}
+
       - name: Open a pull request with the update
+        id: pr
         if: >-
           steps.diff.outputs.changed == 'true'
           && steps.regen.outcome == 'success'
           && steps.verify.outcome == 'success'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
+          token: ${{ steps.app_token.outputs.token }}
           branch: automated/timeweb-api-update
           delete-branch: true
-          title: chore regenerate SDK from updated Timeweb API spec
-          commit-message: chore regenerate SDK from updated Timeweb API spec
+          title: "feat: regenerate SDK from updated Timeweb API spec"
+          commit-message: "feat: regenerate SDK from updated Timeweb API spec"
           body: |
             The upstream Timeweb Cloud OpenAPI specification changed.
 
             This pull request was opened automatically: it vendors the new
-            spec and regenerates `src/apis` and `src/models`. The regenerated
-            SDK builds and its tests pass. Review the diff before merging.
+            spec, regenerates `src/apis` and `src/models` and refreshes the
+            README statistics. The regenerated SDK builds and its tests pass.
+            Review the diff before merging.
+
+      - name: Close stale spec-update failure issues
+        if: steps.pr.outputs.pull-request-url != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ steps.pr.outputs.pull-request-url }}
+        run: |
+          gh issue list --state open \
+            --search 'Timeweb API spec in:title' \
+            --json number --jq '.[].number' |
+          while read -r issue; do
+            gh issue close "$issue" --comment \
+              "Superseded by the automated regeneration pull request: $PR_URL"
+          done
 
       - name: Open an issue when automatic update fails
         if: >-
