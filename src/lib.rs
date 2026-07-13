@@ -34,6 +34,11 @@
 //! * [`apis::configuration::Configuration`] — connection settings and
 //!   credentials; build it with [`authenticated`].
 //! * [`apis::Error`] — the error type returned by every API call.
+//! * [`TimewebClient`] — the same operations with retries under a configurable
+//!   [`RetryPolicy`].
+//! * [`paginate`] — offset pagination as a stream of items.
+//! * [`ErrorDetails`] — the uniform error envelope carried by every error
+//!   response body.
 
 #![forbid(unsafe_code)]
 
@@ -63,5 +68,11 @@ pub mod apis;
 pub mod models;
 
 mod client;
+mod error_body;
+mod pagination;
+mod retry;
 
 pub use client::{DEFAULT_BASE_URL, authenticated, authenticated_with_base_url};
+pub use error_body::{ErrorDetails, ErrorMessage};
+pub use pagination::{PageStream, paginate};
+pub use retry::{RetryPolicy, TimewebClient};

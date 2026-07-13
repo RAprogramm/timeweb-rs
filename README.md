@@ -20,9 +20,11 @@ network drives and more.
 The `apis` and `models` modules are generated from the official Timeweb Cloud
 OpenAPI specification with [`openapi-generator`](https://openapi-generator.tech)
 (the same tool behind the official Go, Python, PHP and Java SDKs). A thin
-hand-written layer adds an idiomatic authenticated-client constructor. The
-generated code is committed to the repository, so building the crate needs no
-code generation step and no extra build dependencies.
+hand-written layer adds an idiomatic authenticated-client constructor, retries
+with exponential backoff, offset pagination as a `Stream` and a uniform view
+of the API's error bodies. The generated code is committed to the repository,
+so building the crate needs no code generation step and no extra build
+dependencies.
 
 ## Installation
 
@@ -68,6 +70,30 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 Every operation is a free async function in an `apis::*_api` module and takes a
 reference to [`apis::configuration::Configuration`] as its first argument.
 Build that configuration with `timeweb_rs::authenticated`.
+
+For production use, `TimewebClient` wraps the same operations with retries
+(429, 5xx and transport failures, capped exponential backoff), `paginate`
+walks `limit`/`offset` collections as a `Stream`, and `ErrorDetails` extracts
+the uniform error envelope from any operation error:
+
+```rust,no_run
+use timeweb_rs::{ErrorDetails, TimewebClient, apis::servers_api};
+
+#[tokio::main]
+async fn main() {
+    let client = TimewebClient::new(std::env::var("TIMEWEB_CLOUD_TOKEN").expect("token"));
+    match client
+        .execute(|| servers_api::get_servers(client.config(), None, None))
+        .await
+    {
+        Ok(servers) => println!("{servers:#?}"),
+        Err(error) => match ErrorDetails::from_api_error(&error) {
+            Some(details) => eprintln!("{}: {}", details.status_code, details.messages().join("; ")),
+            None => eprintln!("{error}"),
+        },
+    }
+}
+```
 
 ## API coverage
 

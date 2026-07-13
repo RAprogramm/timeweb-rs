@@ -1567,6 +1567,8 @@ name = "timeweb-rs"
 version = "0.5.1"
 dependencies = [
  "chrono",
+ "futures-core",
+ "futures-util",
  "reqwest",
  "serde",
  "serde_json",

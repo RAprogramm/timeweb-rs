@@ -25,7 +25,8 @@ serde_repr = "0.1"
 url = "2"
 uuid = { version = "1", features = ["serde", "v4"] }
 chrono = { version = "0.4", features = ["serde"] }
-tokio = { version = "1", features = ["fs"] }
+futures-core = "0.3"
+tokio = { version = "1", features = ["fs", "time"] }
 tokio-util = { version = "0.7", features = ["codec"] }
 reqwest = { version = "0.13", default-features = false, features = [
   "json",
@@ -66,6 +67,7 @@ full = ["account", "ai-agents", "apps", "balancers", "container-registry", "data
 # END generated area features
 
 [dev-dependencies]
+futures-util = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 
 [package.metadata.docs.rs]
