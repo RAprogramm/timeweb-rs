@@ -1,0 +1,79 @@
+name: Dependabot auto-merge
+
+# Runs on `pull_request_target` so the repository secrets are available for
+# minting the App token. The PR head is never checked out and no code from
+# the pull request is executed — the job only reads update metadata, waits
+# for the CI workflow on the PR head to succeed and merges.
+#
+# The merge uses the repository's GitHub App token instead of
+# `GITHUB_TOKEN`: a merge performed by the default Actions token would not
+# trigger the `main` workflows (CI, release-plz) on the resulting push.
+#
+# Semver-major updates are left open for manual review; everything below
+# that merges automatically once the full CI matrix is green. A failed CI
+# run fails this job and leaves the update PR open.
+
+on: pull_request_target
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dependabot-auto-merge-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  auto-merge:
+    name: Merge Dependabot updates after green CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    if: >-
+      github.repository_owner == 'RAprogramm'
+      && github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Leave semver-major updates for manual review
+        if: steps.metadata.outputs.update-type == 'version-update:semver-major'
+        run: echo "Highest update in this PR is semver-major; skipping auto-merge."
+
+      - name: Wait for the CI workflow to succeed on the PR head
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          run_id=""
+          for _ in $(seq 1 30); do
+            run_id=$(gh run list --repo "$GITHUB_REPOSITORY" \
+              --workflow ci.yml --commit "$HEAD_SHA" \
+              --json databaseId --jq '.[0].databaseId // empty')
+            [ -n "$run_id" ] && break
+            sleep 10
+          done
+          if [ -z "$run_id" ]; then
+            echo "No CI run appeared for $HEAD_SHA." >&2
+            exit 1
+          fi
+          gh run watch --repo "$GITHUB_REPOSITORY" "$run_id" \
+            --interval 30 --exit-status
+
+      - name: Mint GitHub App token
+        id: app_token
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.RELEASE_PLZ_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_PLZ_APP_PRIVATE_KEY }}
+
+      - name: Merge the update
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: gh pr merge --squash --match-head-commit "$HEAD_SHA" "$PR_URL"
