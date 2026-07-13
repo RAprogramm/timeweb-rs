@@ -34,8 +34,8 @@
 //! * [`apis::configuration::Configuration`] — connection settings and
 //!   credentials; build it with [`authenticated`].
 //! * [`apis::Error`] — the error type returned by every API call.
-//! * [`TimewebClient`] — the same operations with retries under a
-//!   configurable [`RetryPolicy`].
+//! * [`TimewebClient`] — the same operations with retries under a configurable
+//!   [`RetryPolicy`].
 //! * [`paginate`] — offset pagination as a stream of items.
 //! * [`ErrorDetails`] — the uniform error envelope carried by every error
 //!   response body.
