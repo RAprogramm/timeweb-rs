@@ -11,8 +11,8 @@ Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud/?i=137383) API.
 
 ## Overview
 
-`timeweb-rs` covers the full Timeweb Cloud public API — **313 operations across
-22 areas**: cloud servers, managed databases, Kubernetes, projects, domains,
+`timeweb-rs` covers the full Timeweb Cloud public API — **331 operations across
+23 areas**: cloud servers, managed databases, Kubernetes, projects, domains,
 S3 storage, load balancers, firewalls, mail, AI agents, knowledge bases,
 floating IPs, VPC, SSH keys, images, dedicated servers, container registry,
 network drives and more.
@@ -101,8 +101,8 @@ One module per API area: `account_api`, `ai_agents_api`, `apps_api`,
 `balancers_api`, `container_registry_api`, `databases_api`,
 `dedicated_servers_api`, `domains_api`, `firewall_api`, `floating_ip_api`,
 `images_api`, `knowledge_bases_api`, `kubernetes_api`, `locations_api`,
-`mail_api`, `network_drives_api`, `payments_api`, `projects_api`, `s3_api`,
-`servers_api`, `ssh_api`, `vpc_api`.
+`mail_api`, `network_drives_api`, `payments_api`, `projects_api`,
+`routers_api`, `s3_api`, `servers_api`, `ssh_api`, `vpc_api`.
 
 ## Regenerating from the spec
 

@@ -222,6 +222,16 @@ pub mod available_frameworks_backend_frameworks_inner;
 pub use self::available_frameworks_backend_frameworks_inner::AvailableFrameworksBackendFrameworksInner;
 pub mod available_frameworks_frontend_frameworks_inner;
 pub use self::available_frameworks_frontend_frameworks_inner::AvailableFrameworksFrontendFrameworksInner;
+pub mod available_network;
+pub use self::available_network::AvailableNetwork;
+pub mod available_networks_response;
+pub use self::available_networks_response::AvailableNetworksResponse;
+pub mod available_static_route;
+pub use self::available_static_route::AvailableStaticRoute;
+pub mod available_static_route_subnets_inner;
+pub use self::available_static_route_subnets_inner::AvailableStaticRouteSubnetsInner;
+pub mod available_static_routes_response;
+pub use self::available_static_routes_response::AvailableStaticRoutesResponse;
 #[cfg(feature = "databases")]
 pub mod backup;
 #[cfg(feature = "databases")]
@@ -284,6 +294,8 @@ pub use self::bucket_website_config_error_pages_inner::BucketWebsiteConfigErrorP
 pub mod check_domain_200_response;
 #[cfg(feature = "domains")]
 pub use self::check_domain_200_response::CheckDomain200Response;
+pub mod clickhouse;
+pub use self::clickhouse::Clickhouse;
 #[cfg(feature = "kubernetes")]
 pub mod cluster_edit;
 #[cfg(feature = "kubernetes")]
@@ -340,10 +352,16 @@ pub mod commit;
 pub use self::commit::Commit;
 pub mod components_schemas_base_error;
 pub use self::components_schemas_base_error::ComponentsSchemasBaseError;
-#[cfg(any(feature = "databases", feature = "projects"))]
+pub mod components_schemas_meta;
+pub use self::components_schemas_meta::ComponentsSchemasMeta;
 pub mod config_parameters;
-#[cfg(any(feature = "databases", feature = "projects"))]
 pub use self::config_parameters::ConfigParameters;
+pub mod config_parameters_mysql;
+pub use self::config_parameters_mysql::ConfigParametersMysql;
+pub mod config_parameters_postgres;
+pub use self::config_parameters_postgres::ConfigParametersPostgres;
+pub mod config_parameters_valkey;
+pub use self::config_parameters_valkey::ConfigParametersValkey;
 pub mod container_registry_presets_inner;
 pub use self::container_registry_presets_inner::ContainerRegistryPresetsInner;
 pub mod container_registry_repositories_inner;
@@ -396,6 +414,10 @@ pub use self::create_cluster_201_response::CreateCluster201Response;
 pub mod create_cluster_admin;
 #[cfg(feature = "databases")]
 pub use self::create_cluster_admin::CreateClusterAdmin;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub mod create_cluster_config_parameters;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub use self::create_cluster_config_parameters::CreateClusterConfigParameters;
 #[cfg(feature = "databases")]
 pub mod create_cluster_instance;
 #[cfg(feature = "databases")]
@@ -404,10 +426,6 @@ pub use self::create_cluster_instance::CreateClusterInstance;
 pub mod create_cluster_node_group_201_response;
 #[cfg(feature = "kubernetes")]
 pub use self::create_cluster_node_group_201_response::CreateClusterNodeGroup201Response;
-#[cfg(feature = "databases")]
-pub mod create_database_201_response;
-#[cfg(feature = "databases")]
-pub use self::create_database_201_response::CreateDatabase201Response;
 #[cfg(feature = "databases")]
 pub mod create_database_backup_201_response;
 #[cfg(feature = "databases")]
@@ -472,10 +490,6 @@ pub use self::create_database_instance_201_response::CreateDatabaseInstance201Re
 pub mod create_database_user_201_response;
 #[cfg(feature = "databases")]
 pub use self::create_database_user_201_response::CreateDatabaseUser201Response;
-#[cfg(feature = "databases")]
-pub mod create_db;
-#[cfg(feature = "databases")]
-pub use self::create_db::CreateDb;
 #[cfg(feature = "databases")]
 pub mod create_db_auto_backups;
 #[cfg(feature = "databases")]
@@ -620,6 +634,10 @@ pub use self::create_project_201_response::CreateProject201Response;
 pub mod create_registry_201_response;
 #[cfg(feature = "container-registry")]
 pub use self::create_registry_201_response::CreateRegistry201Response;
+#[cfg(feature = "routers")]
+pub mod create_router_201_response;
+#[cfg(feature = "routers")]
+pub use self::create_router_201_response::CreateRouter201Response;
 #[cfg(feature = "balancers")]
 pub mod create_rule;
 #[cfg(feature = "balancers")]
@@ -689,6 +707,10 @@ pub mod database_cluster;
 #[cfg(feature = "databases")]
 pub use self::database_cluster::DatabaseCluster;
 #[cfg(feature = "databases")]
+pub mod database_cluster_config_parameters;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_config_parameters::DatabaseClusterConfigParameters;
+#[cfg(feature = "databases")]
 pub mod database_cluster_disk;
 #[cfg(feature = "databases")]
 pub use self::database_cluster_disk::DatabaseClusterDisk;
@@ -712,13 +734,13 @@ pub use self::database_type::DatabaseType;
 pub mod database_type_requirements;
 #[cfg(feature = "databases")]
 pub use self::database_type_requirements::DatabaseTypeRequirements;
-#[cfg(any(feature = "databases", feature = "projects"))]
+#[cfg(feature = "projects")]
 pub mod db;
-#[cfg(any(feature = "databases", feature = "projects"))]
+#[cfg(feature = "projects")]
 pub use self::db::Db;
-#[cfg(any(feature = "databases", feature = "projects"))]
+#[cfg(feature = "projects")]
 pub mod db_disk_stats;
-#[cfg(any(feature = "databases", feature = "projects"))]
+#[cfg(feature = "projects")]
 pub use self::db_disk_stats::DbDiskStats;
 #[cfg(feature = "databases")]
 pub mod db_replication;
@@ -765,10 +787,6 @@ pub mod delete_countries_from_allowed_list_request;
 #[cfg(feature = "account")]
 pub use self::delete_countries_from_allowed_list_request::DeleteCountriesFromAllowedListRequest;
 #[cfg(feature = "databases")]
-pub mod delete_database_200_response;
-#[cfg(feature = "databases")]
-pub use self::delete_database_200_response::DeleteDatabase200Response;
-#[cfg(feature = "databases")]
 pub mod delete_database_cluster_200_response;
 #[cfg(feature = "databases")]
 pub use self::delete_database_cluster_200_response::DeleteDatabaseCluster200Response;
@@ -790,7 +808,6 @@ pub mod delete_server_ip_request;
 pub use self::delete_server_ip_request::DeleteServerIpRequest;
 #[cfg(any(
     feature = "balancers",
-    feature = "databases",
     feature = "kubernetes",
     feature = "s3",
     feature = "servers"
@@ -798,7 +815,6 @@ pub use self::delete_server_ip_request::DeleteServerIpRequest;
 pub mod delete_service_response;
 #[cfg(any(
     feature = "balancers",
-    feature = "databases",
     feature = "kubernetes",
     feature = "s3",
     feature = "servers"
@@ -820,6 +836,24 @@ pub use self::deploy_settings_inner::DeploySettingsInner;
 pub mod deploy_status;
 #[cfg(feature = "apps")]
 pub use self::deploy_status::DeployStatus;
+#[cfg(feature = "routers")]
+pub mod dnat_in;
+#[cfg(feature = "routers")]
+pub use self::dnat_in::DnatIn;
+#[cfg(feature = "routers")]
+pub mod dnat_in_local;
+#[cfg(feature = "routers")]
+pub use self::dnat_in_local::DnatInLocal;
+#[cfg(feature = "routers")]
+pub mod dnat_in_public;
+#[cfg(feature = "routers")]
+pub use self::dnat_in_public::DnatInPublic;
+pub mod dnat_rule_out;
+pub use self::dnat_rule_out::DnatRuleOut;
+pub mod dnat_rule_response;
+pub use self::dnat_rule_response::DnatRuleResponse;
+pub mod dnat_rules_response;
+pub use self::dnat_rules_response::DnatRulesResponse;
 #[cfg(feature = "domains")]
 pub mod dns_record;
 #[cfg(feature = "domains")]
@@ -1011,6 +1045,7 @@ pub use self::get_account_status_200_response::GetAccountStatus200Response;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1032,6 +1067,7 @@ pub mod get_account_status_403_response;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1053,6 +1089,7 @@ pub use self::get_account_status_403_response::GetAccountStatus403Response;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1074,6 +1111,7 @@ pub mod get_account_status_403_response_message;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1136,6 +1174,10 @@ pub use self::get_auth_access_settings_200_response::GetAuthAccessSettings200Res
 pub mod get_auth_access_settings_200_response_all_of_white_list;
 #[cfg(feature = "account")]
 pub use self::get_auth_access_settings_200_response_all_of_white_list::GetAuthAccessSettings200ResponseAllOfWhiteList;
+#[cfg(feature = "routers")]
+pub mod get_available_static_routes_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_available_static_routes_200_response::GetAvailableStaticRoutes200Response;
 #[cfg(feature = "balancers")]
 pub mod get_balancer_ips_200_response;
 #[cfg(feature = "balancers")]
@@ -1213,10 +1255,6 @@ pub mod get_database_users_200_response;
 #[cfg(feature = "databases")]
 pub use self::get_database_users_200_response::GetDatabaseUsers200Response;
 #[cfg(feature = "databases")]
-pub mod get_databases_200_response;
-#[cfg(feature = "databases")]
-pub use self::get_databases_200_response::GetDatabases200Response;
-#[cfg(feature = "databases")]
 pub mod get_databases_presets_200_response;
 #[cfg(feature = "databases")]
 pub use self::get_databases_presets_200_response::GetDatabasesPresets200Response;
@@ -1240,6 +1278,10 @@ pub use self::get_deploy_logs_200_response::GetDeployLogs200Response;
 pub mod get_deploy_settings_200_response;
 #[cfg(feature = "apps")]
 pub use self::get_deploy_settings_200_response::GetDeploySettings200Response;
+#[cfg(feature = "routers")]
+pub mod get_dnat_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_dnat_200_response::GetDnat200Response;
 #[cfg(feature = "domains")]
 pub mod get_domain_200_response;
 #[cfg(feature = "domains")]
@@ -1320,6 +1362,7 @@ pub use self::get_groups_200_response::GetGroups200Response;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1342,6 +1385,7 @@ pub mod get_image_404_response;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1364,6 +1408,7 @@ pub use self::get_image_404_response::GetImage404Response;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1386,6 +1431,7 @@ pub mod get_image_404_response_message;
     feature = "mail",
     feature = "network-drives",
     feature = "projects",
+    feature = "routers",
     feature = "s3",
     feature = "servers",
     feature = "ssh",
@@ -1480,6 +1526,10 @@ pub use self::get_network_drives_available_resources_200_response::GetNetworkDri
 pub mod get_network_drives_presets_200_response;
 #[cfg(feature = "network-drives")]
 pub use self::get_network_drives_presets_200_response::GetNetworkDrivesPresets200Response;
+#[cfg(feature = "routers")]
+pub mod get_networks_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_networks_200_response::GetNetworks200Response;
 #[cfg(feature = "account")]
 pub mod get_notification_settings_200_response;
 #[cfg(feature = "account")]
@@ -1536,6 +1586,22 @@ pub use self::get_registry_repositories_200_response::GetRegistryRepositories200
 pub mod get_repositories_200_response;
 #[cfg(feature = "apps")]
 pub use self::get_repositories_200_response::GetRepositories200Response;
+#[cfg(feature = "routers")]
+pub mod get_router_available_networks_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_router_available_networks_200_response::GetRouterAvailableNetworks200Response;
+#[cfg(feature = "routers")]
+pub mod get_router_presets_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_router_presets_200_response::GetRouterPresets200Response;
+#[cfg(feature = "routers")]
+pub mod get_router_statistics_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_router_statistics_200_response::GetRouterStatistics200Response;
+#[cfg(feature = "routers")]
+pub mod get_routers_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_routers_200_response::GetRouters200Response;
 #[cfg(feature = "servers")]
 pub mod get_server_disk_auto_backup_settings_200_response;
 #[cfg(feature = "servers")]
@@ -1604,6 +1670,10 @@ pub use self::get_service_prices_200_response_all_of_meta::GetServicePrices200Re
 pub mod get_software_200_response;
 #[cfg(feature = "servers")]
 pub use self::get_software_200_response::GetSoftware200Response;
+#[cfg(feature = "routers")]
+pub mod get_static_routes_200_response;
+#[cfg(feature = "routers")]
+pub use self::get_static_routes_200_response::GetStaticRoutes200Response;
 #[cfg(feature = "s3")]
 pub mod get_storage_subdomains_200_response;
 #[cfg(feature = "s3")]
@@ -1686,6 +1756,8 @@ pub mod k8_s_presets_inner;
 pub use self::k8_s_presets_inner::K8SPresetsInner;
 pub mod k8_s_versions_response;
 pub use self::k8_s_versions_response::K8SVersionsResponse;
+pub mod kafka;
+pub use self::kafka::Kafka;
 #[cfg(feature = "knowledge-bases")]
 pub mod knowledgebase;
 #[cfg(feature = "knowledge-bases")]
@@ -1758,6 +1830,8 @@ pub use self::model_params_info_reasoning_effort::ModelParamsInfoReasoningEffort
 pub mod model_params_info_temperature;
 #[cfg(feature = "ai-agents")]
 pub use self::model_params_info_temperature::ModelParamsInfoTemperature;
+pub mod mongodb;
+pub use self::mongodb::Mongodb;
 #[cfg(feature = "network-drives")]
 pub mod mount_network_drive;
 #[cfg(feature = "network-drives")]
@@ -1766,6 +1840,14 @@ pub use self::mount_network_drive::MountNetworkDrive;
 pub mod mx_______;
 #[cfg(feature = "domains")]
 pub use self::mx_______::Mx;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub mod mysql;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub use self::mysql::Mysql;
+#[cfg(feature = "routers")]
+pub mod nat_in;
+#[cfg(feature = "routers")]
+pub use self::nat_in::NatIn;
 #[cfg(any(feature = "balancers", feature = "databases"))]
 pub mod network;
 #[cfg(any(feature = "balancers", feature = "databases"))]
@@ -1796,6 +1878,20 @@ pub mod network_drive_service_list_inner;
 pub use self::network_drive_service_list_inner::NetworkDriveServiceListInner;
 pub mod network_drivers_response;
 pub use self::network_drivers_response::NetworkDriversResponse;
+#[cfg(feature = "routers")]
+pub mod network_edit;
+#[cfg(feature = "routers")]
+pub use self::network_edit::NetworkEdit;
+#[cfg(feature = "routers")]
+pub mod network_in;
+#[cfg(feature = "routers")]
+pub use self::network_in::NetworkIn;
+pub mod network_out;
+pub use self::network_out::NetworkOut;
+pub mod network_response;
+pub use self::network_response::NetworkResponse;
+pub mod networks_response;
+pub use self::networks_response::NetworksResponse;
 #[cfg(feature = "kubernetes")]
 pub mod node_group_in;
 #[cfg(feature = "kubernetes")]
@@ -1830,6 +1926,8 @@ pub use self::notification_setting_channels::NotificationSettingChannels;
 pub mod notification_setting_type;
 #[cfg(feature = "account")]
 pub use self::notification_setting_type::NotificationSettingType;
+pub mod opensearch;
+pub use self::opensearch::Opensearch;
 pub mod os;
 pub use self::os::Os;
 #[cfg(feature = "mail")]
@@ -1840,6 +1938,10 @@ pub use self::outgoing_is_disabled::OutgoingIsDisabled;
 pub mod outgoing_is_enabled;
 #[cfg(feature = "mail")]
 pub use self::outgoing_is_enabled::OutgoingIsEnabled;
+#[cfg(feature = "routers")]
+pub mod patch_network_200_response;
+#[cfg(feature = "routers")]
+pub use self::patch_network_200_response::PatchNetwork200Response;
 #[cfg(feature = "servers")]
 pub mod perform_action_on_backup_request;
 #[cfg(feature = "servers")]
@@ -1850,6 +1952,20 @@ pub mod perform_action_on_server_request;
 pub use self::perform_action_on_server_request::PerformActionOnServerRequest;
 pub mod policy;
 pub use self::policy::Policy;
+#[cfg(feature = "routers")]
+pub mod post_dnat_201_response;
+#[cfg(feature = "routers")]
+pub use self::post_dnat_201_response::PostDnat201Response;
+#[cfg(feature = "routers")]
+pub mod post_static_route_201_response;
+#[cfg(feature = "routers")]
+pub use self::post_static_route_201_response::PostStaticRoute201Response;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub mod postgres;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub use self::postgres::Postgres;
+pub mod postgresql;
+pub use self::postgresql::Postgresql;
 #[cfg(feature = "balancers")]
 pub mod presets_balancer;
 #[cfg(feature = "balancers")]
@@ -1872,6 +1988,10 @@ pub use self::project::Project;
 pub mod project_resource;
 #[cfg(feature = "projects")]
 pub use self::project_resource::ProjectResource;
+pub mod properties_mysql;
+pub use self::properties_mysql::PropertiesMysql;
+pub mod properties_valkey;
+pub use self::properties_valkey::PropertiesValkey;
 #[cfg(feature = "apps")]
 pub mod provider;
 #[cfg(feature = "apps")]
@@ -1880,6 +2000,8 @@ pub use self::provider::Provider;
 pub mod providers;
 #[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::providers::Providers;
+pub mod rabbitmq;
+pub use self::rabbitmq::Rabbitmq;
 #[cfg(feature = "kubernetes")]
 pub mod reduce_nodes;
 #[cfg(feature = "kubernetes")]
@@ -1930,6 +2052,60 @@ pub mod resources;
 pub use self::resources::Resources;
 pub mod resources_response;
 pub use self::resources_response::ResourcesResponse;
+#[cfg(feature = "routers")]
+pub mod router_edit;
+#[cfg(feature = "routers")]
+pub use self::router_edit::RouterEdit;
+#[cfg(feature = "routers")]
+pub mod router_in;
+#[cfg(feature = "routers")]
+pub use self::router_in::RouterIn;
+#[cfg(feature = "routers")]
+pub mod router_in_ips_inner;
+#[cfg(feature = "routers")]
+pub use self::router_in_ips_inner::RouterInIpsInner;
+#[cfg(feature = "routers")]
+pub mod router_in_ips_inner_nat;
+#[cfg(feature = "routers")]
+pub use self::router_in_ips_inner_nat::RouterInIpsInnerNat;
+#[cfg(feature = "routers")]
+pub mod router_in_networks_inner;
+#[cfg(feature = "routers")]
+pub use self::router_in_networks_inner::RouterInNetworksInner;
+#[cfg(feature = "routers")]
+pub mod router_in_parent_service;
+#[cfg(feature = "routers")]
+pub use self::router_in_parent_service::RouterInParentService;
+pub mod router_network_meta;
+pub use self::router_network_meta::RouterNetworkMeta;
+pub mod router_network_meta_dhcp;
+pub use self::router_network_meta_dhcp::RouterNetworkMetaDhcp;
+pub mod router_out;
+pub use self::router_out::RouterOut;
+pub mod router_out_ips_inner;
+pub use self::router_out_ips_inner::RouterOutIpsInner;
+pub mod router_out_ips_inner_nat;
+pub use self::router_out_ips_inner_nat::RouterOutIpsInnerNat;
+pub mod router_out_nodes_inner;
+pub use self::router_out_nodes_inner::RouterOutNodesInner;
+pub mod router_out_parent_services_inner;
+pub use self::router_out_parent_services_inner::RouterOutParentServicesInner;
+pub mod router_preset;
+pub use self::router_preset::RouterPreset;
+pub mod router_presets_response;
+pub use self::router_presets_response::RouterPresetsResponse;
+pub mod router_response;
+pub use self::router_response::RouterResponse;
+pub mod router_statistic;
+pub use self::router_statistic::RouterStatistic;
+pub mod router_statistic_list_inner;
+pub use self::router_statistic_list_inner::RouterStatisticListInner;
+pub mod router_statistic_meta;
+pub use self::router_statistic_meta::RouterStatisticMeta;
+pub mod router_statistics_response;
+pub use self::router_statistics_response::RouterStatisticsResponse;
+pub mod routers_response;
+pub use self::routers_response::RoutersResponse;
 #[cfg(any(feature = "balancers", feature = "projects"))]
 pub mod rule;
 #[cfg(any(feature = "balancers", feature = "projects"))]
@@ -2064,6 +2240,16 @@ pub use self::ssh_key::SshKey;
 pub mod ssh_key_used_by_inner;
 #[cfg(feature = "ssh")]
 pub use self::ssh_key_used_by_inner::SshKeyUsedByInner;
+#[cfg(feature = "routers")]
+pub mod static_route_in;
+#[cfg(feature = "routers")]
+pub use self::static_route_in::StaticRouteIn;
+pub mod static_route_out;
+pub use self::static_route_out::StaticRouteOut;
+pub mod static_route_response;
+pub use self::static_route_response::StaticRouteResponse;
+pub mod static_routes_response;
+pub use self::static_routes_response::StaticRoutesResponse;
 #[cfg(feature = "account")]
 pub mod status;
 #[cfg(feature = "account")]
@@ -2139,9 +2325,9 @@ pub mod update_cluster;
 #[cfg(feature = "databases")]
 pub use self::update_cluster::UpdateCluster;
 #[cfg(feature = "databases")]
-pub mod update_db;
+pub mod update_cluster_config_parameters;
 #[cfg(feature = "databases")]
-pub use self::update_db::UpdateDb;
+pub use self::update_cluster_config_parameters::UpdateClusterConfigParameters;
 #[cfg(feature = "dedicated-servers")]
 pub mod update_dedicated_server_request;
 #[cfg(feature = "dedicated-servers")]
@@ -2326,6 +2512,10 @@ pub use self::url_type::UrlType;
 pub mod model_use;
 #[cfg(feature = "domains")]
 pub use self::model_use::Use;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub mod valkey;
+#[cfg(any(feature = "databases", feature = "projects"))]
+pub use self::valkey::Valkey;
 #[cfg(any(feature = "projects", feature = "servers"))]
 pub mod vds;
 #[cfg(any(feature = "projects", feature = "servers"))]

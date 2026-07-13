@@ -14,6 +14,12 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetDatabaseParameters200Response {
+    #[serde(rename = "mysql", skip_serializing_if = "Option::is_none")]
+    pub mysql:       Option<Box<models::ConfigParametersMysql>>,
+    #[serde(rename = "postgres", skip_serializing_if = "Option::is_none")]
+    pub postgres:    Option<Box<models::ConfigParametersPostgres>>,
+    #[serde(rename = "valkey", skip_serializing_if = "Option::is_none")]
+    pub valkey:      Option<Box<models::ConfigParametersValkey>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
@@ -23,6 +29,9 @@ pub struct GetDatabaseParameters200Response {
 impl GetDatabaseParameters200Response {
     pub fn new(response_id: Option<uuid::Uuid>) -> GetDatabaseParameters200Response {
         GetDatabaseParameters200Response {
+            mysql: None,
+            postgres: None,
+            valkey: None,
             response_id
         }
     }

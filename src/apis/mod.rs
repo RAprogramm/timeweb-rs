@@ -111,6 +111,7 @@ impl From<&str> for ContentType {
         }
     }
 }
+
 #[cfg(feature = "account")]
 pub mod account_api;
 #[cfg(feature = "ai-agents")]
@@ -147,6 +148,8 @@ pub mod network_drives_api;
 pub mod payments_api;
 #[cfg(feature = "projects")]
 pub mod projects_api;
+#[cfg(feature = "routers")]
+pub mod routers_api;
 #[cfg(feature = "s3")]
 pub mod s3_api;
 #[cfg(feature = "servers")]

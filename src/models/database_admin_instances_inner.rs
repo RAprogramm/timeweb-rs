@@ -35,10 +35,10 @@ impl DatabaseAdminInstancesInner {
 pub enum Privileges {
     #[serde(rename = "ALTER")]
     Alter,
-    #[serde(rename = "CREATE_VIEW")]
-    CreateView,
     #[serde(rename = "CREATE")]
     Create,
+    #[serde(rename = "CREATE_VIEW")]
+    CreateView,
     #[serde(rename = "DELETE")]
     Delete,
     #[serde(rename = "DROP")]
@@ -57,32 +57,108 @@ pub enum Privileges {
     Select,
     #[serde(rename = "SHOW_VIEW")]
     ShowView,
-    #[serde(rename = "TRUNCATE")]
-    Truncate,
+    #[serde(rename = "TRIGGER")]
+    Trigger,
     #[serde(rename = "UPDATE")]
     Update,
-    #[serde(rename = "READ")]
-    Read,
-    #[serde(rename = "WRITE")]
-    Write,
-    #[serde(rename = "CONNECTION")]
-    Connection,
-    #[serde(rename = "FAST")]
-    Fast,
-    #[serde(rename = "readWrite")]
-    ReadWrite,
     #[serde(rename = "ALTER_ROUTINE")]
     AlterRoutine,
     #[serde(rename = "CREATE_ROUTINE")]
     CreateRoutine,
-    #[serde(rename = "TRANSACTION")]
-    Transaction,
+    #[serde(rename = "CREATE_TEMPORARY_TABLES")]
+    CreateTemporaryTables,
+    #[serde(rename = "CREATE_USER")]
+    CreateUser,
+    #[serde(rename = "PROCESS")]
+    Process,
     #[serde(rename = "SLOW_LOG")]
     SlowLog,
-    #[serde(rename = "TRIGGER")]
-    Trigger,
-    #[serde(rename = "CREATE_TEMPORARY_TABLES")]
-    CreateTemporaryTables
+    #[serde(rename = "CREATE_DB")]
+    CreateDb,
+    #[serde(rename = "TRUNCATE")]
+    Truncate,
+    #[serde(rename = "TEMPORARY")]
+    Temporary,
+    #[serde(rename = "CREATEDB")]
+    Createdb,
+    #[serde(rename = "CREATEROLE")]
+    Createrole,
+    #[serde(rename = "READ")]
+    Read,
+    #[serde(rename = "WRITE")]
+    Write,
+    #[serde(rename = "ADMIN")]
+    Admin,
+    #[serde(rename = "BITMAP")]
+    Bitmap,
+    #[serde(rename = "BLOCKING")]
+    Blocking,
+    #[serde(rename = "CONNECTION")]
+    Connection,
+    #[serde(rename = "DANGEROUS")]
+    Dangerous,
+    #[serde(rename = "GEO")]
+    Geo,
+    #[serde(rename = "HASH")]
+    Hash,
+    #[serde(rename = "HYPERLOGLOG")]
+    Hyperloglog,
+    #[serde(rename = "FAST")]
+    Fast,
+    #[serde(rename = "KEYSPACE")]
+    Keyspace,
+    #[serde(rename = "LIST")]
+    List,
+    #[serde(rename = "PUBSUB")]
+    Pubsub,
+    #[serde(rename = "SCRIPTING")]
+    Scripting,
+    #[serde(rename = "SET")]
+    Set,
+    #[serde(rename = "SORTEDSET")]
+    Sortedset,
+    #[serde(rename = "SLOW")]
+    Slow,
+    #[serde(rename = "STREAM")]
+    Stream,
+    #[serde(rename = "STRING")]
+    String,
+    #[serde(rename = "TRANSACTION")]
+    Transaction,
+    #[serde(rename = "dbAdmin")]
+    DbAdmin,
+    #[serde(rename = "readWrite")]
+    ReadWrite,
+    #[serde(rename = "ALTER_TABLE")]
+    AlterTable,
+    #[serde(rename = "ALTER_VIEW")]
+    AlterView,
+    #[serde(rename = "CREATE_DICTIONARY")]
+    CreateDictionary,
+    #[serde(rename = "CREATE_TABLE")]
+    CreateTable,
+    #[serde(rename = "DROP_TABLE")]
+    DropTable,
+    #[serde(rename = "DROP_VIEW")]
+    DropView,
+    #[serde(rename = "DROP_DICTIONARY")]
+    DropDictionary,
+    #[serde(rename = "SHOW")]
+    Show,
+    #[serde(rename = "OPTIMIZE")]
+    Optimize,
+    #[serde(rename = "CREATE_TEMPORARY_TABLE")]
+    CreateTemporaryTable,
+    #[serde(rename = "dictGet")]
+    DictGet,
+    #[serde(rename = "DESCRIBE")]
+    Describe,
+    #[serde(rename = "CONFIGURE")]
+    Configure,
+    #[serde(rename = "READ_DASHBOARD")]
+    ReadDashboard,
+    #[serde(rename = "WRITE_DASHBOARD")]
+    WriteDashboard
 }
 
 impl Default for Privileges {

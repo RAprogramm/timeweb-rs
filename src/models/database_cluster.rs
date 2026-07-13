@@ -32,6 +32,9 @@ pub struct DatabaseCluster {
     /// Список сетей кластера базы данных.
     #[serde(rename = "networks")]
     pub networks: Vec<models::DatabaseClusterNetworksInner>,
+    /// Использование IPv6 адреса.
+    #[serde(rename = "is_public_ipv6", skip_serializing_if = "Option::is_none")]
+    pub is_public_ipv6: Option<bool>,
     /// Тип базы данных.
     #[serde(rename = "type")]
     pub r#type: String,
@@ -58,7 +61,7 @@ pub struct DatabaseCluster {
     )]
     pub disk: Option<Option<Box<models::DatabaseClusterDisk>>>,
     #[serde(rename = "config_parameters")]
-    pub config_parameters: Box<models::ConfigParameters>,
+    pub config_parameters: Box<models::DatabaseClusterConfigParameters>,
     /// Доступность публичного IP-адреса
     #[serde(rename = "is_enabled_public_network")]
     pub is_enabled_public_network: bool
@@ -78,7 +81,7 @@ impl DatabaseCluster {
         port: Option<i32>,
         status: Status,
         preset_id: i32,
-        config_parameters: models::ConfigParameters,
+        config_parameters: models::DatabaseClusterConfigParameters,
         is_enabled_public_network: bool
     ) -> DatabaseCluster {
         DatabaseCluster {
@@ -87,6 +90,7 @@ impl DatabaseCluster {
             location,
             name,
             networks,
+            is_public_ipv6: None,
             r#type,
             hash_type,
             avatar_link,

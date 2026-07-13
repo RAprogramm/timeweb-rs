@@ -13,56 +13,24 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateDb {
-    /// Логин для подключения к базе данных.
-    #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
-    pub login:             Option<String>,
-    /// Пароль для подключения к базе данных.
-    #[serde(rename = "password")]
-    pub password:          String,
-    /// Название базы данных.
-    #[serde(rename = "name")]
-    pub name:              String,
-    /// Тип базы данных.
-    #[serde(rename = "type")]
-    pub r#type:            String,
-    /// Тип хеширования базы данных (mysql5 | mysql | postgres).
-    #[serde(rename = "hash_type", skip_serializing_if = "Option::is_none")]
-    pub hash_type:         Option<HashType>,
-    /// ID тарифа.
-    #[serde(rename = "preset_id")]
-    pub preset_id:         i32,
-    #[serde(rename = "config_parameters", skip_serializing_if = "Option::is_none")]
-    pub config_parameters: Option<Box<models::ConfigParameters>>,
-    #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
-    pub network:           Option<Box<models::Network>>
+pub struct PostStaticRoute201Response {
+    /// ID запроса, который можно указывать при обращении в службу технической
+    /// поддержки, чтобы помочь определить проблему.
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:  Option<uuid::Uuid>,
+    /// Статический маршрут
+    #[serde(rename = "static_route")]
+    pub static_route: Box<models::StaticRouteOut>
 }
 
-impl CreateDb {
-    pub fn new(password: String, name: String, r#type: String, preset_id: i32) -> CreateDb {
-        CreateDb {
-            login: None,
-            password,
-            name,
-            r#type,
-            hash_type: None,
-            preset_id,
-            config_parameters: None,
-            network: None
+impl PostStaticRoute201Response {
+    pub fn new(
+        response_id: Option<uuid::Uuid>,
+        static_route: models::StaticRouteOut
+    ) -> PostStaticRoute201Response {
+        PostStaticRoute201Response {
+            response_id,
+            static_route: Box::new(static_route)
         }
-    }
-}
-/// Тип хеширования базы данных (mysql5 | mysql | postgres).
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum HashType {
-    #[serde(rename = "caching_sha2")]
-    CachingSha2,
-    #[serde(rename = "mysql_native")]
-    MysqlNative
-}
-
-impl Default for HashType {
-    fn default() -> HashType {
-        Self::CachingSha2
     }
 }

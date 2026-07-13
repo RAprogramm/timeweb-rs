@@ -15,194 +15,21 @@ use crate::models;
 /// ConfigParameters : Параметры базы данных
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ConfigParameters {
-    /// Интервал между значениями столбцов с атрибутом `AUTO_INCREMENT`
-    /// (`mysql5` | `mysql`).
-    #[serde(
-        rename = "auto_increment_increment",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_increment_increment: Option<String>,
-    /// Начальное значение для столбцов с атрибутом `AUTO_INCREMENT` (`mysql5` |
-    /// `mysql`).
-    #[serde(
-        rename = "auto_increment_offset",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub auto_increment_offset: Option<String>,
-    /// Количество операций ввода-вывода в секунду `IOPS` (`mysql5` | `mysql`).
-    #[serde(rename = "innodb_io_capacity", skip_serializing_if = "Option::is_none")]
-    pub innodb_io_capacity: Option<String>,
-    /// Количество потоков ввода-вывода, используемых для операций очистки
-    /// (`mysql5` | `mysql`).
-    #[serde(
-        rename = "innodb_purge_threads",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub innodb_purge_threads: Option<String>,
-    /// Количество потоков ввода-вывода, используемых для операций чтения
-    /// (`mysql5` | `mysql`).
-    #[serde(
-        rename = "innodb_read_io_threads",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub innodb_read_io_threads: Option<String>,
-    /// Максимальное число потоков, которые могут исполняться (`mysql5` |
-    /// `mysql`).
-    #[serde(
-        rename = "innodb_thread_concurrency",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub innodb_thread_concurrency: Option<String>,
-    /// Количество потоков ввода-вывода, используемых для операций записи
-    /// (`mysql5` | `mysql`).
-    #[serde(
-        rename = "innodb_write_io_threads",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub innodb_write_io_threads: Option<String>,
-    /// Минимальный размер буфера (`mysql5` | `mysql`).
-    #[serde(rename = "join_buffer_size", skip_serializing_if = "Option::is_none")]
-    pub join_buffer_size: Option<String>,
-    /// Максимальный размер одного пакета, строки или параметра, отправляемого
-    /// функцией `mysql_stmt_send_long_data()` (`mysql5` | `mysql`).
-    #[serde(rename = "max_allowed_packet", skip_serializing_if = "Option::is_none")]
-    pub max_allowed_packet: Option<String>,
-    /// Максимальный размер пользовательских MEMORY-таблиц (`mysql5` | `mysql`).
-    #[serde(
-        rename = "max_heap_table_size",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub max_heap_table_size: Option<String>,
-    /// Доля измененных или удаленных записей в таблице, при которой процесс
-    /// автоочистки выполнит команду `ANALYZE` (`postgres` | `postgres14`|
-    /// `postgres15`).
-    #[serde(
-        rename = "autovacuum_analyze_scale_factor",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub autovacuum_analyze_scale_factor: Option<String>,
-    /// Задержка между запусками процесса фоновой записи (`postgres` |
-    /// `postgres14`| `postgres15`).
-    #[serde(rename = "bgwriter_delay", skip_serializing_if = "Option::is_none")]
-    pub bgwriter_delay: Option<String>,
-    /// Максимальное число элементов буферного кеша (`postgres` | `postgres14`|
-    /// `postgres15`).
-    #[serde(
-        rename = "bgwriter_lru_maxpages",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub bgwriter_lru_maxpages: Option<String>,
-    /// Время ожидания, по истечении которого будет выполняться проверка
-    /// состояния перекрестной блокировки (`postgres` | `postgres14`|
-    /// `postgres15`).
-    #[serde(rename = "deadlock_timeout", skip_serializing_if = "Option::is_none")]
-    pub deadlock_timeout: Option<String>,
-    /// Максимальный размер очереди записей индекса `GIN` (`postgres` |
-    /// `postgres14`| `postgres15`).
-    #[serde(
-        rename = "gin_pending_list_limit",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub gin_pending_list_limit: Option<String>,
-    /// Время простоя открытой транзакции, при превышении которого будет
-    /// завершена сессия с этой транзакцией (`postgres` | `postgres14`|
-    /// `postgres15`).
-    #[serde(
-        rename = "idle_in_transaction_session_timeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub idle_in_transaction_session_timeout: Option<String>,
-    /// Время простоя не открытой транзакции, при превышении которого будет
-    /// завершена сессия с этой транзакцией (`postgres` | `postgres14`|
-    /// `postgres15`).
-    #[serde(
-        rename = "idle_session_timeout",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub idle_session_timeout: Option<String>,
-    /// Значение количества элементов в списке `FROM` при превышении которого,
-    /// планировщик будет переносить в список явные инструкции `JOIN`
-    /// (`postgres` | `postgres14`| `postgres15`).
-    #[serde(
-        rename = "join_collapse_limit",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub join_collapse_limit: Option<String>,
-    /// Время ожидания освобождения блокировки (`postgres` | `postgres14`|
-    /// `postgres15`).
-    #[serde(rename = "lock_timeout", skip_serializing_if = "Option::is_none")]
-    pub lock_timeout: Option<String>,
-    /// Максимальное число транзакций, которые могут одновременно находиться в
-    /// подготовленном состоянии (`postgres` | `postgres14`| `postgres15`).
-    #[serde(
-        rename = "max_prepared_transactions",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub max_prepared_transactions: Option<String>,
-    /// Допустимое количество соединений (`postgres` | `postgres14`|
-    /// `postgres15` | `mysql`).
-    #[serde(rename = "max_connections", skip_serializing_if = "Option::is_none")]
-    pub max_connections: Option<String>,
-    /// Устанавливает количество буферов общей памяти, используемых сервером
-    /// (`postgres` | `postgres14`| `postgres15`).
-    #[serde(rename = "shared_buffers", skip_serializing_if = "Option::is_none")]
-    pub shared_buffers: Option<String>,
-    /// Устанавливает количество буферов дисковых страниц в общей памяти для WAL
-    /// (`postgres` | `postgres14`| `postgres15`).
-    #[serde(rename = "wal_buffers", skip_serializing_if = "Option::is_none")]
-    pub wal_buffers: Option<String>,
-    /// Устанавливает максимальное количество временных буферов, используемых
-    /// каждой сессией (`postgres` | `postgres14`| `postgres15`).
-    #[serde(rename = "temp_buffers", skip_serializing_if = "Option::is_none")]
-    pub temp_buffers: Option<String>,
-    /// Устанавливает максимальное количество памяти, используемое для рабочих
-    /// пространств запросов (`postgres` | `postgres14`| `postgres15`).
-    #[serde(rename = "work_mem", skip_serializing_if = "Option::is_none")]
-    pub work_mem: Option<String>,
-    /// Устанавливает режим SQL. Можно задать несколько режимов, разделяя их
-    /// запятой. (`mysql`).
-    #[serde(rename = "sql_mode", skip_serializing_if = "Option::is_none")]
-    pub sql_mode: Option<String>,
-    /// Параметр включает или отключает работу MySQL Query Cache (`mysql`).
-    #[serde(rename = "query_cache_type", skip_serializing_if = "Option::is_none")]
-    pub query_cache_type: Option<String>,
-    /// Размер в байтах, доступный для кэша запросов (`mysql`).
-    #[serde(rename = "query_cache_size", skip_serializing_if = "Option::is_none")]
-    pub query_cache_size: Option<String>
+    #[serde(rename = "mysql", skip_serializing_if = "Option::is_none")]
+    pub mysql:    Option<Box<models::ConfigParametersMysql>>,
+    #[serde(rename = "postgres", skip_serializing_if = "Option::is_none")]
+    pub postgres: Option<Box<models::ConfigParametersPostgres>>,
+    #[serde(rename = "valkey", skip_serializing_if = "Option::is_none")]
+    pub valkey:   Option<Box<models::ConfigParametersValkey>>
 }
 
 impl ConfigParameters {
     /// Параметры базы данных
     pub fn new() -> ConfigParameters {
         ConfigParameters {
-            auto_increment_increment: None,
-            auto_increment_offset: None,
-            innodb_io_capacity: None,
-            innodb_purge_threads: None,
-            innodb_read_io_threads: None,
-            innodb_thread_concurrency: None,
-            innodb_write_io_threads: None,
-            join_buffer_size: None,
-            max_allowed_packet: None,
-            max_heap_table_size: None,
-            autovacuum_analyze_scale_factor: None,
-            bgwriter_delay: None,
-            bgwriter_lru_maxpages: None,
-            deadlock_timeout: None,
-            gin_pending_list_limit: None,
-            idle_in_transaction_session_timeout: None,
-            idle_session_timeout: None,
-            join_collapse_limit: None,
-            lock_timeout: None,
-            max_prepared_transactions: None,
-            max_connections: None,
-            shared_buffers: None,
-            wal_buffers: None,
-            temp_buffers: None,
-            work_mem: None,
-            sql_mode: None,
-            query_cache_type: None,
-            query_cache_size: None
+            mysql:    None,
+            postgres: None,
+            valkey:   None
         }
     }
 }

@@ -65,7 +65,7 @@ pub struct Db {
     #[serde(rename = "disk_stats", deserialize_with = "Option::deserialize")]
     pub disk_stats: Option<Box<models::DbDiskStats>>,
     #[serde(rename = "config_parameters")]
-    pub config_parameters: Box<models::ConfigParameters>,
+    pub config_parameters: Box<models::CreateClusterConfigParameters>,
     /// Это логическое значение, которое показывает, доступна ли база данных
     /// только по локальному IP адресу.
     #[serde(rename = "is_only_local_ip_access")]
@@ -92,7 +92,7 @@ impl Db {
         status: Status,
         preset_id: i32,
         disk_stats: Option<models::DbDiskStats>,
-        config_parameters: models::ConfigParameters,
+        config_parameters: models::CreateClusterConfigParameters,
         is_only_local_ip_access: bool,
         availability_zone: models::AvailabilityZone
     ) -> Db {
