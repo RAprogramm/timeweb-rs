@@ -471,6 +471,37 @@ def naive_deploy_datetimes(spec):
             prop.pop("format", None)
 
 
+_OBSERVED_ENUM_VALUES = {
+    "deploy-status": ["building"],
+}
+
+
+def add_observed_enum_values(spec):
+    """Append enum values the live API emits but the published spec lacks.
+
+    Unlike the open-ended enums stripped by :func:`relax_open_enums`, status
+    enums stay typed on purpose — consumers match on them. But Timeweb's
+    runtime drifts ahead of its published spec: ``deploy-status`` gained
+    ``building`` in July 2026 while the bundle still lists only
+    ``building_code``, so every deploys listing failed with
+    "unknown variant `building`". Each entry in ``_OBSERVED_ENUM_VALUES`` is a
+    value seen in real responses, keyed by the ``components/schemas`` name;
+    appending here keeps the generated variant across spec re-syncs until the
+    published spec catches up (at which point the entry becomes a no-op).
+    """
+    schemas = spec.get("components", {}).get("schemas", {})
+    for name, extra in _OBSERVED_ENUM_VALUES.items():
+        schema = schemas.get(name)
+        if not isinstance(schema, dict):
+            continue
+        enum = schema.get("enum")
+        if not isinstance(enum, list):
+            continue
+        for value in extra:
+            if value not in enum:
+                enum.append(value)
+
+
 def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
@@ -486,6 +517,7 @@ def normalize(spec):
     integer_id_fields(spec)
     add_image_upload_body(spec)
     naive_deploy_datetimes(spec)
+    add_observed_enum_values(spec)
     return spec
 
 
