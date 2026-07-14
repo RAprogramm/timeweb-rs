@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.6.0...v0.7.0) - 2026-07-14
+
+### Added
+
+- **BREAKING:** Accept undocumented deploy status building from the live API (#61) ([47b00af](https://github.com/RAprogramm/timeweb-rs/commit/47b00af58f0c3cce411a4e8a19f568eff3a91b62))
+
+
 ## [0.6.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.5.1...v0.6.0) - 2026-07-13
 
 ### Added
