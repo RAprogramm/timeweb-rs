@@ -43,7 +43,9 @@ pub enum DeployStatus {
     #[serde(rename = "success")]
     Success,
     #[serde(rename = "access_error")]
-    AccessError
+    AccessError,
+    #[serde(rename = "building")]
+    Building
 }
 
 impl std::fmt::Display for DeployStatus {
@@ -62,7 +64,8 @@ impl std::fmt::Display for DeployStatus {
             Self::Stopped => write!(f, "stopped"),
             Self::Failure => write!(f, "failure"),
             Self::Success => write!(f, "success"),
-            Self::AccessError => write!(f, "access_error")
+            Self::AccessError => write!(f, "access_error"),
+            Self::Building => write!(f, "building")
         }
     }
 }
