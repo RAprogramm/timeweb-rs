@@ -95,7 +95,7 @@ jobs:
           steps.diff.outputs.changed == 'true'
           && steps.regen.outcome == 'success'
           && steps.verify.outcome == 'success'
-        uses: taiki-e/install-action@16b05812d776ae1dfaabc8277e421fb6d2506419 # v2
+        uses: taiki-e/install-action@43aecc8d72668fbcfe75c31400bc4f890f1c5853 # v2
         with:
           tool: cargo-semver-checks
 
