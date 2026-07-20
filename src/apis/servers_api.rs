@@ -41,6 +41,32 @@ pub enum CloneServerError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`commit_restore_point`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CommitRestorePointError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`create_restore_point`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateRestorePointError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`create_server`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -157,6 +183,29 @@ pub enum GetOsListError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_restore_point`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRestorePointError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_restore_points`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetRestorePointsError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -428,6 +477,19 @@ pub enum ResetServerPasswordError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`rollback_restore_point`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RollbackRestorePointError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`shutdown_server`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -670,6 +732,117 @@ pub async fn clone_server(
     } else {
         let content = resp.text().await?;
         let entity: Option<CloneServerError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы зафиксировать (применить) снапшот облачного сервера (VDS), отправьте
+/// POST-запрос на `/api/v1/restore-points/{vds_id}/commit`.  Фиксация
+/// подтверждает текущее состояние сервера. Действие выполняется асинхронно,
+/// ответ не содержит тела.  Для выполнения действия сервер должен быть включён,
+/// иначе вернётся ошибка `403`.
+pub async fn commit_restore_point(
+    configuration: &configuration::Configuration,
+    vds_id: i32
+) -> Result<(), Error<CommitRestorePointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vds_id = vds_id;
+
+    let uri_str = format!(
+        "{}/api/v1/restore-points/{vds_id}/commit",
+        configuration.base_path,
+        vds_id = p_path_vds_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CommitRestorePointError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы создать снапшот облачного сервера (VDS), отправьте POST-запрос на
+/// `/api/v1/restore-points/{vds_id}/create`.  Тело ответа будет содержать
+/// объект JSON с ключом `restore_point` и информацией о созданном снапшоте.
+/// Сразу после создания снапшот может находиться в статусе `creating`.  Для
+/// создания снапшота сервер должен быть включён, иначе вернётся ошибка `403`.
+pub async fn create_restore_point(
+    configuration: &configuration::Configuration,
+    vds_id: i32
+) -> Result<models::GetRestorePoint200Response, Error<CreateRestorePointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vds_id = vds_id;
+
+    let uri_str = format!(
+        "{}/api/v1/restore-points/{vds_id}/create",
+        configuration.base_path,
+        vds_id = p_path_vds_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetRestorePoint200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetRestorePoint200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateRestorePointError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1187,6 +1360,122 @@ pub async fn get_os_list(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetOsListError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить снапшот облачного сервера (VDS), отправьте GET-запрос на
+/// `/api/v1/restore-points/{vds_id}`.  Тело ответа будет представлять собой
+/// объект JSON с ключом `restore_point`.
+pub async fn get_restore_point(
+    configuration: &configuration::Configuration,
+    vds_id: i32
+) -> Result<models::GetRestorePoint200Response, Error<GetRestorePointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vds_id = vds_id;
+
+    let uri_str = format!(
+        "{}/api/v1/restore-points/{vds_id}",
+        configuration.base_path,
+        vds_id = p_path_vds_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetRestorePoint200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetRestorePoint200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetRestorePointError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить список снапшотов аккаунта, отправьте GET-запрос на
+/// `/api/v1/restore-points`.  Тело ответа будет представлять собой объект JSON
+/// с ключом `restore_points`.  Снапшот — это снимок состояния облачного сервера
+/// (VDS), к которому можно вернуться. Каждому снапшоту соответствует один
+/// сервер.
+pub async fn get_restore_points(
+    configuration: &configuration::Configuration
+) -> Result<models::GetRestorePoints200Response, Error<GetRestorePointsError>> {
+    let uri_str = format!("{}/api/v1/restore-points", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetRestorePoints200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetRestorePoints200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetRestorePointsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -2323,6 +2612,52 @@ pub async fn reset_server_password(
     } else {
         let content = resp.text().await?;
         let entity: Option<ResetServerPasswordError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы откатить облачный сервер (VDS) к снапшоту, отправьте POST-запрос на
+/// `/api/v1/restore-points/{vds_id}/rollback`.  Откат возвращает сервер к
+/// состоянию, сохранённому в снапшоте. Действие выполняется асинхронно, ответ
+/// не содержит тела.  Для выполнения действия сервер должен быть включён, иначе
+/// вернётся ошибка `403`.
+pub async fn rollback_restore_point(
+    configuration: &configuration::Configuration,
+    vds_id: i32
+) -> Result<(), Error<RollbackRestorePointError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_vds_id = vds_id;
+
+    let uri_str = format!(
+        "{}/api/v1/restore-points/{vds_id}/rollback",
+        configuration.base_path,
+        vds_id = p_path_vds_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RollbackRestorePointError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

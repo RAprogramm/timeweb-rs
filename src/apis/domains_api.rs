@@ -86,6 +86,17 @@ pub enum CreateDomainRequestError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`create_person`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreatePersonError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`delete_domain`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -115,6 +126,18 @@ pub enum DeleteDomainDnsRecordError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteDomainDnsRecordV2Error {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`delete_person`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeletePersonError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
@@ -218,6 +241,29 @@ pub enum GetDomainsError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`get_person`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetPersonError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_persons`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetPersonsError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`get_tld`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -304,6 +350,18 @@ pub enum UpdateDomainRequestError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`update_person`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdatePersonError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// Чтобы добавить домен на свой аккаунт, отправьте запрос POST на
 /// `/api/v1/add-domain/{fqdn}`.
 pub async fn add_domain(
@@ -348,24 +406,23 @@ pub async fn add_domain(
 }
 
 /// Чтобы добавить поддомен, отправьте запрос POST на
-/// `/api/v1/domains/{fqdn}/subdomains/{subdomain_fqdn}`, задав необходимые
-/// атрибуты.  Поддомен будет добавлен с использованием предоставленной
-/// информации. Тело ответа будет содержать объект JSON с информацией о
-/// добавленном поддомене.
+/// `/api/v1/domains/{fqdn}/subdomains/{subdomain}`, задав необходимые атрибуты.
+/// Поддомен будет добавлен с использованием предоставленной информации. Тело
+/// ответа будет содержать объект JSON с информацией о добавленном поддомене.
 pub async fn add_subdomain(
     configuration: &configuration::Configuration,
     fqdn: &str,
-    subdomain_fqdn: &str
+    subdomain: &str
 ) -> Result<models::AddSubdomain201Response, Error<AddSubdomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fqdn = fqdn;
-    let p_path_subdomain_fqdn = subdomain_fqdn;
+    let p_path_subdomain = subdomain;
 
     let uri_str = format!(
-        "{}/api/v1/domains/{fqdn}/subdomains/{subdomain_fqdn}",
+        "{}/api/v1/domains/{fqdn}/subdomains/{subdomain}",
         configuration.base_path,
         fqdn = crate::apis::urlencode(p_path_fqdn),
-        subdomain_fqdn = crate::apis::urlencode(p_path_subdomain_fqdn)
+        subdomain = crate::apis::urlencode(p_path_subdomain)
     );
     let mut req_builder = configuration
         .client
@@ -673,6 +730,68 @@ pub async fn create_domain_request(
     }
 }
 
+/// Чтобы создать администратора доменов, отправьте POST-запрос на
+/// `/api/v1/persons`, задав необходимые атрибуты. Набор полей зависит от типа
+/// администратора: физическое лицо (`person`), организация (`org`) или
+/// индивидуальный предприниматель (`ip`).   Тело ответа будет представлять
+/// собой объект JSON с ключом `person`.
+pub async fn create_person(
+    configuration: &configuration::Configuration,
+    create_person_request: models::CreatePersonRequest
+) -> Result<models::CreatePerson201Response, Error<CreatePersonError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_person_request = create_person_request;
+
+    let uri_str = format!("{}/api/v1/persons", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_person_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreatePerson201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreatePerson201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreatePersonError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы удалить домен, отправьте запрос DELETE на `/api/v1/domains/{fqdn}`.
 pub async fn delete_domain(
     configuration: &configuration::Configuration,
@@ -808,22 +927,65 @@ pub async fn delete_domain_dns_record_v2(
     }
 }
 
+/// Чтобы удалить администратора доменов, отправьте DELETE-запрос на
+/// `/api/v1/persons/{person_id}`.
+pub async fn delete_person(
+    configuration: &configuration::Configuration,
+    person_id: i32
+) -> Result<(), Error<DeletePersonError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_person_id = person_id;
+
+    let uri_str = format!(
+        "{}/api/v1/persons/{person_id}",
+        configuration.base_path,
+        person_id = p_path_person_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeletePersonError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы удалить поддомен, отправьте запрос DELETE на
-/// `/api/v1/domains/{fqdn}/subdomains/{subdomain_fqdn}`.
+/// `/api/v1/domains/{fqdn}/subdomains/{subdomain}`.
 pub async fn delete_subdomain(
     configuration: &configuration::Configuration,
     fqdn: &str,
-    subdomain_fqdn: &str
+    subdomain: &str
 ) -> Result<(), Error<DeleteSubdomainError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_fqdn = fqdn;
-    let p_path_subdomain_fqdn = subdomain_fqdn;
+    let p_path_subdomain = subdomain;
 
     let uri_str = format!(
-        "{}/api/v1/domains/{fqdn}/subdomains/{subdomain_fqdn}",
+        "{}/api/v1/domains/{fqdn}/subdomains/{subdomain}",
         configuration.base_path,
         fqdn = crate::apis::urlencode(p_path_fqdn),
-        subdomain_fqdn = crate::apis::urlencode(p_path_subdomain_fqdn)
+        subdomain = crate::apis::urlencode(p_path_subdomain)
     );
     let mut req_builder = configuration
         .client
@@ -1319,6 +1481,137 @@ pub async fn get_domains(
     }
 }
 
+/// Чтобы получить администратора доменов, отправьте GET-запрос на
+/// `/api/v1/persons/{person_id}`.   Тело ответа будет представлять собой объект
+/// JSON с ключом `person`.
+pub async fn get_person(
+    configuration: &configuration::Configuration,
+    person_id: i32
+) -> Result<models::CreatePerson201Response, Error<GetPersonError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_person_id = person_id;
+
+    let uri_str = format!(
+        "{}/api/v1/persons/{person_id}",
+        configuration.base_path,
+        person_id = p_path_person_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreatePerson201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreatePerson201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetPersonError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить список администраторов доменов на вашем аккаунте, отправьте
+/// GET-запрос на `/api/v1/persons`.   Тело ответа будет представлять собой
+/// объект JSON с ключом `persons`.
+pub async fn get_persons(
+    configuration: &configuration::Configuration,
+    limit: Option<i32>,
+    offset: Option<i32>,
+    is_closed: Option<bool>
+) -> Result<models::GetPersons200Response, Error<GetPersonsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_limit = limit;
+    let p_query_offset = offset;
+    let p_query_is_closed = is_closed;
+
+    let uri_str = format!("{}/api/v1/persons", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_offset {
+        req_builder = req_builder.query(&[("offset", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_is_closed {
+        req_builder = req_builder.query(&[("is_closed", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetPersons200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetPersons200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetPersonsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы получить информацию о доменной зоне по ID, отправьте запрос GET на
 /// `/api/v1/tlds/{tld_id}`.
 pub async fn get_tld(
@@ -1782,6 +2075,70 @@ pub async fn update_domain_request(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateDomainRequestError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы обновить контактные данные администратора доменов, отправьте
+/// PUT-запрос на `/api/v1/persons/{person_id}`.   Тело ответа будет
+/// представлять собой объект JSON с ключом `person`.
+pub async fn update_person(
+    configuration: &configuration::Configuration,
+    person_id: i32,
+    update_person: models::UpdatePerson
+) -> Result<models::CreatePerson201Response, Error<UpdatePersonError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_person_id = person_id;
+    let p_body_update_person = update_person;
+
+    let uri_str = format!(
+        "{}/api/v1/persons/{person_id}",
+        configuration.base_path,
+        person_id = p_path_person_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_person);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreatePerson201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreatePerson201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdatePersonError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

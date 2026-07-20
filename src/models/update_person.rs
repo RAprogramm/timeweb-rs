@@ -13,33 +13,28 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+pub struct UpdatePerson {
+    /// Почтовый адрес администратора.
+    #[serde(rename = "address")]
+    pub address:  String,
+    /// Адрес электронной почты администратора.
+    #[serde(rename = "email")]
+    pub email:    String,
+    /// Контактный телефон администратора.
+    #[serde(rename = "phone")]
+    pub phone:    String,
+    /// Почтовый индекс.
+    #[serde(rename = "postcode")]
+    pub postcode: String
 }
 
-impl GetFinances500Response {
-    pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
+impl UpdatePerson {
+    pub fn new(address: String, email: String, phone: String, postcode: String) -> UpdatePerson {
+        UpdatePerson {
+            address,
+            email,
+            phone,
+            postcode
         }
     }
 }

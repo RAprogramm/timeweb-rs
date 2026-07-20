@@ -12,34 +12,93 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// Org : Администратор домена — организация
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+pub struct Org {
+    /// Тип администратора.
+    #[serde(rename = "type")]
+    pub r#type:          Type,
+    /// Название организации.
+    #[serde(rename = "name")]
+    pub name:            String,
+    /// Это логическое значение, которое показывает, является ли администратор
+    /// резидентом РФ.
+    #[serde(rename = "is_resident")]
+    pub is_resident:     bool,
+    /// Контактное лицо организации.
+    #[serde(rename = "contact_name")]
+    pub contact_name:    String,
+    /// ИНН организации.
+    #[serde(rename = "inn")]
+    pub inn:             String,
+    /// КПП организации.
+    #[serde(rename = "kpp", skip_serializing_if = "Option::is_none")]
+    pub kpp:             Option<String>,
+    /// Юридический адрес организации.
+    #[serde(rename = "legal_address")]
+    pub legal_address:   String,
+    /// Почтовый индекс.
+    #[serde(rename = "postcode")]
+    pub postcode:        String,
+    /// Почтовый адрес.
+    #[serde(rename = "mailing_address")]
+    pub mailing_address: String,
+    /// Контактный телефон.
+    #[serde(rename = "phone")]
+    pub phone:           String,
+    /// Адрес электронной почты.
+    #[serde(rename = "email")]
+    pub email:           String,
+    /// Код страны. Только для нерезидентов РФ (`is_resident: false`); для
+    /// резидентов поле передавать не нужно.
+    #[serde(
+        rename = "country_code",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub country_code:    Option<Option<String>>
 }
 
-impl GetFinances500Response {
+impl Org {
+    /// Администратор домена — организация
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
+        r#type: Type,
+        name: String,
+        is_resident: bool,
+        contact_name: String,
+        inn: String,
+        legal_address: String,
+        postcode: String,
+        mailing_address: String,
+        phone: String,
+        email: String
+    ) -> Org {
+        Org {
+            r#type,
+            name,
+            is_resident,
+            contact_name,
+            inn,
+            kpp: None,
+            legal_address,
+            postcode,
+            mailing_address,
+            phone,
+            email,
+            country_code: None
         }
+    }
+}
+/// Тип администратора.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "org")]
+    Org
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Org
     }
 }

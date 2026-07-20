@@ -12,34 +12,104 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// Ip : Администратор домена — индивидуальный предприниматель
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+pub struct Ip {
+    /// Тип администратора.
+    #[serde(rename = "type")]
+    pub r#type:          Type,
+    /// ФИО индивидуального предпринимателя.
+    #[serde(rename = "name")]
+    pub name:            String,
+    /// Это логическое значение, которое показывает, является ли администратор
+    /// резидентом РФ.
+    #[serde(rename = "is_resident")]
+    pub is_resident:     bool,
+    /// Дата рождения.
+    #[serde(rename = "birthdate")]
+    pub birthdate:       String,
+    /// Дата выдачи паспорта.
+    #[serde(rename = "passport_date")]
+    pub passport_date:   String,
+    /// Номер паспорта.
+    #[serde(rename = "passport_number")]
+    pub passport_number: String,
+    /// Кем выдан паспорт.
+    #[serde(rename = "passport_place")]
+    pub passport_place:  String,
+    /// Серия паспорта.
+    #[serde(rename = "passport_series")]
+    pub passport_series: String,
+    /// ИНН индивидуального предпринимателя.
+    #[serde(rename = "inn")]
+    pub inn:             String,
+    /// Почтовый индекс.
+    #[serde(rename = "postcode")]
+    pub postcode:        String,
+    /// Почтовый адрес.
+    #[serde(rename = "mailing_address")]
+    pub mailing_address: String,
+    /// Контактный телефон.
+    #[serde(rename = "phone")]
+    pub phone:           String,
+    /// Адрес электронной почты.
+    #[serde(rename = "email")]
+    pub email:           String,
+    /// Код страны. Только для нерезидентов РФ (`is_resident: false`); для
+    /// резидентов поле передавать не нужно.
+    #[serde(
+        rename = "country_code",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub country_code:    Option<Option<String>>
 }
 
-impl GetFinances500Response {
+impl Ip {
+    /// Администратор домена — индивидуальный предприниматель
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
+        r#type: Type,
+        name: String,
+        is_resident: bool,
+        birthdate: String,
+        passport_date: String,
+        passport_number: String,
+        passport_place: String,
+        passport_series: String,
+        inn: String,
+        postcode: String,
+        mailing_address: String,
+        phone: String,
+        email: String
+    ) -> Ip {
+        Ip {
+            r#type,
+            name,
+            is_resident,
+            birthdate,
+            passport_date,
+            passport_number,
+            passport_place,
+            passport_series,
+            inn,
+            postcode,
+            mailing_address,
+            phone,
+            email,
+            country_code: None
         }
+    }
+}
+/// Тип администратора.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "ip")]
+    Ip
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Ip
     }
 }

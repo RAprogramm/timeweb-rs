@@ -13,32 +13,26 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
+pub struct GetPersons200Response {
+    #[serde(rename = "meta")]
+    pub meta:        Box<models::Meta>,
+    #[serde(rename = "persons")]
+    pub persons:     Vec<models::Person>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id: Option<uuid::Uuid>
 }
 
-impl GetFinances500Response {
+impl GetPersons200Response {
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
+        meta: models::Meta,
+        persons: Vec<models::Person>,
+        response_id: Option<uuid::Uuid>
+    ) -> GetPersons200Response {
+        GetPersons200Response {
+            meta: Box::new(meta),
+            persons,
             response_id
         }
     }

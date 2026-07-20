@@ -13,32 +13,26 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
+pub struct GetRestorePoints200Response {
+    #[serde(rename = "restore_points")]
+    pub restore_points: Vec<models::RestorePoint>,
+    #[serde(rename = "meta")]
+    pub meta:           Box<models::Meta>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:    Option<uuid::Uuid>
 }
 
-impl GetFinances500Response {
+impl GetRestorePoints200Response {
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
+        restore_points: Vec<models::RestorePoint>,
+        meta: models::Meta,
+        response_id: Option<uuid::Uuid>
+    ) -> GetRestorePoints200Response {
+        GetRestorePoints200Response {
+            restore_points,
+            meta: Box::new(meta),
             response_id
         }
     }
