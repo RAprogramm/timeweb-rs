@@ -13,32 +13,22 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
+pub struct GetRestorePoint200Response {
+    #[serde(rename = "restore_point")]
+    pub restore_point: Box<models::RestorePoint>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:   Option<uuid::Uuid>
 }
 
-impl GetFinances500Response {
+impl GetRestorePoint200Response {
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
+        restore_point: models::RestorePoint,
+        response_id: Option<uuid::Uuid>
+    ) -> GetRestorePoint200Response {
+        GetRestorePoint200Response {
+            restore_point: Box::new(restore_point),
             response_id
         }
     }

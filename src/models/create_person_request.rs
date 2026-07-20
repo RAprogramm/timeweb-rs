@@ -12,34 +12,32 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreatePersonRequest {
+    Person2(Box<models::Person2>),
+    Org(Box<models::Org>),
+    Ip(Box<models::Ip>)
 }
 
-impl GetFinances500Response {
-    pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
-        }
+impl Default for CreatePersonRequest {
+    fn default() -> Self {
+        Self::Person2(Default::default())
+    }
+}
+/// Тип администратора.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "person")]
+    Person,
+    #[serde(rename = "org")]
+    Org,
+    #[serde(rename = "ip")]
+    Ip
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Person
     }
 }

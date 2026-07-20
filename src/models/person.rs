@@ -13,33 +13,129 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+pub struct Person {
+    /// Уникальный идентификатор администратора домена.
+    #[serde(rename = "id")]
+    pub id:              i32,
+    /// Тип администратора: `person` — физическое лицо, `org` — организация,
+    /// `ip` — индивидуальный предприниматель.
+    #[serde(rename = "type")]
+    pub r#type:          Type,
+    /// Имя администратора (ФИО или название организации).
+    #[serde(rename = "name")]
+    pub name:            String,
+    /// Имя администратора в латинской транслитерации.
+    #[serde(rename = "name_eng")]
+    pub name_eng:        String,
+    /// Адрес электронной почты администратора.
+    #[serde(rename = "email")]
+    pub email:           String,
+    /// Контактный телефон администратора.
+    #[serde(rename = "phone")]
+    pub phone:           String,
+    /// Почтовый индекс.
+    #[serde(rename = "postcode")]
+    pub postcode:        String,
+    /// Почтовый адрес.
+    #[serde(rename = "mailing_address")]
+    pub mailing_address: String,
+    /// Код страны администратора.
+    #[serde(rename = "country_code", deserialize_with = "Option::deserialize")]
+    pub country_code:    Option<String>,
+    /// Это логическое значение, которое показывает, является ли администратор
+    /// резидентом РФ.
+    #[serde(rename = "is_resident")]
+    pub is_resident:     bool,
+    /// Это логическое значение, которое показывает, заполнены ли данные
+    /// администратора не полностью.
+    #[serde(rename = "is_blank")]
+    pub is_blank:        bool,
+    /// Это логическое значение, которое показывает, закрыт ли администратор.
+    #[serde(rename = "is_closed")]
+    pub is_closed:       bool,
+    /// Дата рождения. Только для типов `person` и `ip`.
+    #[serde(rename = "birthdate", skip_serializing_if = "Option::is_none")]
+    pub birthdate:       Option<String>,
+    /// Дата выдачи паспорта. Только для типов `person` и `ip`.
+    #[serde(rename = "passport_date", skip_serializing_if = "Option::is_none")]
+    pub passport_date:   Option<String>,
+    /// Номер паспорта. Только для типов `person` и `ip`.
+    #[serde(rename = "passport_number", skip_serializing_if = "Option::is_none")]
+    pub passport_number: Option<String>,
+    /// Кем выдан паспорт. Только для типов `person` и `ip`.
+    #[serde(rename = "passport_place", skip_serializing_if = "Option::is_none")]
+    pub passport_place:  Option<String>,
+    /// Серия паспорта. Только для типов `person` и `ip`.
+    #[serde(rename = "passport_series", skip_serializing_if = "Option::is_none")]
+    pub passport_series: Option<String>,
+    /// ИНН. Только для типов `org` и `ip`.
+    #[serde(rename = "inn", skip_serializing_if = "Option::is_none")]
+    pub inn:             Option<String>,
+    /// КПП организации. Только для типа `org`.
+    #[serde(rename = "kpp", skip_serializing_if = "Option::is_none")]
+    pub kpp:             Option<String>,
+    /// Юридический адрес организации. Только для типа `org`.
+    #[serde(rename = "legal_address", skip_serializing_if = "Option::is_none")]
+    pub legal_address:   Option<String>,
+    /// Контактное лицо организации. Только для типа `org`.
+    #[serde(rename = "contact_name", skip_serializing_if = "Option::is_none")]
+    pub contact_name:    Option<String>
 }
 
-impl GetFinances500Response {
+impl Person {
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
+        id: i32,
+        r#type: Type,
+        name: String,
+        name_eng: String,
+        email: String,
+        phone: String,
+        postcode: String,
+        mailing_address: String,
+        country_code: Option<String>,
+        is_resident: bool,
+        is_blank: bool,
+        is_closed: bool
+    ) -> Person {
+        Person {
+            id,
+            r#type,
+            name,
+            name_eng,
+            email,
+            phone,
+            postcode,
+            mailing_address,
+            country_code,
+            is_resident,
+            is_blank,
+            is_closed,
+            birthdate: None,
+            passport_date: None,
+            passport_number: None,
+            passport_place: None,
+            passport_series: None,
+            inn: None,
+            kpp: None,
+            legal_address: None,
+            contact_name: None
         }
+    }
+}
+/// Тип администратора: `person` — физическое лицо, `org` — организация, `ip` —
+/// индивидуальный предприниматель.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "person")]
+    Person,
+    #[serde(rename = "org")]
+    Org,
+    #[serde(rename = "ip")]
+    Ip
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Person
     }
 }

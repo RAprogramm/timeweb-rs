@@ -13,33 +13,69 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetFinances500Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::GetFinances500ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+pub struct RestorePoint {
+    /// ID снапшота.
+    #[serde(rename = "id")]
+    pub id:         i64,
+    /// Дата и время создания снапшота в формате ISO 8601.
+    #[serde(rename = "created_at")]
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    /// Дата и время истечения снапшота в формате ISO 8601.
+    #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
+    pub expired_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+    /// Статус снапшота.  - `creating` — создаётся; - `created` — создан; -
+    /// `committed` — зафиксирован; - `rolled_back` — откачен; - `error` —
+    /// ошибка; - `deleted` — удалён.
+    #[serde(rename = "status")]
+    pub status:     Status,
+    /// ID облачного сервера (VDS), к которому относится снапшот.
+    #[serde(rename = "vds_id")]
+    pub vds_id:     i64,
+    /// ID аккаунта-владельца снапшота.
+    #[serde(rename = "account_id")]
+    pub account_id: String
 }
 
-impl GetFinances500Response {
+impl RestorePoint {
     pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> GetFinances500Response {
-        GetFinances500Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
+        id: i64,
+        created_at: chrono::DateTime<chrono::FixedOffset>,
+        expired_at: Option<chrono::DateTime<chrono::FixedOffset>>,
+        status: Status,
+        vds_id: i64,
+        account_id: String
+    ) -> RestorePoint {
+        RestorePoint {
+            id,
+            created_at,
+            expired_at,
+            status,
+            vds_id,
+            account_id
         }
+    }
+}
+/// Статус снапшота.  - `creating` — создаётся; - `created` — создан; -
+/// `committed` — зафиксирован; - `rolled_back` — откачен; - `error` — ошибка; -
+/// `deleted` — удалён.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Status {
+    #[serde(rename = "creating")]
+    Creating,
+    #[serde(rename = "created")]
+    Created,
+    #[serde(rename = "committed")]
+    Committed,
+    #[serde(rename = "rolled_back")]
+    RolledBack,
+    #[serde(rename = "error")]
+    Error,
+    #[serde(rename = "deleted")]
+    Deleted
+}
+
+impl Default for Status {
+    fn default() -> Status {
+        Self::Creating
     }
 }
