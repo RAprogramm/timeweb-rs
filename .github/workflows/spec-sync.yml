@@ -27,7 +27,7 @@ jobs:
       head_sha: ${{ steps.pr.outputs.pull-request-head-sha }}
       breaking: ${{ steps.semver.outputs.breaking }}
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Download the latest Timeweb Cloud spec
         run: curl -fsSL -o /tmp/latest.json "$SPEC_URL"
@@ -45,7 +45,7 @@ jobs:
 
       - name: Install Java
         if: steps.diff.outputs.changed == 'true'
-        uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a # v5
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
         with:
           distribution: temurin
           java-version: "17"
@@ -95,7 +95,7 @@ jobs:
           steps.diff.outputs.changed == 'true'
           && steps.regen.outcome == 'success'
           && steps.verify.outcome == 'success'
-        uses: taiki-e/install-action@43aecc8d72668fbcfe75c31400bc4f890f1c5853 # v2
+        uses: taiki-e/install-action@a6b2e2dcd845ddd7f509ce4f3ed3d922b80cc5d9 # v2
         with:
           tool: cargo-semver-checks
 
