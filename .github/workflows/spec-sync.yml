@@ -45,7 +45,7 @@ jobs:
 
       - name: Install Java
         if: steps.diff.outputs.changed == 'true'
-        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: temurin
           java-version: "17"
@@ -95,7 +95,7 @@ jobs:
           steps.diff.outputs.changed == 'true'
           && steps.regen.outcome == 'success'
           && steps.verify.outcome == 'success'
-        uses: taiki-e/install-action@18b1216eba7f8039b0f8d131d5473787f0edce68 # v2
+        uses: taiki-e/install-action@67729d5c413db75907f0ad1e39bb04b9c868ff60 # v2
         with:
           tool: cargo-semver-checks
 
