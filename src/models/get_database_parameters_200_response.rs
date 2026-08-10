@@ -14,24 +14,177 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetDatabaseParameters200Response {
-    #[serde(rename = "mysql", skip_serializing_if = "Option::is_none")]
-    pub mysql:       Option<Box<models::ConfigParametersMysql>>,
-    #[serde(rename = "postgres", skip_serializing_if = "Option::is_none")]
-    pub postgres:    Option<Box<models::ConfigParametersPostgres>>,
-    #[serde(rename = "valkey", skip_serializing_if = "Option::is_none")]
-    pub valkey:      Option<Box<models::ConfigParametersValkey>>,
+    /// Параметры, доступные для кластеров типа `mysql5`.
+    #[serde(rename = "mysql5")]
+    pub mysql5:         Vec<String>,
+    /// Параметры, доступные для кластеров типа `mysql`.
+    #[serde(rename = "mysql")]
+    pub mysql:          Vec<String>,
+    /// Параметры, доступные для кластеров типа `mysql8_4`.
+    #[serde(rename = "mysql8_4")]
+    pub mysql8_4:       Vec<String>,
+    /// Параметры, доступные для кластеров типа `postgres` (PostgreSQL 13).
+    #[serde(rename = "postgres")]
+    pub postgres:       Vec<String>,
+    /// Параметры, доступные для кластеров типа `postgres14`.
+    #[serde(rename = "postgres14")]
+    pub postgres14:     Vec<String>,
+    /// Параметры, доступные для кластеров типа `postgres15`.
+    #[serde(rename = "postgres15")]
+    pub postgres15:     Vec<String>,
+    /// Параметры, доступные для кластеров типа `postgres16`.
+    #[serde(rename = "postgres16")]
+    pub postgres16:     Vec<String>,
+    /// Параметры, доступные для кластеров типа `postgres17`.
+    #[serde(rename = "postgres17")]
+    pub postgres17:     Vec<String>,
+    /// Параметры, доступные для кластеров типа `postgres18`. Набор отличается
+    /// от предыдущих версий PostgreSQL — например, добавлены `io_method` и
+    /// `io_workers`.
+    #[serde(rename = "postgres18")]
+    pub postgres18:     Vec<String>,
+    /// Параметры, доступные для кластеров типа `redis`.
+    #[serde(rename = "redis")]
+    pub redis:          Vec<String>,
+    /// Параметры, доступные для кластеров типа `redis7`.
+    #[serde(rename = "redis7")]
+    pub redis7:         Vec<String>,
+    /// Параметры, доступные для кластеров типа `redis8_1`.
+    #[serde(rename = "redis8_1")]
+    pub redis8_1:       Vec<String>,
+    /// Параметры, доступные для кластеров типа `valkey`.
+    #[serde(rename = "valkey")]
+    pub valkey:         Vec<String>,
+    /// Параметры, доступные для кластеров типа `valkey7`.
+    #[serde(rename = "valkey7")]
+    pub valkey7:        Vec<String>,
+    /// Параметры, доступные для кластеров типа `valkey8_1`.
+    #[serde(rename = "valkey8_1")]
+    pub valkey8_1:      Vec<String>,
+    /// Параметры, доступные для кластеров типа `valkey9_1`.
+    #[serde(rename = "valkey9_1")]
+    pub valkey9_1:      Vec<String>,
+    /// Для кластеров типа `mongodb4` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "mongodb4")]
+    pub mongodb4:       Vec<String>,
+    /// Для кластеров типа `mongodb` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "mongodb")]
+    pub mongodb:        Vec<String>,
+    /// Для кластеров типа `mongodb6` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "mongodb6")]
+    pub mongodb6:       Vec<String>,
+    /// Для кластеров типа `mongodb7` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "mongodb7")]
+    pub mongodb7:       Vec<String>,
+    /// Для кластеров типа `mongodb8_0` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "mongodb8_0")]
+    pub mongodb8_0:     Vec<String>,
+    /// Для кластеров типа `opensearch` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "opensearch")]
+    pub opensearch:     Vec<String>,
+    /// Для кластеров типа `opensearch2_19` настраиваемых параметров нет —
+    /// всегда пустой массив.
+    #[serde(rename = "opensearch2_19")]
+    pub opensearch2_19: Vec<String>,
+    /// Для кластеров типа `clickhouse` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "clickhouse")]
+    pub clickhouse:     Vec<String>,
+    /// Для кластеров типа `clickhouse24` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "clickhouse24")]
+    pub clickhouse24:   Vec<String>,
+    /// Для кластеров типа `clickhouse25` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "clickhouse25")]
+    pub clickhouse25:   Vec<String>,
+    /// Для кластеров типа `kafka` настраиваемых параметров нет — всегда пустой
+    /// массив.
+    #[serde(rename = "kafka")]
+    pub kafka:          Vec<String>,
+    /// Для кластеров типа `rabbitmq` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "rabbitmq")]
+    pub rabbitmq:       Vec<String>,
+    /// Для кластеров типа `rabbitmq4_0` настраиваемых параметров нет — всегда
+    /// пустой массив.
+    #[serde(rename = "rabbitmq4_0")]
+    pub rabbitmq4_0:    Vec<String>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id: Option<uuid::Uuid>
+    pub response_id:    Option<uuid::Uuid>
 }
 
 impl GetDatabaseParameters200Response {
-    pub fn new(response_id: Option<uuid::Uuid>) -> GetDatabaseParameters200Response {
+    pub fn new(
+        mysql5: Vec<String>,
+        mysql: Vec<String>,
+        mysql8_4: Vec<String>,
+        postgres: Vec<String>,
+        postgres14: Vec<String>,
+        postgres15: Vec<String>,
+        postgres16: Vec<String>,
+        postgres17: Vec<String>,
+        postgres18: Vec<String>,
+        redis: Vec<String>,
+        redis7: Vec<String>,
+        redis8_1: Vec<String>,
+        valkey: Vec<String>,
+        valkey7: Vec<String>,
+        valkey8_1: Vec<String>,
+        valkey9_1: Vec<String>,
+        mongodb4: Vec<String>,
+        mongodb: Vec<String>,
+        mongodb6: Vec<String>,
+        mongodb7: Vec<String>,
+        mongodb8_0: Vec<String>,
+        opensearch: Vec<String>,
+        opensearch2_19: Vec<String>,
+        clickhouse: Vec<String>,
+        clickhouse24: Vec<String>,
+        clickhouse25: Vec<String>,
+        kafka: Vec<String>,
+        rabbitmq: Vec<String>,
+        rabbitmq4_0: Vec<String>,
+        response_id: Option<uuid::Uuid>
+    ) -> GetDatabaseParameters200Response {
         GetDatabaseParameters200Response {
-            mysql: None,
-            postgres: None,
-            valkey: None,
+            mysql5,
+            mysql,
+            mysql8_4,
+            postgres,
+            postgres14,
+            postgres15,
+            postgres16,
+            postgres17,
+            postgres18,
+            redis,
+            redis7,
+            redis8_1,
+            valkey,
+            valkey7,
+            valkey8_1,
+            valkey9_1,
+            mongodb4,
+            mongodb,
+            mongodb6,
+            mongodb7,
+            mongodb8_0,
+            opensearch,
+            opensearch2_19,
+            clickhouse,
+            clickhouse24,
+            clickhouse25,
+            kafka,
+            rabbitmq,
+            rabbitmq4_0,
             response_id
         }
     }

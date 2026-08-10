@@ -14,6 +14,10 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAdmin {
+    /// Новое имя пользователя базы данных. Переименование доступно только в
+    /// кластерах PostgreSQL
+    #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
+    pub login:       Option<String>,
     /// Пароль пользователя базы данных
     #[serde(rename = "password", skip_serializing_if = "Option::is_none")]
     pub password:    Option<String>,
@@ -26,16 +30,21 @@ pub struct UpdateAdmin {
     /// ID инстанса базы данных для применения привилегий. Если поле не
     /// передано, то привилегии будут применены ко всем инстансам
     #[serde(rename = "instance_id", skip_serializing_if = "Option::is_none")]
-    pub instance_id: Option<i64>
+    pub instance_id: Option<i64>,
+    /// Выдать привилегии на все инстансы базы данных
+    #[serde(rename = "for_all", skip_serializing_if = "Option::is_none")]
+    pub for_all:     Option<bool>
 }
 
 impl UpdateAdmin {
     pub fn new() -> UpdateAdmin {
         UpdateAdmin {
+            login:       None,
             password:    None,
             privileges:  None,
             description: None,
-            instance_id: None
+            instance_id: None,
+            for_all:     None
         }
     }
 }

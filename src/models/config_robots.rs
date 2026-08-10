@@ -12,21 +12,44 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// ConfigRobots : Настройки robots.txt для доменов ресурса
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct DatabaseClusterNetworksInnerIpsInner {
-    /// Тип IP-адреса сети
+pub struct ConfigRobots {
+    /// Режим отдачи `robots.txt`. - `deny` — CDN отдает `robots.txt`,
+    /// запрещающий индексацию; - `cached` — `robots.txt` берется с источника
+    /// контента; - `custom` — CDN отдает содержимое из поля `content`.
     #[serde(rename = "type")]
-    pub r#type: String,
-    /// IP-адрес сети
-    #[serde(rename = "ip")]
-    pub ip:     String
+    pub r#type:  Type,
+    /// Содержимое `robots.txt`. Обязательно и учитывается только при `type` =
+    /// `custom`.
+    #[serde(rename = "content", skip_serializing_if = "Option::is_none")]
+    pub content: Option<String>
 }
 
-impl DatabaseClusterNetworksInnerIpsInner {
-    pub fn new(r#type: String, ip: String) -> DatabaseClusterNetworksInnerIpsInner {
-        DatabaseClusterNetworksInnerIpsInner {
+impl ConfigRobots {
+    /// Настройки robots.txt для доменов ресурса
+    pub fn new(r#type: Type) -> ConfigRobots {
+        ConfigRobots {
             r#type,
-            ip
+            content: None
         }
+    }
+}
+/// Режим отдачи `robots.txt`. - `deny` — CDN отдает `robots.txt`, запрещающий
+/// индексацию; - `cached` — `robots.txt` берется с источника контента; -
+/// `custom` — CDN отдает содержимое из поля `content`.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "deny")]
+    Deny,
+    #[serde(rename = "cached")]
+    Cached,
+    #[serde(rename = "custom")]
+    Custom
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Deny
     }
 }

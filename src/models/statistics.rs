@@ -12,17 +12,27 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// Statistics : Статистика CDN-ресурса за период, с разбивкой по часам
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetModels200ResponseAllOfMeta {
-    /// Общее количество моделей
-    #[serde(rename = "total")]
-    pub total: f64
+pub struct Statistics {
+    /// Исходящий трафик по часовым интервалам.
+    #[serde(rename = "traffic")]
+    pub traffic:  Vec<models::StatisticsTrafficInner>,
+    /// Количество запросов по часовым интервалам с разбивкой по классам
+    /// HTTP-статуса ответа.
+    #[serde(rename = "requests")]
+    pub requests: Vec<models::StatisticsRequestsInner>
 }
 
-impl GetModels200ResponseAllOfMeta {
-    pub fn new(total: f64) -> GetModels200ResponseAllOfMeta {
-        GetModels200ResponseAllOfMeta {
-            total
+impl Statistics {
+    /// Статистика CDN-ресурса за период, с разбивкой по часам
+    pub fn new(
+        traffic: Vec<models::StatisticsTrafficInner>,
+        requests: Vec<models::StatisticsRequestsInner>
+    ) -> Statistics {
+        Statistics {
+            traffic,
+            requests
         }
     }
 }

@@ -16,17 +16,31 @@ use crate::models;
 pub struct UpdateInstance {
     /// Название инстанса базы данных
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name:        Option<String>,
+    pub name:              Option<String>,
     /// Описание инстанса базы данных
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description: Option<String>
+    pub description:       Option<String>,
+    /// ID пользователя базы данных, который станет владельцем инстанса.
+    /// Доступно только в кластерах PostgreSQL
+    #[serde(rename = "owner_id", skip_serializing_if = "Option::is_none")]
+    pub owner_id:          Option<i64>,
+    /// Расширения базы данных. Доступно только в кластерах PostgreSQL и
+    /// RabbitMQ
+    #[serde(rename = "extensions", skip_serializing_if = "Option::is_none")]
+    pub extensions:        Option<Box<models::DatabaseExtensions>>,
+    /// Настройки топика. Доступно только в кластерах Kafka
+    #[serde(rename = "config_parameters", skip_serializing_if = "Option::is_none")]
+    pub config_parameters: Option<Box<models::UpdateKafkaConfigParameters>>
 }
 
 impl UpdateInstance {
     pub fn new() -> UpdateInstance {
         UpdateInstance {
-            name:        None,
-            description: None
+            name:              None,
+            description:       None,
+            owner_id:          None,
+            extensions:        None,
+            config_parameters: None
         }
     }
 }

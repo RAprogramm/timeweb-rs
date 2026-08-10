@@ -17,11 +17,16 @@ pub struct UpdateCluster {
     /// Название кластера базы данных.
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
-    /// ID тарифа.
+    /// ID тарифа. Нельзя передавать вместе с `configuration`
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
     pub preset_id: Option<i32>,
+    #[serde(rename = "configuration", skip_serializing_if = "Option::is_none")]
+    pub configuration: Option<Box<models::UpdateClusterConfiguration>>,
     #[serde(rename = "config_parameters", skip_serializing_if = "Option::is_none")]
     pub config_parameters: Option<Box<models::UpdateClusterConfigParameters>>,
+    /// Тип хеширования базы данных (mysql | postgres).
+    #[serde(rename = "hash_type", skip_serializing_if = "Option::is_none")]
+    pub hash_type: Option<HashType>,
     /// Описание кластера базы данных
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
@@ -31,9 +36,22 @@ pub struct UpdateCluster {
         skip_serializing_if = "Option::is_none"
     )]
     pub is_enabled_public_network: Option<bool>,
-    /// Использование IPv6 адреса.
-    #[serde(rename = "is_public_ipv6", skip_serializing_if = "Option::is_none")]
-    pub is_public_ipv6: Option<bool>
+    /// Использование публичного IPv6-адреса.
+    #[serde(
+        rename = "is_enabled_public_ipv6",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_enabled_public_ipv6: Option<bool>,
+    /// Включить защищенное подключение к кластеру базы данных
+    #[serde(
+        rename = "is_secure_connection_enable",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_secure_connection_enable: Option<bool>,
+    #[serde(rename = "maintenance_slot", skip_serializing_if = "Option::is_none")]
+    pub maintenance_slot: Option<Box<models::CreateClusterMaintenanceSlot>>,
+    #[serde(rename = "disk_autoscaling", skip_serializing_if = "Option::is_none")]
+    pub disk_autoscaling: Option<Box<models::CreateClusterDiskAutoscaling>>
 }
 
 impl UpdateCluster {
@@ -41,10 +59,29 @@ impl UpdateCluster {
         UpdateCluster {
             name: None,
             preset_id: None,
+            configuration: None,
             config_parameters: None,
+            hash_type: None,
             description: None,
             is_enabled_public_network: None,
-            is_public_ipv6: None
+            is_enabled_public_ipv6: None,
+            is_secure_connection_enable: None,
+            maintenance_slot: None,
+            disk_autoscaling: None
         }
+    }
+}
+/// Тип хеширования базы данных (mysql | postgres).
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum HashType {
+    #[serde(rename = "caching_sha2")]
+    CachingSha2,
+    #[serde(rename = "mysql_native")]
+    MysqlNative
+}
+
+impl Default for HashType {
+    fn default() -> HashType {
+        Self::CachingSha2
     }
 }

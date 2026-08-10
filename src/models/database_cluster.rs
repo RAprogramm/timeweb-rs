@@ -29,15 +29,19 @@ pub struct DatabaseCluster {
     /// Название кластера базы данных.
     #[serde(rename = "name")]
     pub name: String,
+    /// Описание кластера базы данных.
+    #[serde(rename = "description")]
+    pub description: String,
     /// Список сетей кластера базы данных.
     #[serde(rename = "networks")]
     pub networks: Vec<models::DatabaseClusterNetworksInner>,
-    /// Использование IPv6 адреса.
-    #[serde(rename = "is_public_ipv6", skip_serializing_if = "Option::is_none")]
-    pub is_public_ipv6: Option<bool>,
-    /// Тип базы данных.
-    #[serde(rename = "type")]
-    pub r#type: String,
+    /// Использование публичного IPv6-адреса.
+    #[serde(rename = "is_enabled_public_ipv6")]
+    pub is_enabled_public_ipv6: bool,
+    /// Тип базы данных. Список возможных значений шире, чем список типов,
+    /// доступных при создании нового кластера.
+    #[serde(rename = "type", deserialize_with = "Option::deserialize")]
+    pub r#type: Option<String>,
     /// Тип хеширования кластера базы данных (mysql5 | mysql | postgres).
     #[serde(rename = "hash_type", deserialize_with = "Option::deserialize")]
     pub hash_type: Option<HashType>,
@@ -47,24 +51,72 @@ pub struct DatabaseCluster {
     /// Порт
     #[serde(rename = "port", deserialize_with = "Option::deserialize")]
     pub port: Option<i32>,
-    /// Текущий статус кластера базы данных.
+    /// Текущий статус кластера базы данных. Значение `read_only` означает, что
+    /// запись в кластер заблокирована из-за переполнения диска — чтобы снять
+    /// блокировку, освободите место или увеличьте размер диска.
     #[serde(rename = "status")]
     pub status: Status,
-    /// ID тарифа.
-    #[serde(rename = "preset_id")]
-    pub preset_id: i32,
-    #[serde(
-        rename = "disk",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub disk: Option<Option<Box<models::DatabaseClusterDisk>>>,
-    #[serde(rename = "config_parameters")]
-    pub config_parameters: Box<models::DatabaseClusterConfigParameters>,
+    /// ID тарифа. Равен `null` у кластеров, созданных через конфигуратор — в
+    /// этом случае заполнен `configurator_id`.
+    #[serde(rename = "preset_id", deserialize_with = "Option::deserialize")]
+    pub preset_id: Option<i32>,
+    /// ID конфигуратора. Равен `null` у кластеров, созданных по тарифу.
+    #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
+    pub configurator_id: Option<i32>,
+    /// Количество ядер процессора.
+    #[serde(rename = "cpu", deserialize_with = "Option::deserialize")]
+    pub cpu: Option<i32>,
+    /// Частота процессора.
+    #[serde(rename = "cpu_frequency", deserialize_with = "Option::deserialize")]
+    pub cpu_frequency: Option<String>,
+    /// Используются ли выделенные ядра процессора.
+    #[serde(rename = "is_dedicated_cpu")]
+    pub is_dedicated_cpu: bool,
+    /// Объем оперативной памяти (в Мб).
+    #[serde(rename = "ram", deserialize_with = "Option::deserialize")]
+    pub ram: Option<i32>,
+    #[serde(rename = "disk", deserialize_with = "Option::deserialize")]
+    pub disk: Option<Box<models::DatabaseClusterDisk>>,
+    /// Подключен ли к кластеру дополнительный диск.
+    #[serde(rename = "has_additional_disk")]
+    pub has_additional_disk: bool,
+    #[serde(rename = "disk_autoscaling", deserialize_with = "Option::deserialize")]
+    pub disk_autoscaling: Option<Box<models::DatabaseClusterDiskAutoscaling>>,
+    #[serde(rename = "config_parameters", deserialize_with = "Option::deserialize")]
+    pub config_parameters: Option<Box<models::DatabaseClusterConfigParameters>>,
     /// Доступность публичного IP-адреса
     #[serde(rename = "is_enabled_public_network")]
-    pub is_enabled_public_network: bool
+    pub is_enabled_public_network: bool,
+    /// Включено ли защищенное подключение к кластеру базы данных.
+    #[serde(rename = "is_secure_connection_enabled")]
+    pub is_secure_connection_enabled: bool,
+    /// Включены ли автоматические резервные копии кластера базы данных.
+    #[serde(rename = "is_autobackups_enabled")]
+    pub is_autobackups_enabled: bool,
+    /// Включено ли расписание резервного копирования кластера базы данных.
+    #[serde(rename = "is_backup_schedule_enabled")]
+    pub is_backup_schedule_enabled: bool,
+    /// Зона доступности кластера базы данных.
+    #[serde(rename = "availability_zone", deserialize_with = "Option::deserialize")]
+    pub availability_zone: Option<models::AvailabilityZone>,
+    /// ID проекта, в котором находится кластер базы данных.
+    #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<i32>,
+    /// Список реплик кластера базы данных.
+    #[serde(rename = "replica_list")]
+    pub replica_list: Vec<models::DatabaseClusterReplicaListInner>,
+    /// Список доменов кластера базы данных. Если публичная сеть отключена
+    /// (`is_enabled_public_network: false`), список всегда пустой.
+    #[serde(rename = "domains")]
+    pub domains: Vec<models::DatabaseClusterDomainsInner>,
+    /// Список дочерних сервисов кластера базы данных.
+    #[serde(rename = "child_services")]
+    pub child_services: Vec<models::DatabaseClusterChildServicesInner>,
+    /// Список родительских сервисов кластера базы данных.
+    #[serde(rename = "parent_services")]
+    pub parent_services: Vec<models::DatabaseClusterParentServicesInner>,
+    #[serde(rename = "maintenance_slot")]
+    pub maintenance_slot: Box<models::DatabaseClusterMaintenanceSlot>
 }
 
 impl DatabaseCluster {
@@ -74,32 +126,81 @@ impl DatabaseCluster {
         created_at: String,
         location: Option<String>,
         name: String,
+        description: String,
         networks: Vec<models::DatabaseClusterNetworksInner>,
-        r#type: String,
+        is_enabled_public_ipv6: bool,
+        r#type: Option<String>,
         hash_type: Option<HashType>,
         avatar_link: Option<String>,
         port: Option<i32>,
         status: Status,
-        preset_id: i32,
-        config_parameters: models::DatabaseClusterConfigParameters,
-        is_enabled_public_network: bool
+        preset_id: Option<i32>,
+        configurator_id: Option<i32>,
+        cpu: Option<i32>,
+        cpu_frequency: Option<String>,
+        is_dedicated_cpu: bool,
+        ram: Option<i32>,
+        disk: Option<models::DatabaseClusterDisk>,
+        has_additional_disk: bool,
+        disk_autoscaling: Option<models::DatabaseClusterDiskAutoscaling>,
+        config_parameters: Option<models::DatabaseClusterConfigParameters>,
+        is_enabled_public_network: bool,
+        is_secure_connection_enabled: bool,
+        is_autobackups_enabled: bool,
+        is_backup_schedule_enabled: bool,
+        availability_zone: Option<models::AvailabilityZone>,
+        replica_list: Vec<models::DatabaseClusterReplicaListInner>,
+        domains: Vec<models::DatabaseClusterDomainsInner>,
+        child_services: Vec<models::DatabaseClusterChildServicesInner>,
+        parent_services: Vec<models::DatabaseClusterParentServicesInner>,
+        maintenance_slot: models::DatabaseClusterMaintenanceSlot
     ) -> DatabaseCluster {
         DatabaseCluster {
             id,
             created_at,
             location,
             name,
+            description,
             networks,
-            is_public_ipv6: None,
+            is_enabled_public_ipv6,
             r#type,
             hash_type,
             avatar_link,
             port,
             status,
             preset_id,
-            disk: None,
-            config_parameters: Box::new(config_parameters),
-            is_enabled_public_network
+            configurator_id,
+            cpu,
+            cpu_frequency,
+            is_dedicated_cpu,
+            ram,
+            disk: if let Some(x) = disk {
+                Some(Box::new(x))
+            } else {
+                None
+            },
+            has_additional_disk,
+            disk_autoscaling: if let Some(x) = disk_autoscaling {
+                Some(Box::new(x))
+            } else {
+                None
+            },
+            config_parameters: if let Some(x) = config_parameters {
+                Some(Box::new(x))
+            } else {
+                None
+            },
+            is_enabled_public_network,
+            is_secure_connection_enabled,
+            is_autobackups_enabled,
+            is_backup_schedule_enabled,
+            availability_zone,
+            project_id: None,
+            replica_list,
+            domains,
+            child_services,
+            parent_services,
+            maintenance_slot: Box::new(maintenance_slot)
         }
     }
 }
@@ -117,7 +218,9 @@ impl Default for HashType {
         Self::CachingSha2
     }
 }
-/// Текущий статус кластера базы данных.
+/// Текущий статус кластера базы данных. Значение `read_only` означает, что
+/// запись в кластер заблокирована из-за переполнения диска — чтобы снять
+/// блокировку, освободите место или увеличьте размер диска.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "started")]
@@ -136,12 +239,18 @@ pub enum Status {
     Blocked,
     #[serde(rename = "backup_recovery")]
     BackupRecovery,
+    #[serde(rename = "transfer")]
+    Transfer,
     #[serde(rename = "rebooting")]
     Rebooting,
     #[serde(rename = "turning_off")]
     TurningOff,
     #[serde(rename = "turning_on")]
-    TurningOn
+    TurningOn,
+    #[serde(rename = "read_only")]
+    ReadOnly,
+    #[serde(rename = "user_transfer")]
+    UserTransfer
 }
 
 impl Default for Status {

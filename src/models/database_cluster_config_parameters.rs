@@ -12,6 +12,9 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// DatabaseClusterConfigParameters : Параметры кластера базы данных (mysql |
+/// postgres | valkey). Параметры кластера базы данных (mysql | postgres |
+/// valkey).
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DatabaseClusterConfigParameters {

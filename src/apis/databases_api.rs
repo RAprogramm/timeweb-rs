@@ -22,7 +22,21 @@ pub enum CreateDatabaseBackupError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`create_database_backup_download_url`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateDatabaseBackupDownloadUrlError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -54,6 +68,20 @@ pub enum CreateDatabaseInstanceError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`create_database_s3_backup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateDatabaseS3BackupError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`create_database_user`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -75,6 +103,7 @@ pub enum DeleteDatabaseBackupError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -106,6 +135,20 @@ pub enum DeleteDatabaseInstanceError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`delete_database_s3_backup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteDatabaseS3BackupError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`delete_database_user`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -127,6 +170,7 @@ pub enum GetDatabaseAutoBackupsSettingsError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -140,6 +184,7 @@ pub enum GetDatabaseBackupError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -171,6 +216,19 @@ pub enum GetDatabaseClusterError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`get_database_cluster_replicas`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabaseClusterReplicasError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`get_database_cluster_types`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -188,6 +246,32 @@ pub enum GetDatabaseClusterTypesError {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetDatabaseClustersError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_database_configurators`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabaseConfiguratorsError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_database_default_parameters`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabaseDefaultParametersError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
@@ -236,6 +320,58 @@ pub enum GetDatabaseParametersError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`get_database_preset`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabasePresetError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_database_privileges`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabasePrivilegesError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_database_s3_backup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabaseS3BackupError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_database_s3_backups`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetDatabaseS3BackupsError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`get_database_user`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -275,6 +411,19 @@ pub enum GetDatabasesPresetsError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`perform_database_cluster_action`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum PerformDatabaseClusterActionError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`restore_database_from_backup`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -283,7 +432,21 @@ pub enum RestoreDatabaseFromBackupError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`restore_database_from_s3_backup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum RestoreDatabaseFromS3BackupError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -297,6 +460,21 @@ pub enum UpdateDatabaseAutoBackupsSettingsError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`update_database_backup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateDatabaseBackupError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -315,6 +493,19 @@ pub enum UpdateDatabaseClusterError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`update_database_cluster_v2`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateDatabaseClusterV2Error {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`update_database_instance`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -323,6 +514,21 @@ pub enum UpdateDatabaseInstanceError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`update_database_s3_backup`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateDatabaseS3BackupError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -346,11 +552,11 @@ pub enum UpdateDatabaseUserError {
 pub async fn create_database_backup(
     configuration: &configuration::Configuration,
     db_id: i32,
-    comment: Option<&str>
+    dbs_create_backup: Option<models::DbsCreateBackup>
 ) -> Result<models::CreateDatabaseBackup201Response, Error<CreateDatabaseBackupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_db_id = db_id;
-    let p_query_comment = comment;
+    let p_body_dbs_create_backup = dbs_create_backup;
 
     let uri_str = format!(
         "{}/api/v1/dbs/{db_id}/backups",
@@ -361,15 +567,13 @@ pub async fn create_database_backup(
         .client
         .request(reqwest::Method::POST, &uri_str);
 
-    if let Some(ref param_value) = p_query_comment {
-        req_builder = req_builder.query(&[("comment", &param_value.to_string())]);
-    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
+    req_builder = req_builder.json(&p_body_dbs_create_backup);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -408,9 +612,87 @@ pub async fn create_database_backup(
     }
 }
 
+/// Чтобы получить ссылку для скачивания резервной копии базы данных, отправьте
+/// POST-запрос на `/api/v1/dbs/{db_id}/backups/{backup_id}/download-url`.
+/// Скачивание резервных копий доступно не для всех кластеров. Если для вашего
+/// кластера оно недоступно, метод вернет ошибку со статусом `400`.   Тело
+/// ответа будет представлять собой объект JSON с ключом `backup_url`.
+pub async fn create_database_backup_download_url(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    backup_id: i32,
+    backup_download_url_request: models::BackupDownloadUrlRequest
+) -> Result<
+    models::CreateDatabaseBackupDownloadUrl201Response,
+    Error<CreateDatabaseBackupDownloadUrlError>
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_path_backup_id = backup_id;
+    let p_body_backup_download_url_request = backup_download_url_request;
+
+    let uri_str = format!(
+        "{}/api/v1/dbs/{db_id}/backups/{backup_id}/download-url",
+        configuration.base_path,
+        db_id = p_path_db_id,
+        backup_id = p_path_backup_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_backup_download_url_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabaseBackupDownloadUrl201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabaseBackupDownloadUrl201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateDatabaseBackupDownloadUrlError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы создать кластер базы данных на вашем аккаунте, отправьте POST-запрос
 /// на `/api/v1/databases`.   Вместе с кластером будет создан один инстанс базы
-/// данных и один пользователь.
+/// данных и один пользователь.   Размер кластера задается либо тарифом
+/// (`preset_id`), либо конфигуратором (`configuration`). Эти поля
+/// взаимоисключающие, но одно из них передать обязательно — запрос без обоих
+/// вернется с ошибкой.
 pub async fn create_database_cluster(
     configuration: &configuration::Configuration,
     create_cluster: models::CreateCluster
@@ -537,6 +819,76 @@ pub async fn create_database_instance(
     }
 }
 
+/// Чтобы создать резервную копию кластера базы данных в объектном хранилище,
+/// отправьте POST-запрос на `/api/v2/databases/{db_id}/backups`.   Тело запроса
+/// необязательно: единственное поле `comment` можно не передавать. Тело ответа
+/// будет представлять собой объект JSON с ключом `backup`.   Копия создается
+/// асинхронно. Пока она создается, ее статус — `running`, и восстановиться из
+/// нее нельзя. Дождитесь статуса `success`, опрашивая
+/// `/api/v2/databases/{db_id}/backups/{backup_id}`.
+pub async fn create_database_s3_backup(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    create_s3_backup: Option<models::CreateS3Backup>
+) -> Result<models::CreateDatabaseS3Backup201Response, Error<CreateDatabaseS3BackupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_body_create_s3_backup = create_s3_backup;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_id}/backups",
+        configuration.base_path,
+        db_id = p_path_db_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_s3_backup);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabaseS3Backup201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabaseS3Backup201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateDatabaseS3BackupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы создать пользователя базы данных, отправьте POST-запрос на
 /// `/api/v1/databases/{db_cluster_id}/admins`.
 pub async fn create_database_user(
@@ -652,14 +1004,10 @@ pub async fn delete_database_backup(
 /// `/api/v1/databases/{db_cluster_id}`.
 pub async fn delete_database_cluster(
     configuration: &configuration::Configuration,
-    db_cluster_id: i32,
-    hash: Option<&str>,
-    code: Option<&str>
+    db_cluster_id: i32
 ) -> Result<models::DeleteDatabaseCluster200Response, Error<DeleteDatabaseClusterError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_db_cluster_id = db_cluster_id;
-    let p_query_hash = hash;
-    let p_query_code = code;
 
     let uri_str = format!(
         "{}/api/v1/databases/{db_cluster_id}",
@@ -670,12 +1018,6 @@ pub async fn delete_database_cluster(
         .client
         .request(reqwest::Method::DELETE, &uri_str);
 
-    if let Some(ref param_value) = p_query_hash {
-        req_builder = req_builder.query(&[("hash", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_code {
-        req_builder = req_builder.query(&[("code", &param_value.to_string())]);
-    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -758,6 +1100,55 @@ pub async fn delete_database_instance(
     } else {
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseInstanceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы удалить резервную копию кластера базы данных из объектного хранилища,
+/// отправьте DELETE-запрос на `/api/v2/databases/{db_id}/backups/{backup_id}`.
+/// Копия удаляется безвозвратно, тело ответа пустое. На резервные копии из
+/// `/api/v1/dbs/{db_id}/backups/{backup_id}` этот метод не действует — они
+/// удаляются отдельным запросом.
+pub async fn delete_database_s3_backup(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    backup_id: &str
+) -> Result<(), Error<DeleteDatabaseS3BackupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_path_backup_id = backup_id;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_id}/backups/{backup_id}",
+        configuration.base_path,
+        db_id = p_path_db_id,
+        backup_id = crate::apis::urlencode(p_path_backup_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteDatabaseS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -882,7 +1273,7 @@ pub async fn get_database_backup(
     configuration: &configuration::Configuration,
     db_id: i32,
     backup_id: i32
-) -> Result<models::CreateDatabaseBackup201Response, Error<GetDatabaseBackupError>> {
+) -> Result<models::GetDatabaseBackup200Response, Error<GetDatabaseBackupError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_db_id = db_id;
     let p_path_backup_id = backup_id;
@@ -919,12 +1310,12 @@ pub async fn get_database_backup(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => {
                 return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabaseBackup201Response`"
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseBackup200Response`"
                 )));
             }
             ContentType::Unsupported(unknown_type) => {
                 return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabaseBackup201Response`"
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseBackup200Response`"
                 ))));
             }
         }
@@ -1069,6 +1460,68 @@ pub async fn get_database_cluster(
     }
 }
 
+/// Чтобы получить список реплик кластера базы данных, отправьте GET-запрос на
+/// `/api/v1/databases/{db_cluster_id}/replicas`.   Тело ответа будет
+/// представлять собой объект JSON с ключом `replicas`.
+pub async fn get_database_cluster_replicas(
+    configuration: &configuration::Configuration,
+    db_cluster_id: i32
+) -> Result<models::GetDatabaseClusterReplicas200Response, Error<GetDatabaseClusterReplicasError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_cluster_id = db_cluster_id;
+
+    let uri_str = format!(
+        "{}/api/v1/databases/{db_cluster_id}/replicas",
+        configuration.base_path,
+        db_cluster_id = p_path_db_cluster_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseClusterReplicas200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseClusterReplicas200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabaseClusterReplicasError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы получить список типов баз данных на вашем аккаунте, отправьте
 /// GET-запрос на `/api/v1/database-types`.
 pub async fn get_database_cluster_types(
@@ -1178,6 +1631,150 @@ pub async fn get_database_clusters(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDatabaseClustersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить список конфигураторов баз данных, отправьте GET-запрос на
+/// `/api/v1/configurator/databases`.   Конфигуратор позволяет создать кластер с
+/// произвольным количеством ресурсов вместо готового тарифа: его ID передается
+/// при создании кластера в поле `configuration.configurator_id`, а допустимые
+/// значения ресурсов ограничены объектом `requirements`.   Тело ответа будет
+/// представлять собой объект JSON с ключом `database_configurators`.
+pub async fn get_database_configurators(
+    configuration: &configuration::Configuration,
+    cluster_id: Option<i32>,
+    with_unavailable: Option<bool>
+) -> Result<models::GetDatabaseConfigurators200Response, Error<GetDatabaseConfiguratorsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_cluster_id = cluster_id;
+    let p_query_with_unavailable = with_unavailable;
+
+    let uri_str = format!("{}/api/v1/configurator/databases", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_cluster_id {
+        req_builder = req_builder.query(&[("cluster_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_with_unavailable {
+        req_builder = req_builder.query(&[("with_unavailable", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseConfigurators200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseConfigurators200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabaseConfiguratorsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить рекомендуемые значения параметров базы данных, отправьте
+/// GET-запрос на `/api/v1/dbs/default-parameters`.   Значения рассчитываются
+/// для указанного типа кластера, объема оперативной памяти и количества реплик
+/// — их можно передать при создании кластера в поле `config_parameters`. Список
+/// имен параметров, доступных для каждого типа кластера, возвращает `GET
+/// /api/v1/dbs/parameters`.   Тело ответа будет представлять собой объект JSON
+/// с ключом `config_params`. Рекомендуемые значения рассчитываются только для
+/// кластеров MySQL, PostgreSQL и Valkey — для остальных типов возвращается
+/// пустой объект.
+pub async fn get_database_default_parameters(
+    configuration: &configuration::Configuration,
+    r#type: &str,
+    ram: i32,
+    replica_count: Option<i32>
+) -> Result<
+    models::GetDatabaseDefaultParameters200Response,
+    Error<GetDatabaseDefaultParametersError>
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_query_type = r#type;
+    let p_query_ram = ram;
+    let p_query_replica_count = replica_count;
+
+    let uri_str = format!("{}/api/v1/dbs/default-parameters", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    req_builder = req_builder.query(&[("type", &p_query_type.to_string())]);
+    req_builder = req_builder.query(&[("ram", &p_query_ram.to_string())]);
+    if let Some(ref param_value) = p_query_replica_count {
+        req_builder = req_builder.query(&[("replica_count", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseDefaultParameters200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseDefaultParameters200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabaseDefaultParametersError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1310,7 +1907,9 @@ pub async fn get_database_instances(
 }
 
 /// Чтобы получить список параметров баз данных, отправьте GET-запрос на
-/// `/api/v1/dbs/parameters`.
+/// `/api/v1/dbs/parameters`.   Ответ содержит только имена параметров,
+/// доступных для каждого типа кластера. Рекомендуемые значения этих параметров
+/// для конкретной конфигурации возвращает `GET /api/v1/dbs/default-parameters`.
 pub async fn get_database_parameters(
     configuration: &configuration::Configuration
 ) -> Result<models::GetDatabaseParameters200Response, Error<GetDatabaseParametersError>> {
@@ -1353,6 +1952,267 @@ pub async fn get_database_parameters(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDatabaseParametersError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить тариф для базы данных, отправьте GET-запрос на
+/// `/api/v2/dbs/presets/{preset_id}`.   Тело ответа будет представлять собой
+/// объект JSON с ключом `databases_preset`.
+pub async fn get_database_preset(
+    configuration: &configuration::Configuration,
+    preset_id: i32
+) -> Result<models::GetDatabasePreset200Response, Error<GetDatabasePresetError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_preset_id = preset_id;
+
+    let uri_str = format!(
+        "{}/api/v2/dbs/presets/{preset_id}",
+        configuration.base_path,
+        preset_id = p_path_preset_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabasePreset200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabasePreset200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabasePresetError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить список привилегий, которые можно выдать пользователям
+/// кластера базы данных, отправьте GET-запрос на
+/// `/api/v1/databases/{db_cluster_id}/privileges`.\\    Список зависит от типа
+/// СУБД кластера и определяется сервером автоматически: возвращаются только те
+/// привилегии, которые допустимы для этого кластера. Используйте его, чтобы
+/// заполнить поле `privileges` при <a
+/// href='#tag/Bazy-dannyh/operation/createDatabaseUser'>создании</a> или <a
+/// href='#tag/Bazy-dannyh/operation/updateDatabaseUser'>изменении</a>
+/// пользователя базы данных.
+pub async fn get_database_privileges(
+    configuration: &configuration::Configuration,
+    db_cluster_id: i32
+) -> Result<models::GetDatabasePrivileges200Response, Error<GetDatabasePrivilegesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_cluster_id = db_cluster_id;
+
+    let uri_str = format!(
+        "{}/api/v1/databases/{db_cluster_id}/privileges",
+        configuration.base_path,
+        db_cluster_id = p_path_db_cluster_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabasePrivileges200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabasePrivileges200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabasePrivilegesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить информацию о резервной копии кластера базы данных в объектном
+/// хранилище, отправьте GET-запрос на
+/// `/api/v2/databases/{db_id}/backups/{backup_id}`.   Тело ответа будет
+/// представлять собой объект JSON с ключом `backup`. Обратите внимание, что
+/// `backup_id` здесь — строка в формате UUID, а не число, как в
+/// `/api/v1/dbs/{db_id}/backups/{backup_id}`.
+pub async fn get_database_s3_backup(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    backup_id: &str
+) -> Result<models::CreateDatabaseS3Backup201Response, Error<GetDatabaseS3BackupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_path_backup_id = backup_id;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_id}/backups/{backup_id}",
+        configuration.base_path,
+        db_id = p_path_db_id,
+        backup_id = crate::apis::urlencode(p_path_backup_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabaseS3Backup201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabaseS3Backup201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabaseS3BackupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить список резервных копий кластера базы данных в объектном
+/// хранилище, отправьте GET-запрос на `/api/v2/databases/{db_id}/backups`.
+/// Тело ответа будет представлять собой объект JSON с ключом `backups`. Копии
+/// отсортированы по дате создания по убыванию — сначала самые свежие.
+/// Резервное копирование в объектное хранилище доступно для кластеров MySQL и
+/// PostgreSQL. Идентификатор такой копии — строка в формате UUID; это отдельный
+/// от `/api/v1/dbs/{db_id}/backups` механизм, и идентификаторы копий между ними
+/// не взаимозаменяемы.
+pub async fn get_database_s3_backups(
+    configuration: &configuration::Configuration,
+    db_id: i32
+) -> Result<models::GetDatabaseS3Backups200Response, Error<GetDatabaseS3BackupsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_id}/backups",
+        configuration.base_path,
+        db_id = p_path_db_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseS3Backups200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseS3Backups200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetDatabaseS3BackupsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1485,20 +2345,28 @@ pub async fn get_database_users(
 }
 
 /// Чтобы получить список тарифов для баз данных, отправьте GET-запрос на
-/// `/api/v2/presets/dbs`.   Тело ответа будет представлять собой объект JSON с
+/// `/api/v2/presets/dbs`.   Без параметров возвращаются тарифы, доступные к
+/// заказу — этот список используется при создании кластера. Если передать
+/// `cluster_id`, вернутся тарифы группы, в пределах которой можно сменить тариф
+/// указанного кластера.   Тело ответа будет представлять собой объект JSON с
 /// ключом `databases_presets`.
 pub async fn get_databases_presets(
     configuration: &configuration::Configuration,
-    db_id: Option<i32>
+    cluster_id: Option<i32>,
+    with_unavailable: Option<bool>
 ) -> Result<models::GetDatabasesPresets200Response, Error<GetDatabasesPresetsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
-    let p_query_db_id = db_id;
+    let p_query_cluster_id = cluster_id;
+    let p_query_with_unavailable = with_unavailable;
 
     let uri_str = format!("{}/api/v2/presets/dbs", configuration.base_path);
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_db_id {
-        req_builder = req_builder.query(&[("db_id", &param_value.to_string())]);
+    if let Some(ref param_value) = p_query_cluster_id {
+        req_builder = req_builder.query(&[("cluster_id", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_with_unavailable {
+        req_builder = req_builder.query(&[("with_unavailable", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -1536,6 +2404,55 @@ pub async fn get_databases_presets(
     } else {
         let content = resp.text().await?;
         let entity: Option<GetDatabasesPresetsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы выполнить действие над кластером базы данных, отправьте POST-запрос на
+/// `/api/v1/databases/{db_cluster_id}/action`.   Доступные действия: `reboot` —
+/// перезагрузка кластера, `shutdown` — выключение кластера, `start` — включение
+/// кластера.
+pub async fn perform_database_cluster_action(
+    configuration: &configuration::Configuration,
+    db_cluster_id: i32,
+    cluster_action: models::ClusterAction
+) -> Result<(), Error<PerformDatabaseClusterActionError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_cluster_id = db_cluster_id;
+    let p_body_cluster_action = cluster_action;
+
+    let uri_str = format!(
+        "{}/api/v1/databases/{db_cluster_id}/action",
+        configuration.base_path,
+        db_cluster_id = p_path_db_cluster_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_cluster_action);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<PerformDatabaseClusterActionError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -1588,19 +2505,71 @@ pub async fn restore_database_from_backup(
     }
 }
 
+/// Чтобы восстановить кластер базы данных из резервной копии в объектном
+/// хранилище, отправьте POST-запрос на
+/// `/api/v2/databases/{db_id}/backups/{backup_id}/restore`.   Тела запроса нет,
+/// тело ответа пустое. Восстановиться можно только из копии со статусом
+/// `success`.   Сразу после запуска кластер переходит в статус
+/// `backup_recovery`. Пока восстановление не завершится, создание, изменение и
+/// удаление резервных копий, а также повторный запуск восстановления
+/// недоступны.
+pub async fn restore_database_from_s3_backup(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    backup_id: &str
+) -> Result<(), Error<RestoreDatabaseFromS3BackupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_path_backup_id = backup_id;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_id}/backups/{backup_id}/restore",
+        configuration.base_path,
+        db_id = p_path_db_id,
+        backup_id = crate::apis::urlencode(p_path_backup_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<RestoreDatabaseFromS3BackupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы изменить список настроек автобэкапов базы данных, отправьте запрос
 /// PATCH в `api/v1/dbs/{db_id}/auto-backups`
 pub async fn update_database_auto_backups_settings(
     configuration: &configuration::Configuration,
     db_id: i32,
-    auto_backup: Option<models::AutoBackup>
+    update_auto_backup: models::UpdateAutoBackup
 ) -> Result<
     models::GetDatabaseAutoBackupsSettings200Response,
     Error<UpdateDatabaseAutoBackupsSettingsError>
 > {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_db_id = db_id;
-    let p_body_auto_backup = auto_backup;
+    let p_body_update_auto_backup = update_auto_backup;
 
     let uri_str = format!(
         "{}/api/v1/dbs/{db_id}/auto-backups",
@@ -1617,7 +2586,7 @@ pub async fn update_database_auto_backups_settings(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_auto_backup);
+    req_builder = req_builder.json(&p_body_update_auto_backup);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -1657,13 +2626,84 @@ pub async fn update_database_auto_backups_settings(
     }
 }
 
+/// Чтобы изменить комментарий к бэкапу базы данных, отправьте PATCH-запрос на
+/// `/api/v1/dbs/{db_id}/backups/{backup_id}`.  Тело ответа будет представлять
+/// собой объект JSON с ключом `backup`.
+pub async fn update_database_backup(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    backup_id: i32,
+    dbs_update_backup: models::DbsUpdateBackup
+) -> Result<models::GetDatabaseBackup200Response, Error<UpdateDatabaseBackupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_path_backup_id = backup_id;
+    let p_body_dbs_update_backup = dbs_update_backup;
+
+    let uri_str = format!(
+        "{}/api/v1/dbs/{db_id}/backups/{backup_id}",
+        configuration.base_path,
+        db_id = p_path_db_id,
+        backup_id = p_path_backup_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_dbs_update_backup);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseBackup200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseBackup200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateDatabaseBackupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы изменить кластер базы данных на вашем аккаунте, отправьте PATCH-запрос
-/// на `/api/v1/databases/{db_cluster_id}`.
+/// на `/api/v1/databases/{db_cluster_id}`.   Размер кластера задается либо
+/// тарифом (`preset_id`), либо конфигуратором (`configuration`) — эти поля
+/// взаимоисключающие.
 pub async fn update_database_cluster(
     configuration: &configuration::Configuration,
     db_cluster_id: i32,
     update_cluster: models::UpdateCluster
-) -> Result<models::CreateDatabaseCluster201Response, Error<UpdateDatabaseClusterError>> {
+) -> Result<models::UpdateDatabaseCluster200Response, Error<UpdateDatabaseClusterError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_db_cluster_id = db_cluster_id;
     let p_body_update_cluster = update_cluster;
@@ -1702,12 +2742,12 @@ pub async fn update_database_cluster(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => {
                 return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabaseCluster201Response`"
+                    "Received `text/plain` content type response that cannot be converted to `models::UpdateDatabaseCluster200Response`"
                 )));
             }
             ContentType::Unsupported(unknown_type) => {
                 return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabaseCluster201Response`"
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::UpdateDatabaseCluster200Response`"
                 ))));
             }
         }
@@ -1722,8 +2762,82 @@ pub async fn update_database_cluster(
     }
 }
 
+/// Чтобы изменить кластер базы данных на вашем аккаунте, отправьте PATCH-запрос
+/// на `/api/v2/databases/{db_cluster_id}`.   В отличие от
+/// `/api/v1/databases/{db_cluster_id}`, эта версия дополнительно позволяет
+/// привязать плавающий IP-адрес (`floating_ip`).   Размер кластера задается
+/// либо тарифом (`preset_id`), либо конфигуратором (`configuration`) — эти поля
+/// взаимоисключающие.
+pub async fn update_database_cluster_v2(
+    configuration: &configuration::Configuration,
+    db_cluster_id: i32,
+    update_cluster_v2: models::UpdateClusterV2
+) -> Result<models::UpdateDatabaseCluster200Response, Error<UpdateDatabaseClusterV2Error>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_cluster_id = db_cluster_id;
+    let p_body_update_cluster_v2 = update_cluster_v2;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_cluster_id}",
+        configuration.base_path,
+        db_cluster_id = p_path_db_cluster_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_cluster_v2);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::UpdateDatabaseCluster200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::UpdateDatabaseCluster200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateDatabaseClusterV2Error> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы изменить инстанс базы данных, отправьте PATCH-запрос на
-/// `/api/v1/databases/{db_cluster_id}/instances/{instance_id}`.
+/// `/api/v1/databases/{db_cluster_id}/instances/{instance_id}`.   Изменить
+/// название базы данных (`name`) и ее владельца (`owner_id`) можно только в
+/// кластере PostgreSQL, а настройки топика (`config_parameters`) — только в
+/// кластере Kafka. Если один из этих трех параметров передан для неподходящего
+/// типа кластера, запрос вернется с ошибкой 409.   Расширения (`extensions`)
+/// применимы к кластерам PostgreSQL и RabbitMQ.
 pub async fn update_database_instance(
     configuration: &configuration::Configuration,
     db_cluster_id: i32,
@@ -1782,6 +2896,77 @@ pub async fn update_database_instance(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseInstanceError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы изменить комментарий к резервной копии кластера базы данных, отправьте
+/// PATCH-запрос на `/api/v2/databases/{db_id}/backups/{backup_id}`.   Изменить
+/// можно только комментарий: других полей метод не принимает, сама резервная
+/// копия при этом не пересоздается. Тело ответа будет представлять собой объект
+/// JSON с ключом `backup`.
+pub async fn update_database_s3_backup(
+    configuration: &configuration::Configuration,
+    db_id: i32,
+    backup_id: &str,
+    update_s3_backup: Option<models::UpdateS3Backup>
+) -> Result<models::CreateDatabaseS3Backup201Response, Error<UpdateDatabaseS3BackupError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_db_id = db_id;
+    let p_path_backup_id = backup_id;
+    let p_body_update_s3_backup = update_s3_backup;
+
+    let uri_str = format!(
+        "{}/api/v2/databases/{db_id}/backups/{backup_id}",
+        configuration.base_path,
+        db_id = p_path_db_id,
+        backup_id = crate::apis::urlencode(p_path_backup_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_s3_backup);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateDatabaseS3Backup201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateDatabaseS3Backup201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateDatabaseS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

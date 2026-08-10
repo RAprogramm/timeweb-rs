@@ -34,7 +34,7 @@ pub enum CreateKeyError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)

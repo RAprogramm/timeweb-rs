@@ -107,13 +107,17 @@ pub struct Mysql {
     /// (`mysql5` | `mysql` | `mysql8_4`).
     #[serde(rename = "sql_mode", skip_serializing_if = "Option::is_none")]
     pub sql_mode: Option<String>,
-    /// Тип кэша запросов (`mysql5` | `mysql` | `mysql8_4`).
+    /// Тип кэша запросов (`mysql5`).
     #[serde(rename = "query_cache_type", skip_serializing_if = "Option::is_none")]
     pub query_cache_type: Option<String>,
-    /// Объем памяти, выделяемый для кэширования результатов запросов (`mysql5`
-    /// | `mysql` | `mysql8_4`).
+    /// Объем памяти, выделяемый для кэширования результатов запросов
+    /// (`mysql5`).
     #[serde(rename = "query_cache_size", skip_serializing_if = "Option::is_none")]
     pub query_cache_size: Option<String>,
+    /// Максимальный размер результата запроса, который может быть закэширован
+    /// (`mysql5`).
+    #[serde(rename = "query_cache_limit", skip_serializing_if = "Option::is_none")]
+    pub query_cache_limit: Option<String>,
     /// Режим записи журнала InnoDB при фиксации транзакций (`mysql5` | `mysql`
     /// | `mysql8_4`).
     #[serde(
@@ -309,6 +313,7 @@ impl Mysql {
             sql_mode: None,
             query_cache_type: None,
             query_cache_size: None,
+            query_cache_limit: None,
             innodb_flush_log_at_trx_commit: None,
             transaction_isolation: None,
             long_query_time: None,

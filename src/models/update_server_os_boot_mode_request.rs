@@ -15,7 +15,8 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateServerOsBootModeRequest {
     /// Тип загрузки операционной системы. \\  Параметры: `default` –
-    /// стандартный режим, `single` – однопользовательский режим,
+    /// стандартный режим, `single` – однопользовательский режим
+    /// (**deprecated**, оставлен для обратной совместимости, выбор недоступен),
     /// `recovery_disk` – загрузка с диска восстановления.
     #[serde(rename = "boot_mode")]
     pub boot_mode: BootMode
@@ -29,7 +30,8 @@ impl UpdateServerOsBootModeRequest {
     }
 }
 /// Тип загрузки операционной системы. \\  Параметры: `default` – стандартный
-/// режим, `single` – однопользовательский режим, `recovery_disk` – загрузка с
+/// режим, `single` – однопользовательский режим (**deprecated**, оставлен для
+/// обратной совместимости, выбор недоступен), `recovery_disk` – загрузка с
 /// диска восстановления.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum BootMode {

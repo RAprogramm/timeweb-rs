@@ -27,22 +27,26 @@ pub struct CreateAdmin {
     /// передано, то привилегии будут применены ко всем инстансам
     #[serde(rename = "instance_id", skip_serializing_if = "Option::is_none")]
     pub instance_id: Option<i64>,
+    /// Выдать привилегии на все инстансы базы данных
+    #[serde(rename = "for_all", skip_serializing_if = "Option::is_none")]
+    pub for_all:     Option<bool>,
     /// Список привилегий пользователя базы данных
-    #[serde(rename = "privileges")]
-    pub privileges:  Vec<Privileges>,
+    #[serde(rename = "privileges", skip_serializing_if = "Option::is_none")]
+    pub privileges:  Option<Vec<Privileges>>,
     /// Описание пользователя базы данных
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>
 }
 
 impl CreateAdmin {
-    pub fn new(login: String, password: String, privileges: Vec<Privileges>) -> CreateAdmin {
+    pub fn new(login: String, password: String) -> CreateAdmin {
         CreateAdmin {
             login,
             password,
             host: None,
             instance_id: None,
-            privileges,
+            for_all: None,
+            privileges: None,
             description: None
         }
     }

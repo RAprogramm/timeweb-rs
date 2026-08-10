@@ -12,34 +12,47 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// ConfigCache : Настройки кэширования
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct CreateDatabaseBackup409Response {
-    /// Короткий идентификатор, соответствующий возвращаемому коду состояния
-    /// HTTP.
-    #[serde(rename = "status_code")]
-    pub status_code: f64,
-    #[serde(rename = "message", skip_serializing_if = "Option::is_none")]
-    pub message:     Option<Box<models::CreateDatabaseBackup409ResponseMessage>>,
-    /// Краткое описание ошибки HTTP на основе статуса.
-    #[serde(rename = "error_code")]
-    pub error_code:  String,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id")]
-    pub response_id: uuid::Uuid
+pub struct ConfigCache {
+    #[serde(
+        rename = "cdn",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub cdn:           Option<Option<Box<models::ConfigCacheCdn>>>,
+    #[serde(
+        rename = "browser",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub browser:       Option<Option<Box<models::ConfigCacheBrowser>>>,
+    #[serde(
+        rename = "always_online",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub always_online: Option<Option<Box<models::ConfigCacheAlwaysOnline>>>,
+    #[serde(
+        rename = "query_args",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub query_args:    Option<Option<Box<models::ConfigCacheQueryArgs>>>
 }
 
-impl CreateDatabaseBackup409Response {
-    pub fn new(
-        status_code: f64,
-        error_code: String,
-        response_id: uuid::Uuid
-    ) -> CreateDatabaseBackup409Response {
-        CreateDatabaseBackup409Response {
-            status_code,
-            message: None,
-            error_code,
-            response_id
+impl ConfigCache {
+    /// Настройки кэширования
+    pub fn new() -> ConfigCache {
+        ConfigCache {
+            cdn:           None,
+            browser:       None,
+            always_online: None,
+            query_args:    None
         }
     }
 }

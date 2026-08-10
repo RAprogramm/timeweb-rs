@@ -14,10 +14,8 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetDatabaseAutoBackupsSettings200Response {
-    #[serde(rename = "meta")]
-    pub meta:                  Box<models::Meta>,
     #[serde(rename = "auto_backups_settings")]
-    pub auto_backups_settings: Vec<models::AutoBackup>,
+    pub auto_backups_settings: Box<models::AutoBackup>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
@@ -26,13 +24,11 @@ pub struct GetDatabaseAutoBackupsSettings200Response {
 
 impl GetDatabaseAutoBackupsSettings200Response {
     pub fn new(
-        meta: models::Meta,
-        auto_backups_settings: Vec<models::AutoBackup>,
+        auto_backups_settings: models::AutoBackup,
         response_id: Option<uuid::Uuid>
     ) -> GetDatabaseAutoBackupsSettings200Response {
         GetDatabaseAutoBackupsSettings200Response {
-            meta: Box::new(meta),
-            auto_backups_settings,
+            auto_backups_settings: Box::new(auto_backups_settings),
             response_id
         }
     }
