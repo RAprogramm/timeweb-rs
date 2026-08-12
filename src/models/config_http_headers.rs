@@ -12,86 +12,34 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// ConfigParametersValkey : Параметры Valkey (`valkey` | `valkey7` |
-/// `valkey8_1` | `valkey9_1`)
+/// ConfigHttpHeaders : Настройки HTTP-заголовков
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ConfigParametersValkey {
-    /// Ограничение буфера вывода для обычных клиентских подключений. Формат:
-    /// `hard-limit soft-limit soft-seconds` (`valkey` | `valkey7` | `valkey8_1`
-    /// | `valkey9_1`).
+pub struct ConfigHttpHeaders {
+    /// Статические заголовки, которые CDN добавляет к запросам на источник
+    /// контента. Имена заголовков могут содержать символы `A-Za-z0-9-_.*()=/;`,
+    /// значения — печатные ASCII-символы. `null` — удалить все заголовки.
     #[serde(
-        rename = "client-output-buffer-limit normal",
+        rename = "request",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub client_output_buffer_limit_normal: Option<String>,
-    /// Ограничение буфера вывода для клиентов pub/sub. Формат: `hard-limit
-    /// soft-limit soft-seconds` (`valkey` | `valkey7` | `valkey8_1` |
-    /// `valkey9_1`).
+    pub request: Option<Option<std::collections::HashMap<String, String>>>,
     #[serde(
-        rename = "client-output-buffer-limit pubsub",
+        rename = "cors",
+        default,
+        with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub client_output_buffer_limit_pubsub: Option<String>,
-    /// Количество логических баз данных на сервере (`valkey` | `valkey7` |
-    /// `valkey8_1` | `valkey9_1`).
-    #[serde(rename = "databases", skip_serializing_if = "Option::is_none")]
-    pub databases: Option<String>,
-    /// Время ожидания в секундах перед закрытием неактивного клиентского
-    /// соединения. `0` — отключено (`valkey` | `valkey7` | `valkey8_1` |
-    /// `valkey9_1`).
-    #[serde(rename = "timeout", skip_serializing_if = "Option::is_none")]
-    pub timeout: Option<String>,
-    /// Политика вытеснения ключей при достижении лимита памяти (`valkey` |
-    /// `valkey7` | `valkey8_1` | `valkey9_1`).
-    #[serde(rename = "maxmemory-policy", skip_serializing_if = "Option::is_none")]
-    pub maxmemory_policy: Option<String>,
-    /// Минимальное время выполнения команды в микросекундах для записи в журнал
-    /// медленных команд (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
-    #[serde(
-        rename = "slowlog-log-slower-than",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub slowlog_log_slower_than: Option<String>,
-    /// Максимальное количество записей, хранящихся в журнале медленных команд
-    /// (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
-    #[serde(rename = "slowlog-max-len", skip_serializing_if = "Option::is_none")]
-    pub slowlog_max_len: Option<String>,
-    /// Условие создания снимка RDB на диск. Формат: `seconds changes` —
-    /// сохранение выполняется, если за указанное время было сделано не менее
-    /// указанного количества изменений (`valkey` | `valkey7` | `valkey8_1` |
-    /// `valkey9_1`).
-    #[serde(rename = "save", skip_serializing_if = "Option::is_none")]
-    pub save: Option<String>,
-    /// Включение режима AOF (Append Only File) для персистентного хранения
-    /// данных (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
-    #[serde(rename = "appendonly", skip_serializing_if = "Option::is_none")]
-    pub appendonly: Option<String>,
-    /// Режим синхронизации AOF-файла с диском: `always` — при каждой записи,
-    /// `everysec` — раз в секунду, `no` — управление передаётся ОС (`valkey` |
-    /// `valkey7` | `valkey8_1` | `valkey9_1`).
-    #[serde(rename = "appendfsync", skip_serializing_if = "Option::is_none")]
-    pub appendfsync: Option<String>,
-    /// Интервал проверки активности TCP-соединения в секундах. `0` — отключено
-    /// (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
-    #[serde(rename = "tcp-keepalive", skip_serializing_if = "Option::is_none")]
-    pub tcp_keepalive: Option<String>
+    pub cors:    Option<Option<Box<models::ConfigHttpHeadersCors>>>
 }
 
-impl ConfigParametersValkey {
-    /// Параметры Valkey (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`)
-    pub fn new() -> ConfigParametersValkey {
-        ConfigParametersValkey {
-            client_output_buffer_limit_normal: None,
-            client_output_buffer_limit_pubsub: None,
-            databases: None,
-            timeout: None,
-            maxmemory_policy: None,
-            slowlog_log_slower_than: None,
-            slowlog_max_len: None,
-            save: None,
-            appendonly: None,
-            appendfsync: None,
-            tcp_keepalive: None
+impl ConfigHttpHeaders {
+    /// Настройки HTTP-заголовков
+    pub fn new() -> ConfigHttpHeaders {
+        ConfigHttpHeaders {
+            request: None,
+            cors:    None
         }
     }
 }

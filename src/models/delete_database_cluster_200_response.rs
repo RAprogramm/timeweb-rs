@@ -14,20 +14,21 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DeleteDatabaseCluster200Response {
-    /// Хеш, который совместно с кодом авторизации надо будет отправить для
-    /// удаления
-    #[serde(rename = "hash")]
-    pub hash:        String,
+    #[serde(rename = "database_delete")]
+    pub database_delete: Box<models::DeleteDatabaseCluster200ResponseAllOfDatabaseDelete>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id: Option<uuid::Uuid>
+    pub response_id:     Option<uuid::Uuid>
 }
 
 impl DeleteDatabaseCluster200Response {
-    pub fn new(hash: String, response_id: Option<uuid::Uuid>) -> DeleteDatabaseCluster200Response {
+    pub fn new(
+        database_delete: models::DeleteDatabaseCluster200ResponseAllOfDatabaseDelete,
+        response_id: Option<uuid::Uuid>
+    ) -> DeleteDatabaseCluster200Response {
         DeleteDatabaseCluster200Response {
-            hash,
+            database_delete: Box::new(database_delete),
             response_id
         }
     }

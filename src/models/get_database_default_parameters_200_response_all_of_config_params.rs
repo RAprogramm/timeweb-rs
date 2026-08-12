@@ -12,15 +12,284 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// ConfigParametersPostgres : Параметры PostgreSQL (`postgres` | `postgres14` |
-/// `postgres15` | `postgres16` | `postgres17` | `postgres18`)
+/// GetDatabaseDefaultParameters200ResponseAllOfConfigParams : Рекомендуемые
+/// значения параметров базы данных (mysql | postgres | valkey).
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ConfigParametersPostgres {
+pub struct GetDatabaseDefaultParameters200ResponseAllOfConfigParams {
+    /// Размер буфера, используемого при соединениях таблиц без индексов
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "join_buffer_size", skip_serializing_if = "Option::is_none")]
+    pub join_buffer_size: Option<String>,
     /// Максимальное количество одновременных подключений к серверу (`mysql5` |
     /// `mysql` | `mysql8_4` | `postgres` | `postgres14` | `postgres15` |
     /// `postgres16` | `postgres17` | `postgres18`).
     #[serde(rename = "max_connections", skip_serializing_if = "Option::is_none")]
     pub max_connections: Option<String>,
+    /// Размер буфера сортировки для операций ORDER BY и GROUP BY (`mysql5` |
+    /// `mysql` | `mysql8_4`).
+    #[serde(rename = "sort_buffer_size", skip_serializing_if = "Option::is_none")]
+    pub sort_buffer_size: Option<String>,
+    /// Количество потоков, которые сервер сохраняет для повторного
+    /// использования (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "thread_cache_size", skip_serializing_if = "Option::is_none")]
+    pub thread_cache_size: Option<String>,
+    /// Размер буферного пула InnoDB для хранения данных и индексов в памяти
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_buffer_pool_size",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_buffer_pool_size: Option<String>,
+    /// Интервал между значениями столбцов с атрибутом `AUTO_INCREMENT`
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "auto_increment_increment",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_increment_increment: Option<String>,
+    /// Начальное значение для столбцов с атрибутом `AUTO_INCREMENT` (`mysql5` |
+    /// `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "auto_increment_offset",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub auto_increment_offset: Option<String>,
+    /// Количество операций ввода-вывода в секунду `IOPS`, используемых InnoDB
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "innodb_io_capacity", skip_serializing_if = "Option::is_none")]
+    pub innodb_io_capacity: Option<String>,
+    /// Количество потоков, используемых для фоновой очистки undo-записей InnoDB
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_purge_threads",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_purge_threads: Option<String>,
+    /// Количество потоков ввода-вывода для операций чтения InnoDB (`mysql5` |
+    /// `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_read_io_threads",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_read_io_threads: Option<String>,
+    /// Ограничение количества одновременно выполняющихся потоков InnoDB
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_thread_concurrency",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_thread_concurrency: Option<String>,
+    /// Количество потоков ввода-вывода для операций записи InnoDB (`mysql5` |
+    /// `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_write_io_threads",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_write_io_threads: Option<String>,
+    /// Размер файла журнала транзакций InnoDB redo log (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(
+        rename = "innodb_log_file_size",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_log_file_size: Option<String>,
+    /// Максимальный размер пакета данных, который может передаваться между
+    /// клиентом и сервером (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "max_allowed_packet", skip_serializing_if = "Option::is_none")]
+    pub max_allowed_packet: Option<String>,
+    /// Максимальный размер таблиц типа MEMORY (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(
+        rename = "max_heap_table_size",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub max_heap_table_size: Option<String>,
+    /// Режим работы SQL сервера, определяющий поведение обработки запросов
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "sql_mode", skip_serializing_if = "Option::is_none")]
+    pub sql_mode: Option<String>,
+    /// Тип кэша запросов (`mysql5`).
+    #[serde(rename = "query_cache_type", skip_serializing_if = "Option::is_none")]
+    pub query_cache_type: Option<String>,
+    /// Объем памяти, выделяемый для кэширования результатов запросов
+    /// (`mysql5`).
+    #[serde(rename = "query_cache_size", skip_serializing_if = "Option::is_none")]
+    pub query_cache_size: Option<String>,
+    /// Максимальный размер результата запроса, который может быть закэширован
+    /// (`mysql5`).
+    #[serde(rename = "query_cache_limit", skip_serializing_if = "Option::is_none")]
+    pub query_cache_limit: Option<String>,
+    /// Режим записи журнала InnoDB при фиксации транзакций (`mysql5` | `mysql`
+    /// | `mysql8_4`).
+    #[serde(
+        rename = "innodb_flush_log_at_trx_commit",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_flush_log_at_trx_commit: Option<String>,
+    /// Уровень изоляции транзакций по умолчанию (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(
+        rename = "transaction_isolation",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub transaction_isolation: Option<String>,
+    /// Время выполнения запроса, после которого он считается долгим и может
+    /// попасть в slow query log (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "long_query_time", skip_serializing_if = "Option::is_none")]
+    pub long_query_time: Option<String>,
+    /// Максимальный размер временных таблиц в памяти (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(rename = "tmp_table_size", skip_serializing_if = "Option::is_none")]
+    pub tmp_table_size: Option<String>,
+    /// Количество открытых таблиц, которые сервер может хранить в кэше
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "table_open_cache", skip_serializing_if = "Option::is_none")]
+    pub table_open_cache: Option<String>,
+    /// Количество экземпляров кэша открытых таблиц для снижения конкуренции
+    /// между потоками (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "table_open_cache_instances",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub table_open_cache_instances: Option<String>,
+    /// Метод выполнения операций записи и синхронизации файлов InnoDB (`mysql5`
+    /// | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_flush_method",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_flush_method: Option<String>,
+    /// Включение строгой проверки операций InnoDB (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(rename = "innodb_strict_mode", skip_serializing_if = "Option::is_none")]
+    pub innodb_strict_mode: Option<String>,
+    /// Включение журнала медленных запросов (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "slow_query_log", skip_serializing_if = "Option::is_none")]
+    pub slow_query_log: Option<String>,
+    /// Размер кэша бинарного журнала для транзакций (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(rename = "binlog_cache_size", skip_serializing_if = "Option::is_none")]
+    pub binlog_cache_size: Option<String>,
+    /// Задержка синхронизации групповой фиксации бинарного журнала в
+    /// микросекундах (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "binlog_group_commit_sync_delay",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub binlog_group_commit_sync_delay: Option<String>,
+    /// Количество информации, записываемой в бинарный журнал при row-based
+    /// репликации (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "binlog_row_image", skip_serializing_if = "Option::is_none")]
+    pub binlog_row_image: Option<String>,
+    /// Включение записи SQL-запросов в бинарный журнал при row-based репликации
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "binlog_rows_query_log_events",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub binlog_rows_query_log_events: Option<String>,
+    /// Кодировка по умолчанию для сервера MySQL (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(
+        rename = "character_set_server",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub character_set_server: Option<String>,
+    /// Определяет автоматическое поведение TIMESTAMP без явных значений по
+    /// умолчанию (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "explicit_defaults_for_timestamp",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub explicit_defaults_for_timestamp: Option<String>,
+    /// Максимальная длина результата функции GROUP_CONCAT (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(
+        rename = "group_concat_max_len",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub group_concat_max_len: Option<String>,
+    /// Включение или отключение адаптивного хэш-индекса InnoDB для ускорения
+    /// поиска по индексам (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_adaptive_hash_index",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_adaptive_hash_index: Option<String>,
+    /// Время ожидания блокировки InnoDB перед завершением транзакции с ошибкой
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_lock_wait_timeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_lock_wait_timeout: Option<String>,
+    /// Включение распределения памяти InnoDB между NUMA-узлами (`mysql5` |
+    /// `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "innodb_numa_interleave",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_numa_interleave: Option<String>,
+    /// Время ожидания данных от клиента при чтении сетевого соединения
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "net_read_timeout", skip_serializing_if = "Option::is_none")]
+    pub net_read_timeout: Option<String>,
+    /// Время ожидания записи данных клиенту через сетевое соединение (`mysql5`
+    /// | `mysql` | `mysql8_4`).
+    #[serde(rename = "net_write_timeout", skip_serializing_if = "Option::is_none")]
+    pub net_write_timeout: Option<String>,
+    /// Максимальное время выполнения регулярных выражений (`mysql` |
+    /// `mysql8_4`).
+    #[serde(rename = "regexp_time_limit", skip_serializing_if = "Option::is_none")]
+    pub regexp_time_limit: Option<String>,
+    /// Количество операций записи бинарного журнала перед принудительной
+    /// синхронизацией на диск (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "sync_binlog", skip_serializing_if = "Option::is_none")]
+    pub sync_binlog: Option<String>,
+    /// Количество определений таблиц, хранящихся в кэше (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(
+        rename = "table_definition_cache",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub table_definition_cache: Option<String>,
+    /// Разрешение создания хранимых функций без проверки бинарной регистрации
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "log_bin_trust_function_creators",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub log_bin_trust_function_creators: Option<String>,
+    /// Отключение DNS-разрешения имен клиентов при подключении к серверу
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "skip_name_resolve", skip_serializing_if = "Option::is_none")]
+    pub skip_name_resolve: Option<String>,
+    /// Общий размер redo log InnoDB для хранения журнала восстановления
+    /// (`mysql8_4`).
+    #[serde(
+        rename = "innodb_redo_log_capacity",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub innodb_redo_log_capacity: Option<String>,
+    /// Время ожидания неактивного клиентского соединения перед закрытием
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(rename = "wait_timeout", skip_serializing_if = "Option::is_none")]
+    pub wait_timeout: Option<String>,
+    /// Время ожидания неактивного интерактивного соединения перед закрытием
+    /// (`mysql5` | `mysql` | `mysql8_4`).
+    #[serde(
+        rename = "interactive_timeout",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub interactive_timeout: Option<String>,
+    /// Часовой пояс сервера MySQL по умолчанию (`mysql5` | `mysql` |
+    /// `mysql8_4`).
+    #[serde(rename = "default-time-zone", skip_serializing_if = "Option::is_none")]
+    pub default_time_zone: Option<String>,
+    /// Режим строгой проверки операций в Percona XtraDB Cluster (`mysql5` |
+    /// `mysql` | `mysql8_4`).
+    #[serde(rename = "pxc_strict_mode", skip_serializing_if = "Option::is_none")]
+    pub pxc_strict_mode: Option<String>,
     /// Доля изменения строк таблицы перед запуском автоматического анализа
     /// (`postgres` | `postgres14` | `postgres15` | `postgres16` | `postgres17`
     /// | `postgres18`).
@@ -513,15 +782,130 @@ pub struct ConfigParametersPostgres {
     /// Количество фоновых процессов для выполнения операций ввода-вывода
     /// (`postgres18`).
     #[serde(rename = "io_workers", skip_serializing_if = "Option::is_none")]
-    pub io_workers: Option<String>
+    pub io_workers: Option<String>,
+    /// Ограничение буфера вывода для обычных клиентских подключений. Формат:
+    /// `hard-limit soft-limit soft-seconds` (`valkey` | `valkey7` | `valkey8_1`
+    /// | `valkey9_1`).
+    #[serde(
+        rename = "client-output-buffer-limit normal",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub client_output_buffer_limit_normal: Option<String>,
+    /// Настройка уведомлений о событиях пространства ключей (`valkey` |
+    /// `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(
+        rename = "notify-keyspace-events",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub notify_keyspace_events: Option<String>,
+    /// Ограничение буфера вывода для клиентов pub/sub. Формат: `hard-limit
+    /// soft-limit soft-seconds` (`valkey` | `valkey7` | `valkey8_1` |
+    /// `valkey9_1`).
+    #[serde(
+        rename = "client-output-buffer-limit pubsub",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub client_output_buffer_limit_pubsub: Option<String>,
+    /// Количество логических баз данных на сервере (`valkey` | `valkey7` |
+    /// `valkey8_1` | `valkey9_1`).
+    #[serde(rename = "databases", skip_serializing_if = "Option::is_none")]
+    pub databases: Option<String>,
+    /// Время ожидания в секундах перед закрытием неактивного клиентского
+    /// соединения. `0` — отключено (`valkey` | `valkey7` | `valkey8_1` |
+    /// `valkey9_1`).
+    #[serde(rename = "timeout", skip_serializing_if = "Option::is_none")]
+    pub timeout: Option<String>,
+    /// Политика вытеснения ключей при достижении лимита памяти (`valkey` |
+    /// `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(rename = "maxmemory-policy", skip_serializing_if = "Option::is_none")]
+    pub maxmemory_policy: Option<String>,
+    /// Минимальное время выполнения команды в микросекундах для записи в журнал
+    /// медленных команд (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(
+        rename = "slowlog-log-slower-than",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub slowlog_log_slower_than: Option<String>,
+    /// Максимальное количество записей, хранящихся в журнале медленных команд
+    /// (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(rename = "slowlog-max-len", skip_serializing_if = "Option::is_none")]
+    pub slowlog_max_len: Option<String>,
+    /// Условие создания снимка RDB на диск. Формат: `seconds changes` —
+    /// сохранение выполняется, если за указанное время было сделано не менее
+    /// указанного количества изменений (`valkey` | `valkey7` | `valkey8_1` |
+    /// `valkey9_1`).
+    #[serde(rename = "save", skip_serializing_if = "Option::is_none")]
+    pub save: Option<String>,
+    /// Включение режима AOF (Append Only File) для персистентного хранения
+    /// данных (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(rename = "appendonly", skip_serializing_if = "Option::is_none")]
+    pub appendonly: Option<String>,
+    /// Режим синхронизации AOF-файла с диском: `always` — при каждой записи,
+    /// `everysec` — раз в секунду, `no` — управление передаётся ОС (`valkey` |
+    /// `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(rename = "appendfsync", skip_serializing_if = "Option::is_none")]
+    pub appendfsync: Option<String>,
+    /// Интервал проверки активности TCP-соединения в секундах. `0` — отключено
+    /// (`valkey` | `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(rename = "tcp-keepalive", skip_serializing_if = "Option::is_none")]
+    pub tcp_keepalive: Option<String>
 }
 
-impl ConfigParametersPostgres {
-    /// Параметры PostgreSQL (`postgres` | `postgres14` | `postgres15` |
-    /// `postgres16` | `postgres17` | `postgres18`)
-    pub fn new() -> ConfigParametersPostgres {
-        ConfigParametersPostgres {
+impl GetDatabaseDefaultParameters200ResponseAllOfConfigParams {
+    /// Рекомендуемые значения параметров базы данных (mysql | postgres |
+    /// valkey).
+    pub fn new() -> GetDatabaseDefaultParameters200ResponseAllOfConfigParams {
+        GetDatabaseDefaultParameters200ResponseAllOfConfigParams {
+            join_buffer_size: None,
             max_connections: None,
+            sort_buffer_size: None,
+            thread_cache_size: None,
+            innodb_buffer_pool_size: None,
+            auto_increment_increment: None,
+            auto_increment_offset: None,
+            innodb_io_capacity: None,
+            innodb_purge_threads: None,
+            innodb_read_io_threads: None,
+            innodb_thread_concurrency: None,
+            innodb_write_io_threads: None,
+            innodb_log_file_size: None,
+            max_allowed_packet: None,
+            max_heap_table_size: None,
+            sql_mode: None,
+            query_cache_type: None,
+            query_cache_size: None,
+            query_cache_limit: None,
+            innodb_flush_log_at_trx_commit: None,
+            transaction_isolation: None,
+            long_query_time: None,
+            tmp_table_size: None,
+            table_open_cache: None,
+            table_open_cache_instances: None,
+            innodb_flush_method: None,
+            innodb_strict_mode: None,
+            slow_query_log: None,
+            binlog_cache_size: None,
+            binlog_group_commit_sync_delay: None,
+            binlog_row_image: None,
+            binlog_rows_query_log_events: None,
+            character_set_server: None,
+            explicit_defaults_for_timestamp: None,
+            group_concat_max_len: None,
+            innodb_adaptive_hash_index: None,
+            innodb_lock_wait_timeout: None,
+            innodb_numa_interleave: None,
+            net_read_timeout: None,
+            net_write_timeout: None,
+            regexp_time_limit: None,
+            sync_binlog: None,
+            table_definition_cache: None,
+            log_bin_trust_function_creators: None,
+            skip_name_resolve: None,
+            innodb_redo_log_capacity: None,
+            wait_timeout: None,
+            interactive_timeout: None,
+            default_time_zone: None,
+            pxc_strict_mode: None,
             autovacuum_analyze_scale_factor: None,
             autovacuum_max_workers: None,
             autovacuum_naptime: None,
@@ -597,7 +981,19 @@ impl ConfigParametersPostgres {
             maintenance_work_mem: None,
             idle_session_timeout: None,
             io_method: None,
-            io_workers: None
+            io_workers: None,
+            client_output_buffer_limit_normal: None,
+            notify_keyspace_events: None,
+            client_output_buffer_limit_pubsub: None,
+            databases: None,
+            timeout: None,
+            maxmemory_policy: None,
+            slowlog_log_slower_than: None,
+            slowlog_max_len: None,
+            save: None,
+            appendonly: None,
+            appendfsync: None,
+            tcp_keepalive: None
         }
     }
 }

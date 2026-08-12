@@ -18,17 +18,29 @@ pub struct DatabaseInstance {
     /// ID для каждого экземпляра базы данных. Автоматически генерируется при
     /// создании.
     #[serde(rename = "id")]
-    pub id:          i64,
+    pub id:                i64,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда была создана база данных.
     #[serde(rename = "created_at")]
-    pub created_at:  String,
+    pub created_at:        String,
     /// Название базы данных.
     #[serde(rename = "name")]
-    pub name:        String,
+    pub name:              String,
     /// Описание базы данных
     #[serde(rename = "description")]
-    pub description: String
+    pub description:       String,
+    /// Расширения базы данных. Заполняется для кластеров PostgreSQL и RabbitMQ,
+    /// для остальных типов кластеров — `null`.
+    #[serde(rename = "extensions", deserialize_with = "Option::deserialize")]
+    pub extensions:        Option<Box<models::DatabaseExtensions>>,
+    /// ID администратора базы данных, который является владельцем этой базы
+    /// данных. `null`, если владелец не задан.
+    #[serde(rename = "owner_id", deserialize_with = "Option::deserialize")]
+    pub owner_id:          Option<i64>,
+    /// Настройки топика Kafka. Заполняется для кластеров Kafka, для остальных
+    /// типов кластеров — `null`.
+    #[serde(rename = "config_parameters", deserialize_with = "Option::deserialize")]
+    pub config_parameters: Option<Box<models::KafkaConfigParameters>>
 }
 
 impl DatabaseInstance {
@@ -37,13 +49,27 @@ impl DatabaseInstance {
         id: i64,
         created_at: String,
         name: String,
-        description: String
+        description: String,
+        extensions: Option<models::DatabaseExtensions>,
+        owner_id: Option<i64>,
+        config_parameters: Option<models::KafkaConfigParameters>
     ) -> DatabaseInstance {
         DatabaseInstance {
             id,
             created_at,
             name,
-            description
+            description,
+            extensions: if let Some(x) = extensions {
+                Some(Box::new(x))
+            } else {
+                None
+            },
+            owner_id,
+            config_parameters: if let Some(x) = config_parameters {
+                Some(Box::new(x))
+            } else {
+                None
+            }
         }
     }
 }

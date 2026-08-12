@@ -20,7 +20,7 @@ use crate::{apis::ResponseContent, models};
 pub enum AddDomainError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -68,7 +68,7 @@ pub enum CreateDomainDnsRecordV2Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -80,7 +80,7 @@ pub enum CreateDomainDnsRecordV2Error {
 pub enum CreateDomainRequestError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -104,7 +104,7 @@ pub enum DeleteDomainError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -153,7 +153,7 @@ pub enum DeleteSubdomainError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -294,7 +294,7 @@ pub enum UpdateDomainAutoProlongationError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -319,7 +319,7 @@ pub enum UpdateDomainDnsRecordV2Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -344,7 +344,7 @@ pub enum UpdateDomainRequestError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)

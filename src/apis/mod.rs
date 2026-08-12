@@ -120,6 +120,8 @@ pub mod ai_agents_api;
 pub mod apps_api;
 #[cfg(feature = "balancers")]
 pub mod balancers_api;
+#[cfg(feature = "cdn")]
+pub mod cdn_api;
 #[cfg(feature = "container-registry")]
 pub mod container_registry_api;
 #[cfg(feature = "databases")]

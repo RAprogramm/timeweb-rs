@@ -12,24 +12,19 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// CreateS3Backup : Параметры создания резервной копии базы данных в S3
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct GetServerDiskAutoBackupSettings200Response {
-    #[serde(rename = "auto_backups_settings")]
-    pub auto_backups_settings: Box<models::AutoBackup>,
-    /// ID запроса, который можно указывать при обращении в службу технической
-    /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id:           Option<uuid::Uuid>
+pub struct CreateS3Backup {
+    /// Комментарий к резервной копии.
+    #[serde(rename = "comment", skip_serializing_if = "Option::is_none")]
+    pub comment: Option<String>
 }
 
-impl GetServerDiskAutoBackupSettings200Response {
-    pub fn new(
-        auto_backups_settings: models::AutoBackup,
-        response_id: Option<uuid::Uuid>
-    ) -> GetServerDiskAutoBackupSettings200Response {
-        GetServerDiskAutoBackupSettings200Response {
-            auto_backups_settings: Box::new(auto_backups_settings),
-            response_id
+impl CreateS3Backup {
+    /// Параметры создания резервной копии базы данных в S3
+    pub fn new() -> CreateS3Backup {
+        CreateS3Backup {
+            comment: None
         }
     }
 }

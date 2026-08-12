@@ -17,35 +17,46 @@ use crate::models;
 pub struct Model {
     /// Уникальный идентификатор модели
     #[serde(rename = "id")]
-    pub id:            i64,
+    pub id:               i64,
     /// ID провайдера, который предоставляет модель
     #[serde(rename = "provider_id")]
-    pub provider_id:   i64,
+    pub provider_id:      i64,
     /// Название модели
     #[serde(rename = "name")]
-    pub name:          String,
+    pub name:             String,
     /// Публичное имя модели
     #[serde(rename = "public_name")]
-    pub public_name:   String,
+    pub public_name:      String,
     /// Тип модели (llm - языковая модель, embedding - модель для эмбеддингов)
     #[serde(rename = "type")]
-    pub r#type:        Type,
+    pub r#type:           Type,
     /// Признак, что модель устарела
     #[serde(rename = "is_deprecated")]
-    pub is_deprecated: bool,
+    pub is_deprecated:    bool,
+    /// Признак, что поддержка модели остановлена в системе
+    #[serde(rename = "is_stopped")]
+    pub is_stopped:       bool,
+    /// Дата депрекейта модели у провайдера
+    #[serde(
+        rename = "deprecation_date",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub deprecation_date: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
     /// Признак поддержки режима рассуждения
     #[serde(rename = "is_reasoning")]
-    pub is_reasoning:  bool,
+    pub is_reasoning:     bool,
     /// Версия модели
     #[serde(rename = "version")]
-    pub version:       String,
+    pub version:          String,
     #[serde(
         rename = "params_info",
         default,
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub params_info:   Option<Option<Box<models::ModelParamsInfo>>>
+    pub params_info:      Option<Option<Box<models::ModelParamsInfo>>>
 }
 
 impl Model {
@@ -57,6 +68,7 @@ impl Model {
         public_name: String,
         r#type: Type,
         is_deprecated: bool,
+        is_stopped: bool,
         is_reasoning: bool,
         version: String
     ) -> Model {
@@ -67,6 +79,8 @@ impl Model {
             public_name,
             r#type,
             is_deprecated,
+            is_stopped,
+            deprecation_date: None,
             is_reasoning,
             version,
             params_info: None

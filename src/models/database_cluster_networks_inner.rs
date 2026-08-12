@@ -12,25 +12,16 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct DatabaseClusterNetworksInner {
-    /// Тип сети.
-    #[serde(rename = "type")]
-    pub r#type: Type,
-    /// Список IP-адресов сети.
-    #[serde(rename = "ips", deserialize_with = "Option::deserialize")]
-    pub ips:    Option<Vec<models::DatabaseClusterNetworksInnerIpsInner>>
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DatabaseClusterNetworksInner {
+    DatabaseClusterNetworksInnerOneOf(Box<models::DatabaseClusterNetworksInnerOneOf>),
+    DatabaseClusterNetworksInnerOneOf1(Box<models::DatabaseClusterNetworksInnerOneOf1>)
 }
 
-impl DatabaseClusterNetworksInner {
-    pub fn new(
-        r#type: Type,
-        ips: Option<Vec<models::DatabaseClusterNetworksInnerIpsInner>>
-    ) -> DatabaseClusterNetworksInner {
-        DatabaseClusterNetworksInner {
-            r#type,
-            ips
-        }
+impl Default for DatabaseClusterNetworksInner {
+    fn default() -> Self {
+        Self::DatabaseClusterNetworksInnerOneOf(Default::default())
     }
 }
 /// Тип сети.
@@ -45,5 +36,35 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Public
+    }
+}
+/// Тип локальной сети.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum NetworkType {
+    #[serde(rename = "ovn")]
+    Ovn,
+    #[serde(rename = "bgp")]
+    Bgp
+}
+
+impl Default for NetworkType {
+    fn default() -> NetworkType {
+        Self::Ovn
+    }
+}
+/// Режим NAT порта в локальной сети.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum NatMode {
+    #[serde(rename = "dnat_and_snat")]
+    DnatAndSnat,
+    #[serde(rename = "snat")]
+    Snat,
+    #[serde(rename = "no_nat")]
+    NoNat
+}
+
+impl Default for NatMode {
+    fn default() -> NatMode {
+        Self::DnatAndSnat
     }
 }

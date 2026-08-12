@@ -23,24 +23,35 @@ pub struct PresetsDbs {
     /// Краткое описание тарифа.
     #[serde(rename = "description_short", skip_serializing_if = "Option::is_none")]
     pub description_short: Option<String>,
-    /// Описание процессора тарифа.
+    /// Количество ядер процессора тарифа.
     #[serde(rename = "cpu", skip_serializing_if = "Option::is_none")]
     pub cpu:               Option<f64>,
-    /// Описание ОЗУ тарифа.
+    /// Частота процессора (в ГГц).
+    #[serde(rename = "cpu_frequency", skip_serializing_if = "Option::is_none")]
+    pub cpu_frequency:     Option<String>,
+    /// Объём оперативной памяти тарифа (в Мб).
     #[serde(rename = "ram", skip_serializing_if = "Option::is_none")]
     pub ram:               Option<f64>,
-    /// Описание диска тарифа.
+    /// Размер диска тарифа (в Мб).
     #[serde(rename = "disk", skip_serializing_if = "Option::is_none")]
     pub disk:              Option<f64>,
-    /// Тип базы данных.
+    /// Семейство СУБД тарифа. Значение не совпадает с типом кластера, который
+    /// передаётся в поле `type` при создании кластера (`POST
+    /// /api/v1/databases`): там используется версионированный тип, например
+    /// `postgres17`. Тарифы для Valkey возвращаются со значением `redis` —
+    /// отдельного значения `valkey` в этом поле не бывает.
     #[serde(rename = "type", skip_serializing_if = "Option::is_none")]
-    pub r#type:            Option<String>,
+    pub r#type:            Option<Type>,
     /// Стоимость тарифа базы данных
     #[serde(rename = "price", skip_serializing_if = "Option::is_none")]
     pub price:             Option<f64>,
     /// Географическое расположение тарифа.
     #[serde(rename = "location", skip_serializing_if = "Option::is_none")]
-    pub location:          Option<String>
+    pub location:          Option<String>,
+    /// Теги тарифа, в том числе тег группы тарифов, в пределах которой доступна
+    /// смена тарифа.
+    #[serde(rename = "tags", skip_serializing_if = "Option::is_none")]
+    pub tags:              Option<Vec<String>>
 }
 
 impl PresetsDbs {
@@ -50,11 +61,45 @@ impl PresetsDbs {
             description:       None,
             description_short: None,
             cpu:               None,
+            cpu_frequency:     None,
             ram:               None,
             disk:              None,
             r#type:            None,
             price:             None,
-            location:          None
+            location:          None,
+            tags:              None
         }
+    }
+}
+/// Семейство СУБД тарифа. Значение не совпадает с типом кластера, который
+/// передаётся в поле `type` при создании кластера (`POST /api/v1/databases`):
+/// там используется версионированный тип, например `postgres17`. Тарифы для
+/// Valkey возвращаются со значением `redis` — отдельного значения `valkey` в
+/// этом поле не бывает.
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "mysql")]
+    Mysql,
+    #[serde(rename = "mysql5")]
+    Mysql5,
+    #[serde(rename = "postgres")]
+    Postgres,
+    #[serde(rename = "redis")]
+    Redis,
+    #[serde(rename = "mongodb")]
+    Mongodb,
+    #[serde(rename = "opensearch")]
+    Opensearch,
+    #[serde(rename = "clickhouse")]
+    Clickhouse,
+    #[serde(rename = "kafka")]
+    Kafka,
+    #[serde(rename = "rabbitmq")]
+    Rabbitmq
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::Mysql
     }
 }

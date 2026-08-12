@@ -12,24 +12,28 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// ConfigParameters : Параметры базы данных
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct ConfigParameters {
-    #[serde(rename = "mysql", skip_serializing_if = "Option::is_none")]
-    pub mysql:    Option<Box<models::ConfigParametersMysql>>,
-    #[serde(rename = "postgres", skip_serializing_if = "Option::is_none")]
-    pub postgres: Option<Box<models::ConfigParametersPostgres>>,
-    #[serde(rename = "valkey", skip_serializing_if = "Option::is_none")]
-    pub valkey:   Option<Box<models::ConfigParametersValkey>>
+pub struct GetCdnOriginNodes200Response {
+    #[serde(rename = "origin_nodes")]
+    pub origin_nodes: Vec<models::OriginNode>,
+    #[serde(rename = "meta")]
+    pub meta:         Box<models::Meta>,
+    /// ID запроса, который можно указывать при обращении в службу технической
+    /// поддержки, чтобы помочь определить проблему.
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:  Option<uuid::Uuid>
 }
 
-impl ConfigParameters {
-    /// Параметры базы данных
-    pub fn new() -> ConfigParameters {
-        ConfigParameters {
-            mysql:    None,
-            postgres: None,
-            valkey:   None
+impl GetCdnOriginNodes200Response {
+    pub fn new(
+        origin_nodes: Vec<models::OriginNode>,
+        meta: models::Meta,
+        response_id: Option<uuid::Uuid>
+    ) -> GetCdnOriginNodes200Response {
+        GetCdnOriginNodes200Response {
+            origin_nodes,
+            meta: Box::new(meta),
+            response_id
         }
     }
 }

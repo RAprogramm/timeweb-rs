@@ -18,25 +18,32 @@ pub struct DatabaseAdmin {
     /// ID для каждого экземпляра пользователя базы данных. Автоматически
     /// генерируется при создании.
     #[serde(rename = "id")]
-    pub id:          i64,
+    pub id:                i64,
     /// Значение времени, указанное в комбинированном формате даты и времени
-    /// ISO8601, которое представляет, когда была создана база данных.
+    /// ISO8601, которое представляет, когда был создан пользователь базы
+    /// данных.
     #[serde(rename = "created_at")]
-    pub created_at:  String,
+    pub created_at:        String,
     /// Имя пользователя базы данных
     #[serde(rename = "login")]
-    pub login:       String,
+    pub login:             String,
     /// Пароль пользователя базы данных
     #[serde(rename = "password")]
-    pub password:    String,
+    pub password:          String,
     /// Описание пользователя базы данных
     #[serde(rename = "description")]
-    pub description: String,
+    pub description:       String,
     /// Хост пользователя
     #[serde(rename = "host", deserialize_with = "Option::deserialize")]
-    pub host:        Option<String>,
+    pub host:              Option<String>,
+    /// Флаг, выданы ли пользователю привилегии на все инстансы базы данных
+    #[serde(rename = "for_all")]
+    pub for_all:           bool,
+    /// Флаг, был ли сброшен пароль пользователя
+    #[serde(rename = "is_reset_password")]
+    pub is_reset_password: bool,
     #[serde(rename = "instances")]
-    pub instances:   Vec<models::DatabaseAdminInstancesInner>
+    pub instances:         Vec<models::DatabaseAdminInstancesInner>
 }
 
 impl DatabaseAdmin {
@@ -48,6 +55,8 @@ impl DatabaseAdmin {
         password: String,
         description: String,
         host: Option<String>,
+        for_all: bool,
+        is_reset_password: bool,
         instances: Vec<models::DatabaseAdminInstancesInner>
     ) -> DatabaseAdmin {
         DatabaseAdmin {
@@ -57,6 +66,8 @@ impl DatabaseAdmin {
             password,
             description,
             host,
+            for_all,
+            is_reset_password,
             instances
         }
     }

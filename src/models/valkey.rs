@@ -23,6 +23,13 @@ pub struct Valkey {
         skip_serializing_if = "Option::is_none"
     )]
     pub client_output_buffer_limit_normal: Option<String>,
+    /// Настройка уведомлений о событиях пространства ключей (`valkey` |
+    /// `valkey7` | `valkey8_1` | `valkey9_1`).
+    #[serde(
+        rename = "notify-keyspace-events",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub notify_keyspace_events: Option<String>,
     /// Ограничение буфера вывода для клиентов pub/sub. Формат: `hard-limit
     /// soft-limit soft-seconds` (`valkey` | `valkey7` | `valkey8_1` |
     /// `valkey9_1`).
@@ -81,6 +88,7 @@ impl Valkey {
     pub fn new() -> Valkey {
         Valkey {
             client_output_buffer_limit_normal: None,
+            notify_keyspace_events: None,
             client_output_buffer_limit_pubsub: None,
             databases: None,
             timeout: None,

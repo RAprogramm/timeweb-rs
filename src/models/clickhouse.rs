@@ -15,22 +15,16 @@ use crate::models;
 ///
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Clickhouse {
-    #[serde(rename = "ALTER")]
-    Alter,
     #[serde(rename = "ALTER_TABLE")]
     AlterTable,
     #[serde(rename = "ALTER_VIEW")]
     AlterView,
-    #[serde(rename = "CREATE")]
-    Create,
     #[serde(rename = "CREATE_VIEW")]
     CreateView,
     #[serde(rename = "CREATE_DICTIONARY")]
     CreateDictionary,
     #[serde(rename = "CREATE_TABLE")]
     CreateTable,
-    #[serde(rename = "DROP")]
-    Drop,
     #[serde(rename = "DROP_TABLE")]
     DropTable,
     #[serde(rename = "DROP_VIEW")]
@@ -56,14 +50,11 @@ pub enum Clickhouse {
 impl std::fmt::Display for Clickhouse {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            Self::Alter => write!(f, "ALTER"),
             Self::AlterTable => write!(f, "ALTER_TABLE"),
             Self::AlterView => write!(f, "ALTER_VIEW"),
-            Self::Create => write!(f, "CREATE"),
             Self::CreateView => write!(f, "CREATE_VIEW"),
             Self::CreateDictionary => write!(f, "CREATE_DICTIONARY"),
             Self::CreateTable => write!(f, "CREATE_TABLE"),
-            Self::Drop => write!(f, "DROP"),
             Self::DropTable => write!(f, "DROP_TABLE"),
             Self::DropView => write!(f, "DROP_VIEW"),
             Self::DropDictionary => write!(f, "DROP_DICTIONARY"),
@@ -80,6 +71,6 @@ impl std::fmt::Display for Clickhouse {
 
 impl Default for Clickhouse {
     fn default() -> Clickhouse {
-        Self::Alter
+        Self::AlterTable
     }
 }

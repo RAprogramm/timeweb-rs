@@ -12,20 +12,24 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// CreateDatabaseBackup409ResponseMessage : Сообщение, предоставляющее
-/// дополнительную информацию об ошибке, в том числе сведения, помогающие
-/// устранить ее, когда это возможно. Сообщение, предоставляющее дополнительную
-/// информацию об ошибке, в том числе сведения, помогающие устранить ее, когда
-/// это возможно.
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum CreateDatabaseBackup409ResponseMessage {
-    String(String),
-    ArrayVecString(Vec<String>)
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct GetCdnResourceConfiguration200Response {
+    #[serde(rename = "http_resource_configuration")]
+    pub http_resource_configuration: Box<models::HttpResourceConfig>,
+    /// ID запроса, который можно указывать при обращении в службу технической
+    /// поддержки, чтобы помочь определить проблему.
+    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    pub response_id:                 Option<uuid::Uuid>
 }
 
-impl Default for CreateDatabaseBackup409ResponseMessage {
-    fn default() -> Self {
-        Self::String(Default::default())
+impl GetCdnResourceConfiguration200Response {
+    pub fn new(
+        http_resource_configuration: models::HttpResourceConfig,
+        response_id: Option<uuid::Uuid>
+    ) -> GetCdnResourceConfiguration200Response {
+        GetCdnResourceConfiguration200Response {
+            http_resource_configuration: Box::new(http_resource_configuration),
+            response_id
+        }
     }
 }

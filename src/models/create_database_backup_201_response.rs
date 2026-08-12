@@ -14,8 +14,8 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateDatabaseBackup201Response {
-    #[serde(rename = "backup")]
-    pub backup:      Box<models::Backup>,
+    #[serde(rename = "backup", deserialize_with = "Option::deserialize")]
+    pub backup:      Option<Box<models::Backup>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
@@ -24,11 +24,15 @@ pub struct CreateDatabaseBackup201Response {
 
 impl CreateDatabaseBackup201Response {
     pub fn new(
-        backup: models::Backup,
+        backup: Option<models::Backup>,
         response_id: Option<uuid::Uuid>
     ) -> CreateDatabaseBackup201Response {
         CreateDatabaseBackup201Response {
-            backup: Box::new(backup),
+            backup: if let Some(x) = backup {
+                Some(Box::new(x))
+            } else {
+                None
+            },
             response_id
         }
     }

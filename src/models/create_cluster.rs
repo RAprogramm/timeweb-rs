@@ -27,12 +27,11 @@ pub struct CreateCluster {
     /// Тип хеширования базы данных (mysql | postgres).
     #[serde(rename = "hash_type", skip_serializing_if = "Option::is_none")]
     pub hash_type:         Option<HashType>,
-    /// ID тарифа. Нельзя передавать вместе с `configurator_id`
+    /// ID тарифа. Нельзя передавать вместе с `configuration`
     #[serde(rename = "preset_id", skip_serializing_if = "Option::is_none")]
     pub preset_id:         Option<i32>,
-    /// ID конфигуратора. Нельзя передавать вместе с `preset_id`
-    #[serde(rename = "configurator_id", skip_serializing_if = "Option::is_none")]
-    pub configurator_id:   Option<i32>,
+    #[serde(rename = "configuration", skip_serializing_if = "Option::is_none")]
+    pub configuration:     Option<Box<models::CreateClusterConfiguration>>,
     /// ID проекта.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
     pub project_id:        Option<i32>,
@@ -51,7 +50,13 @@ pub struct CreateCluster {
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
     pub availability_zone: Option<models::AvailabilityZone>,
     #[serde(rename = "auto_backups", skip_serializing_if = "Option::is_none")]
-    pub auto_backups:      Option<Box<models::CreateDbAutoBackups>>
+    pub auto_backups:      Option<Box<models::CreateDbAutoBackups>>,
+    #[serde(rename = "backup_schedule", skip_serializing_if = "Option::is_none")]
+    pub backup_schedule:   Option<Box<models::CreateClusterBackupSchedule>>,
+    #[serde(rename = "maintenance_slot", skip_serializing_if = "Option::is_none")]
+    pub maintenance_slot:  Option<Box<models::CreateClusterMaintenanceSlot>>,
+    #[serde(rename = "disk_autoscaling", skip_serializing_if = "Option::is_none")]
+    pub disk_autoscaling:  Option<Box<models::CreateClusterDiskAutoscaling>>
 }
 
 impl CreateCluster {
@@ -63,7 +68,7 @@ impl CreateCluster {
             instance: None,
             hash_type: None,
             preset_id: None,
-            configurator_id: None,
+            configuration: None,
             project_id: None,
             config_parameters: None,
             replication: None,
@@ -71,7 +76,10 @@ impl CreateCluster {
             is_public_ipv6: None,
             description: None,
             availability_zone: None,
-            auto_backups: None
+            auto_backups: None,
+            backup_schedule: None,
+            maintenance_slot: None,
+            disk_autoscaling: None
         }
     }
 }

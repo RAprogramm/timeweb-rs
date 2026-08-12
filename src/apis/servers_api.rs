@@ -22,7 +22,7 @@ pub enum AddServerIpError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -35,7 +35,7 @@ pub enum CloneServerError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -74,7 +74,7 @@ pub enum CreateServerError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -88,7 +88,7 @@ pub enum CreateServerDiskError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -115,7 +115,7 @@ pub enum DeleteServerError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -129,7 +129,7 @@ pub enum DeleteServerDiskError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -143,7 +143,7 @@ pub enum DeleteServerDiskBackupError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -157,7 +157,7 @@ pub enum DeleteServerIpError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -219,7 +219,7 @@ pub enum GetServerError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -233,7 +233,7 @@ pub enum GetServerDiskError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -286,7 +286,7 @@ pub enum GetServerDisksError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -300,7 +300,7 @@ pub enum GetServerIpsError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -314,7 +314,7 @@ pub enum GetServerLogsError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -328,7 +328,7 @@ pub enum GetServerStatisticsError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -342,7 +342,7 @@ pub enum GetServerStatisticsNewError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -393,7 +393,7 @@ pub enum HardShutdownServerError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -419,7 +419,7 @@ pub enum PerformActionOnBackupError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -433,7 +433,7 @@ pub enum PerformActionOnServerError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -446,7 +446,7 @@ pub enum RebootServerError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -459,7 +459,7 @@ pub enum RebootServerHardError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -471,7 +471,7 @@ pub enum RebootServerHardError {
 pub enum ResetServerPasswordError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -497,7 +497,7 @@ pub enum ShutdownServerError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -509,7 +509,7 @@ pub enum ShutdownServerError {
 pub enum StartServerError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -523,7 +523,7 @@ pub enum UpdateServerError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -537,7 +537,7 @@ pub enum UpdateServerDiskError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -578,7 +578,7 @@ pub enum UpdateServerIpError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -592,7 +592,7 @@ pub enum UpdateServerNatError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -606,7 +606,7 @@ pub enum UpdateServerOsBootModeError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status409(models::CreateDatabaseBackup409Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -1613,7 +1613,7 @@ pub async fn get_server_disk_auto_backup_settings(
     server_id: i32,
     disk_id: i32
 ) -> Result<
-    models::GetServerDiskAutoBackupSettings200Response,
+    models::GetDatabaseAutoBackupsSettings200Response,
     Error<GetServerDiskAutoBackupSettingsError>
 > {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -1652,12 +1652,12 @@ pub async fn get_server_disk_auto_backup_settings(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => {
                 return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetServerDiskAutoBackupSettings200Response`"
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseAutoBackupsSettings200Response`"
                 )));
             }
             ContentType::Unsupported(unknown_type) => {
                 return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetServerDiskAutoBackupSettings200Response`"
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseAutoBackupsSettings200Response`"
                 ))));
             }
         }
@@ -2893,7 +2893,7 @@ pub async fn update_server_disk_auto_backup_settings(
     disk_id: i32,
     auto_backup: Option<models::AutoBackup>
 ) -> Result<
-    models::GetServerDiskAutoBackupSettings200Response,
+    models::GetDatabaseAutoBackupsSettings200Response,
     Error<UpdateServerDiskAutoBackupSettingsError>
 > {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -2936,12 +2936,12 @@ pub async fn update_server_disk_auto_backup_settings(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => {
                 return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetServerDiskAutoBackupSettings200Response`"
+                    "Received `text/plain` content type response that cannot be converted to `models::GetDatabaseAutoBackupsSettings200Response`"
                 )));
             }
             ContentType::Unsupported(unknown_type) => {
                 return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetServerDiskAutoBackupSettings200Response`"
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetDatabaseAutoBackupsSettings200Response`"
                 ))));
             }
         }

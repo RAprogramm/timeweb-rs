@@ -18,6 +18,18 @@ pub use self::add_balancer_to_project_request::AddBalancerToProjectRequest;
 pub mod add_bitbucket;
 #[cfg(feature = "apps")]
 pub use self::add_bitbucket::AddBitbucket;
+#[cfg(feature = "cdn")]
+pub mod add_cdn_certificate_422_response;
+#[cfg(feature = "cdn")]
+pub use self::add_cdn_certificate_422_response::AddCdnCertificate422Response;
+#[cfg(feature = "cdn")]
+pub mod add_cdn_certificate_422_response_message;
+#[cfg(feature = "cdn")]
+pub use self::add_cdn_certificate_422_response_message::AddCdnCertificate422ResponseMessage;
+#[cfg(feature = "cdn")]
+pub mod add_certificate;
+#[cfg(feature = "cdn")]
+pub use self::add_certificate::AddCertificate;
 #[cfg(feature = "projects")]
 pub mod add_cluster_to_project_request;
 #[cfg(feature = "projects")]
@@ -236,6 +248,14 @@ pub use self::available_static_routes_response::AvailableStaticRoutesResponse;
 pub mod backup;
 #[cfg(feature = "databases")]
 pub use self::backup::Backup;
+#[cfg(feature = "databases")]
+pub mod backup_download_url;
+#[cfg(feature = "databases")]
+pub use self::backup_download_url::BackupDownloadUrl;
+#[cfg(feature = "databases")]
+pub mod backup_download_url_request;
+#[cfg(feature = "databases")]
+pub use self::backup_download_url_request::BackupDownloadUrlRequest;
 #[cfg(any(feature = "balancers", feature = "projects"))]
 pub mod balancer;
 #[cfg(any(feature = "balancers", feature = "projects"))]
@@ -290,12 +310,28 @@ pub use self::bucket_website_config::BucketWebsiteConfig;
 pub mod bucket_website_config_error_pages_inner;
 #[cfg(any(feature = "projects", feature = "s3"))]
 pub use self::bucket_website_config_error_pages_inner::BucketWebsiteConfigErrorPagesInner;
+#[cfg(feature = "cdn")]
+pub mod certificate;
+#[cfg(feature = "cdn")]
+pub use self::certificate::Certificate;
+#[cfg(feature = "cdn")]
+pub mod certificate_task;
+#[cfg(feature = "cdn")]
+pub use self::certificate_task::CertificateTask;
 #[cfg(feature = "domains")]
 pub mod check_domain_200_response;
 #[cfg(feature = "domains")]
 pub use self::check_domain_200_response::CheckDomain200Response;
+#[cfg(feature = "cdn")]
+pub mod clear_cache;
+#[cfg(feature = "cdn")]
+pub use self::clear_cache::ClearCache;
 pub mod clickhouse;
 pub use self::clickhouse::Clickhouse;
+#[cfg(feature = "databases")]
+pub mod cluster_action;
+#[cfg(feature = "databases")]
+pub use self::cluster_action::ClusterAction;
 #[cfg(feature = "kubernetes")]
 pub mod cluster_edit;
 #[cfg(feature = "kubernetes")]
@@ -354,14 +390,78 @@ pub mod components_schemas_base_error;
 pub use self::components_schemas_base_error::ComponentsSchemasBaseError;
 pub mod components_schemas_meta;
 pub use self::components_schemas_meta::ComponentsSchemasMeta;
-pub mod config_parameters;
-pub use self::config_parameters::ConfigParameters;
-pub mod config_parameters_mysql;
-pub use self::config_parameters_mysql::ConfigParametersMysql;
-pub mod config_parameters_postgres;
-pub use self::config_parameters_postgres::ConfigParametersPostgres;
-pub mod config_parameters_valkey;
-pub use self::config_parameters_valkey::ConfigParametersValkey;
+#[cfg(feature = "cdn")]
+pub mod config_access;
+#[cfg(feature = "cdn")]
+pub use self::config_access::ConfigAccess;
+#[cfg(feature = "cdn")]
+pub mod config_cache;
+#[cfg(feature = "cdn")]
+pub use self::config_cache::ConfigCache;
+#[cfg(feature = "cdn")]
+pub mod config_cache_always_online;
+#[cfg(feature = "cdn")]
+pub use self::config_cache_always_online::ConfigCacheAlwaysOnline;
+#[cfg(feature = "cdn")]
+pub mod config_cache_browser;
+#[cfg(feature = "cdn")]
+pub use self::config_cache_browser::ConfigCacheBrowser;
+#[cfg(feature = "cdn")]
+pub mod config_cache_cdn;
+#[cfg(feature = "cdn")]
+pub use self::config_cache_cdn::ConfigCacheCdn;
+#[cfg(feature = "cdn")]
+pub mod config_cache_cdn_ttl;
+#[cfg(feature = "cdn")]
+pub use self::config_cache_cdn_ttl::ConfigCacheCdnTtl;
+#[cfg(feature = "cdn")]
+pub mod config_cache_query_args;
+#[cfg(feature = "cdn")]
+pub use self::config_cache_query_args::ConfigCacheQueryArgs;
+#[cfg(feature = "cdn")]
+pub mod config_delivery;
+#[cfg(feature = "cdn")]
+pub use self::config_delivery::ConfigDelivery;
+#[cfg(feature = "cdn")]
+pub mod config_delivery_packaging;
+#[cfg(feature = "cdn")]
+pub use self::config_delivery_packaging::ConfigDeliveryPackaging;
+#[cfg(feature = "cdn")]
+pub mod config_delivery_packaging_mp4;
+#[cfg(feature = "cdn")]
+pub use self::config_delivery_packaging_mp4::ConfigDeliveryPackagingMp4;
+#[cfg(feature = "cdn")]
+pub mod config_domains;
+#[cfg(feature = "cdn")]
+pub use self::config_domains::ConfigDomains;
+#[cfg(feature = "cdn")]
+pub mod config_http_headers;
+#[cfg(feature = "cdn")]
+pub use self::config_http_headers::ConfigHttpHeaders;
+#[cfg(feature = "cdn")]
+pub mod config_http_headers_cors;
+#[cfg(feature = "cdn")]
+pub use self::config_http_headers_cors::ConfigHttpHeadersCors;
+#[cfg(feature = "cdn")]
+pub mod config_origin;
+#[cfg(feature = "cdn")]
+pub use self::config_origin::ConfigOrigin;
+#[cfg(feature = "cdn")]
+pub mod config_origin_aws;
+#[cfg(feature = "cdn")]
+pub use self::config_origin_aws::ConfigOriginAws;
+#[cfg(feature = "cdn")]
+pub mod config_robots;
+#[cfg(feature = "cdn")]
+pub use self::config_robots::ConfigRobots;
+#[cfg(feature = "cdn")]
+pub mod config_security;
+#[cfg(feature = "cdn")]
+pub use self::config_security::ConfigSecurity;
+#[cfg(feature = "cdn")]
+pub mod config_security_secure_token;
+#[cfg(feature = "cdn")]
+pub use self::config_security_secure_token::ConfigSecuritySecureToken;
 pub mod container_registry_presets_inner;
 pub use self::container_registry_presets_inner::ContainerRegistryPresetsInner;
 pub mod container_registry_repositories_inner;
@@ -378,6 +478,10 @@ pub use self::create_agent::CreateAgent;
 pub mod create_agent_201_response;
 #[cfg(feature = "ai-agents")]
 pub use self::create_agent_201_response::CreateAgent201Response;
+#[cfg(feature = "ai-agents")]
+pub mod create_agent_v2;
+#[cfg(feature = "ai-agents")]
+pub use self::create_agent_v2::CreateAgentV2;
 #[cfg(feature = "apps")]
 pub mod create_app;
 #[cfg(feature = "apps")]
@@ -402,6 +506,10 @@ pub use self::create_balancer_certificates::CreateBalancerCertificates;
 pub mod create_balancer_rule_200_response;
 #[cfg(feature = "balancers")]
 pub use self::create_balancer_rule_200_response::CreateBalancerRule200Response;
+#[cfg(feature = "cdn")]
+pub mod create_cdn_resource_201_response;
+#[cfg(feature = "cdn")]
+pub use self::create_cdn_resource_201_response::CreateCdnResource201Response;
 #[cfg(feature = "databases")]
 pub mod create_cluster;
 #[cfg(feature = "databases")]
@@ -414,14 +522,30 @@ pub use self::create_cluster_201_response::CreateCluster201Response;
 pub mod create_cluster_admin;
 #[cfg(feature = "databases")]
 pub use self::create_cluster_admin::CreateClusterAdmin;
+#[cfg(feature = "databases")]
+pub mod create_cluster_backup_schedule;
+#[cfg(feature = "databases")]
+pub use self::create_cluster_backup_schedule::CreateClusterBackupSchedule;
 #[cfg(any(feature = "databases", feature = "projects"))]
 pub mod create_cluster_config_parameters;
 #[cfg(any(feature = "databases", feature = "projects"))]
 pub use self::create_cluster_config_parameters::CreateClusterConfigParameters;
 #[cfg(feature = "databases")]
+pub mod create_cluster_configuration;
+#[cfg(feature = "databases")]
+pub use self::create_cluster_configuration::CreateClusterConfiguration;
+#[cfg(feature = "databases")]
+pub mod create_cluster_disk_autoscaling;
+#[cfg(feature = "databases")]
+pub use self::create_cluster_disk_autoscaling::CreateClusterDiskAutoscaling;
+#[cfg(feature = "databases")]
 pub mod create_cluster_instance;
 #[cfg(feature = "databases")]
 pub use self::create_cluster_instance::CreateClusterInstance;
+#[cfg(feature = "databases")]
+pub mod create_cluster_maintenance_slot;
+#[cfg(feature = "databases")]
+pub use self::create_cluster_maintenance_slot::CreateClusterMaintenanceSlot;
 #[cfg(feature = "kubernetes")]
 pub mod create_cluster_node_group_201_response;
 #[cfg(feature = "kubernetes")]
@@ -430,54 +554,10 @@ pub use self::create_cluster_node_group_201_response::CreateClusterNodeGroup201R
 pub mod create_database_backup_201_response;
 #[cfg(feature = "databases")]
 pub use self::create_database_backup_201_response::CreateDatabaseBackup201Response;
-#[cfg(any(
-    feature = "apps",
-    feature = "databases",
-    feature = "domains",
-    feature = "floating-ip",
-    feature = "mail",
-    feature = "network-drives",
-    feature = "servers",
-    feature = "ssh",
-    feature = "vpc"
-))]
-pub mod create_database_backup_409_response;
-#[cfg(any(
-    feature = "apps",
-    feature = "databases",
-    feature = "domains",
-    feature = "floating-ip",
-    feature = "mail",
-    feature = "network-drives",
-    feature = "servers",
-    feature = "ssh",
-    feature = "vpc"
-))]
-pub use self::create_database_backup_409_response::CreateDatabaseBackup409Response;
-#[cfg(any(
-    feature = "apps",
-    feature = "databases",
-    feature = "domains",
-    feature = "floating-ip",
-    feature = "mail",
-    feature = "network-drives",
-    feature = "servers",
-    feature = "ssh",
-    feature = "vpc"
-))]
-pub mod create_database_backup_409_response_message;
-#[cfg(any(
-    feature = "apps",
-    feature = "databases",
-    feature = "domains",
-    feature = "floating-ip",
-    feature = "mail",
-    feature = "network-drives",
-    feature = "servers",
-    feature = "ssh",
-    feature = "vpc"
-))]
-pub use self::create_database_backup_409_response_message::CreateDatabaseBackup409ResponseMessage;
+#[cfg(feature = "databases")]
+pub mod create_database_backup_download_url_201_response;
+#[cfg(feature = "databases")]
+pub use self::create_database_backup_download_url_201_response::CreateDatabaseBackupDownloadUrl201Response;
 #[cfg(feature = "databases")]
 pub mod create_database_cluster_201_response;
 #[cfg(feature = "databases")]
@@ -486,6 +566,10 @@ pub use self::create_database_cluster_201_response::CreateDatabaseCluster201Resp
 pub mod create_database_instance_201_response;
 #[cfg(feature = "databases")]
 pub use self::create_database_instance_201_response::CreateDatabaseInstance201Response;
+#[cfg(feature = "databases")]
+pub mod create_database_s3_backup_201_response;
+#[cfg(feature = "databases")]
+pub use self::create_database_s3_backup_201_response::CreateDatabaseS3Backup201Response;
 #[cfg(feature = "databases")]
 pub mod create_database_user_201_response;
 #[cfg(feature = "databases")]
@@ -566,6 +650,10 @@ pub use self::create_group_201_response::CreateGroup201Response;
 pub mod create_group_rule_201_response;
 #[cfg(feature = "firewall")]
 pub use self::create_group_rule_201_response::CreateGroupRule201Response;
+#[cfg(feature = "cdn")]
+pub mod create_http_resource;
+#[cfg(feature = "cdn")]
+pub use self::create_http_resource::CreateHttpResource;
 #[cfg(feature = "images")]
 pub mod create_image_201_response;
 #[cfg(feature = "images")]
@@ -650,6 +738,10 @@ pub use self::create_router_201_response::CreateRouter201Response;
 pub mod create_rule;
 #[cfg(feature = "balancers")]
 pub use self::create_rule::CreateRule;
+#[cfg(feature = "databases")]
+pub mod create_s3_backup;
+#[cfg(feature = "databases")]
+pub use self::create_s3_backup::CreateS3Backup;
 #[cfg(feature = "servers")]
 pub mod create_server;
 #[cfg(feature = "servers")]
@@ -715,6 +807,10 @@ pub mod database_cluster;
 #[cfg(feature = "databases")]
 pub use self::database_cluster::DatabaseCluster;
 #[cfg(feature = "databases")]
+pub mod database_cluster_child_services_inner;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_child_services_inner::DatabaseClusterChildServicesInner;
+#[cfg(feature = "databases")]
 pub mod database_cluster_config_parameters;
 #[cfg(feature = "databases")]
 pub use self::database_cluster_config_parameters::DatabaseClusterConfigParameters;
@@ -723,13 +819,73 @@ pub mod database_cluster_disk;
 #[cfg(feature = "databases")]
 pub use self::database_cluster_disk::DatabaseClusterDisk;
 #[cfg(feature = "databases")]
+pub mod database_cluster_disk_autoscaling;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_disk_autoscaling::DatabaseClusterDiskAutoscaling;
+#[cfg(feature = "databases")]
+pub mod database_cluster_domains_inner;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_domains_inner::DatabaseClusterDomainsInner;
+#[cfg(feature = "databases")]
+pub mod database_cluster_maintenance_slot;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_maintenance_slot::DatabaseClusterMaintenanceSlot;
+#[cfg(feature = "databases")]
+pub mod database_cluster_maintenance_slot_one_of;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_maintenance_slot_one_of::DatabaseClusterMaintenanceSlotOneOf;
+#[cfg(feature = "databases")]
+pub mod database_cluster_maintenance_slot_one_of_1;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_maintenance_slot_one_of_1::DatabaseClusterMaintenanceSlotOneOf1;
+#[cfg(feature = "databases")]
 pub mod database_cluster_networks_inner;
 #[cfg(feature = "databases")]
 pub use self::database_cluster_networks_inner::DatabaseClusterNetworksInner;
 #[cfg(feature = "databases")]
-pub mod database_cluster_networks_inner_ips_inner;
+pub mod database_cluster_networks_inner_one_of;
 #[cfg(feature = "databases")]
-pub use self::database_cluster_networks_inner_ips_inner::DatabaseClusterNetworksInnerIpsInner;
+pub use self::database_cluster_networks_inner_one_of::DatabaseClusterNetworksInnerOneOf;
+#[cfg(feature = "databases")]
+pub mod database_cluster_networks_inner_one_of_1;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_networks_inner_one_of_1::DatabaseClusterNetworksInnerOneOf1;
+#[cfg(feature = "databases")]
+pub mod database_cluster_networks_inner_one_of_1_ips_inner;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_networks_inner_one_of_1_ips_inner::DatabaseClusterNetworksInnerOneOf1IpsInner;
+#[cfg(feature = "databases")]
+pub mod database_cluster_networks_inner_one_of_ips_inner;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_networks_inner_one_of_ips_inner::DatabaseClusterNetworksInnerOneOfIpsInner;
+#[cfg(feature = "databases")]
+pub mod database_cluster_parent_services_inner;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_parent_services_inner::DatabaseClusterParentServicesInner;
+#[cfg(feature = "databases")]
+pub mod database_cluster_replica_list_inner;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_replica_list_inner::DatabaseClusterReplicaListInner;
+#[cfg(feature = "databases")]
+pub mod database_cluster_replica_list_inner_disk;
+#[cfg(feature = "databases")]
+pub use self::database_cluster_replica_list_inner_disk::DatabaseClusterReplicaListInnerDisk;
+#[cfg(feature = "databases")]
+pub mod database_configurator;
+#[cfg(feature = "databases")]
+pub use self::database_configurator::DatabaseConfigurator;
+#[cfg(feature = "databases")]
+pub mod database_configurator_prices;
+#[cfg(feature = "databases")]
+pub use self::database_configurator_prices::DatabaseConfiguratorPrices;
+#[cfg(feature = "databases")]
+pub mod database_configurator_requirements;
+#[cfg(feature = "databases")]
+pub use self::database_configurator_requirements::DatabaseConfiguratorRequirements;
+#[cfg(feature = "databases")]
+pub mod database_extensions;
+#[cfg(feature = "databases")]
+pub use self::database_extensions::DatabaseExtensions;
 #[cfg(feature = "databases")]
 pub mod database_instance;
 #[cfg(feature = "databases")]
@@ -751,9 +907,27 @@ pub mod db_disk_stats;
 #[cfg(feature = "projects")]
 pub use self::db_disk_stats::DbDiskStats;
 #[cfg(feature = "databases")]
+pub mod db_extension;
+#[cfg(feature = "databases")]
+pub use self::db_extension::DbExtension;
+pub mod db_parameters_by_type;
+pub use self::db_parameters_by_type::DbParametersByType;
+#[cfg(feature = "databases")]
+pub mod db_privilege_group;
+#[cfg(feature = "databases")]
+pub use self::db_privilege_group::DbPrivilegeGroup;
+#[cfg(feature = "databases")]
 pub mod db_replication;
 #[cfg(feature = "databases")]
 pub use self::db_replication::DbReplication;
+#[cfg(feature = "databases")]
+pub mod dbs_create_backup;
+#[cfg(feature = "databases")]
+pub use self::dbs_create_backup::DbsCreateBackup;
+#[cfg(feature = "databases")]
+pub mod dbs_update_backup;
+#[cfg(feature = "databases")]
+pub use self::dbs_update_backup::DbsUpdateBackup;
 #[cfg(any(feature = "dedicated-servers", feature = "projects"))]
 pub mod dedicated_server;
 #[cfg(any(feature = "dedicated-servers", feature = "projects"))]
@@ -798,6 +972,10 @@ pub use self::delete_countries_from_allowed_list_request::DeleteCountriesFromAll
 pub mod delete_database_cluster_200_response;
 #[cfg(feature = "databases")]
 pub use self::delete_database_cluster_200_response::DeleteDatabaseCluster200Response;
+#[cfg(feature = "databases")]
+pub mod delete_database_cluster_200_response_all_of_database_delete;
+#[cfg(feature = "databases")]
+pub use self::delete_database_cluster_200_response_all_of_database_delete::DeleteDatabaseCluster200ResponseAllOfDatabaseDelete;
 #[cfg(feature = "account")]
 pub mod delete_ips_from_allowed_list_200_response;
 #[cfg(feature = "account")]
@@ -1043,6 +1221,7 @@ pub use self::get_account_status_200_response::GetAccountStatus200Response;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1065,6 +1244,7 @@ pub mod get_account_status_403_response;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1087,6 +1267,7 @@ pub use self::get_account_status_403_response::GetAccountStatus403Response;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1109,6 +1290,7 @@ pub mod get_account_status_403_response_message;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1206,6 +1388,38 @@ pub use self::get_balancers_presets_200_response::GetBalancersPresets200Response
 pub mod get_branches_200_response;
 #[cfg(feature = "apps")]
 pub use self::get_branches_200_response::GetBranches200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_certificate_tasks_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_certificate_tasks_200_response::GetCdnCertificateTasks200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_certificates_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_certificates_200_response::GetCdnCertificates200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_origin_nodes_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_origin_nodes_200_response::GetCdnOriginNodes200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_presets_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_presets_200_response::GetCdnPresets200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_resource_configuration_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_resource_configuration_200_response::GetCdnResourceConfiguration200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_resource_nodes_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_resource_nodes_200_response::GetCdnResourceNodes200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_resource_statistics_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_resource_statistics_200_response::GetCdnResourceStatistics200Response;
+#[cfg(feature = "cdn")]
+pub mod get_cdn_resources_200_response;
+#[cfg(feature = "cdn")]
+pub use self::get_cdn_resources_200_response::GetCdnResources200Response;
 #[cfg(feature = "kubernetes")]
 pub mod get_cluster_node_groups_200_response;
 #[cfg(feature = "kubernetes")]
@@ -1234,14 +1448,22 @@ pub use self::get_configurators_200_response::GetConfigurators200Response;
 pub mod get_countries_200_response;
 #[cfg(feature = "account")]
 pub use self::get_countries_200_response::GetCountries200Response;
-#[cfg(feature = "databases")]
+#[cfg(any(feature = "databases", feature = "servers"))]
 pub mod get_database_auto_backups_settings_200_response;
-#[cfg(feature = "databases")]
+#[cfg(any(feature = "databases", feature = "servers"))]
 pub use self::get_database_auto_backups_settings_200_response::GetDatabaseAutoBackupsSettings200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_backup_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_backup_200_response::GetDatabaseBackup200Response;
 #[cfg(feature = "databases")]
 pub mod get_database_backups_200_response;
 #[cfg(feature = "databases")]
 pub use self::get_database_backups_200_response::GetDatabaseBackups200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_cluster_replicas_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_cluster_replicas_200_response::GetDatabaseClusterReplicas200Response;
 #[cfg(feature = "databases")]
 pub mod get_database_cluster_types_200_response;
 #[cfg(feature = "databases")]
@@ -1251,6 +1473,18 @@ pub mod get_database_clusters_200_response;
 #[cfg(feature = "databases")]
 pub use self::get_database_clusters_200_response::GetDatabaseClusters200Response;
 #[cfg(feature = "databases")]
+pub mod get_database_configurators_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_configurators_200_response::GetDatabaseConfigurators200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_default_parameters_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_default_parameters_200_response::GetDatabaseDefaultParameters200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_default_parameters_200_response_all_of_config_params;
+#[cfg(feature = "databases")]
+pub use self::get_database_default_parameters_200_response_all_of_config_params::GetDatabaseDefaultParameters200ResponseAllOfConfigParams;
+#[cfg(feature = "databases")]
 pub mod get_database_instances_200_response;
 #[cfg(feature = "databases")]
 pub use self::get_database_instances_200_response::GetDatabaseInstances200Response;
@@ -1258,6 +1492,18 @@ pub use self::get_database_instances_200_response::GetDatabaseInstances200Respon
 pub mod get_database_parameters_200_response;
 #[cfg(feature = "databases")]
 pub use self::get_database_parameters_200_response::GetDatabaseParameters200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_preset_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_preset_200_response::GetDatabasePreset200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_privileges_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_privileges_200_response::GetDatabasePrivileges200Response;
+#[cfg(feature = "databases")]
+pub mod get_database_s3_backups_200_response;
+#[cfg(feature = "databases")]
+pub use self::get_database_s3_backups_200_response::GetDatabaseS3Backups200Response;
 #[cfg(feature = "databases")]
 pub mod get_database_users_200_response;
 #[cfg(feature = "databases")]
@@ -1358,6 +1604,7 @@ pub use self::get_groups_200_response::GetGroups200Response;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1381,6 +1628,7 @@ pub mod get_image_404_response;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1404,6 +1652,7 @@ pub use self::get_image_404_response::GetImage404Response;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1427,6 +1676,7 @@ pub mod get_image_404_response_message;
     feature = "ai-agents",
     feature = "apps",
     feature = "balancers",
+    feature = "cdn",
     feature = "container-registry",
     feature = "databases",
     feature = "dedicated-servers",
@@ -1519,9 +1769,13 @@ pub mod get_models_200_response;
 #[cfg(feature = "ai-agents")]
 pub use self::get_models_200_response::GetModels200Response;
 #[cfg(feature = "ai-agents")]
-pub mod get_models_200_response_all_of_meta;
+pub mod get_models_v3_200_response;
 #[cfg(feature = "ai-agents")]
-pub use self::get_models_200_response_all_of_meta::GetModels200ResponseAllOfMeta;
+pub use self::get_models_v3_200_response::GetModelsV3200Response;
+#[cfg(feature = "ai-agents")]
+pub mod get_models_v3_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
+pub use self::get_models_v3_200_response_all_of_meta::GetModelsV3200ResponseAllOfMeta;
 #[cfg(feature = "network-drives")]
 pub mod get_network_drives_200_response;
 #[cfg(feature = "network-drives")]
@@ -1622,10 +1876,6 @@ pub use self::get_router_statistics_200_response::GetRouterStatistics200Response
 pub mod get_routers_200_response;
 #[cfg(feature = "routers")]
 pub use self::get_routers_200_response::GetRouters200Response;
-#[cfg(feature = "servers")]
-pub mod get_server_disk_auto_backup_settings_200_response;
-#[cfg(feature = "servers")]
-pub use self::get_server_disk_auto_backup_settings_200_response::GetServerDiskAutoBackupSettings200Response;
 #[cfg(feature = "servers")]
 pub mod get_server_disk_backup_200_response;
 #[cfg(feature = "servers")]
@@ -1730,6 +1980,14 @@ pub use self::get_vpc_services_200_response::GetVpcServices200Response;
 pub mod get_vpcs_200_response;
 #[cfg(feature = "vpc")]
 pub use self::get_vpcs_200_response::GetVpcs200Response;
+#[cfg(feature = "cdn")]
+pub mod http_resource;
+#[cfg(feature = "cdn")]
+pub use self::http_resource::HttpResource;
+#[cfg(feature = "cdn")]
+pub mod http_resource_config;
+#[cfg(feature = "cdn")]
+pub use self::http_resource_config::HttpResourceConfig;
 pub mod image;
 pub use self::image::Image;
 pub mod image_download;
@@ -1776,12 +2034,20 @@ pub use self::invoice::Invoice;
 pub mod ip;
 #[cfg(feature = "domains")]
 pub use self::ip::Ip;
+#[cfg(feature = "cdn")]
+pub mod issue_certificate;
+#[cfg(feature = "cdn")]
+pub use self::issue_certificate::IssueCertificate;
 pub mod k8_s_presets_inner;
 pub use self::k8_s_presets_inner::K8SPresetsInner;
 pub mod k8_s_versions_response;
 pub use self::k8_s_versions_response::K8SVersionsResponse;
 pub mod kafka;
 pub use self::kafka::Kafka;
+#[cfg(feature = "databases")]
+pub mod kafka_config_parameters;
+#[cfg(feature = "databases")]
+pub use self::kafka_config_parameters::KafkaConfigParameters;
 #[cfg(feature = "knowledge-bases")]
 pub mod knowledgebase;
 #[cfg(feature = "knowledge-bases")]
@@ -1854,6 +2120,10 @@ pub use self::model_params_info_reasoning_effort::ModelParamsInfoReasoningEffort
 pub mod model_params_info_temperature;
 #[cfg(feature = "ai-agents")]
 pub use self::model_params_info_temperature::ModelParamsInfoTemperature;
+#[cfg(feature = "ai-agents")]
+pub mod model_v3;
+#[cfg(feature = "ai-agents")]
+pub use self::model_v3::ModelV3;
 pub mod mongodb;
 pub use self::mongodb::Mongodb;
 #[cfg(feature = "network-drives")]
@@ -1956,6 +2226,14 @@ pub use self::opensearch::Opensearch;
 pub mod org;
 #[cfg(feature = "domains")]
 pub use self::org::Org;
+#[cfg(feature = "cdn")]
+pub mod origin_node;
+#[cfg(feature = "cdn")]
+pub use self::origin_node::OriginNode;
+#[cfg(feature = "cdn")]
+pub mod origin_server;
+#[cfg(feature = "cdn")]
+pub use self::origin_server::OriginServer;
 pub mod os;
 pub use self::os::Os;
 #[cfg(feature = "mail")]
@@ -2002,6 +2280,14 @@ pub mod postgres;
 pub use self::postgres::Postgres;
 pub mod postgresql;
 pub use self::postgresql::Postgresql;
+#[cfg(feature = "cdn")]
+pub mod preload_cache;
+#[cfg(feature = "cdn")]
+pub use self::preload_cache::PreloadCache;
+#[cfg(feature = "cdn")]
+pub mod preset;
+#[cfg(feature = "cdn")]
+pub use self::preset::Preset;
 #[cfg(feature = "balancers")]
 pub mod presets_balancer;
 #[cfg(feature = "balancers")]
@@ -2070,6 +2356,14 @@ pub use self::remove_countries::RemoveCountries;
 pub mod remove_ips;
 #[cfg(feature = "account")]
 pub use self::remove_ips::RemoveIps;
+#[cfg(feature = "databases")]
+pub mod replica;
+#[cfg(feature = "databases")]
+pub use self::replica::Replica;
+#[cfg(feature = "databases")]
+pub mod replica_disk;
+#[cfg(feature = "databases")]
+pub use self::replica_disk::ReplicaDisk;
 pub mod repositories_response;
 pub use self::repositories_response::RepositoriesResponse;
 #[cfg(any(feature = "apps", feature = "projects"))]
@@ -2150,6 +2444,10 @@ pub use self::routers_response::RoutersResponse;
 pub mod rule;
 #[cfg(any(feature = "balancers", feature = "projects"))]
 pub use self::rule::Rule;
+#[cfg(feature = "databases")]
+pub mod s3_backup;
+#[cfg(feature = "databases")]
+pub use self::s3_backup::S3Backup;
 #[cfg(feature = "s3")]
 pub mod s3_subdomain;
 #[cfg(feature = "s3")]
@@ -2290,6 +2588,18 @@ pub mod static_route_response;
 pub use self::static_route_response::StaticRouteResponse;
 pub mod static_routes_response;
 pub use self::static_routes_response::StaticRoutesResponse;
+#[cfg(feature = "cdn")]
+pub mod statistics;
+#[cfg(feature = "cdn")]
+pub use self::statistics::Statistics;
+#[cfg(feature = "cdn")]
+pub mod statistics_requests_inner;
+#[cfg(feature = "cdn")]
+pub use self::statistics_requests_inner::StatisticsRequestsInner;
+#[cfg(feature = "cdn")]
+pub mod statistics_traffic_inner;
+#[cfg(feature = "cdn")]
+pub use self::statistics_traffic_inner::StatisticsTrafficInner;
 #[cfg(feature = "account")]
 pub mod status;
 #[cfg(feature = "account")]
@@ -2320,6 +2630,10 @@ pub use self::top_level_domain::TopLevelDomain;
 pub mod top_level_domain_allowed_buy_periods_inner;
 #[cfg(feature = "domains")]
 pub use self::top_level_domain_allowed_buy_periods_inner::TopLevelDomainAllowedBuyPeriodsInner;
+#[cfg(feature = "cdn")]
+pub mod traffic_usage;
+#[cfg(feature = "cdn")]
+pub use self::traffic_usage::TrafficUsage;
 #[cfg(feature = "s3")]
 pub mod transfer_status;
 #[cfg(feature = "s3")]
@@ -2356,6 +2670,10 @@ pub use self::update_app_settings_200_response::UpdateAppSettings200Response;
 pub mod update_auth_restrictions_by_countries_request;
 #[cfg(feature = "account")]
 pub use self::update_auth_restrictions_by_countries_request::UpdateAuthRestrictionsByCountriesRequest;
+#[cfg(feature = "databases")]
+pub mod update_auto_backup;
+#[cfg(feature = "databases")]
+pub use self::update_auto_backup::UpdateAutoBackup;
 #[cfg(feature = "balancers")]
 pub mod update_balancer;
 #[cfg(feature = "balancers")]
@@ -2368,6 +2686,78 @@ pub use self::update_cluster::UpdateCluster;
 pub mod update_cluster_config_parameters;
 #[cfg(feature = "databases")]
 pub use self::update_cluster_config_parameters::UpdateClusterConfigParameters;
+#[cfg(feature = "databases")]
+pub mod update_cluster_configuration;
+#[cfg(feature = "databases")]
+pub use self::update_cluster_configuration::UpdateClusterConfiguration;
+#[cfg(feature = "databases")]
+pub mod update_cluster_v2;
+#[cfg(feature = "databases")]
+pub use self::update_cluster_v2::UpdateClusterV2;
+#[cfg(feature = "databases")]
+pub mod update_cluster_v2_disk_autoscaling;
+#[cfg(feature = "databases")]
+pub use self::update_cluster_v2_disk_autoscaling::UpdateClusterV2DiskAutoscaling;
+#[cfg(feature = "databases")]
+pub mod update_cluster_v2_maintenance_slot;
+#[cfg(feature = "databases")]
+pub use self::update_cluster_v2_maintenance_slot::UpdateClusterV2MaintenanceSlot;
+#[cfg(feature = "databases")]
+pub mod update_database_cluster_200_response;
+#[cfg(feature = "databases")]
+pub use self::update_database_cluster_200_response::UpdateDatabaseCluster200Response;
+#[cfg(any(
+    feature = "apps",
+    feature = "cdn",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
+pub mod update_database_instance_409_response;
+#[cfg(any(
+    feature = "apps",
+    feature = "cdn",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
+pub use self::update_database_instance_409_response::UpdateDatabaseInstance409Response;
+#[cfg(any(
+    feature = "apps",
+    feature = "cdn",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
+pub mod update_database_instance_409_response_message;
+#[cfg(any(
+    feature = "apps",
+    feature = "cdn",
+    feature = "databases",
+    feature = "domains",
+    feature = "floating-ip",
+    feature = "mail",
+    feature = "network-drives",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
+pub use self::update_database_instance_409_response_message::UpdateDatabaseInstance409ResponseMessage;
 #[cfg(feature = "dedicated-servers")]
 pub mod update_dedicated_server_request;
 #[cfg(feature = "dedicated-servers")]
@@ -2400,10 +2790,18 @@ pub use self::update_domain_request_request::UpdateDomainRequestRequest;
 pub mod update_floating_ip;
 #[cfg(feature = "floating-ip")]
 pub use self::update_floating_ip::UpdateFloatingIp;
+#[cfg(feature = "cdn")]
+pub mod update_http_resource;
+#[cfg(feature = "cdn")]
+pub use self::update_http_resource::UpdateHttpResource;
 #[cfg(feature = "databases")]
 pub mod update_instance;
 #[cfg(feature = "databases")]
 pub use self::update_instance::UpdateInstance;
+#[cfg(feature = "databases")]
+pub mod update_kafka_config_parameters;
+#[cfg(feature = "databases")]
+pub use self::update_kafka_config_parameters::UpdateKafkaConfigParameters;
 #[cfg(feature = "ssh")]
 pub mod update_key_request;
 #[cfg(feature = "ssh")]
@@ -2484,6 +2882,10 @@ pub use self::update_project::UpdateProject;
 pub mod update_rule;
 #[cfg(feature = "balancers")]
 pub use self::update_rule::UpdateRule;
+#[cfg(feature = "databases")]
+pub mod update_s3_backup;
+#[cfg(feature = "databases")]
+pub use self::update_s3_backup::UpdateS3Backup;
 #[cfg(feature = "servers")]
 pub mod update_server;
 #[cfg(feature = "servers")]
@@ -2556,6 +2958,10 @@ pub use self::url_type::UrlType;
 pub mod model_use;
 #[cfg(feature = "domains")]
 pub use self::model_use::Use;
+#[cfg(feature = "cdn")]
+pub mod user_node;
+#[cfg(feature = "cdn")]
+pub use self::user_node::UserNode;
 #[cfg(any(feature = "databases", feature = "projects"))]
 pub mod valkey;
 #[cfg(any(feature = "databases", feature = "projects"))]
