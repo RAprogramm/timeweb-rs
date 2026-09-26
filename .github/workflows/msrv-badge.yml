@@ -1,0 +1,52 @@
+name: MSRV Badge
+
+on:
+  push:
+    paths:
+      - Cargo.toml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-badge:
+    name: Update MSRV badge
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read MSRV from Cargo.toml
+        id: msrv
+        uses: actions-rust-lang/msrv/.github/workflows/msrv.yml@main
+
+      - name: Generate badge JSON
+        run: |
+          mkdir -p .github
+          cat > .github/msrv-badge.json <<EOF
+          {
+            "schemaVersion": 1,
+            "label": "MSRV",
+            "message": "rust-${{ steps.msrv.outputs.msrv }}",
+            "color": "blue"
+          }
+          EOF
+
+      - name: Update README badge
+        run: |
+          sed -i 's|\[!\[MSRV\](https://img.shields.io/badge/MSRV-[0-9.]*-blue.svg)\](https://www.rust-lang.org)|[![MSRV](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/RAprogramm/timeweb-rs/main/.github/msrv-badge.json)](https://www.rust-lang.org)|' README.md
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .github/msrv-badge.json README.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: update MSRV badge"
+            git push
+          fi
