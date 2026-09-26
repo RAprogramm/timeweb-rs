@@ -4,7 +4,7 @@
 [![docs.rs](https://img.shields.io/docsrs/timeweb-rs)](https://docs.rs/timeweb-rs)
 [![CI](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/RAprogramm/timeweb-rs/graph/badge.svg?token=iKNwLuK8au)](https://codecov.io/gh/RAprogramm/timeweb-rs)
-[![MSRV](https://img.shields.io/badge/MSRV-1.96-blue.svg)](https://www.rust-lang.org)
+[![MSRV](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/RAprogramm/timeweb-rs/main/.github/msrv-badge.json)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Async Rust SDK for the [Timeweb Cloud](https://timeweb.cloud/?i=137383) API.
