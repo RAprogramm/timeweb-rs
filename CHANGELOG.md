@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.9.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.8.0...v0.9.0) - 2026-09-26
+
+### Added
+
+- **BREAKING:** Regenerate SDK from updated Timeweb API spec (#76) ([7a3503f](https://github.com/RAprogramm/timeweb-rs/commit/7a3503f068e1552a49f22f2d57535a6be253808d))
+
+
 ## [0.8.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.7.0...v0.8.0) - 2026-08-12
 
 ### Added
