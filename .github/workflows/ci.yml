@@ -142,6 +142,19 @@ jobs:
       - name: Check REUSE compliance
         uses: fsfe/reuse-action@676e2d560c9a403aa252096d99fcab3e1132b0f5 # v6
 
+  lint-workflows:
+    name: Workflow linting
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Lint the workflow files
+        uses: docker://rhysd/actionlint:1.7.12
+      - name: Install yamllint
+        run: python3 -m pip install --user --upgrade yamllint
+      - name: Lint the YAML files
+        run: yamllint .
+
   codecov:
     name: Codecov
     runs-on: ubuntu-latest

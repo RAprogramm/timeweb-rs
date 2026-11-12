@@ -1,0 +1,17 @@
+# yamllint configuration — https://yamllint.readthedocs.io
+#
+# The workflows pin every action to a commit and name the version in a
+# trailing comment, so the comment spacing and the line length follow the
+# conventions of the repository rather than the defaults of the linter.
+
+extends: default
+
+rules:
+  comments:
+    min-spaces-from-content: 1
+  document-start:
+    present: false
+  line-length:
+    max: 120
+  truthy:
+    allowed-values: ["true", "false", "on"]
