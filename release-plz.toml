@@ -79,3 +79,41 @@ commit_parsers = [
   { message = "^style", skip = true },
   { message = ".*", group = "<!-- 9 -->Other" },
 ]
+
+[workspace]
+# The body of the pull request that release-plz opens for the release. The
+# default template prints the report of cargo-semver-checks as a wall of text
+# between the heading and the changelog; this one keeps the same information,
+# but behind an alert and a collapsible block.
+pr_body = """
+## 🤖 New release
+{% for release in releases %}
+* `{{ release.package }}`: {% if release.previous_version and release.previous_version != release.next_version %}{{ release.previous_version }} -> {% endif %}{{ release.next_version }}{% if release.semver_check == "incompatible" %} (⚠ API breaking changes){% elif release.semver_check == "compatible" %} (✓ API compatible changes){% endif %}
+{%- endfor %}
+{%- for release in releases %}{% if release.breaking_changes %}
+
+> [!WARNING]
+> The release changes the public API of the crate. Some models gained or lost
+> fields, some changed their kind, and some operations changed their
+> signature. The report of cargo-semver-checks is below.
+
+<details>
+<summary><b>Breaking changes</b> — the report of cargo-semver-checks</summary>
+
+```text
+{{ release.breaking_changes }}
+```
+
+</details>{% endif %}{% endfor %}
+{% if changes %}
+<details>
+<summary><b>Changelog</b></summary>
+
+{{ changes }}
+
+</details>
+{% endif %}
+---
+This PR was generated with [release-plz](https://github.com/release-plz/release-plz/).
+"""
+
