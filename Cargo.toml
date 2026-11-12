@@ -6,7 +6,6 @@ rust-version = "1.100"
 description = "Async Rust SDK for the Timeweb Cloud API"
 license = "MIT"
 repository = "https://github.com/RAprogramm/timeweb-rs"
-homepage = "https://github.com/RAprogramm/timeweb-rs"
 documentation = "https://docs.rs/timeweb-rs"
 readme = "README.md"
 keywords = ["timeweb", "cloud", "sdk", "api"]
@@ -141,7 +140,3 @@ required-features = ["servers", "routers"]
 
 [package.metadata.docs.rs]
 all-features = true
-
-[lints.clippy]
-pedantic = { level = "warn", priority = -1 }
-nursery = { level = "warn", priority = -1 }
