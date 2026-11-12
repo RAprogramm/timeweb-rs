@@ -114,6 +114,85 @@ def fix_path_parameters(spec):
                 )
 
 
+def _is_binary_array_member(member):
+    """True for a union member that is a list of binary files."""
+    if not isinstance(member, dict) or member.get("type") != "array":
+        return False
+    items = member.get("items")
+    return (
+        isinstance(items, dict)
+        and items.get("type") == "string"
+        and items.get("format") == "binary"
+    )
+
+
+def _is_free_form_array_member(member):
+    """True for a union member that is a list of free-form objects."""
+    if not isinstance(member, dict) or member.get("type") != "array":
+        return False
+    items = member.get("items")
+    return (
+        isinstance(items, dict)
+        and items.get("type") == "object"
+        and "$ref" not in items
+    )
+
+
+def relax_broken_array_unions(spec):
+    """Rewrite unions the Rust generator renders as invalid Rust.
+
+    The upstream spec describes a few fields as "a string, or a list of
+    free-form objects" (the AI Gateway validation errors, chat message
+    parts, response inputs) and one as "a file, or a list of files" (the
+    image edit request). ``openapi-generator`` turns such a union into an
+    untagged enum and names the array variant after the item type: a list
+    of strings yields the valid ``ArrayVecString(Vec<String>)``, but a list
+    of free-form objects yields the invalid identifier
+    ``ArrayVecstd::collections::HashMap(...)`` and a list of files yields
+    ``ArrayVecstd::path::PathBuf(...)`` — the generated crate does not
+    compile.
+
+    Replace the offending unions with a single schema the generator maps
+    to a workable Rust type: free-form JSON for the object case (it accepts
+    a string, a list or an object) and a file path for the binary case.
+    """
+    relaxed = []
+
+    def walk(node):
+        if isinstance(node, dict):
+            for key in ("oneOf", "anyOf"):
+                members = node.get(key)
+                if not isinstance(members, list):
+                    continue
+                binary = any(_is_binary_array_member(m) for m in members)
+                free_form = any(_is_free_form_array_member(m) for m in members)
+                if not (binary or free_form):
+                    continue
+                description = node.get("description")
+                node.clear()
+                if description is not None:
+                    node["description"] = description
+                if binary:
+                    node["type"] = "string"
+                    node["format"] = "binary"
+                relaxed.append((key, "binary" if binary else "free-form"))
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(spec)
+    if relaxed:
+        print(
+            "relaxed {} union(s) the Rust generator cannot render: {}".format(
+                len(relaxed),
+                ", ".join(f"{key} -> {kind}" for key, kind in relaxed),
+            ),
+            file=sys.stderr,
+        )
+
+
 def localize_tags(spec):
     """Replace Russian tag names with the English names the spec carries."""
     mapping = {}
@@ -131,9 +210,7 @@ def localize_tags(spec):
             if english:
                 operation["tags"] = list(english)
             elif "tags" in operation:
-                operation["tags"] = [
-                    mapping.get(tag, tag) for tag in operation["tags"]
-                ]
+                operation["tags"] = [mapping.get(tag, tag) for tag in operation["tags"]]
 
 
 def nullable_response_id(spec):
@@ -189,8 +266,8 @@ def add_undocumented_account_status_fields(spec):
         return
     props = status.setdefault("properties", {})
     additions = {
-        "login":           {"type": "string"},
-        "registered_at":   {"type": "string"},
+        "login": {"type": "string"},
+        "registered_at": {"type": "string"},
         "is_password_set": {"type": "boolean"},
         "two_factor_method": {"type": "string", "nullable": True},
     }
@@ -327,9 +404,7 @@ def relax_apps_preset_required(spec):
     presets = spec.get("components", {}).get("schemas", {}).get("apps-presets")
     if not isinstance(presets, dict):
         return
-    items = (
-        presets.get("properties", {}).get("frontend_presets", {}).get("items", {})
-    )
+    items = presets.get("properties", {}).get("frontend_presets", {}).get("items", {})
     required = items.get("required")
     if isinstance(required, list):
         items["required"] = [field for field in required if field != "requests"]
@@ -415,7 +490,11 @@ def integer_id_fields(spec):
             if isinstance(props, dict):
                 for name, schema in props.items():
                     is_id = name == "id" or name.endswith("_id")
-                    if is_id and isinstance(schema, dict) and schema.get("type") == "number":
+                    if (
+                        is_id
+                        and isinstance(schema, dict)
+                        and schema.get("type") == "number"
+                    ):
                         schema["type"] = "integer"
                         schema["format"] = "int64"
             for value in node.values():
@@ -506,6 +585,7 @@ def normalize(spec):
     """Apply all normalization passes to ``spec`` in place and return it."""
     fix_path_parameters(spec)
     localize_tags(spec)
+    relax_broken_array_unions(spec)
     nullable_response_id(spec)
     add_undocumented_account_status_fields(spec)
     add_undocumented_project_resource_fields(spec)
