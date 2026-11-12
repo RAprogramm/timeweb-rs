@@ -33,6 +33,8 @@ concurrency:
 env:
   MDBOOK_VERSION: "0.5.4"
   MDBOOK_SHA256: "3f28de05dafca9d0f2eab99c662116b0e37b89b1d96a08f8f430b9eeae958cd7"
+  D2_VERSION: "0.9.0"
+  D2_SHA256: "5669ddc46b99e942cc96078f4a4e36d5e62103348f4c05179ede27802fdd87a9"
 
 jobs:
   build:
@@ -49,11 +51,36 @@ jobs:
           curl -fsSL --proto '=https' --tlsv1.2 -o "/tmp/${tarball}" "$url"
           echo "${MDBOOK_SHA256}  /tmp/${tarball}" | sha256sum --check --strict -
           tar -xzf "/tmp/${tarball}" -C "$HOME/.cargo/bin"
+      - name: Install d2
+        run: |
+          set -euo pipefail
+          tarball="d2-v${D2_VERSION}-linux-amd64.tar.gz"
+          url="https://github.com/d2lang/d2/releases/download/v${D2_VERSION}/${tarball}"
+          curl -fsSL --proto '=https' --tlsv1.2 -o "/tmp/${tarball}" "$url"
+          echo "${D2_SHA256}  /tmp/${tarball}" | sha256sum --check --strict -
+          mkdir -p /tmp/d2
+          tar -xzf "/tmp/${tarball}" -C /tmp/d2 --strip-components=1
+          echo "/tmp/d2/bin" >> "$GITHUB_PATH"
       - name: Install stable Rust
         uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
       - uses: Swatinem/rust-cache@f0d9c3887740aee45f6153b24b3a6b815192ec16 # v2
       - name: Check that the generated pages are up to date
         run: cargo xtask api-index --check
+      - name: Check that the diagrams are up to date
+        run: |
+          set -euo pipefail
+          ./docs/diagrams/render.sh /tmp/diagrams
+          for source in docs/diagrams/*.d2; do
+            svg="/tmp/diagrams/$(basename "$source" .d2).svg"
+            diff --unified "docs/img/$(basename "$svg")" "$svg" \
+              || { echo "run docs/diagrams/render.sh and commit the result"; exit 1; }
+          done
+      - name: Compile the documentation examples
+        run: |
+          set -euo pipefail
+          cargo build --tests
+          mdbook test docs/en -L target/debug/deps
+          mdbook test docs/ru -L target/debug/deps
       - name: Build the book
         run: |
           mdbook build docs/en -d public
