@@ -5,7 +5,7 @@ thanks.
 
 ## Bank transfer
 
-<img src="donation-qr.jpg" alt="QR code for a transfer through T-Bank or Sberbank" width="320">
+<img src="img/donation-qr.jpg" alt="QR code for a transfer through T-Bank or Sberbank" width="320">
 
 [Payment link](https://t.tb.ru/c2c-qr-choose-bank?requisiteNumber=+79940043995&bankCode=100000000004)
 

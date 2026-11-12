@@ -1,0 +1,23 @@
+direction: down
+
+schedule: "every Monday" {
+  shape: queue
+}
+
+compare: "compare the upstream specification\nwith the vendored file"
+stop: "nothing to do" {
+  shape: oval
+  style.stroke-dash: 3
+}
+regenerate: "regenerate the client,\nopen a pull request\nwith the API diff"
+ci: "CI: fmt, clippy, tests,\nsemver checks"
+review: "keep the pull request\nfor review"
+merge: "merge into main\nand release"
+
+schedule -> compare
+compare -> stop: "the same"
+compare -> regenerate: "different"
+regenerate -> ci
+ci -> review: "breaking"
+ci -> merge: "compatible"
+review -> merge: "after a decision"

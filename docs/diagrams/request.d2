@@ -1,0 +1,15 @@
+direction: down
+
+app: "your code" {
+  shape: person
+}
+
+client: "TimewebClient.execute\nRetryPolicy: transport, 429, 5xx\nexponential delay with jitter"
+
+operation: "the generated operation\nservers_api::get_servers"
+api: "api.timeweb.cloud"
+
+app -> client: "a closure"
+client -> client: "wait, then retry"
+client -> operation: "Result or Error"
+operation -> api: "reqwest, 30 s timeout,\nbearer token"

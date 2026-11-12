@@ -2,20 +2,12 @@
 
 The SDK has three layers. Only the middle one is generated.
 
-```text
-openapi/timeweb-cloud.json     the vendored specification of the vendor
-        │
-        │  cargo xtask normalize-spec
-        ▼
-src/apis/  src/models/          the generated client (514 operations, 1006 models)
-        │
-        │  cargo xtask feature-gates
-        │  cargo xtask patch-models
-        ▼
-src/client.rs  retry.rs          the hand-written layer
-src/pagination.rs  error_body.rs
-src/datetime.rs  datetime.rs
-```
+<figure class="diagram">
+  <a href="img/layers.svg" target="_blank" rel="noopener">
+    <img src="img/layers.svg" width="552" alt="The vendored specification goes through the xtask pipeline into the generated layer; the hand-written layer is added on top of it, and together they are the crate.">
+  </a>
+  <figcaption>The three layers. Click the diagram to open it full size.</figcaption>
+</figure>
 
 ## The generated layer
 
@@ -82,6 +74,17 @@ Five small modules carry everything the generator cannot:
 | `error_body.rs` | `ErrorDetails`, the uniform envelope of the API. |
 | `datetime.rs` | The deserializers that accept a timestamp with or without an offset. |
 
+A call goes through those modules in a straight line: the client decides whether
+a failure is worth another attempt, the generated operation builds the request,
+and `reqwest` carries it to the API.
+
+<figure class="diagram">
+  <a href="img/request.svg" target="_blank" rel="noopener">
+    <img src="img/request.svg" width="407" alt="Your code hands a closure to TimewebClient.execute, the retry policy decides whether to wait and retry, the generated operation sends the request to api.timeweb.cloud through reqwest.">
+  </a>
+  <figcaption>The path of one retried call.</figcaption>
+</figure>
+
 ## The pipeline
 
 The whole generation is reproducible and lives in the `xtask` crate:
@@ -108,3 +111,10 @@ bundle. When the API changes, it regenerates the client, summarizes the API
 diff with `oasdiff`, opens a pull request and merges it once CI is green —
 unless `cargo-semver-checks` finds breaking changes, in which case the pull
 request stays open for review.
+
+<figure class="diagram">
+  <a href="img/sync.svg" target="_blank" rel="noopener">
+    <img src="img/sync.svg" width="463" alt="Every Monday the upstream specification is compared with the vendored file; if it is the same nothing happens, otherwise the client is regenerated and a pull request is opened, CI checks it, and it is merged unless the semver checks find a breaking change.">
+  </a>
+  <figcaption>The weekly synchronization of the specification.</figcaption>
+</figure>

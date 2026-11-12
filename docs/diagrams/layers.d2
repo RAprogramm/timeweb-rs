@@ -1,0 +1,20 @@
+direction: down
+
+spec: "openapi/timeweb-cloud.json\nthe vendored specification" {
+  shape: document
+}
+
+pipeline: "cargo xtask\nnormalize-spec, then openapi-generator,\nthen layout, feature-gates, patch-models"
+
+generated: "the generated layer\nsrc/apis - 514 operations\nsrc/models - 1006 models" {
+  shape: cylinder
+}
+
+hand: "the hand-written layer\nclient.rs, retry.rs, pagination.rs\nerror_body.rs, datetime.rs"
+
+crate: "timeweb-rs\nthe crate you depend on"
+
+spec -> pipeline
+pipeline -> generated: "committed sources"
+generated -> crate
+hand -> crate: "never overwritten"

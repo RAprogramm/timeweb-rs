@@ -2,20 +2,12 @@
 
 В SDK три слоя. Генерируется только средний.
 
-```text
-openapi/timeweb-cloud.json     вендорённая спецификация вендора
-        │
-        │  cargo xtask normalize-spec
-        ▼
-src/apis/  src/models/          сгенерированный клиент (514 операций, 1006 моделей)
-        │
-        │  cargo xtask feature-gates
-        │  cargo xtask patch-models
-        ▼
-src/client.rs  retry.rs          рукописный слой
-src/pagination.rs  error_body.rs
-src/datetime.rs
-```
+<figure class="diagram">
+  <a href="img/layers.svg" target="_blank" rel="noopener">
+    <img src="img/layers.svg" width="552" alt="Вендорённая спецификация проходит через пайплайн xtask в сгенерированный слой; поверх него добавлен рукописный слой, и вместе они и есть крейт.">
+  </a>
+  <figcaption>Три слоя. Нажмите на схему, чтобы открыть её в полный размер.</figcaption>
+</figure>
 
 ## Сгенерированный слой
 
@@ -80,6 +72,16 @@ src/datetime.rs
 | `error_body.rs` | `ErrorDetails`, единый формат ошибок API. |
 | `datetime.rs` | Десериализаторы, принимающие метку времени со смещением и без. |
 
+Вызов проходит через эти модули по прямой: клиент решает, стоит ли повторять
+сбой, сгенерированная операция собирает запрос, а `reqwest` отвозит его к API.
+
+<figure class="diagram">
+  <a href="img/request.svg" target="_blank" rel="noopener">
+    <img src="img/request.svg" width="407" alt="Код отдаёт замыкание в TimewebClient.execute, RetryPolicy решает, подождать ли и повторить, сгенерированная операция через reqwest отправляет запрос на api.timeweb.cloud.">
+  </a>
+  <figcaption>Путь одного повторяемого вызова.</figcaption>
+</figure>
+
 ## Пайплайн
 
 Вся генерация воспроизводима и живёт в крейте `xtask`:
@@ -107,3 +109,10 @@ CI проверяет на каждом pull request, что закоммиче�
 открывает pull request и мержит его, когда CI зелёный, — если только
 `cargo-semver-checks` не найдёт ломающих изменений: тогда pull request
 остаётся открытым для ревью.
+
+<figure class="diagram">
+  <a href="img/sync.svg" target="_blank" rel="noopener">
+    <img src="img/sync.svg" width="463" alt="Каждый понедельник апстрим сверяется с вендорённым файлом; если он тот же — ничего не происходит, иначе клиент перегенерируется и открывается pull request, CI его проверяет, и он мержится, если semver-проверки не нашли ломающих изменений.">
+  </a>
+  <figcaption>Еженедельная синхронизация спецификации.</figcaption>
+</figure>

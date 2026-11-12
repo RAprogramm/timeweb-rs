@@ -5,7 +5,7 @@
 
 ## СБП
 
-<img src="donation-qr.jpg" alt="QR-код для перевода через Т-Банк или Сбербанк" width="320">
+<img src="img/donation-qr.jpg" alt="QR-код для перевода через Т-Банк или Сбербанк" width="320">
 
 [Ссылка для перевода](https://t.tb.ru/c2c-qr-choose-bank?requisiteNumber=+79940043995&bankCode=100000000004)
 
