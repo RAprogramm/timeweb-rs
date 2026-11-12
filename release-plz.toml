@@ -90,21 +90,62 @@ pr_body = """
 {% for release in releases %}
 * `{{ release.package }}`: {% if release.previous_version and release.previous_version != release.next_version %}{{ release.previous_version }} -> {% endif %}{{ release.next_version }}{% if release.semver_check == "incompatible" %} (⚠ API breaking changes){% elif release.semver_check == "compatible" %} (✓ API compatible changes){% endif %}
 {%- endfor %}
-{%- for release in releases %}{% if release.breaking_changes %}
+{%- for release in releases %}
+{%- if release.breaking_changes %}
+{%- set blocks = release.breaking_changes | split(pat="--- ") %}
 
 > [!WARNING]
-> The release changes the public API of the crate. Some models gained or lost
-> fields, some changed their kind, and some operations changed their
-> signature. The report of cargo-semver-checks is below.
+> The release changes the public API of the crate. The report of
+> cargo-semver-checks is summarised below: every lint is listed with the number
+> of the API items it found, and the items themselves are under the heading of
+> their lint.
+
+| Lint | Found |
+|---|---:|
+{%- set_global reported = 0 %}
+{%- for block in blocks %}
+{%- if "Failed in:" in block %}
+{%- set lint = block | split(pat="\n") | first | trim(pat="-") | trim | split(pat=": ") | first | split(pat=" ") | last %}
+{%- set_global found = 0 %}
+{%- for line in block | split(pat="Failed in:") | last | split(pat="\n") | unique %}
+{%- if line | trim | length > 0 %}{% set_global found = found + 1 %}{% endif %}
+{%- endfor %}
+| `{{ lint }}` | {{ found }} |
+{%- set_global reported = reported + 1 %}
+{%- endif %}
+{%- endfor %}
 
 <details>
-<summary><b>Breaking changes</b> — the report of cargo-semver-checks</summary>
+<summary><b>The report of cargo-semver-checks</b> — {{ reported }} lints reported a difference</summary>
+{%- for block in blocks %}
+{%- if "Failed in:" in block %}
+{%- set head = block | split(pat="\n") | first | trim(pat="-") | trim %}
+{%- set kind = head | split(pat=" ") | first %}
+{%- set lint = head | split(pat=": ") | first | split(pat=" ") | last %}
+{%- set title = head | replace(from=kind ~ " " ~ lint ~ ": ", to="") | trim(pat="-") | trim %}
 
-```text
-{{ release.breaking_changes }}
-```
+#### `{{ lint }}` — {{ title }}
 
-</details>{% endif %}{% endfor %}
+{{ block | split(pat="Description:") | last | split(pat="\n") | nth(n=1) | trim }}
+
+Lint: <{{ block | split(pat="impl: ") | last | split(pat="\n") | first | trim }}>
+{% for line in block | split(pat="Failed in:") | last | split(pat="\n") | unique %}
+{%- set item = line | trim %}
+{%- if item | length > 0 %}
+{%- set parts = item | split(pat="/timeweb-rs/") %}
+{%- if parts | length > 1 %}
+- {{ parts | first | split(pat="/tmp/") | first }}{{ parts | last }}
+{%- else %}
+- {{ item }}
+{%- endif %}
+{%- endif %}
+{%- endfor %}
+{%- endif %}
+{%- endfor %}
+
+</details>
+{%- endif %}
+{%- endfor %}
 {% if changes %}
 <details>
 <summary><b>Changelog</b></summary>
