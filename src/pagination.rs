@@ -175,6 +175,20 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn a_pending_page_keeps_the_stream_pending() {
+        let mut stream = paginate(2, |_, _| async {
+            std::future::pending::<Result<Vec<u32>, Error<()>>>().await
+        });
+
+        let polled =
+            tokio::time::timeout(std::time::Duration::from_millis(50), stream.next()).await;
+        assert!(
+            polled.is_err(),
+            "the stream stays pending while the page is pending"
+        );
+    }
+
+    #[tokio::test]
     async fn an_error_is_yielded_once_and_ends_the_stream() {
         let mut stream = paginate(2, |_, offset| async move {
             if offset == 0 {
