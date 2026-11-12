@@ -1,0 +1,7 @@
+# Workspace aliases — https://doc.rust-lang.org/cargo/reference/config.html
+#
+# The automation tasks of the repository live in the `xtask` crate; the alias
+# makes them reachable as `cargo xtask <task>`.
+
+[alias]
+xtask = "run --package xtask --"

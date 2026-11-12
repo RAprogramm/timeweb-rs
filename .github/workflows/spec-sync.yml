@@ -70,17 +70,18 @@ jobs:
         run: |
           cp openapi/timeweb-cloud.json /tmp/base-spec.json
           cp /tmp/latest.json openapi/timeweb-cloud.json
-          python3 openapi/normalize_spec.py openapi/timeweb-cloud.json /tmp/normalized.json
-          npx --yes @openapitools/openapi-generator-cli@latest generate \
+          cargo xtask normalize-spec openapi/timeweb-cloud.json /tmp/normalized.json
+          npx --yes @openapitools/openapi-generator-cli@7.22.0 generate \
             -i /tmp/normalized.json -g rust -o /tmp/twgen \
             -p packageName=timeweb_client,library=reqwest
           rm -rf src/apis src/models
           cp -r /tmp/twgen/src/apis src/apis
           cp -r /tmp/twgen/src/models src/models
-          python3 openapi/update_readme.py
-          python3 openapi/generate_example_tests.py
-          python3 openapi/generate_feature_gates.py
-          cargo +nightly fmt
+          cargo xtask feature-gates
+          cargo xtask patch-models
+          cargo xtask example-tests
+          cargo xtask readme
+          cargo +nightly fmt --all
 
       - name: Verify the regenerated SDK
         id: verify
@@ -249,6 +250,14 @@ jobs:
           gh issue create \
             --title "Timeweb API spec changed — manual SDK update required" \
             --body-file /tmp/issue-body.md
+
+      - name: Fail when the automatic update failed
+        if: >-
+          steps.diff.outputs.changed == 'true'
+          && (steps.regen.outcome == 'failure' || steps.verify.outcome == 'failure')
+        run: |
+          echo "::error::the automatic regeneration failed; the SDK is out of date"
+          exit 1
 
   automerge:
     name: Merge compatible updates after green CI

@@ -1,0 +1,18 @@
+[package]
+name = "xtask"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99"
+description = "Code-generation and maintenance tasks for the timeweb-rs workspace"
+license = "MIT"
+publish = false
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+masterror = { version = "0.32", features = ["serde_json"] }
+regex = "1"
+serde_json = { version = "1", features = ["preserve_order"] }
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+nursery = { level = "warn", priority = -1 }

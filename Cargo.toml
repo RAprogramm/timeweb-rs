@@ -13,6 +13,9 @@ keywords = ["timeweb", "cloud", "sdk", "api"]
 categories = ["api-bindings", "asynchronous"]
 exclude = ["/.github", "/openapi", "/openapitools.json", "/release-plz.toml"]
 
+[workspace]
+members = ["xtask"]
+
 [dependencies]
 serde = { version = "1", features = ["derive"] }
 serde_with = { version = "3", default-features = false, features = [
