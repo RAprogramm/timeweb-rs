@@ -329,6 +329,55 @@ mod tests {
         assert_eq!(retry_after(&error), None);
     }
 
+    #[test]
+    fn a_retry_after_date_is_read() {
+        let deadline = chrono::Utc::now() + chrono::Duration::seconds(30);
+        let value = deadline.format("%a, %d %b %Y %H:%M:%S GMT").to_string();
+        let error = response_error_with_retry_after(429, &value);
+        let delay = retry_after(&error).expect("the header carries a date");
+        assert!(delay <= Duration::from_secs(30));
+        assert!(delay >= Duration::from_secs(25));
+    }
+
+    #[test]
+    fn a_retry_after_date_in_the_past_is_read_as_no_delay() {
+        let deadline = chrono::Utc::now() - chrono::Duration::seconds(30);
+        let value = deadline.format("%a, %d %b %Y %H:%M:%S GMT").to_string();
+        let error = response_error_with_retry_after(429, &value);
+        assert_eq!(retry_after(&error), Some(Duration::ZERO));
+    }
+
+    #[test]
+    fn the_jitter_stays_inside_the_delay() {
+        let delay = Duration::from_secs(10);
+        for _ in 0..16 {
+            let jittered = super::jittered(delay);
+            assert!(jittered >= delay / 2);
+            assert!(jittered <= delay);
+        }
+    }
+
+    #[test]
+    fn the_jitter_of_a_zero_delay_is_zero() {
+        assert_eq!(super::jittered(Duration::ZERO), Duration::ZERO);
+    }
+
+    #[test]
+    fn the_jitter_seed_is_a_number() {
+        let seed = super::jitter_seed();
+        assert_ne!(seed, 0);
+    }
+
+    #[test]
+    fn the_ai_gateway_client_targets_the_ai_gateway_host() {
+        let client = TimewebClient::ai_gateway("sk-test");
+        assert_eq!(client.config().base_path, crate::AI_GATEWAY_BASE_URL);
+        assert_eq!(
+            client.config().bearer_access_token.as_deref(),
+            Some("sk-test")
+        );
+    }
+
     #[tokio::test]
     async fn execute_retries_retryable_errors_until_success() {
         let attempts = AtomicU32::new(0);
@@ -382,10 +431,10 @@ mod tests {
         let client = fast_client();
         let result: Result<(), Error<()>> = client
             .execute(|| async {
-                match reqwest::get("http://127.0.0.1:1/unreachable").await {
-                    Ok(_) => Ok(()),
-                    Err(error) => Err(Error::Reqwest(error))
-                }
+                let error = reqwest::get("http://127.0.0.1:1/unreachable")
+                    .await
+                    .expect_err("the address is unreachable");
+                Err(Error::Reqwest(error))
             })
             .await;
         assert!(matches!(result, Err(Error::Reqwest(_))));

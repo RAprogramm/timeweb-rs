@@ -19,5 +19,7 @@ comment:
   require_changes: false
 
 ignore:
+  - "src/apis.rs"
   - "src/apis"
+  - "src/models.rs"
   - "src/models"
