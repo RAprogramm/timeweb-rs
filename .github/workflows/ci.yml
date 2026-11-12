@@ -73,13 +73,28 @@ jobs:
       - run: cargo doc --no-deps --all-features
 
   msrv:
-    name: MSRV (1.98)
+    name: MSRV
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Install Rust 1.98
-        uses: dtolnay/rust-toolchain@1.98.0
+      - name: Read the MSRV from Cargo.toml
+        id: msrv
+        uses: actions-rust-lang/msrv@d3d2883c667da4f83d8af52be9f236ea3fcdd82c # main
+      - name: Verify the MSRV badge
+        env:
+          MSRV: ${{ steps.msrv.outputs.msrv }}
+        run: |
+          expected=$(jq -r '.message | sub("^rust-"; "")' .github/msrv-badge.json)
+          actual=$(echo "$MSRV" | sed -E 's/^([0-9]+\.[0-9]+)\.[0-9]+$/\1/')
+          if [ "$expected" != "$actual" ]; then
+            echo "::error::the MSRV badge says $expected, but Cargo.toml declares $actual"
+            exit 1
+          fi
+      - name: Install Rust ${{ steps.msrv.outputs.msrv }}
+        uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # v1
+        with:
+          toolchain: ${{ steps.msrv.outputs.msrv }}
       - uses: Swatinem/rust-cache@f0d9c3887740aee45f6153b24b3a6b815192ec16 # v2
       - run: cargo check --all-features --all-targets
 

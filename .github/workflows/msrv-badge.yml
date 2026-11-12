@@ -1,7 +1,12 @@
 name: MSRV Badge
 
+# The badge is served from `main` through the shields.io endpoint, so only a
+# push to `main` may rewrite it. Pull requests are covered by the "MSRV" job
+# of the CI workflow, which fails when the badge drifts from `Cargo.toml`.
+
 on:
   push:
+    branches: [main]
     paths:
       - Cargo.toml
   workflow_dispatch:
@@ -12,7 +17,9 @@ permissions:
 jobs:
   update-badge:
     name: Update MSRV badge
+    if: ${{ !contains(github.event.head_commit.author.name, 'github-actions[bot]') }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -21,32 +28,31 @@ jobs:
 
       - name: Read MSRV from Cargo.toml
         id: msrv
-        uses: actions-rust-lang/msrv/.github/workflows/msrv.yml@main
+        uses: actions-rust-lang/msrv@d3d2883c667da4f83d8af52be9f236ea3fcdd82c # main
 
       - name: Generate badge JSON
+        env:
+          MSRV: ${{ steps.msrv.outputs.msrv }}
         run: |
+          version=$(echo "$MSRV" | sed -E 's/^([0-9]+\.[0-9]+)\.[0-9]+$/\1/')
           mkdir -p .github
           cat > .github/msrv-badge.json <<EOF
           {
             "schemaVersion": 1,
             "label": "MSRV",
-            "message": "rust-${{ steps.msrv.outputs.msrv }}",
+            "message": "rust-$version",
             "color": "blue"
           }
           EOF
-
-      - name: Update README badge
-        run: |
-          sed -i 's|\[!\[MSRV\](https://img.shields.io/badge/MSRV-[0-9.]*-blue.svg)\](https://www.rust-lang.org)|[![MSRV](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/RAprogramm/timeweb-rs/main/.github/msrv-badge.json)](https://www.rust-lang.org)|' README.md
 
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/msrv-badge.json README.md
+          git add .github/msrv-badge.json
           if git diff --cached --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "chore: update MSRV badge"
-            git push
+            echo "The MSRV badge is already up to date."
+            exit 0
           fi
+          git commit -m "chore: update the MSRV badge"
+          git push

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
   "label": "MSRV",
-  "message": "rust-1.98",
+  "message": "rust-1.99",
   "color": "blue"
 }
