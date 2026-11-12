@@ -77,7 +77,9 @@ def module_references(types: dict[str, str]) -> dict[str, set[str]]:
         if source.name == "mod.rs":
             continue
         referenced = {
-            types[name] for name in TYPE_REF_RE.findall(source.read_text()) if name in types
+            types[name]
+            for name in TYPE_REF_RE.findall(source.read_text())
+            if name in types
         }
         referenced.discard(source.stem)
         edges[source.stem] = referenced
@@ -94,7 +96,9 @@ def area_closures(
         area = source.stem.removesuffix("_api")
         areas.append(area)
         queue = deque(
-            types[name] for name in TYPE_REF_RE.findall(source.read_text()) if name in types
+            types[name]
+            for name in TYPE_REF_RE.findall(source.read_text())
+            if name in types
         )
         closure: set[str] = set()
         while queue:
@@ -115,7 +119,7 @@ def gate_apis_mod(areas: list[str]) -> None:
     for area in areas:
         text = text.replace(
             f"pub mod {area}_api;",
-            f'#[cfg(feature = "{feature_name(area)}")]\npub mod {area}_api;'
+            f'#[cfg(feature = "{feature_name(area)}")]\npub mod {area}_api;',
         )
     path.write_text(text)
 
@@ -179,12 +183,17 @@ def gate_models_mod(
 def rewrite_cargo_features(areas: list[str]) -> None:
     text = CARGO_TOML.read_text()
     if BEGIN_MARK not in text or END_MARK not in text:
-        raise SystemExit(f"markers not found in Cargo.toml; add {BEGIN_MARK!r} and {END_MARK!r}")
+        raise SystemExit(
+            f"markers not found in Cargo.toml; add {BEGIN_MARK!r} and {END_MARK!r}"
+        )
     features = [f"{feature_name(area)} = []" for area in areas]
-    full = ", ".join(f'"{feature_name(area)}"' for area in areas)
-    block = "\n".join([BEGIN_MARK, *features, f"full = [{full}]", END_MARK])
+    full = "\n".join(f'  "{feature_name(area)}",' for area in areas)
+    block = "\n".join([BEGIN_MARK, *features, "full = [", full, "]", END_MARK])
     text = re.sub(
-        re.escape(BEGIN_MARK) + r".*?" + re.escape(END_MARK), block, text, flags=re.DOTALL
+        re.escape(BEGIN_MARK) + r".*?" + re.escape(END_MARK),
+        block,
+        text,
+        flags=re.DOTALL,
     )
     CARGO_TOML.write_text(text)
 
@@ -201,10 +210,7 @@ def main() -> int:
 
     total = len(edges)
     gated = {
-        module
-        for area in areas
-        for module in closures[area]
-        if module not in always
+        module for area in areas for module in closures[area] if module not in always
     }
     print(
         f"gated {len(areas)} areas; {total} model modules "
