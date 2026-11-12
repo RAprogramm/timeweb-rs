@@ -17,3 +17,43 @@ code {
 table {
     font-size: 0.92em;
 }
+
+/* The link to the same page in the other language, added by
+   `js/language-switch.js` next to the title of the menu bar. */
+.language-switch {
+    align-self: center;
+    margin-inline-start: 0.75rem;
+    padding: 0.1rem 0.7rem;
+    border: 1px solid var(--icons);
+    border-radius: 1rem;
+    color: var(--icons);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.7;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.language-switch:hover,
+.language-switch:focus-visible {
+    border-color: var(--icons-hover);
+    color: var(--icons-hover);
+}
+
+/* Diagrams of the architecture chapter. */
+.diagram {
+    margin-block: 1.5rem;
+    text-align: center;
+}
+
+.diagram img {
+    max-width: 100%;
+    height: auto;
+}
+
+.diagram figcaption {
+    margin-block-start: 0.5rem;
+    color: var(--fg);
+    font-size: 0.85em;
+    opacity: 0.8;
+}

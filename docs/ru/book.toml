@@ -14,8 +14,16 @@ default-theme = "light"
 preferred-dark-theme = "navy"
 git-repository-url = "https://github.com/RAprogramm/timeweb-rs"
 site-url = "/timeweb-rs/ru/"
-additional-css = ["../css/extra.css"]
-additional-js = ["../js/language-switch.js"]
+# `css/extra.css` is a symlink into `docs/css`, so both books ship one copy of
+# the shared stylesheet. mdBook copies an additional file to the output under
+# the very path written here, so the path must stay inside the book: a `..`
+# prefix would place the asset outside the published directory. The script of
+# the language switch is loaded from `theme/head.hbs` instead, because it has
+# to run before the page is painted.
+additional-css = ["css/extra.css"]
+
+[rust]
+edition = "2024"
 
 [output.html.fold]
 enable = true
