@@ -3,7 +3,7 @@
 [![crates.io](https://img.shields.io/crates/v/timeweb-rs.svg)](https://crates.io/crates/timeweb-rs)
 [![docs.rs](https://img.shields.io/docsrs/timeweb-rs)](https://docs.rs/timeweb-rs)
 [![CI](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/RAprogramm/timeweb-rs/graph/badge.svg?token=iKNwLuK8au)](https://codecov.io/gh/RAprogramm/timeweb-rs)
+[![codecov](https://codecov.io/gh/RAprogramm/timeweb-rs/graph/badge.svg?token=iKNwLuK8au&component=hand_written)](https://codecov.io/gh/RAprogramm/timeweb-rs)
 [![Docs](https://img.shields.io/badge/docs-timeweb--rs-blue)](https://raprogramm.github.io/timeweb-rs/)
 [![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/RAprogramm/timeweb-rs?utm_source=badge)
 [![MSRV](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/RAprogramm/timeweb-rs/main/.github/msrv-badge.json)](https://www.rust-lang.org)

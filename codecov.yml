@@ -31,6 +31,20 @@ coverage:
           - src/pagination.rs
           - src/retry.rs
 
+# The README badge points at this component, so it shows the coverage of the
+# hand-written layer instead of the whole repository, which is dominated by
+# the generated `src/apis` and `src/models` modules.
+component_management:
+  individual_components:
+    - component_id: hand_written
+      name: Hand-written
+      paths:
+        - src/client.rs
+        - src/datetime.rs
+        - src/error_body.rs
+        - src/pagination.rs
+        - src/retry.rs
+
 comment:
   layout: "condensed_header, diff, flags, files"
   require_changes: false
