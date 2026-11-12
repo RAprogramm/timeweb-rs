@@ -11,7 +11,14 @@ documentation = "https://docs.rs/timeweb-rs"
 readme = "README.md"
 keywords = ["timeweb", "cloud", "sdk", "api"]
 categories = ["api-bindings", "asynchronous"]
-exclude = ["/.github", "/openapi", "/openapitools.json", "/release-plz.toml"]
+exclude = [
+  "/.cargo",
+  "/.github",
+  "/openapi",
+  "/openapitools.json",
+  "/release-plz.toml",
+  "/xtask",
+]
 
 [workspace]
 members = ["xtask"]
@@ -111,6 +118,8 @@ full = [
 # END generated area features
 
 [dev-dependencies]
+# The CodSpeed benchmark harness. It pins `divan-macros` to an exact version,
+# so the macro crate follows the harness instead of the latest release.
 divan = { version = "6.0.0", package = "codspeed-divan-compat" }
 futures-util = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-thread"] }
