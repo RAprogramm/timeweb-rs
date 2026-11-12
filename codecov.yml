@@ -1,8 +1,13 @@
-# Codecov configuration — https://docs.codecov.com/docs/codecov-yaml
+# Codecov configuration — https://docs.codecov.com/docs/codecovyml-reference
 #
-# Generated `src/apis` and `src/models` are excluded from coverage; only the
-# hand-written layer is measured. The CI `codecov` job enforces the hard 95%
-# line gate — the status checks below add per-PR feedback and comments.
+# The whole repository is uploaded, so the dashboard shows the coverage of
+# every file — the generated `src/apis` and `src/models` modules and the
+# `xtask` tooling included.
+#
+# The quality gate — the badge and the status checks — is measured on the
+# hand-written layer of the published crate only: the generated code comes
+# out of `openapi-generator` and carries no hand-written logic, so its
+# coverage is not a quality signal.
 
 coverage:
   status:
@@ -10,16 +15,22 @@ coverage:
       default:
         target: 95%
         threshold: 1%
+        paths:
+          - src/client.rs
+          - src/datetime.rs
+          - src/error_body.rs
+          - src/pagination.rs
+          - src/retry.rs
     patch:
       default:
         target: 95%
+        paths:
+          - src/client.rs
+          - src/datetime.rs
+          - src/error_body.rs
+          - src/pagination.rs
+          - src/retry.rs
 
 comment:
   layout: "condensed_header, diff, flags, files"
   require_changes: false
-
-ignore:
-  - "src/apis.rs"
-  - "src/apis"
-  - "src/models.rs"
-  - "src/models"
