@@ -20,7 +20,9 @@ compile only the areas you need.
 The API authenticates with a JWT token issued in the Timeweb Cloud control
 panel, under the "API и Terraform" section.
 
-```rust
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
 use timeweb_rs::apis::servers_api;
 
 #[tokio::main]
@@ -29,7 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let servers = servers_api::get_servers(&config, None, None).await?;
     for server in &servers.servers {
-        println!("{} ({})", server.name, server.status);
+        println!("{} ({:?})", server.name, server.status);
     }
 
     Ok(())
@@ -44,17 +46,24 @@ Pass it to any operation — every operation is a free async function in an
 
 Path parameters and the request body are ordinary arguments:
 
-```rust
-use timeweb_rs::apis::{databases_api, models::CreateDatabaseRequest};
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::{apis::ssh_api, models::AddKeyToServerRequest};
 
-let database = databases_api::create_database(
+ssh_api::add_key_to_server(
     &config,
-    &CreateDatabaseRequest {
-        name: "orders".to_owned(),
-        ..CreateDatabaseRequest::default()
+    42,
+    AddKeyToServerRequest {
+        ssh_key_ids: vec![7.0],
     },
 )
 .await?;
+# Ok(())
+# }
 ```
 
 ## Handle the errors
@@ -63,16 +72,25 @@ Every operation returns `Result<_, apis::Error<T>>`, where `T` is the typed
 error body of that operation. The uniform envelope of the API is available
 through `ErrorDetails`:
 
-```rust
-use timeweb_rs::ErrorDetails;
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::{apis::servers_api, ErrorDetails};
 
 match servers_api::get_server(&config, 42).await {
     Ok(server) => println!("{server:#?}"),
     Err(error) => match ErrorDetails::from_api_error(&error) {
-        Some(details) => eprintln!("{}: {}", details.status_code, details.messages().join("; ")),
+        Some(details) => {
+            eprintln!("{}: {}", details.status_code, details.messages().join("; "))
+        }
         None => eprintln!("{error}"),
     },
 }
+# Ok(())
+# }
 ```
 
 See [Error handling](./errors.md) for the details.
@@ -82,13 +100,20 @@ See [Error handling](./errors.md) for the details.
 `TimewebClient` owns the configuration and re-runs an operation under a
 `RetryPolicy` when the API answers `429`, `5xx` or the transport fails:
 
-```rust
-use timeweb_rs::{RetryPolicy, TimewebClient, apis::servers_api};
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+use timeweb_rs::{apis::servers_api, TimewebClient};
 
 let client = TimewebClient::new(std::env::var("TIMEWEB_CLOUD_TOKEN")?);
 let servers = client
     .execute(|| servers_api::get_servers(client.config(), None, None))
     .await?;
+println!("{} servers", servers.servers.len());
+# Ok(())
+# }
 ```
 
 Only wrap **idempotent** operations: a retried `POST` that creates a resource

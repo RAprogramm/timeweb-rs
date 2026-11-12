@@ -23,7 +23,9 @@ Three things make it more than a generated client:
 - **It stays small.** Every API area is behind its own Cargo feature, so a
   consumer that needs one area does not compile the other thousand models.
 
-```rust
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
 use timeweb_rs::apis::servers_api;
 
 #[tokio::main]

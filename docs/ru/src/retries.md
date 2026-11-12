@@ -7,6 +7,7 @@
 Таймаут вынесен в константу:
 
 ```rust
+# extern crate timeweb_rs;
 use std::time::Duration;
 use timeweb_rs::DEFAULT_TIMEOUT;
 
@@ -18,11 +19,17 @@ assert_eq!(DEFAULT_TIMEOUT, Duration::from_secs(30));
 Если стандартный клиент не подходит — нужен прокси, свой пул соединений или
 другой таймаут, — принесите свой:
 
-```rust
+```rust,no_run
+# extern crate reqwest;
+# extern crate timeweb_rs;
+# fn main() -> Result<(), Box<dyn std::error::Error>> {
 let client = reqwest::Client::builder()
     .timeout(std::time::Duration::from_secs(5))
     .build()?;
 let config = timeweb_rs::authenticated_with_client("your-jwt-token", client);
+# let _ = config;
+# Ok(())
+# }
 ```
 
 ## Политика повторов
@@ -39,8 +46,10 @@ let config = timeweb_rs::authenticated_with_client("your-jwt-token", client);
 одновременно.
 
 ```rust
+# extern crate timeweb_rs;
+# fn main() {
 use std::time::Duration;
-use timeweb_rs::RetryPolicy;
+use timeweb_rs::{RetryPolicy, TimewebClient};
 
 let policy = RetryPolicy {
     max_retries: 5,
@@ -49,6 +58,8 @@ let policy = RetryPolicy {
 };
 
 let client = TimewebClient::new("your-jwt-token").with_policy(policy);
+assert_eq!(client.config().base_path, timeweb_rs::DEFAULT_BASE_URL);
+# }
 ```
 
 По умолчанию клиент повторяет три раза, начиная с 500 миллисекунд, и
@@ -69,10 +80,33 @@ let client = TimewebClient::new("your-jwt-token").with_policy(policy);
 `execute` повторяет всё, что ему дают: политика — свойство клиента, а не
 операции. Для неидемпотентной операции есть `execute_once`:
 
-```rust
-let server = client
-    .execute_once(|| servers_api::create_server(client.config(), &request))
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+use timeweb_rs::{
+    apis::ssh_api,
+    models::CreateKeyRequest,
+    TimewebClient,
+};
+
+let client = TimewebClient::new("your-jwt-token");
+let key = client
+    .execute_once(|| {
+        ssh_api::create_key(
+            client.config(),
+            CreateKeyRequest {
+                name: "deploy".to_owned(),
+                body: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG…".to_owned(),
+                ..CreateKeyRequest::default()
+            },
+        )
+    })
     .await?;
+println!("создан ключ {}", key.ssh_key.id);
+# Ok(())
+# }
 ```
 
 ## Политика публична

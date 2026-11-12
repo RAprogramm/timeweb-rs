@@ -4,7 +4,12 @@
 котором есть общее количество элементов. `paginate` превращает это в поток
 элементов:
 
-```rust
+```rust,no_run
+# extern crate futures_util;
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
 use futures_util::TryStreamExt;
 use timeweb_rs::{apis::servers_api, paginate};
 
@@ -21,6 +26,8 @@ let mut servers = paginate(100, |limit, offset| {
 while let Some(server) = servers.try_next().await? {
     println!("{}", server.name);
 }
+# Ok(())
+# }
 ```
 
 Замыкание получает `(limit, offset)` и отдаёт элементы текущей страницы.
@@ -37,7 +44,16 @@ while let Some(server) = servers.try_next().await? {
 
 Если страница не загрузилась, поток на этом заканчивается и отдаёт ошибку:
 
-```rust
+```rust,no_run
+# extern crate futures_util;
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# use timeweb_rs::{apis::servers_api, paginate};
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use futures_util::TryStreamExt;
+
 let mut servers = paginate(100, |limit, offset| {
     let config = &config;
     async move {
@@ -46,15 +62,18 @@ let mut servers = paginate(100, |limit, offset| {
     }
 });
 
-while let Some(server) = servers.try_next().await {
-    match server {
-        Ok(server) => println!("{}", server.name),
+loop {
+    match servers.try_next().await {
+        Ok(Some(server)) => println!("{}", server.name),
+        Ok(None) => break,
         Err(error) => {
             eprintln!("{error}");
             break;
         }
     }
 }
+# Ok(())
+# }
 ```
 
 ## Повторы
@@ -62,13 +81,26 @@ while let Some(server) = servers.try_next().await {
 `paginate` ничего не повторяет: это тонкая обёртка над API. Если страницы
 нужно повторять, заверните замыкание в повторяющий клиент:
 
-```rust
-use timeweb_rs::{TimewebClient, apis::servers_api};
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+use timeweb_rs::{apis::servers_api, paginate, TimewebClient};
 
 let client = TimewebClient::new("your-jwt-token");
+let retrying = &client;
 let mut servers = paginate(100, |limit, offset| {
-    client.execute(|| servers_api::get_servers(client.config(), Some(limit), Some(offset)))
+    async move {
+        let page = retrying
+            .execute(|| servers_api::get_servers(retrying.config(), Some(limit), Some(offset)))
+            .await?;
+        Ok(page.servers)
+    }
 });
+# let _ = servers;
+# Ok(())
+# }
 ```
 
 Операции списка идемпотентны, поэтому повторять их безопасно.

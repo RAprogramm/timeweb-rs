@@ -1,15 +1,28 @@
 # Error handling
 
 Every operation returns `Result<T, apis::Error<E>>`, where `E` is the typed
-error body of that operation:
+error body of that operation. The four variants of `apis::Error` say which kind
+of failure happened:
 
-```rust
-pub enum Error<T> {
-    Reqwest(reqwest::Error),
-    Serde(serde_json::Error),
-    Io(std::io::Error),
-    ResponseError(ResponseContent<T>),
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::apis::{servers_api, Error};
+
+match servers_api::get_server(&config, 42).await {
+    Ok(server) => println!("{server:#?}"),
+    Err(Error::Reqwest(error)) => eprintln!("the request never reached the API: {error}"),
+    Err(Error::Serde(error)) => eprintln!("the body was not the expected JSON: {error}"),
+    Err(Error::Io(error)) => eprintln!("a local file could not be read: {error}"),
+    Err(Error::ResponseError(response)) => {
+        eprintln!("the API answered with an error: {}", response.status);
+    }
 }
+# Ok(())
+# }
 ```
 
 - `Reqwest` — the request never reached the API: DNS, TLS, a dropped
@@ -26,8 +39,13 @@ readable error code, a message that is either a string or a list of strings,
 and a correlation id. `ErrorDetails` extracts it from any operation error
 without naming the per-operation entity:
 
-```rust
-use timeweb_rs::ErrorDetails;
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::{apis::servers_api, ErrorDetails};
 
 let error = servers_api::get_server(&config, 42).await.unwrap_err();
 
@@ -39,6 +57,8 @@ if let Some(details) = ErrorDetails::from_api_error(&error) {
         eprintln!("id:     {id}"); // quote it in a support ticket
     }
 }
+# Ok(())
+# }
 ```
 
 `messages()` returns the message of the envelope whatever shape it has — one
@@ -49,8 +69,13 @@ string or a list.
 When the operation has a documented error body, it is parsed into the typed
 entity and reachable through `ResponseContent`:
 
-```rust
-use timeweb_rs::apis::Error;
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::apis::{servers_api, Error};
 
 let error = servers_api::get_server(&config, 42).await.unwrap_err();
 
@@ -60,6 +85,8 @@ if let Error::ResponseError(response) = error {
         println!("{entity:#?}");
     }
 }
+# Ok(())
+# }
 ```
 
 The entity is `Option`: it is `None` when the body does not match the schema

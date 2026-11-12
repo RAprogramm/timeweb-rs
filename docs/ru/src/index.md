@@ -24,7 +24,9 @@ SSH-ключи, образы, выделенные серверы, реестр 
   поэтому потребителю одной области не нужно компилировать остальные тысячи
   моделей.
 
-```rust
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
 use timeweb_rs::apis::servers_api;
 
 #[tokio::main]

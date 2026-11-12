@@ -21,13 +21,19 @@ Cloud, и оно работает с обычной конфигурацией. 
 `POST /api/v1/cloud-ai/ai-keys` и выглядит как `sk-…`. Это не тот же JWT-токен,
 что и в панели управления: у двух поверхностей разные учётные данные.
 
-```rust
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
 use timeweb_rs::apis::ai_gateway_inference_api;
 
 let config = timeweb_rs::authenticated_ai_gateway("sk-your-key");
 
 let models = ai_gateway_inference_api::get_ai_gateway_models(&config).await?;
 println!("{models:#?}");
+# Ok(())
+# }
 ```
 
 `authenticated_ai_gateway` собирает конфигурацию для
@@ -38,13 +44,20 @@ println!("{models:#?}");
 
 У шлюза свой клиент: базовый URL у него другой.
 
-```rust
-use timeweb_rs::TimewebClient;
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+use timeweb_rs::{apis::ai_gateway_inference_api, TimewebClient};
 
 let client = TimewebClient::ai_gateway("sk-your-key");
 let models = client
     .execute(|| ai_gateway_inference_api::get_ai_gateway_models(client.config()))
     .await?;
+println!("{models:#?}");
+# Ok(())
+# }
 ```
 
 ## Стриминг и multipart

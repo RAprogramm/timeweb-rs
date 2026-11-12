@@ -1,15 +1,28 @@
 # Ошибки
 
 Каждая операция возвращает `Result<T, apis::Error<E>>`, где `E` — типизированное
-тело ошибки этой операции:
+тело ошибки этой операции. Четыре варианта `apis::Error` говорят, что именно
+случилось:
 
-```rust
-pub enum Error<T> {
-    Reqwest(reqwest::Error),
-    Serde(serde_json::Error),
-    Io(std::io::Error),
-    ResponseError(ResponseContent<T>),
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::apis::{servers_api, Error};
+
+match servers_api::get_server(&config, 42).await {
+    Ok(server) => println!("{server:#?}"),
+    Err(Error::Reqwest(error)) => eprintln!("запрос не дошёл до API: {error}"),
+    Err(Error::Serde(error)) => eprintln!("тело не похоже на ожидаемый JSON: {error}"),
+    Err(Error::Io(error)) => eprintln!("не удалось прочитать локальный файл: {error}"),
+    Err(Error::ResponseError(response)) => {
+        eprintln!("API ответил ошибкой: {}", response.status);
+    }
 }
+# Ok(())
+# }
 ```
 
 - `Reqwest` — запрос не дошёл до API: DNS, TLS, оборванное соединение или
@@ -26,8 +39,13 @@ Timeweb Cloud отвечает ошибками по одному образцу
 идентификатор для обращения в поддержку. `ErrorDetails` достаёт это из любой
 ошибки, не подстраиваясь под тип ошибки конкретной операции:
 
-```rust
-use timeweb_rs::ErrorDetails;
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::{apis::servers_api, ErrorDetails};
 
 let error = servers_api::get_server(&config, 42).await.unwrap_err();
 
@@ -39,6 +57,8 @@ if let Some(details) = ErrorDetails::from_api_error(&error) {
         eprintln!("id:     {id}"); // приложите его к обращению в поддержку
     }
 }
+# Ok(())
+# }
 ```
 
 `messages()` вернёт сообщение в любом виде — одна строка или список.
@@ -48,8 +68,13 @@ if let Some(details) = ErrorDetails::from_api_error(&error) {
 Если у операции задокументировано тело ошибки, оно разбирается в типизированную
 сущность и доступно через `ResponseContent`:
 
-```rust
-use timeweb_rs::apis::Error;
+```rust,no_run
+# extern crate tokio;
+# extern crate timeweb_rs;
+# #[tokio::main]
+# async fn main() -> Result<(), Box<dyn std::error::Error>> {
+# let config = timeweb_rs::authenticated("your-jwt-token");
+use timeweb_rs::apis::{servers_api, Error};
 
 let error = servers_api::get_server(&config, 42).await.unwrap_err();
 
@@ -59,6 +84,8 @@ if let Error::ResponseError(response) = error {
         println!("{entity:#?}");
     }
 }
+# Ok(())
+# }
 ```
 
 Сущность — это `Option`: она равна `None`, если тело не совпало со схемой этой
