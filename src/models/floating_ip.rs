@@ -18,7 +18,7 @@ pub struct FloatingIp {
     #[serde(rename = "id")]
     pub id:                String,
     /// IP-адрес
-    #[serde(rename = "ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ip", default, deserialize_with = "Option::deserialize")]
     pub ip:                Option<String>,
     /// Это логическое значение, которое показывает, включена ли защита от DDoS.
     #[serde(rename = "is_ddos_guard")]
@@ -26,15 +26,23 @@ pub struct FloatingIp {
     #[serde(rename = "availability_zone")]
     pub availability_zone: models::AvailabilityZone,
     /// Тип ресурса.
-    #[serde(rename = "resource_type", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "resource_type",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub resource_type:     Option<String>,
-    #[serde(rename = "resource_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "resource_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub resource_id:       Option<Box<models::FloatingIpResourceId>>,
     /// Комментарий
-    #[serde(rename = "comment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "comment", default, deserialize_with = "Option::deserialize")]
     pub comment:           Option<String>,
     /// Запись имени узла.
-    #[serde(rename = "ptr", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ptr", default, deserialize_with = "Option::deserialize")]
     pub ptr:               Option<String>
 }
 

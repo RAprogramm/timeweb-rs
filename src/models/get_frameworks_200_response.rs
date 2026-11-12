@@ -23,7 +23,11 @@ pub struct GetFrameworks200Response {
     pub backend_frameworks:  Option<Vec<models::AvailableFrameworksBackendFrameworksInner>>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "response_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub response_id:         Option<uuid::Uuid>
 }
 

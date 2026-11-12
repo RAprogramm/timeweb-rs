@@ -16,7 +16,11 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AiKeyTokenStatisticPoint {
     /// Начало интервала
-    #[serde(rename = "time")]
+    #[serde(
+        rename = "time",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub time:               chrono::DateTime<chrono::FixedOffset>,
     /// Входные токены (запрос)
     #[serde(rename = "ingoing_tokens")]
@@ -33,7 +37,11 @@ pub struct AiKeyTokenStatisticPoint {
     /// Стоимость запросов за интервал с учётом скидок аккаунта, до списания
     /// бонусов, в валюте аккаунта. `null` — стоимость части запросов интервала
     /// определить не удалось
-    #[serde(rename = "total_cost", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "total_cost",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub total_cost:         Option<f64>
 }
 

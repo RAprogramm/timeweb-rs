@@ -24,7 +24,11 @@ pub struct AppV2DomainsInner {
     #[serde(rename = "is_external")]
     pub is_external:   bool,
     /// ID DNS-записи; null, если запись отсутствует.
-    #[serde(rename = "dns_record_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "dns_record_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub dns_record_id: Option<i32>
 }
 

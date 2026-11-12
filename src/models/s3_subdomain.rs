@@ -23,7 +23,11 @@ pub struct S3Subdomain {
     pub subdomain:     String,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был выдан SSL сертификат.
-    #[serde(rename = "cert_released")]
+    #[serde(
+        rename = "cert_released",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub cert_released: chrono::DateTime<chrono::FixedOffset>,
     /// Количество попыток перевыпустить SSL сертификат.
     #[serde(rename = "tries")]

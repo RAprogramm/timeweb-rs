@@ -21,7 +21,12 @@ pub struct ImageUrlAuth {
     #[serde(rename = "refresh_token", skip_serializing_if = "Option::is_none")]
     pub refresh_token: Option<String>,
     /// Время истечения работы токена доступа
-    #[serde(rename = "expiry", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "expiry",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub expiry:        Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Тип токена доступа
     #[serde(rename = "token_type", skip_serializing_if = "Option::is_none")]

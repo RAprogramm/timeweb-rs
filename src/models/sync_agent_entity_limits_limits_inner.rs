@@ -15,7 +15,7 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct SyncAgentEntityLimitsLimitsInner {
     /// ID модели; `null` — лимит на все модели агента
-    #[serde(rename = "model_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model_id", default, deserialize_with = "Option::deserialize")]
     pub model_id:    Option<i32>,
     /// Лимит в токенах за период. Не передан — у существующего лимита не
     /// меняется, новый получает `0`. Нужен `limit` или `money_limit`.

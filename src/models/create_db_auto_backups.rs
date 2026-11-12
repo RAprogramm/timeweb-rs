@@ -21,7 +21,11 @@ pub struct CreateDbAutoBackups {
     pub copy_count:        f64,
     /// Дата начала создания первого автобэкапа. Значение в формате `ISO8601`.
     /// Время не учитывается.
-    #[serde(rename = "creation_start_at")]
+    #[serde(
+        rename = "creation_start_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub creation_start_at: chrono::DateTime<chrono::FixedOffset>,
     /// Периодичность создания автобэкапов
     #[serde(rename = "interval")]

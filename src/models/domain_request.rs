@@ -19,18 +19,31 @@ pub struct DomainRequest {
     #[serde(rename = "account_id")]
     pub account_id: String,
     /// Код авторизации для переноса домена.
-    #[serde(rename = "auth_code", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "auth_code",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub auth_code: Option<String>,
     /// Дата создания заявки.
-    #[serde(rename = "date")]
+    #[serde(
+        rename = "date",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub date: chrono::DateTime<chrono::FixedOffset>,
     /// Идентификационный номер бандла, в который входит данная заявка (null -
     /// если заявка не входит ни в один бандл).
-    #[serde(rename = "domain_bundle_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "domain_bundle_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub domain_bundle_id: Option<String>,
     /// Код ошибки трансфера домена.
     #[serde(
         rename = "error_code_transfer",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub error_code_transfer: Option<String>,
@@ -57,17 +70,21 @@ pub struct DomainRequest {
     #[serde(rename = "is_whois_privacy_enabled")]
     pub is_whois_privacy_enabled: bool,
     /// Информационное сообщение о заявке.
-    #[serde(rename = "message", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "message", default, deserialize_with = "Option::deserialize")]
     pub message: Option<String>,
     /// Источник (способ) оплаты заявки.
-    #[serde(rename = "money_source", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "money_source",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub money_source: Option<MoneySource>,
     #[serde(rename = "period")]
     pub period: models::DomainPaymentPeriod,
     /// Идентификационный номер персоны для заявки на регистрацию.
     #[serde(rename = "person_id")]
     pub person_id: i64,
-    #[serde(rename = "prime", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "prime", default, deserialize_with = "Option::deserialize")]
     pub prime: Option<models::DomainPrimeType>,
     /// Количество дней до конца регистрации домена, за которые мы уведомим о
     /// необходимости продления.

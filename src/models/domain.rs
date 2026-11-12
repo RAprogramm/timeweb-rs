@@ -35,12 +35,17 @@ pub struct Domain {
     #[serde(rename = "id")]
     pub id: i64,
     /// Ссылка на аватар домена.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link: Option<String>,
     /// Это логическое значение, которое показывает, включено ли автопродление
     /// домена.
     #[serde(
         rename = "is_autoprolong_enabled",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub is_autoprolong_enabled: Option<bool>,
@@ -61,35 +66,53 @@ pub struct Domain {
     /// зоны эта услуга не доступна.
     #[serde(
         rename = "is_whois_privacy_enabled",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub is_whois_privacy_enabled: Option<bool>,
     /// Привязанный к домену IP-адрес.
-    #[serde(rename = "linked_ip", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "linked_ip",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub linked_ip: Option<String>,
     /// До какого числа оплачен домен.
-    #[serde(rename = "paid_till", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "paid_till",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub paid_till: Option<String>,
     /// ID администратора, на которого зарегистрирован домен.
-    #[serde(rename = "person_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "person_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub person_id: Option<i64>,
     /// Стоимость премиального домена.
     #[serde(
         rename = "premium_prolong_cost",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub premium_prolong_cost: Option<f64>,
     /// ID регистратора домена.
-    #[serde(rename = "provider", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "provider", default, deserialize_with = "Option::deserialize")]
     pub provider: Option<String>,
     /// Статус заявки на продление/регистрацию/трансфер домена.
-    #[serde(rename = "request_status", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "request_status",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub request_status: Option<RequestStatus>,
     /// Список поддоменов.
     #[serde(rename = "subdomains")]
     pub subdomains: Vec<models::Subdomain>,
     /// ID доменной зоны.
-    #[serde(rename = "tld_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "tld_id", default, deserialize_with = "Option::deserialize")]
     pub tld_id: Option<i64>
 }
 

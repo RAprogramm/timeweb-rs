@@ -22,7 +22,11 @@ pub struct SkillScript {
     #[serde(rename = "description")]
     pub description: String,
     /// Какие аргументы принимает скрипт
-    #[serde(rename = "args_hint", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "args_hint",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub args_hint:   Option<String>,
     /// Размер содержимого в байтах
     #[serde(rename = "size_bytes")]

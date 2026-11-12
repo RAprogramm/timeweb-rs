@@ -24,7 +24,11 @@ pub struct AddonOut {
     #[serde(rename = "status")]
     pub status:      String,
     /// Дата и время создания дополнения в формате ISO8601
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Версия дополнения
     #[serde(rename = "version")]

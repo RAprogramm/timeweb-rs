@@ -27,15 +27,27 @@ pub struct Vpc {
     #[serde(rename = "location")]
     pub location:          String,
     /// Дата создания сети.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:        chrono::DateTime<chrono::FixedOffset>,
     /// Описание.
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description:       Option<String>,
     #[serde(rename = "availability_zone")]
     pub availability_zone: models::AvailabilityZone,
     /// Публичный IP-адрес сети.
-    #[serde(rename = "public_ip", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "public_ip",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub public_ip:         Option<String>,
     /// Тип сети.
     #[serde(rename = "type")]

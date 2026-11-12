@@ -19,10 +19,18 @@ pub struct AiSolutionConversation {
     #[serde(rename = "conversation_id")]
     pub conversation_id: String,
     /// Дата и время первого сообщения
-    #[serde(rename = "started_at")]
+    #[serde(
+        rename = "started_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub started_at:      chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего сообщения
-    #[serde(rename = "last_message_at")]
+    #[serde(
+        rename = "last_message_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub last_message_at: chrono::DateTime<chrono::FixedOffset>,
     /// Количество сообщений в разговоре
     #[serde(rename = "messages_count")]

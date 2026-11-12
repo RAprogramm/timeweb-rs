@@ -22,7 +22,11 @@ pub struct ChatFirstMessage {
     #[serde(rename = "role")]
     pub role:       Role,
     /// Дата создания сообщения
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// Текст сообщения
     #[serde(rename = "text")]

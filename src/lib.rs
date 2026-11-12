@@ -68,11 +68,15 @@ pub mod apis;
 pub mod models;
 
 mod client;
+mod datetime;
 mod error_body;
 mod pagination;
 mod retry;
 
-pub use client::{DEFAULT_BASE_URL, authenticated, authenticated_with_base_url};
+pub use client::{
+    AI_GATEWAY_BASE_URL, DEFAULT_BASE_URL, authenticated, authenticated_ai_gateway,
+    authenticated_with_base_url
+};
 pub use error_body::{ErrorDetails, ErrorMessage};
 pub use pagination::{PageStream, paginate};
 pub use retry::{RetryPolicy, TimewebClient};

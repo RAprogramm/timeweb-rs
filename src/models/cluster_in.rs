@@ -115,7 +115,9 @@ pub enum NetworkDriver {
     #[serde(rename = "flannel")]
     Flannel,
     #[serde(rename = "cilium")]
-    Cilium
+    Cilium,
+    #[serde(rename = "canal")]
+    Canal
 }
 
 impl Default for NetworkDriver {

@@ -33,10 +33,18 @@ pub struct RegistryOut {
     #[serde(rename = "project_id")]
     pub project_id:      i32,
     /// Дата и время создания реестра в формате ISO8601
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:      chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время обновления реестра в формате ISO8601
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:      chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "disk_stats")]
     pub disk_stats:      Box<models::RegistryOutDiskStats>

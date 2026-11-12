@@ -24,7 +24,7 @@ pub struct DatabaseCluster {
     #[serde(rename = "created_at")]
     pub created_at: String,
     /// Локация сервера.
-    #[serde(rename = "location", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "location", default, deserialize_with = "Option::deserialize")]
     pub location: Option<String>,
     /// Название кластера базы данных.
     #[serde(rename = "name")]
@@ -43,13 +43,21 @@ pub struct DatabaseCluster {
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
     pub r#type: Option<String>,
     /// Тип хеширования кластера базы данных (mysql5 | mysql | postgres).
-    #[serde(rename = "hash_type", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "hash_type",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub hash_type: Option<HashType>,
     /// Ссылка на аватар для базы данных.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link: Option<String>,
     /// Порт
-    #[serde(rename = "port", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "port", default, deserialize_with = "Option::deserialize")]
     pub port: Option<i32>,
     /// Текущий статус кластера базы данных. Значение `read_only` означает, что
     /// запись в кластер заблокирована из-за переполнения диска — чтобы снять
@@ -58,31 +66,51 @@ pub struct DatabaseCluster {
     pub status: Status,
     /// ID тарифа. Равен `null` у кластеров, созданных через конфигуратор — в
     /// этом случае заполнен `configurator_id`.
-    #[serde(rename = "preset_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "preset_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub preset_id: Option<i32>,
     /// ID конфигуратора. Равен `null` у кластеров, созданных по тарифу.
-    #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "configurator_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub configurator_id: Option<i32>,
     /// Количество ядер процессора.
-    #[serde(rename = "cpu", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "cpu", default, deserialize_with = "Option::deserialize")]
     pub cpu: Option<i32>,
     /// Частота процессора.
-    #[serde(rename = "cpu_frequency", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "cpu_frequency",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub cpu_frequency: Option<String>,
     /// Используются ли выделенные ядра процессора.
     #[serde(rename = "is_dedicated_cpu")]
     pub is_dedicated_cpu: bool,
     /// Объем оперативной памяти (в Мб).
-    #[serde(rename = "ram", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ram", default, deserialize_with = "Option::deserialize")]
     pub ram: Option<i32>,
-    #[serde(rename = "disk", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "disk", default, deserialize_with = "Option::deserialize")]
     pub disk: Option<Box<models::DatabaseClusterDisk>>,
     /// Подключен ли к кластеру дополнительный диск.
     #[serde(rename = "has_additional_disk")]
     pub has_additional_disk: bool,
-    #[serde(rename = "disk_autoscaling", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "disk_autoscaling",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub disk_autoscaling: Option<Box<models::DatabaseClusterDiskAutoscaling>>,
-    #[serde(rename = "config_parameters", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "config_parameters",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub config_parameters: Option<Box<models::DatabaseClusterConfigParameters>>,
     /// Доступность публичного IP-адреса
     #[serde(rename = "is_enabled_public_network")]
@@ -97,7 +125,11 @@ pub struct DatabaseCluster {
     #[serde(rename = "is_backup_schedule_enabled")]
     pub is_backup_schedule_enabled: bool,
     /// Зона доступности кластера базы данных.
-    #[serde(rename = "availability_zone", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "availability_zone",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub availability_zone: Option<models::AvailabilityZone>,
     /// ID проекта, в котором находится кластер базы данных.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]

@@ -34,13 +34,25 @@ pub struct SkillDetails {
     #[serde(rename = "agents_count")]
     pub agents_count:     i32,
     /// Имя агента, если навык включён ровно у одного агента
-    #[serde(rename = "first_agent_name", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "first_agent_name",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub first_agent_name: Option<String>,
     /// ID навыка в каталоге, из которого установлен этот навык
-    #[serde(rename = "catalog_item_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "catalog_item_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub catalog_item_id:  Option<i32>,
     /// Версия каталожного навыка, из которой установлен или обновлён этот навык
-    #[serde(rename = "catalog_version", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "catalog_version",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub catalog_version:  Option<i32>,
     /// Навык установлен из каталога
     #[serde(rename = "is_from_catalog")]
@@ -49,10 +61,18 @@ pub struct SkillDetails {
     #[serde(rename = "is_modified")]
     pub is_modified:      bool,
     /// Дата и время создания
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:       chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего изменения
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:       chrono::DateTime<chrono::FixedOffset>,
     /// Скрипты текущей версии. Содержимое файлов не возвращается
     #[serde(rename = "scripts")]
@@ -65,7 +85,11 @@ pub struct SkillDetails {
     pub versions_limit:   i32,
     /// Версия, которая будет удалена при следующем сохранении, если история
     /// достигла лимита. `null` — удалять ничего не придётся
-    #[serde(rename = "version_to_prune", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "version_to_prune",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub version_to_prune: Option<i32>,
     /// Агенты, к которым подключён навык, включая выключенные
     #[serde(rename = "agents")]

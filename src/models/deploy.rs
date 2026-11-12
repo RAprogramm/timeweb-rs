@@ -27,7 +27,7 @@ pub struct Deploy {
     #[serde(rename = "started_at")]
     pub started_at: String,
     /// Время окончания деплоя. Определено для завершенных деплоев
-    #[serde(rename = "ended_at", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ended_at", default, deserialize_with = "Option::deserialize")]
     pub ended_at:   Option<String>,
     #[serde(rename = "status")]
     pub status:     models::DeployStatus,

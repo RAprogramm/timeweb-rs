@@ -21,7 +21,7 @@ pub struct ServerBackup {
     #[serde(rename = "name")]
     pub name:       String,
     /// Комментарий к бэкапу.
-    #[serde(rename = "comment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "comment", default, deserialize_with = "Option::deserialize")]
     pub comment:    Option<String>,
     /// Дата создания бэкапа.
     #[serde(rename = "created_at")]

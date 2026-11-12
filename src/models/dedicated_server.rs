@@ -30,25 +30,37 @@ pub struct DedicatedServer {
     pub ram_description:       String,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был создан выделенный сервер.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:            chrono::DateTime<chrono::FixedOffset>,
     /// IP-адрес сетевого интерфейса IPv4.
-    #[serde(rename = "ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ip", default, deserialize_with = "Option::deserialize")]
     pub ip:                    Option<String>,
     /// IP-адрес сетевого интерфейса IPMI.
-    #[serde(rename = "ipmi_ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ipmi_ip", default, deserialize_with = "Option::deserialize")]
     pub ipmi_ip:               Option<String>,
     /// Логин, используемый для входа в IPMI-консоль.
-    #[serde(rename = "ipmi_login", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "ipmi_login",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub ipmi_login:            Option<String>,
     /// Пароль, используемый для входа в IPMI-консоль.
-    #[serde(rename = "ipmi_password", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "ipmi_password",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub ipmi_password:         Option<String>,
     /// IP-адрес сетевого интерфейса IPv6.
-    #[serde(rename = "ipv6", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ipv6", default, deserialize_with = "Option::deserialize")]
     pub ipv6:                  Option<String>,
     /// Внутренний дополнительный ID сервера.
-    #[serde(rename = "node_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "node_id", default, deserialize_with = "Option::deserialize")]
     pub node_id:               Option<i64>,
     /// Удобочитаемое имя, установленное для выделенного сервера.
     #[serde(rename = "name")]
@@ -57,33 +69,42 @@ pub struct DedicatedServer {
     #[serde(rename = "comment")]
     pub comment:               String,
     /// Пароль для подключения к VNC-консоли выделенного сервера.
-    #[serde(rename = "vnc_pass", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "vnc_pass", default, deserialize_with = "Option::deserialize")]
     pub vnc_pass:              Option<String>,
     /// Строка состояния, указывающая состояние выделенного сервера. Может быть
     /// «installing», «installed», «on» или «off».
     #[serde(rename = "status")]
     pub status:                Status,
     /// ID операционной системы, установленной на выделенный сервер.
-    #[serde(rename = "os_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "os_id", default, deserialize_with = "Option::deserialize")]
     pub os_id:                 Option<i64>,
     /// ID панели управления, установленной на выделенный сервер.
-    #[serde(rename = "cp_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "cp_id", default, deserialize_with = "Option::deserialize")]
     pub cp_id:                 Option<i64>,
     /// ID интернет-канала, установленного на выделенный сервер.
-    #[serde(rename = "bandwidth_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "bandwidth_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub bandwidth_id:          Option<i64>,
     /// Массив уникальных ID сетевых дисков, подключенных к выделенному серверу.
-    #[serde(rename = "network_drive_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "network_drive_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub network_drive_id:      Option<Vec<f64>>,
     /// Массив уникальных ID дополнительных IP-адресов, подключенных к
     /// выделенному серверу.
     #[serde(
         rename = "additional_ip_addr_id",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub additional_ip_addr_id: Option<Vec<f64>>,
     /// ID списка дополнительных услуг выделенного сервера.
-    #[serde(rename = "plan_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "plan_id", default, deserialize_with = "Option::deserialize")]
     pub plan_id:               Option<i64>,
     /// Стоимость выделенного сервера.
     #[serde(rename = "price")]
@@ -96,10 +117,14 @@ pub struct DedicatedServer {
     #[serde(rename = "autoinstall_ready")]
     pub autoinstall_ready:     f64,
     /// Пароль root сервера или пароль Администратора для серверов Windows.
-    #[serde(rename = "password", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "password", default, deserialize_with = "Option::deserialize")]
     pub password:              Option<String>,
     /// Ссылка на аватар сервера.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:           Option<String>,
     /// Это логическое значение, которое показывает, готов ли выделенный сервер
     /// к моментальной выдаче.

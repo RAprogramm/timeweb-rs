@@ -35,10 +35,18 @@ pub struct CrispIntegration {
     #[serde(rename = "status")]
     pub status:         Status,
     /// Дата и время создания
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:     chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего обновления
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:     chrono::DateTime<chrono::FixedOffset>
 }
 

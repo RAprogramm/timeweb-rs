@@ -13,15 +13,15 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct Meta1 {
+pub struct Meta2 {
     /// Число элементов в результате
     #[serde(rename = "total")]
     pub total: i32
 }
 
-impl Meta1 {
-    pub fn new(total: i32) -> Meta1 {
-        Meta1 {
+impl Meta2 {
+    pub fn new(total: i32) -> Meta2 {
+        Meta2 {
             total
         }
     }

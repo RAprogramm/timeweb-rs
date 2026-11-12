@@ -18,10 +18,18 @@ pub struct RestorePoint {
     #[serde(rename = "id")]
     pub id:         i64,
     /// Дата и время создания снапшота в формате ISO 8601.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время истечения снапшота в формате ISO 8601.
-    #[serde(rename = "expired_at", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "expired_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
+    )]
     pub expired_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Статус снапшота.  - `creating` — создаётся; - `created` — создан; -
     /// `committed` — зафиксирован; - `rolled_back` — откачен; - `error` —

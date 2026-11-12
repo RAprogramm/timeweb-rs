@@ -19,7 +19,7 @@ pub struct DatabaseClusterNetworksInnerOneOf {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// Список IP-адресов сети.
-    #[serde(rename = "ips", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ips", default, deserialize_with = "Option::deserialize")]
     pub ips:    Option<Vec<models::DatabaseClusterNetworksInnerOneOfIpsInner>>
 }
 

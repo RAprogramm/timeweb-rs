@@ -29,8 +29,9 @@ pub struct FirewallRule {
     /// Порт или диапазон портов, в случае tcp или udp.
     #[serde(rename = "port", skip_serializing_if = "Option::is_none")]
     pub port:        Option<String>,
+    /// Сетевой адрес или подсеть. Поддерживаются протоколы IPv4  и IPv6.
     #[serde(rename = "cidr", skip_serializing_if = "Option::is_none")]
-    pub cidr:        Option<Box<models::FirewallRuleCidr>>,
+    pub cidr:        Option<String>,
     /// ID группы правил.
     #[serde(rename = "group_id")]
     pub group_id:    String

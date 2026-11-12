@@ -16,7 +16,11 @@ use crate::models;
 pub struct ServersStatisticsListInner {
     #[serde(rename = "value")]
     pub value: f64,
-    #[serde(rename = "time")]
+    #[serde(
+        rename = "time",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub time:  chrono::DateTime<chrono::FixedOffset>
 }
 

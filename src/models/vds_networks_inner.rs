@@ -32,7 +32,7 @@ pub struct VdsNetworksInner {
     )]
     pub bandwidth:        Option<Option<f64>>,
     /// Список IP-адресов сети.
-    #[serde(rename = "ips", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ips", default, deserialize_with = "Option::deserialize")]
     pub ips:              Option<Vec<models::VdsNetworksInnerIpsInner>>,
     /// Это логическое значение, которое показывает, подключена ли DDoS-защита.
     /// Только для публичных сетей.

@@ -16,20 +16,21 @@ use crate::models;
 pub struct UploadImage200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "response_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub response_id:       Option<uuid::Uuid>,
-    #[serde(rename = "upload_successful")]
-    pub upload_successful: Box<models::UploadSuccessful>
+    #[serde(rename = "upload_successful", skip_serializing_if = "Option::is_none")]
+    pub upload_successful: Option<Box<models::UploadSuccessful>>
 }
 
 impl UploadImage200Response {
-    pub fn new(
-        response_id: Option<uuid::Uuid>,
-        upload_successful: models::UploadSuccessful
-    ) -> UploadImage200Response {
+    pub fn new(response_id: Option<uuid::Uuid>) -> UploadImage200Response {
         UploadImage200Response {
             response_id,
-            upload_successful: Box::new(upload_successful)
+            upload_successful: None
         }
     }
 }

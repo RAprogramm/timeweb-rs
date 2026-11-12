@@ -12,11 +12,15 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct Message {}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum Message {
+    String(String),
+    ArrayVecString(Vec<String>)
+}
 
-impl Message {
-    pub fn new() -> Message {
-        Message {}
+impl Default for Message {
+    fn default() -> Self {
+        Self::String(Default::default())
     }
 }

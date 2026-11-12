@@ -22,7 +22,11 @@ pub struct Agent {
     #[serde(rename = "name")]
     pub name: String,
     /// Описание агента
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description: Option<String>,
     /// ID проекта, в котором находится агент
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
@@ -58,7 +62,11 @@ pub struct Agent {
     #[serde(rename = "total_tokens", skip_serializing_if = "Option::is_none")]
     pub total_tokens: Option<i32>,
     /// Использовано токенов пакета. Для агентов с поресурсной оплатой — `null`.
-    #[serde(rename = "used_tokens", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "used_tokens",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub used_tokens: Option<i32>,
     /// Осталось токенов в пакете. Только для агентов с пакетом токенов.
     #[serde(rename = "remaining_tokens", skip_serializing_if = "Option::is_none")]
@@ -71,6 +79,8 @@ pub struct Agent {
     /// токенов.
     #[serde(
         rename = "subscription_renewal_date",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime",
         skip_serializing_if = "Option::is_none"
     )]
     pub subscription_renewal_date: Option<chrono::DateTime<chrono::FixedOffset>>,
@@ -100,7 +110,11 @@ pub struct Agent {
     )]
     pub ai_gateway_key_id: Option<Option<uuid::Uuid>>,
     /// Дата создания агента
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// ID баз знаний, подключённых к агенту
     #[serde(rename = "knowledge_bases_ids")]

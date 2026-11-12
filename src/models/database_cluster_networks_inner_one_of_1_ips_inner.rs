@@ -18,7 +18,7 @@ pub struct DatabaseClusterNetworksInnerOneOf1IpsInner {
     #[serde(rename = "type")]
     pub r#type: Type,
     /// IP-адрес сети.
-    #[serde(rename = "ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ip", default, deserialize_with = "Option::deserialize")]
     pub ip:     Option<String>
 }
 

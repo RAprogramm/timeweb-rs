@@ -16,10 +16,18 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct OriginNode {
     /// IPv4-адрес или подсеть узлов. `null`, если у записи нет IPv4-подсети.
-    #[serde(rename = "ipv4_subnet", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "ipv4_subnet",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub ipv4_subnet: Option<String>,
     /// IPv6-адрес или подсеть узлов. `null`, если у записи нет IPv6-подсети.
-    #[serde(rename = "ipv6_subnet", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "ipv6_subnet",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub ipv6_subnet: Option<String>
 }
 

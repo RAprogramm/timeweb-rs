@@ -15,7 +15,11 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct StatisticsTrafficInner {
     /// Начало часового интервала в UTC.
-    #[serde(rename = "logged_at")]
+    #[serde(
+        rename = "logged_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub logged_at:      chrono::DateTime<chrono::FixedOffset>,
     /// Исходящий трафик за интервал, в байтах.
     #[serde(rename = "outgoing_bytes")]

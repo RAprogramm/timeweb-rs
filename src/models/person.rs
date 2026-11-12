@@ -40,7 +40,11 @@ pub struct Person {
     #[serde(rename = "mailing_address")]
     pub mailing_address: String,
     /// Код страны администратора.
-    #[serde(rename = "country_code", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "country_code",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub country_code:    Option<String>,
     /// Это логическое значение, которое показывает, является ли администратор
     /// резидентом РФ.

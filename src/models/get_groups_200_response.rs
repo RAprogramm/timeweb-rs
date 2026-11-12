@@ -16,11 +16,15 @@ use crate::models;
 pub struct GetGroups200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "response_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub response_id: Option<uuid::Uuid>,
     /// Вспомогательная информация о возвращаемой сущности.
     #[serde(rename = "meta")]
-    pub meta:        Box<models::Meta>,
+    pub meta:        Box<models::Meta2>,
     #[serde(rename = "groups")]
     pub groups:      Vec<models::FirewallGroup>
 }
@@ -28,7 +32,7 @@ pub struct GetGroups200Response {
 impl GetGroups200Response {
     pub fn new(
         response_id: Option<uuid::Uuid>,
-        meta: models::Meta,
+        meta: models::Meta2,
         groups: Vec<models::FirewallGroup>
     ) -> GetGroups200Response {
         GetGroups200Response {

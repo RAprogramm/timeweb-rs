@@ -23,7 +23,7 @@ pub struct RepositoriesResponse {
     )]
     pub response_id: Option<Option<String>>,
     #[serde(rename = "meta")]
-    pub meta: Box<models::Meta1>,
+    pub meta: Box<models::Meta>,
     /// Массив тарифов container registry
     #[serde(rename = "container_registries_repositories")]
     pub container_registries_repositories: Vec<models::ContainerRegistryRepositoriesInner>
@@ -31,7 +31,7 @@ pub struct RepositoriesResponse {
 
 impl RepositoriesResponse {
     pub fn new(
-        meta: models::Meta1,
+        meta: models::Meta,
         container_registries_repositories: Vec<models::ContainerRegistryRepositoriesInner>
     ) -> RepositoriesResponse {
         RepositoriesResponse {

@@ -17,12 +17,12 @@ use crate::models;
 pub struct ResourcesListResult {
     /// Ресурсы сервера
     #[serde(rename = "resources")]
-    pub resources: Vec<models::Resource>
+    pub resources: Vec<models::Resource2>
 }
 
 impl ResourcesListResult {
     /// Результат `resources/list`
-    pub fn new(resources: Vec<models::Resource>) -> ResourcesListResult {
+    pub fn new(resources: Vec<models::Resource2>) -> ResourcesListResult {
         ResourcesListResult {
             resources
         }

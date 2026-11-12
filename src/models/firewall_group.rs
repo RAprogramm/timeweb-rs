@@ -18,10 +18,18 @@ pub struct FirewallGroup {
     #[serde(rename = "id")]
     pub id:          String,
     /// Дата и время создания.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего обновления.
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Имя группы правил.
     #[serde(rename = "name")]
@@ -29,8 +37,8 @@ pub struct FirewallGroup {
     /// Описание группы правил.
     #[serde(rename = "description")]
     pub description: String,
-    #[serde(rename = "policy")]
-    pub policy:      models::Policy
+    #[serde(rename = "policy", skip_serializing_if = "Option::is_none")]
+    pub policy:      Option<models::Policy>
 }
 
 impl FirewallGroup {
@@ -39,8 +47,7 @@ impl FirewallGroup {
         created_at: chrono::DateTime<chrono::FixedOffset>,
         updated_at: chrono::DateTime<chrono::FixedOffset>,
         name: String,
-        description: String,
-        policy: models::Policy
+        description: String
     ) -> FirewallGroup {
         FirewallGroup {
             id,
@@ -48,7 +55,7 @@ impl FirewallGroup {
             updated_at,
             name,
             description,
-            policy
+            policy: None
         }
     }
 }

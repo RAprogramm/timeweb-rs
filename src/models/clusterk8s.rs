@@ -24,7 +24,11 @@ pub struct Clusterk8s {
     pub name:           String,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был создан кластер.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:     chrono::DateTime<chrono::FixedOffset>,
     /// Статус кластера.
     #[serde(rename = "status")]

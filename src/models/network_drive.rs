@@ -21,7 +21,7 @@ pub struct NetworkDrive {
     #[serde(rename = "name")]
     pub name:              String,
     /// Комментарий
-    #[serde(rename = "comment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "comment", default, deserialize_with = "Option::deserialize")]
     pub comment:           Option<String>,
     /// Размер диска в Гб
     #[serde(rename = "size")]

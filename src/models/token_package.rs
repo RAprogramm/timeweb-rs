@@ -41,7 +41,11 @@ pub struct TokenPackage {
     #[serde(rename = "price")]
     pub price:           f64,
     /// Период подписки в днях. `null` для дополнительных пакетов
-    #[serde(rename = "duration_days", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "duration_days",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub duration_days:   Option<i32>,
     /// Пакет доступен для покупки
     #[serde(rename = "is_available")]

@@ -19,7 +19,11 @@ pub struct AiSolutionTelegramBot {
     #[serde(rename = "account_key")]
     pub account_key:  String,
     /// Имя пользователя бота без `@`. `null`, если Telegram его не вернул
-    #[serde(rename = "bot_username", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "bot_username",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub bot_username: Option<String>,
     /// Состояние бота: `pending_pairing` — бот подключён, но владелец ещё не
     /// подтверждён (ожидается код подтверждения); `connected` — владелец

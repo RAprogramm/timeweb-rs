@@ -34,7 +34,7 @@ pub struct DatabaseAdmin {
     #[serde(rename = "description")]
     pub description:       String,
     /// Хост пользователя
-    #[serde(rename = "host", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "host", default, deserialize_with = "Option::deserialize")]
     pub host:              Option<String>,
     /// Флаг, выданы ли пользователю привилегии на все инстансы базы данных
     #[serde(rename = "for_all")]

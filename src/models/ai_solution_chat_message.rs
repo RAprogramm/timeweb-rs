@@ -30,7 +30,11 @@ pub struct AiSolutionChatMessage {
     #[serde(rename = "content")]
     pub content:         String,
     /// Дата и время сообщения
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:      chrono::DateTime<chrono::FixedOffset>
 }
 

@@ -23,7 +23,11 @@ pub struct Project {
     pub account_id:  String,
     /// ID аватара пользователя. Описание методов работы с аватарами появится
     /// позднее.
-    #[serde(rename = "avatar_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_id:   Option<String>,
     /// Описание проекта.
     #[serde(rename = "description")]

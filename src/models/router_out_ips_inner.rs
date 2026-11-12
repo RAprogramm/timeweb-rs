@@ -17,7 +17,7 @@ pub struct RouterOutIpsInner {
     /// IP-адрес
     #[serde(rename = "ip")]
     pub ip:  String,
-    #[serde(rename = "nat", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "nat", default, deserialize_with = "Option::deserialize")]
     pub nat: Option<Box<models::RouterOutIpsInnerNat>>
 }
 

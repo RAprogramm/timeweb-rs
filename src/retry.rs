@@ -4,7 +4,7 @@ use std::{future::Future, time::Duration};
 
 use crate::{
     apis::{Error, configuration::Configuration},
-    authenticated, authenticated_with_base_url
+    authenticated, authenticated_ai_gateway, authenticated_with_base_url
 };
 
 /// When and how often a failed operation is retried.
@@ -82,6 +82,15 @@ impl TimewebClient {
     pub fn new(token: impl Into<String>) -> Self {
         Self {
             config: authenticated(token),
+            policy: RetryPolicy::default()
+        }
+    }
+
+    /// Client for the AI Gateway API, authenticated with an AI Gateway key.
+    #[must_use]
+    pub fn ai_gateway(key: impl Into<String>) -> Self {
+        Self {
+            config: authenticated_ai_gateway(key),
             policy: RetryPolicy::default()
         }
     }

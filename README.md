@@ -35,16 +35,16 @@ cargo add timeweb-rs
 The crate uses `native-tls` by default. To use `rustls` instead:
 
 ```toml
-timeweb-rs = { version = "0.1", default-features = false, features = ["rustls", "full"] }
+timeweb-rs = { version = "0.9", default-features = false, features = ["rustls", "full"] }
 ```
 
 By default every API area is compiled (the `full` feature). Each area also
 has its own feature named after its module (`servers`, `databases`,
 `kubernetes`, `dedicated-servers`, ...), so a consumer that needs one area
-can skip compiling the other ~500 generated models:
+can skip compiling the other ~1000 generated models:
 
 ```toml
-timeweb-rs = { version = "0.1", default-features = false, features = ["native-tls", "servers"] }
+timeweb-rs = { version = "0.9", default-features = false, features = ["native-tls", "servers"] }
 ```
 
 ## Usage
@@ -70,6 +70,30 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 Every operation is a free async function in an `apis::*_api` module and takes a
 reference to [`apis::configuration::Configuration`] as its first argument.
 Build that configuration with `timeweb_rs::authenticated`.
+
+## The AI Gateway
+
+The AI Gateway is a separate API surface with its own host
+(`https://api.timeweb.ai`) and its own key (`sk-...`), created in the control
+panel or with `POST /api/v1/cloud-ai/ai-keys`. Its operations live in the
+`ai_gateway_inference_api` module and expect a configuration built with
+`timeweb_rs::authenticated_ai_gateway`:
+
+```rust,no_run
+use timeweb_rs::apis::ai_gateway_inference_api;
+
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let config = timeweb_rs::authenticated_ai_gateway("sk-your-key");
+    let models = ai_gateway_inference_api::get_ai_gateway_models(&config).await?;
+    println!("{models:#?}");
+
+    Ok(())
+}
+```
+
+The management of the gateway keys (`ai_gateway_api`) is part of the regular
+Timeweb Cloud API and uses the ordinary configuration.
 
 For production use, `TimewebClient` wraps the same operations with retries
 (429, 5xx and transport failures, capped exponential backoff), `paginate`
@@ -124,33 +148,38 @@ To refresh manually:
    ```
 2. Normalize it:
    ```sh
-   python3 openapi/normalize_spec.py openapi/timeweb-cloud.json /tmp/normalized.json
+   cargo xtask normalize-spec openapi/timeweb-cloud.json /tmp/normalized.json
    ```
 3. Generate the client:
    ```sh
-   npx @openapitools/openapi-generator-cli generate \
+   npx @openapitools/openapi-generator-cli@7.22.0 generate \
        -i /tmp/normalized.json -g rust -o /tmp/twgen \
        -p packageName=timeweb_client,library=reqwest
    ```
-4. Replace `src/apis` and `src/models` with the freshly generated directories.
-5. Refresh the README statistics and module list:
+4. Replace `src/apis` and `src/models` with the freshly generated directories:
    ```sh
-   python3 openapi/update_readme.py
+   rsync -a --delete /tmp/twgen/src/apis/ src/apis/
+   rsync -a --delete /tmp/twgen/src/models/ src/models/
    ```
-6. Regenerate the example-based deserialization tests:
+5. Regenerate the per-area feature gates, patch the generated models and
+   refresh the derived files:
    ```sh
-   python3 openapi/generate_example_tests.py
-   ```
-7. Regenerate the per-area feature gates:
-   ```sh
-   python3 openapi/generate_feature_gates.py
+   cargo xtask feature-gates
+   cargo xtask patch-models
+   cargo xtask example-tests
+   cargo xtask readme
+   cargo +nightly fmt --all
    ```
 
-`openapi/normalize_spec.py` is a small, documented pre-processor: it reconciles
-path parameters with their route templates (the upstream spec has a few
-mismatches that produce non-compiling code) and swaps the Russian API tags for
-the English names the spec already carries in `x-name-i18n`. Request and
-response schemas are left untouched.
+The pipeline lives in the `xtask` crate of the workspace and is written in
+Rust: `cargo xtask normalize-spec` reconciles the path parameters with their
+route templates (the upstream spec has a few mismatches that produce
+non-compiling code), swaps the Russian API tags for the English names the spec
+already carries in `x-name-i18n`, and repairs the schemas the generator cannot
+render. `cargo xtask patch-models` then makes the generated models parse the
+responses the API actually sends: nullable fields that the API omits, the
+timestamps it sends without a UTC offset, and the unions it renders as empty
+structs.
 
 ## Releases
 

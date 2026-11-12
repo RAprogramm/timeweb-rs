@@ -48,7 +48,11 @@ pub struct S3Backup {
     )]
     pub comment:    Option<Option<String>>,
     /// Дата и время создания резервной копии.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>
 }
 

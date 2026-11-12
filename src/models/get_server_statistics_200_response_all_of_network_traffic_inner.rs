@@ -15,7 +15,11 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetServerStatistics200ResponseAllOfNetworkTrafficInner {
     /// Дата события в формате ISO 8061
-    #[serde(rename = "logged_at")]
+    #[serde(
+        rename = "logged_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub logged_at: chrono::DateTime<chrono::FixedOffset>,
     /// Входящий трафик сети в Мб/с
     #[serde(rename = "incoming")]

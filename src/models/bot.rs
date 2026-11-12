@@ -28,7 +28,11 @@ pub struct Bot {
     #[serde(rename = "username")]
     pub username:            String,
     /// Имя бота в мессенджере
-    #[serde(rename = "first_name", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "first_name",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub first_name:          Option<String>,
     /// Комментарий к боту. Пустая строка, если не задан
     #[serde(rename = "description")]
@@ -46,10 +50,18 @@ pub struct Bot {
     #[serde(rename = "whitelist_usernames")]
     pub whitelist_usernames: Vec<String>,
     /// Дата и время создания
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:          chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего обновления
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:          chrono::DateTime<chrono::FixedOffset>
 }
 

@@ -18,8 +18,8 @@ pub struct JsonRpcErrorResponse {
     /// Версия протокола JSON-RPC, всегда `2.0`
     #[serde(rename = "jsonrpc")]
     pub jsonrpc: Jsonrpc,
-    #[serde(rename = "id")]
-    pub id:      Box<models::JsonRpcErrorResponseId>,
+    #[serde(rename = "id", default, deserialize_with = "Option::deserialize")]
+    pub id:      Option<Box<models::JsonRpcErrorResponseId>>,
     #[serde(rename = "error")]
     pub error:   Box<models::JsonRpcError>
 }
@@ -28,12 +28,16 @@ impl JsonRpcErrorResponse {
     /// Ответ JSON-RPC 2.0 с ошибкой
     pub fn new(
         jsonrpc: Jsonrpc,
-        id: models::JsonRpcErrorResponseId,
+        id: Option<models::JsonRpcErrorResponseId>,
         error: models::JsonRpcError
     ) -> JsonRpcErrorResponse {
         JsonRpcErrorResponse {
             jsonrpc,
-            id: Box::new(id),
+            id: if let Some(x) = id {
+                Some(Box::new(x))
+            } else {
+                None
+            },
             error: Box::new(error)
         }
     }

@@ -27,7 +27,11 @@ pub struct Balancer {
     pub algo:                Algo,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был создан балансировщик.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:          chrono::DateTime<chrono::FixedOffset>,
     /// Порог количества ошибок.
     #[serde(rename = "fall")]
@@ -36,10 +40,10 @@ pub struct Balancer {
     #[serde(rename = "inter")]
     pub inter:               f64,
     /// IP-адрес сетевого интерфейса IPv4.
-    #[serde(rename = "ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ip", default, deserialize_with = "Option::deserialize")]
     pub ip:                  Option<String>,
     /// Локальный IP-адрес сетевого интерфейса IPv4.
-    #[serde(rename = "local_ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "local_ip", default, deserialize_with = "Option::deserialize")]
     pub local_ip:            Option<String>,
     /// Это логическое значение, которое показывает, выдает ли балансировщик
     /// сигнал о проверке жизнеспособности.
@@ -92,7 +96,11 @@ pub struct Balancer {
     #[serde(rename = "timeout")]
     pub timeout:             f64,
     /// Ссылка на аватар балансировщика.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:         Option<String>,
     /// Это логическое значение, которое показывает, выступает ли балансировщик
     /// в качестве прокси.

@@ -31,15 +31,23 @@ pub struct DatabaseInstance {
     pub description:       String,
     /// Расширения базы данных. Заполняется для кластеров PostgreSQL и RabbitMQ,
     /// для остальных типов кластеров — `null`.
-    #[serde(rename = "extensions", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "extensions",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub extensions:        Option<Box<models::DatabaseExtensions>>,
     /// ID администратора базы данных, который является владельцем этой базы
     /// данных. `null`, если владелец не задан.
-    #[serde(rename = "owner_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "owner_id", default, deserialize_with = "Option::deserialize")]
     pub owner_id:          Option<i64>,
     /// Настройки топика Kafka. Заполняется для кластеров Kafka, для остальных
     /// типов кластеров — `null`.
-    #[serde(rename = "config_parameters", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "config_parameters",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub config_parameters: Option<Box<models::KafkaConfigParameters>>
 }
 

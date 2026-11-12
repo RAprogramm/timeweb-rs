@@ -21,13 +21,17 @@ pub struct RouterOut {
     #[serde(rename = "account_id")]
     pub account_id:      String,
     /// Ссылка на аватар роутера
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:     Option<String>,
     /// Имя роутера
     #[serde(rename = "name")]
     pub name:            String,
     /// Описание роутера
-    #[serde(rename = "comment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "comment", default, deserialize_with = "Option::deserialize")]
     pub comment:         Option<String>,
     /// Статус роутера
     #[serde(rename = "status")]
@@ -42,7 +46,7 @@ pub struct RouterOut {
     #[serde(rename = "preset_id")]
     pub preset_id:       i32,
     /// Тариф
-    #[serde(rename = "preset", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "preset", default, deserialize_with = "Option::deserialize")]
     pub preset:          Option<Box<models::RouterPreset>>,
     /// Ноды
     #[serde(rename = "nodes")]
@@ -51,7 +55,11 @@ pub struct RouterOut {
     #[serde(rename = "networks")]
     pub networks:        Vec<models::RouterNetworkMeta>,
     /// Дата и время создания роутера в формате ISO8601
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:      chrono::DateTime<chrono::FixedOffset>,
     /// ID проекта
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]

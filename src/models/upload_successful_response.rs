@@ -22,15 +22,15 @@ pub struct UploadSuccessfulResponse {
         skip_serializing_if = "Option::is_none"
     )]
     pub response_id:       Option<Option<String>>,
-    #[serde(rename = "upload_successful")]
-    pub upload_successful: Box<models::UploadSuccessful>
+    #[serde(rename = "upload_successful", skip_serializing_if = "Option::is_none")]
+    pub upload_successful: Option<Box<models::UploadSuccessful>>
 }
 
 impl UploadSuccessfulResponse {
-    pub fn new(upload_successful: models::UploadSuccessful) -> UploadSuccessfulResponse {
+    pub fn new() -> UploadSuccessfulResponse {
         UploadSuccessfulResponse {
             response_id:       None,
-            upload_successful: Box::new(upload_successful)
+            upload_successful: None
         }
     }
 }

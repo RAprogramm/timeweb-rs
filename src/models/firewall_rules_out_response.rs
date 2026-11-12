@@ -24,13 +24,13 @@ pub struct FirewallRulesOutResponse {
     pub response_id: Option<Option<String>>,
     /// Вспомогательная информация о возвращаемой сущности.
     #[serde(rename = "meta")]
-    pub meta:        Box<models::Meta>,
+    pub meta:        Box<models::Meta2>,
     #[serde(rename = "rules")]
     pub rules:       Vec<models::FirewallRule>
 }
 
 impl FirewallRulesOutResponse {
-    pub fn new(meta: models::Meta, rules: Vec<models::FirewallRule>) -> FirewallRulesOutResponse {
+    pub fn new(meta: models::Meta2, rules: Vec<models::FirewallRule>) -> FirewallRulesOutResponse {
         FirewallRulesOutResponse {
             response_id: None,
             meta: Box::new(meta),

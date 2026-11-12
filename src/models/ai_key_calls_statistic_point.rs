@@ -16,7 +16,11 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AiKeyCallsStatisticPoint {
     /// Начало интервала
-    #[serde(rename = "time")]
+    #[serde(
+        rename = "time",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub time:       chrono::DateTime<chrono::FixedOffset>,
     /// Количество запросов за интервал
     #[serde(rename = "call_count")]

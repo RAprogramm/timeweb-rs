@@ -21,7 +21,11 @@ pub struct ClusterOut {
     #[serde(rename = "name")]
     pub name:              String,
     /// Дата и время создания кластера в формате ISO8601
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:        chrono::DateTime<chrono::FixedOffset>,
     /// Статус
     #[serde(rename = "status")]
@@ -36,7 +40,11 @@ pub struct ClusterOut {
     #[serde(rename = "network_driver")]
     pub network_driver:    NetworkDriver,
     /// Ссылка на аватар кластера.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:       Option<String>,
     /// Логическое значение, показывающее, включен ли Ingress
     #[serde(rename = "ingress")]
@@ -103,7 +111,9 @@ pub enum NetworkDriver {
     #[serde(rename = "flannel")]
     Flannel,
     #[serde(rename = "cilium")]
-    Cilium
+    Cilium,
+    #[serde(rename = "canal")]
+    Canal
 }
 
 impl Default for NetworkDriver {

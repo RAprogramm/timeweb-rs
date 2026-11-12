@@ -21,10 +21,10 @@ pub struct RouterNetworkMeta {
     #[serde(rename = "name")]
     pub name:    String,
     /// IP-адрес NAT
-    #[serde(rename = "nat_ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "nat_ip", default, deserialize_with = "Option::deserialize")]
     pub nat_ip:  Option<String>,
     /// Шлюз
-    #[serde(rename = "gateway", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "gateway", default, deserialize_with = "Option::deserialize")]
     pub gateway: Option<String>,
     #[serde(rename = "dhcp")]
     pub dhcp:    Box<models::RouterNetworkMetaDhcp>

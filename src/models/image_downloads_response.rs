@@ -24,14 +24,14 @@ pub struct ImageDownloadsResponse {
     pub response_id: Option<Option<String>>,
     /// Вспомогательная информация о возвращаемой сущности.
     #[serde(rename = "meta")]
-    pub meta:        Box<models::Meta>,
+    pub meta:        Box<models::Meta2>,
     #[serde(rename = "downloads")]
     pub downloads:   Vec<models::ImageDownload>
 }
 
 impl ImageDownloadsResponse {
     pub fn new(
-        meta: models::Meta,
+        meta: models::Meta2,
         downloads: Vec<models::ImageDownload>
     ) -> ImageDownloadsResponse {
         ImageDownloadsResponse {

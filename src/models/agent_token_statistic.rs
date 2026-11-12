@@ -16,7 +16,11 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AgentTokenStatistic {
     /// Начало интервала
-    #[serde(rename = "time")]
+    #[serde(
+        rename = "time",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub time:               chrono::DateTime<chrono::FixedOffset>,
     /// Модель, на которую пришлись запросы. В интервалах без запросов поле
     /// отсутствует.
@@ -37,7 +41,11 @@ pub struct AgentTokenStatistic {
     pub cache_write_tokens: i32,
     /// Стоимость токенов интервала до учёта бонусов, в валюте аккаунта. `null`
     /// — стоимость посчитать не удалось.
-    #[serde(rename = "total_cost", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "total_cost",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub total_cost:         Option<f64>
 }
 

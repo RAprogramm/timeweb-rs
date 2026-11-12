@@ -30,16 +30,24 @@ pub struct Vds {
     pub created_at:        String,
     #[serde(rename = "os")]
     pub os:                Box<models::VdsOs>,
-    #[serde(rename = "software", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "software", default, deserialize_with = "Option::deserialize")]
     pub software:          Option<Box<models::VdsSoftware>>,
     /// ID тарифа сервера.
-    #[serde(rename = "preset_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "preset_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub preset_id:         Option<i64>,
     /// Локация сервера.
     #[serde(rename = "location")]
     pub location:          String,
     /// ID конфигуратора сервера.
-    #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "configurator_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub configurator_id:   Option<i64>,
     /// Режим загрузки ОС сервера.
     #[serde(rename = "boot_mode")]
@@ -49,7 +57,11 @@ pub struct Vds {
     pub status:            Status,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был запущен сервер.
-    #[serde(rename = "start_at", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "start_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
+    )]
     pub start_at:          Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Это логическое значение, которое показывает, включена ли защита от DDoS
     /// у данного сервера.
@@ -78,24 +90,40 @@ pub struct Vds {
     #[serde(rename = "disks")]
     pub disks:             Vec<models::VdsDisksInner>,
     /// ID аватара сервера.
-    #[serde(rename = "avatar_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_id:         Option<String>,
     /// Ссылка на аватар сервера.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:       Option<String>,
     /// Пароль от VNC.
     #[serde(rename = "vnc_pass")]
     pub vnc_pass:          String,
     /// Пароль root сервера или пароль Администратора для серверов Windows.
-    #[serde(rename = "root_pass", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "root_pass",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub root_pass:         Option<String>,
-    #[serde(rename = "image", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "image", default, deserialize_with = "Option::deserialize")]
     pub image:             Option<Box<models::VdsImage>>,
     /// Список сетей сервера.
     #[serde(rename = "networks")]
     pub networks:          Vec<models::VdsNetworksInner>,
     /// Cloud-init скрипт.
-    #[serde(rename = "cloud_init", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "cloud_init",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub cloud_init:        Option<String>,
     /// Это логическое значение, которое показывает, включен ли QEMU-agent на
     /// сервере.

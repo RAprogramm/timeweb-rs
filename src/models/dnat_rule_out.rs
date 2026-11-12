@@ -21,13 +21,21 @@ pub struct DnatRuleOut {
     #[serde(rename = "local_ip")]
     pub local_ip:    String,
     /// Внутренний порт или диапазон
-    #[serde(rename = "local_port", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "local_port",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub local_port:  Option<String>,
     /// Публичный IP-адрес
     #[serde(rename = "public_ip")]
     pub public_ip:   String,
     /// Внешний порт или диапазон
-    #[serde(rename = "public_port", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "public_port",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub public_port: Option<String>,
     /// Протокол
     #[serde(rename = "protocol")]

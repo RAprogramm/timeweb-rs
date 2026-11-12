@@ -18,7 +18,7 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AiGatewayValidationError {
     /// Описание ошибки: строка или список ошибок по полям запроса
-    #[serde(rename = "detail", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "detail", default, deserialize_with = "Option::deserialize")]
     pub detail: Option<serde_json::Value>
 }
 

@@ -30,7 +30,11 @@ pub struct SkillCatalogItem {
     #[serde(rename = "name")]
     pub name:               String,
     /// Краткое описание навыка
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description:        Option<String>,
     /// Когда применять навык
     #[serde(rename = "when_to_use")]
@@ -47,6 +51,7 @@ pub struct SkillCatalogItem {
     /// ID установленного навыка в аккаунте
     #[serde(
         rename = "installed_skill_id",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub installed_skill_id: Option<i32>,

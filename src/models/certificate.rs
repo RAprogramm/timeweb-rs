@@ -30,10 +30,18 @@ pub struct Certificate {
     #[serde(rename = "domains")]
     pub domains:    Vec<String>,
     /// Дата выпуска сертификата.
-    #[serde(rename = "issued_at")]
+    #[serde(
+        rename = "issued_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub issued_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Дата окончания действия сертификата.
-    #[serde(rename = "expires_at")]
+    #[serde(
+        rename = "expires_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub expires_at: chrono::DateTime<chrono::FixedOffset>
 }
 

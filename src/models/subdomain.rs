@@ -21,7 +21,11 @@ pub struct Subdomain {
     #[serde(rename = "id")]
     pub id:        i64,
     /// Привязанный к поддомену IP-адрес.
-    #[serde(rename = "linked_ip", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "linked_ip",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub linked_ip: Option<String>
 }
 

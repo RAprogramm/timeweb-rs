@@ -22,7 +22,11 @@ pub struct Knowledgebase {
     #[serde(rename = "name")]
     pub name: String,
     /// Описание базы знаний
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description: Option<String>,
     /// ID проекта, в котором находится база знаний. Поля нет, если проект не
     /// определён
@@ -39,7 +43,11 @@ pub struct Knowledgebase {
     #[serde(rename = "status")]
     pub status: Status,
     /// Дата и время последней синхронизации. `null`, если синхронизации не было
-    #[serde(rename = "last_sync", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "last_sync",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
+    )]
     pub last_sync: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Количество токенов, доступных в текущем периоде подписки (пакет подписки
     /// и докупленные пакеты)
@@ -57,7 +65,8 @@ pub struct Knowledgebase {
     /// Дата следующего продления подписки (списания стоимости пакета токенов)
     #[serde(
         rename = "subscription_renewal_date",
-        deserialize_with = "Option::deserialize"
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
     )]
     pub subscription_renewal_date: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Документы базы знаний
@@ -67,7 +76,11 @@ pub struct Knowledgebase {
     #[serde(rename = "agents_ids")]
     pub agents_ids: Vec<i32>,
     /// Дата и время создания базы знаний
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>
 }
 

@@ -18,7 +18,11 @@ pub struct NodeOut {
     #[serde(rename = "id")]
     pub id:         i32,
     /// Дата и время создания ноды в формате ISO8601
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// Тип ноды
     #[serde(rename = "type")]
@@ -45,8 +49,8 @@ pub struct NodeOut {
     #[serde(rename = "network")]
     pub network:    i32,
     /// Ip-адрес ноды
-    #[serde(rename = "node_ip")]
-    pub node_ip:    String
+    #[serde(rename = "node_ip", skip_serializing_if = "Option::is_none")]
+    pub node_ip:    Option<String>
 }
 
 impl NodeOut {
@@ -60,8 +64,7 @@ impl NodeOut {
         cpu: i32,
         ram: i32,
         disk: i32,
-        network: i32,
-        node_ip: String
+        network: i32
     ) -> NodeOut {
         NodeOut {
             id,
@@ -74,7 +77,7 @@ impl NodeOut {
             ram,
             disk,
             network,
-            node_ip
+            node_ip: None
         }
     }
 }

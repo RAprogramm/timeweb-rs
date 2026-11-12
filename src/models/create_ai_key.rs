@@ -26,7 +26,11 @@ pub struct CreateAiKey {
     pub project_id:      Option<i32>,
     /// Дата и время окончания действия ключа в формате ISO 8601. Поле
     /// обязательно: передайте `null`, чтобы ключ был бессрочным
-    #[serde(rename = "expire", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "expire",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
+    )]
     pub expire:          Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Запасные модели в порядке приоритета, не больше двух и без повторов.
     /// Подходят только действующие текстовые модели каталога. Запасные модели

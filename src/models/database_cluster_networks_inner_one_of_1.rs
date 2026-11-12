@@ -31,7 +31,7 @@ pub struct DatabaseClusterNetworksInnerOneOf1 {
     #[serde(rename = "nat_mode")]
     pub nat_mode:     NatMode,
     /// Список IP-адресов сети.
-    #[serde(rename = "ips", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ips", default, deserialize_with = "Option::deserialize")]
     pub ips:          Option<Vec<models::DatabaseClusterNetworksInnerOneOf1IpsInner>>
 }
 

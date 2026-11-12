@@ -5,6 +5,13 @@ use crate::apis::configuration::Configuration;
 /// Default base URL of the Timeweb Cloud API.
 pub const DEFAULT_BASE_URL: &str = "https://api.timeweb.cloud";
 
+/// Default base URL of the Timeweb AI Gateway API.
+///
+/// The AI Gateway is a separate API surface with its own host: the
+/// operations of the `ai_gateway_inference_api` module talk to it instead of
+/// to [`DEFAULT_BASE_URL`].
+pub const AI_GATEWAY_BASE_URL: &str = "https://api.timeweb.ai";
+
 /// Builds a [`Configuration`] authenticated with a Timeweb Cloud JWT token.
 ///
 /// The token is issued in the Timeweb Cloud control panel under the
@@ -32,6 +39,31 @@ pub fn authenticated(token: impl Into<String>) -> Configuration {
     }
 }
 
+/// Builds a [`Configuration`] authenticated with an AI Gateway key.
+///
+/// The AI Gateway has its own host ([`AI_GATEWAY_BASE_URL`]) and its own key
+/// (`sk-...`), created in the control panel or with
+/// `POST /api/v1/cloud-ai/ai-keys`. The operations of the
+/// `ai_gateway_inference_api` module expect a configuration built this way:
+///
+/// ```no_run
+/// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
+/// use timeweb_rs::apis::ai_gateway_inference_api;
+///
+/// let config = timeweb_rs::authenticated_ai_gateway("your-ai-gateway-key");
+/// let models = ai_gateway_inference_api::get_ai_gateway_models(&config).await?;
+/// println!("{models:#?}");
+/// # Ok(())
+/// # }
+/// ```
+#[must_use]
+pub fn authenticated_ai_gateway(key: impl Into<String>) -> Configuration {
+    Configuration {
+        base_path: AI_GATEWAY_BASE_URL.to_string(),
+        ..authenticated(key)
+    }
+}
+
 /// Builds an authenticated [`Configuration`] targeting a custom base URL.
 ///
 /// Useful for testing against a mock server or a proxy. For production use
@@ -49,7 +81,10 @@ pub fn authenticated_with_base_url(
 
 #[cfg(test)]
 mod tests {
-    use super::{DEFAULT_BASE_URL, authenticated, authenticated_with_base_url};
+    use super::{
+        AI_GATEWAY_BASE_URL, DEFAULT_BASE_URL, authenticated, authenticated_ai_gateway,
+        authenticated_with_base_url
+    };
 
     #[test]
     fn authenticated_sets_bearer_token_and_default_base_url() {
@@ -70,5 +105,12 @@ mod tests {
         let config = authenticated_with_base_url("jwt-token", "http://localhost:8080");
         assert_eq!(config.base_path, "http://localhost:8080");
         assert_eq!(config.bearer_access_token.as_deref(), Some("jwt-token"));
+    }
+
+    #[test]
+    fn authenticated_ai_gateway_targets_the_ai_gateway_host() {
+        let config = authenticated_ai_gateway("sk-test");
+        assert_eq!(config.base_path, AI_GATEWAY_BASE_URL);
+        assert_eq!(config.bearer_access_token.as_deref(), Some("sk-test"));
     }
 }

@@ -25,7 +25,11 @@ pub struct AiSolution {
     #[serde(rename = "name")]
     pub name:        String,
     /// Описание решения
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description: Option<String>,
     /// Тип решения. Сейчас всегда `openclaw`
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
@@ -50,10 +54,18 @@ pub struct AiSolution {
     #[serde(rename = "status")]
     pub status:      Status,
     /// Дата создания
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Дата последнего изменения
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:  chrono::DateTime<chrono::FixedOffset>
 }
 

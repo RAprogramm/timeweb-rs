@@ -19,7 +19,11 @@ pub struct Commit {
     pub sha:        String,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был создан коммит.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// Сообщение коммита.
     #[serde(rename = "message")]

@@ -25,7 +25,11 @@ pub struct AiKey {
     #[serde(rename = "name")]
     pub name:            String,
     /// Описание ключа
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description:     Option<String>,
     /// Тип ключа: `aikey` — ключ, созданный пользователем (в том числе ключ
     /// AI-решения), `k8s` — ключ, выпущенный платформой для кластера Kubernetes
@@ -33,13 +37,25 @@ pub struct AiKey {
     pub entity_type:     EntityType,
     /// ID ресурса, для которого платформа выпустила ключ (например, кластера
     /// Kubernetes). `null` — у ключей, созданных пользователем
-    #[serde(rename = "entity_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "entity_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub entity_id:       Option<String>,
     /// ID проекта, к которому привязан ключ
-    #[serde(rename = "project_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "project_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub project_id:      Option<i32>,
     /// Дата и время окончания действия ключа. `null` — ключ бессрочный
-    #[serde(rename = "expires_at", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "expires_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
+    )]
     pub expires_at:      Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Ключ управляется платформой (выпущен для AI-решения или кластера
     /// Kubernetes): изменить, перевыпустить и удалить его нельзя — такие
@@ -55,13 +71,25 @@ pub struct AiKey {
     /// проверка лимитов делаются по цене запрошенной модели, списание и учёт
     /// расхода — по цене ответившей: если запасная модель дороже, итоговое
     /// списание может превысить резерв и денежный лимит ключа.
-    #[serde(rename = "fallback_models", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "fallback_models",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub fallback_models: Option<Vec<String>>,
     /// Дата и время создания ключа
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:      chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время изменения ключа
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:      chrono::DateTime<chrono::FixedOffset>
 }
 

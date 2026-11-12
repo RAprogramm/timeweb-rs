@@ -22,7 +22,7 @@ pub struct VdsOs {
     #[serde(rename = "name")]
     pub name:    Name,
     /// Версия операционной системы.
-    #[serde(rename = "version", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "version", default, deserialize_with = "Option::deserialize")]
     pub version: Option<String>
 }
 

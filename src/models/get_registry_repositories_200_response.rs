@@ -16,10 +16,14 @@ use crate::models;
 pub struct GetRegistryRepositories200Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "response_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub response_id: Option<uuid::Uuid>,
     #[serde(rename = "meta")]
-    pub meta: Box<models::Meta1>,
+    pub meta: Box<models::Meta>,
     /// Массив тарифов container registry
     #[serde(rename = "container_registries_repositories")]
     pub container_registries_repositories: Vec<models::ContainerRegistryRepositoriesInner>
@@ -28,7 +32,7 @@ pub struct GetRegistryRepositories200Response {
 impl GetRegistryRepositories200Response {
     pub fn new(
         response_id: Option<uuid::Uuid>,
-        meta: models::Meta1,
+        meta: models::Meta,
         container_registries_repositories: Vec<models::ContainerRegistryRepositoriesInner>
     ) -> GetRegistryRepositories200Response {
         GetRegistryRepositories200Response {

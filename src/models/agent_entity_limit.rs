@@ -32,7 +32,7 @@ pub struct AgentEntityLimit {
     pub limit_type:  LimitType,
     /// ID модели, на запросы к которой действует лимит. `null` — лимит на все
     /// модели агента.
-    #[serde(rename = "model_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model_id", default, deserialize_with = "Option::deserialize")]
     pub model_id:    Option<i32>,
     /// Лимит в токенах за период. Не действует, если задан `money_limit`. `0` —
     /// запрещены все запросы.
@@ -40,7 +40,11 @@ pub struct AgentEntityLimit {
     pub limit:       i32,
     /// Лимит расходов за период в валюте аккаунта; `null` — не задан, действует
     /// `limit`
-    #[serde(rename = "money_limit", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "money_limit",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub money_limit: Option<f64>,
     /// Израсходовано токенов в текущем периоде
     #[serde(rename = "usage")]
@@ -50,10 +54,18 @@ pub struct AgentEntityLimit {
     #[serde(rename = "money_usage")]
     pub money_usage: f64,
     /// Дата создания лимита
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Окончание текущего периода — после него расход обнуляется
-    #[serde(rename = "expire_at")]
+    #[serde(
+        rename = "expire_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub expire_at:   chrono::DateTime<chrono::FixedOffset>
 }
 

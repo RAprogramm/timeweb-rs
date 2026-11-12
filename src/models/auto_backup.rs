@@ -20,7 +20,12 @@ pub struct AutoBackup {
     pub copy_count:        Option<f64>,
     /// Дата начала создания первого автобэкапа. Значение в формате `ISO8601`.
     /// Время не учитывается.
-    #[serde(rename = "creation_start_at", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "creation_start_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub creation_start_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Включено ли автобэкапирование
     #[serde(rename = "is_enabled")]

@@ -18,7 +18,11 @@ pub struct CreateNetworkDrive201Response {
     pub network_drive: Box<models::NetworkDrive>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "response_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub response_id:   Option<uuid::Uuid>
 }
 

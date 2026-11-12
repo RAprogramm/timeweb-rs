@@ -33,6 +33,7 @@ pub struct SkillVersion {
     /// Номер версии, с которой эта версия создана откатом
     #[serde(
         rename = "rolled_back_from_version",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub rolled_back_from_version: Option<i32>,
@@ -40,7 +41,11 @@ pub struct SkillVersion {
     #[serde(rename = "is_current")]
     pub is_current: bool,
     /// Дата и время создания версии
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>
 }
 

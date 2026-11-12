@@ -20,7 +20,11 @@ pub struct DocumentStatusInfo {
     #[serde(rename = "type")]
     pub r#type:     Type,
     /// Время, когда записано состояние
-    #[serde(rename = "timestamp")]
+    #[serde(
+        rename = "timestamp",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub timestamp:  chrono::DateTime<chrono::FixedOffset>,
     /// Код ошибки, только для `type: error`: - `INSUFFICIENT_TOKENS` —
     /// недостаточно токенов для индексации - `CRITICAL_BALANCE` — критически

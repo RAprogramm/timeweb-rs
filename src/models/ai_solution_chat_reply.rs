@@ -22,7 +22,7 @@ pub struct AiSolutionChatReply {
     #[serde(rename = "reply")]
     pub reply:           String,
     /// Модель, сгенерировавшая ответ. `null`, если агент её не сообщил
-    #[serde(rename = "model", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model", default, deserialize_with = "Option::deserialize")]
     pub model:           Option<String>
 }
 

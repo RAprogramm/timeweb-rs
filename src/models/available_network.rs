@@ -30,13 +30,21 @@ pub struct AvailableNetwork {
     #[serde(rename = "location")]
     pub location:          String,
     /// Дата и время создания
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:        chrono::DateTime<chrono::FixedOffset>,
     /// Зона доступности
     #[serde(rename = "availability_zone")]
     pub availability_zone: String,
     /// Публичный IP-адрес
-    #[serde(rename = "public_ip", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "public_ip",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub public_ip:         Option<String>,
     /// Тип сети
     #[serde(rename = "type")]

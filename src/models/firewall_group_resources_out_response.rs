@@ -24,14 +24,14 @@ pub struct FirewallGroupResourcesOutResponse {
     pub response_id: Option<Option<String>>,
     /// Вспомогательная информация о возвращаемой сущности.
     #[serde(rename = "meta")]
-    pub meta:        Box<models::Meta>,
+    pub meta:        Box<models::Meta2>,
     #[serde(rename = "resources")]
     pub resources:   Vec<models::FirewallGroupResource>
 }
 
 impl FirewallGroupResourcesOutResponse {
     pub fn new(
-        meta: models::Meta,
+        meta: models::Meta2,
         resources: Vec<models::FirewallGroupResource>
     ) -> FirewallGroupResourcesOutResponse {
         FirewallGroupResourcesOutResponse {

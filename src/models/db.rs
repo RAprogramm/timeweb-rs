@@ -39,22 +39,26 @@ pub struct Db {
     #[serde(rename = "name")]
     pub name: String,
     /// Хост.
-    #[serde(rename = "host", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "host", default, deserialize_with = "Option::deserialize")]
     pub host: Option<String>,
     /// Тип базы данных.
     #[serde(rename = "type")]
     pub r#type: String,
     /// Тип хеширования базы данных (mysql5 | mysql | postgres).
-    #[serde(rename = "hash_type", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "hash_type",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub hash_type: Option<HashType>,
     /// Порт
     #[serde(rename = "port")]
     pub port: i32,
     /// IP-адрес сетевого интерфейса IPv4.
-    #[serde(rename = "ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ip", default, deserialize_with = "Option::deserialize")]
     pub ip: Option<String>,
     /// IP-адрес локального сетевого интерфейса IPv4.
-    #[serde(rename = "local_ip", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "local_ip", default, deserialize_with = "Option::deserialize")]
     pub local_ip: Option<String>,
     /// Текущий статус базы данных.
     #[serde(rename = "status")]
@@ -62,7 +66,11 @@ pub struct Db {
     /// ID тарифа.
     #[serde(rename = "preset_id")]
     pub preset_id: i32,
-    #[serde(rename = "disk_stats", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "disk_stats",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub disk_stats: Option<Box<models::DbDiskStats>>,
     #[serde(rename = "config_parameters")]
     pub config_parameters: Box<models::CreateClusterConfigParameters>,

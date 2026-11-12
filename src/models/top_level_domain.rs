@@ -23,6 +23,7 @@ pub struct TopLevelDomain {
     /// домен.
     #[serde(
         rename = "early_renew_period",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub early_renew_period: Option<f64>,

@@ -1,9 +1,9 @@
 //! Timestamps the API sends with and without a UTC offset.
 //!
 //! The Timeweb Cloud API is not consistent about the timestamps it returns:
-//! most endpoints send RFC 3339 values with an offset (`2024-07-24T10:38:44.000Z`),
-//! while the Kubernetes area sends naive local-looking values without one
-//! (`2023-01-13T10:10:29.742918`). The strict
+//! most endpoints send RFC 3339 values with an offset
+//! (`2024-07-24T10:38:44.000Z`), while the Kubernetes area sends naive
+//! local-looking values without one (`2023-01-13T10:10:29.742918`). The strict
 //! [`chrono::DateTime<chrono::FixedOffset>`] deserializer rejects the second
 //! shape with "premature end of input", which fails the deserialization of
 //! the whole response.
@@ -12,8 +12,8 @@
 //! it, and a value without one is read as UTC — the timezone the API uses for
 //! every timestamp it documents.
 
-use chrono::{DateTime, FixedOffset, NaiveDateTime, Utc};
-use serde::{de::Error as _, Deserialize, Deserializer};
+use chrono::{DateTime, FixedOffset, NaiveDateTime, TimeZone, Utc};
+use serde::{Deserialize, Deserializer, de::Error as _};
 
 /// The layouts a timestamp without a UTC offset can use.
 const NAIVE_FORMATS: [&str; 2] = ["%Y-%m-%dT%H:%M:%S%.f", "%Y-%m-%d %H:%M:%S%.f"];
@@ -48,11 +48,9 @@ fn parse_datetime(raw: &str) -> Result<DateTime<FixedOffset>, String> {
 /// # Returns
 ///
 /// The parsed timestamp, or the error of the underlying deserializer.
-pub(crate) fn deserialize_datetime<'de, D>(
-    deserializer: D,
-) -> Result<DateTime<FixedOffset>, D::Error>
+pub fn deserialize_datetime<'de, D>(deserializer: D) -> Result<DateTime<FixedOffset>, D::Error>
 where
-    D: Deserializer<'de>,
+    D: Deserializer<'de>
 {
     let raw = String::deserialize(deserializer)?;
     parse_datetime(&raw).map_err(D::Error::custom)
@@ -68,11 +66,11 @@ where
 ///
 /// The parsed timestamp, `None` for a missing or null value, or the error of
 /// the underlying deserializer.
-pub(crate) fn deserialize_optional_datetime<'de, D>(
-    deserializer: D,
+pub fn deserialize_optional_datetime<'de, D>(
+    deserializer: D
 ) -> Result<Option<DateTime<FixedOffset>>, D::Error>
 where
-    D: Deserializer<'de>,
+    D: Deserializer<'de>
 {
     let raw = Option::<String>::deserialize(deserializer)?;
     raw.map(|raw| parse_datetime(&raw))
@@ -90,13 +88,13 @@ mod tests {
     #[derive(Debug, Deserialize)]
     struct Required {
         #[serde(deserialize_with = "deserialize_datetime")]
-        value: DateTime<FixedOffset>,
+        value: DateTime<FixedOffset>
     }
 
     #[derive(Debug, Deserialize)]
     struct Optional {
         #[serde(default, deserialize_with = "deserialize_optional_datetime")]
-        value: Option<DateTime<FixedOffset>>,
+        value: Option<DateTime<FixedOffset>>
     }
 
     #[test]
@@ -128,7 +126,11 @@ mod tests {
     fn reads_a_timestamp_with_a_space_separator() {
         let parsed: Required = serde_json::from_str(r#"{"value":"2023-01-13 10:10:29"}"#)
             .expect("the timestamp deserializes");
-        assert_eq!(parsed.value.timestamp(), 1_673_478_629);
+        let expected = chrono::Utc
+            .with_ymd_and_hms(2023, 1, 13, 10, 10, 29)
+            .single()
+            .expect("the timestamp is valid");
+        assert_eq!(parsed.value, expected.fixed_offset());
     }
 
     #[test]

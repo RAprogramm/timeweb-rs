@@ -21,7 +21,7 @@ pub struct AiGatewayResponseCreateRequest {
     pub model:                String,
     /// Текст или массив входных элементов (сообщения, результаты вызова функций
     /// и т. п.)
-    #[serde(rename = "input", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "input", default, deserialize_with = "Option::deserialize")]
     pub input:                Option<serde_json::Value>,
     /// Системные инструкции
     #[serde(rename = "instructions", skip_serializing_if = "Option::is_none")]

@@ -31,13 +31,25 @@ pub struct Bucket {
     #[serde(rename = "type")]
     pub r#type:                 Type,
     /// ID тарифа хранилища.
-    #[serde(rename = "preset_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "preset_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub preset_id:              Option<i64>,
     /// ID конфигуратора хранилища.
-    #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "configurator_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub configurator_id:        Option<i64>,
     /// Ссылка на аватар хранилища.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:            Option<String>,
     /// Статус хранилища.
     #[serde(rename = "status")]
@@ -60,7 +72,8 @@ pub struct Bucket {
     /// Дата перемещения в карантин.
     #[serde(
         rename = "moved_in_quarantine_at",
-        deserialize_with = "Option::deserialize"
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
     )]
     pub moved_in_quarantine_at: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Класс хранилища.
@@ -72,7 +85,11 @@ pub struct Bucket {
     /// ID тарифа.
     #[serde(rename = "rate_id")]
     pub rate_id:                i64,
-    #[serde(rename = "website_config", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "website_config",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub website_config:         Option<Box<models::BucketWebsiteConfig>>,
     /// Разрешено ли автоматическое повышение тарифа.
     #[serde(rename = "is_allow_auto_upgrade")]

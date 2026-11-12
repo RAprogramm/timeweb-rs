@@ -21,10 +21,14 @@ pub struct Backup {
     #[serde(rename = "name")]
     pub name:       String,
     /// Комментарий.
-    #[serde(rename = "comment", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "comment", default, deserialize_with = "Option::deserialize")]
     pub comment:    Option<String>,
     /// Дата создания.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// Статус бэкапа.
     #[serde(rename = "status")]

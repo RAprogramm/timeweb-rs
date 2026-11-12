@@ -24,13 +24,13 @@ pub struct ImagesOutResponse {
     pub response_id: Option<Option<String>>,
     /// Вспомогательная информация о возвращаемой сущности.
     #[serde(rename = "meta")]
-    pub meta:        Box<models::Meta>,
+    pub meta:        Box<models::Meta2>,
     #[serde(rename = "images")]
     pub images:      Vec<models::Image>
 }
 
 impl ImagesOutResponse {
-    pub fn new(meta: models::Meta, images: Vec<models::Image>) -> ImagesOutResponse {
+    pub fn new(meta: models::Meta2, images: Vec<models::Image>) -> ImagesOutResponse {
         ImagesOutResponse {
             response_id: None,
             meta: Box::new(meta),

@@ -88,7 +88,7 @@ pub fn parse_deep_object(prefix: &str, value: &serde_json::Value) -> Vec<(String
         return params;
     }
 
-    unimplemented!("Only objects are supported with style=deepObject")
+    Vec::new()
 }
 
 /// Internal use only
@@ -111,6 +111,7 @@ impl From<&str> for ContentType {
         }
     }
 }
+
 #[cfg(feature = "account")]
 pub mod account_api;
 #[cfg(feature = "ai-agent-integrations")]

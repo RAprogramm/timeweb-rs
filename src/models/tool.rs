@@ -23,7 +23,11 @@ pub struct Tool {
     pub account_id:  String,
     /// ID шаблона маркетплейса, из которого установлен инструмент. `null` —
     /// собственный MCP-сервер
-    #[serde(rename = "template_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "template_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub template_id: Option<i32>,
     /// Ключ шаблона маркетплейса. Сейчас в ответах не возвращается
     #[serde(
@@ -34,24 +38,28 @@ pub struct Tool {
     )]
     pub key:         Option<Option<String>>,
     /// Название инструмента
-    #[serde(rename = "name", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "name", default, deserialize_with = "Option::deserialize")]
     pub name:        Option<String>,
     /// Описание инструмента
-    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "description",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub description: Option<String>,
     /// Тип инструмента. У инструментов из шаблонов может быть `null`
     #[serde(rename = "type", deserialize_with = "Option::deserialize")]
     pub r#type:      Option<Type>,
     /// Транспорт MCP: `http` — Streamable HTTP, `sse` — Server-Sent Events. У
     /// инструментов из шаблонов всегда `null`
-    #[serde(rename = "protocol", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "protocol", default, deserialize_with = "Option::deserialize")]
     pub protocol:    Option<Protocol>,
     /// Адрес MCP-сервера. У инструментов из шаблонов всегда `null`
-    #[serde(rename = "url", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "url", default, deserialize_with = "Option::deserialize")]
     pub url:         Option<String>,
     /// Методы MCP-сервера. `null` или пустой массив — методы ещё не получены,
     /// например до завершения OAuth2-авторизации
-    #[serde(rename = "methods", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "methods", default, deserialize_with = "Option::deserialize")]
     pub methods:     Option<Vec<models::ToolMethod>>,
     #[serde(rename = "auth_data")]
     pub auth_data:   Box<models::ToolAuthData>,
@@ -62,13 +70,25 @@ pub struct Tool {
     #[serde(rename = "status")]
     pub status:      Status,
     /// Причина статуса `error`
-    #[serde(rename = "status_info", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "status_info",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub status_info: Option<String>,
     /// Дата и время создания
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего изменения
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:  chrono::DateTime<chrono::FixedOffset>
 }
 

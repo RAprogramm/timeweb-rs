@@ -27,7 +27,7 @@ pub struct BalancerNetworksInner {
     #[serde(rename = "port_id", skip_serializing_if = "Option::is_none")]
     pub port_id:  Option<String>,
     /// Список IP-адресов сети.
-    #[serde(rename = "ips", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "ips", default, deserialize_with = "Option::deserialize")]
     pub ips:      Option<Vec<models::BalancerNetworksInnerIpsInner>>
 }
 

@@ -26,8 +26,9 @@ pub struct FirewallRuleInApi {
     /// Сетевой протокол.
     #[serde(rename = "protocol")]
     pub protocol:    models::FirewallRuleProtocol,
+    /// Сетевой адрес или подсеть. Поддерживаются протоколы IPv4  и IPv.6
     #[serde(rename = "cidr", skip_serializing_if = "Option::is_none")]
-    pub cidr:        Option<Box<models::FirewallRuleInApiCidr>>
+    pub cidr:        Option<String>
 }
 
 impl FirewallRuleInApi {

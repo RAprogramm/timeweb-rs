@@ -119,7 +119,12 @@ pub struct App {
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language:       Option<String>,
     /// Время запуска приложения.
-    #[serde(rename = "start_time", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "start_time",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub start_time:     Option<chrono::DateTime<chrono::FixedOffset>>,
     #[serde(
         rename = "project_id",

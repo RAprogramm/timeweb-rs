@@ -36,7 +36,11 @@ pub struct Status {
     #[serde(rename = "last_password_changed_at")]
     pub last_password_changed_at: String,
     /// ID аккаунта для яндекс метрики.
-    #[serde(rename = "ym_client_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "ym_client_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub ym_client_id:             Option<String>,
     #[serde(rename = "registered_at", skip_serializing_if = "Option::is_none")]
     pub registered_at:            Option<String>,

@@ -16,7 +16,11 @@ use crate::models;
 pub struct PostDnat201Response {
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
-    #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "response_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub response_id: Option<uuid::Uuid>,
     /// Правило проброса портов
     #[serde(rename = "dnat_rule")]

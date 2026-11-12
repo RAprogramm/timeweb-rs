@@ -35,14 +35,18 @@ pub struct AiKeyLimit {
     pub limit:       i32,
     /// Лимит в деньгах за период, в валюте аккаунта. Приоритетнее `limit`.
     /// `null` — не задан, действует `limit`; `0` — запросы запрещены
-    #[serde(rename = "money_limit", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "money_limit",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub money_limit: Option<f64>,
     /// Период лимита: `hour` — час, `day` — сутки, `week` — 7 дней, `month` —
     /// 30 дней
     #[serde(rename = "limit_type")]
     pub limit_type:  LimitType,
     /// ID модели, на которую действует лимит. `null` — лимит на все модели
-    #[serde(rename = "model_id", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "model_id", default, deserialize_with = "Option::deserialize")]
     pub model_id:    Option<i32>,
     /// Израсходовано токенов за текущий период
     #[serde(rename = "usage")]
@@ -52,11 +56,19 @@ pub struct AiKeyLimit {
     #[serde(rename = "money_usage")]
     pub money_usage: f64,
     /// Дата и время создания лимита
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:  chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время окончания текущего периода: после него расход обнуляется и
     /// начинается новый период
-    #[serde(rename = "expire_at")]
+    #[serde(
+        rename = "expire_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub expire_at:   chrono::DateTime<chrono::FixedOffset>
 }
 

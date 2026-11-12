@@ -25,6 +25,7 @@ pub struct Finances {
     /// ISO8601, которое представляет, когда заканчивается скидка для аккаунта.
     #[serde(
         rename = "discount_end_date_at",
+        default,
         deserialize_with = "Option::deserialize"
     )]
     pub discount_end_date_at: Option<String>,
@@ -47,10 +48,18 @@ pub struct Finances {
     #[serde(rename = "total_paid")]
     pub total_paid:           f64,
     /// Сколько часов работы услуг оплачено на аккаунте.
-    #[serde(rename = "hours_left", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "hours_left",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub hours_left:           Option<f64>,
     /// Информация о карте, используемой для автоплатежей.
-    #[serde(rename = "autopay_card_info", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "autopay_card_info",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub autopay_card_info:    Option<String>
 }
 

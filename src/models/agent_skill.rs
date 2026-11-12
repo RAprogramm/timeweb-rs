@@ -34,7 +34,11 @@ pub struct AgentSkill {
     #[serde(rename = "is_enabled")]
     pub is_enabled:        bool,
     /// Версия, на которой закреплён агент. `null` — навык не подключён
-    #[serde(rename = "pinned_version", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "pinned_version",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub pinned_version:    Option<i32>,
     /// Текущая версия навыка отличается от закреплённой
     #[serde(rename = "has_newer_version")]

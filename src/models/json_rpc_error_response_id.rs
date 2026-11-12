@@ -13,13 +13,16 @@ use serde::{Deserialize, Serialize};
 use crate::models;
 
 /// JsonRpcErrorResponseId : ID запроса; `null`, если запрос не удалось
-/// прочитать
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct JsonRpcErrorResponseId {}
+/// прочитать ID запроса; `null`, если запрос не удалось прочитать
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum JsonRpcErrorResponseId {
+    String(String),
+    Integer(i32)
+}
 
-impl JsonRpcErrorResponseId {
-    /// ID запроса; `null`, если запрос не удалось прочитать
-    pub fn new() -> JsonRpcErrorResponseId {
-        JsonRpcErrorResponseId {}
+impl Default for JsonRpcErrorResponseId {
+    fn default() -> Self {
+        Self::String(Default::default())
     }
 }

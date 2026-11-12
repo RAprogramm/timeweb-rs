@@ -51,13 +51,13 @@ pub struct ServersConfiguratorRequirements {
     #[serde(rename = "network_bandwidth_max")]
     pub network_bandwidth_max:  f64,
     /// Минимальное количество видеокарт
-    #[serde(rename = "gpu_min", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "gpu_min", default, deserialize_with = "Option::deserialize")]
     pub gpu_min:                Option<f64>,
     /// Максимальное количество видеокарт
-    #[serde(rename = "gpu_max", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "gpu_max", default, deserialize_with = "Option::deserialize")]
     pub gpu_max:                Option<f64>,
     /// Размер шага видеокарт
-    #[serde(rename = "gpu_step", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "gpu_step", default, deserialize_with = "Option::deserialize")]
     pub gpu_step:               Option<f64>
 }
 

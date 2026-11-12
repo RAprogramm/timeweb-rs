@@ -35,21 +35,41 @@ pub struct Document {
     pub r#type:            Type,
     /// Расписание автоматической переиндексации. `null`, если расписание не
     /// задано
-    #[serde(rename = "indexing_schedule", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "indexing_schedule",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub indexing_schedule: Option<Box<models::IndexingSchedule>>,
     /// Версия индексации документа
-    #[serde(rename = "indexing_version", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "indexing_version",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub indexing_version:  Option<String>,
-    #[serde(rename = "status_info", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "status_info",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub status_info:       Option<Box<models::DocumentStatusInfo>>,
     /// URL документа. Только для документов типа `link`
     #[serde(rename = "link", skip_serializing_if = "Option::is_none")]
     pub link:              Option<String>,
     /// Дата и время добавления документа
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:        chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего изменения документа
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:        chrono::DateTime<chrono::FixedOffset>
 }
 

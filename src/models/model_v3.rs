@@ -50,18 +50,34 @@ pub struct ModelV3 {
     pub is_stopped:       bool,
     /// Дата отключения модели у провайдера. `null`, если отключение не
     /// запланировано
-    #[serde(rename = "deprecation_date", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "deprecation_date",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime"
+    )]
     pub deprecation_date: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Дата и время добавления модели
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:       chrono::DateTime<chrono::FixedOffset>,
     /// Дата и время последнего изменения модели
-    #[serde(rename = "updated_at")]
+    #[serde(
+        rename = "updated_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub updated_at:       chrono::DateTime<chrono::FixedOffset>,
     /// Параметры генерации, которые можно настроить у агента с этой моделью.
     /// Ключ — имя параметра (`temperature`, `top_p`, `max_tokens`,
     /// `reasoning_effort` и т.д.). `null`, если параметры не заданы
-    #[serde(rename = "params_info", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "params_info",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub params_info:      Option<std::collections::HashMap<String, models::ModelParamInfo>>,
     /// Характеристики модели. Ключ — `code` из справочника `GET
     /// /api/v3/cloud-ai/model-parameters`, значение — число, строка, булево
@@ -89,7 +105,7 @@ pub struct ModelV3 {
     #[serde(rename = "price_tiers")]
     pub price_tiers:      Vec<models::ModelPriceTier>,
     /// Условия Batch API. `null` — модель недоступна в Batch API
-    #[serde(rename = "batch", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "batch", default, deserialize_with = "Option::deserialize")]
     pub batch:            Option<Box<models::ModelBatch>>
 }
 

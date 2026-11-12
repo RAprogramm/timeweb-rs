@@ -21,7 +21,11 @@ pub struct NodeGroupOut {
     #[serde(rename = "name")]
     pub name:       String,
     /// Дата и время создания группы в формате ISO8601
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// ID тарифа мастер-ноды
     #[serde(rename = "preset_id")]

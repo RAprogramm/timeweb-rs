@@ -86,7 +86,11 @@ pub struct AppV2 {
     #[serde(rename = "build_cmd", skip_serializing_if = "Option::is_none")]
     pub build_cmd:             Option<String>,
     /// Ссылка на аватар приложения.
-    #[serde(rename = "avatar_link", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "avatar_link",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub avatar_link:           Option<String>,
     /// Команда запуска backend-приложения. До создания инфраструктуры поле
     /// отсутствует. Для frontend — null.
@@ -125,13 +129,21 @@ pub struct AppV2 {
     #[serde(rename = "language", skip_serializing_if = "Option::is_none")]
     pub language:              Option<Language>,
     /// Время последнего изменения записи приложения.
-    #[serde(rename = "start_time")]
+    #[serde(
+        rename = "start_time",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub start_time:            chrono::DateTime<chrono::FixedOffset>,
     /// Ветка Git-репозитория. В ответе v2 поле называется branch.
     #[serde(rename = "branch", skip_serializing_if = "Option::is_none")]
     pub branch:                Option<String>,
     /// ID конфигуратора приложения; null при использовании готового тарифа.
-    #[serde(rename = "configurator_id", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "configurator_id",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub configurator_id:       Option<i32>,
     /// ID проекта приложения. Может отсутствовать, если проект не задан.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
@@ -144,7 +156,11 @@ pub struct AppV2 {
     )]
     pub system_dependencies:   Option<Vec<String>>,
     /// Время создания записи приложения.
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:            chrono::DateTime<chrono::FixedOffset>,
     /// Зона доступности сервера. Может быть null или отсутствовать до создания
     /// сервера.
@@ -157,7 +173,11 @@ pub struct AppV2 {
     pub availability_zone:     Option<Option<AvailabilityZone>>,
     /// Ограничение количества запросов; null, если индивидуальный лимит не
     /// задан.
-    #[serde(rename = "requests_limit", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "requests_limit",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub requests_limit:        Option<i32>,
     /// Каталог приложения в Git-репозитории, относительно которого выполняется
     /// сборка. Может отсутствовать до создания инфраструктуры.
@@ -203,7 +223,11 @@ pub struct AppV2 {
     )]
     pub blocked_ports:         Option<Option<Vec<i32>>>,
     /// Настройки обратного прокси. В начальном ответе на создание — null.
-    #[serde(rename = "reverse_proxy", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "reverse_proxy",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub reverse_proxy:         Option<serde_json::Value>
 }
 

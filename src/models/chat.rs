@@ -22,7 +22,11 @@ pub struct Chat {
     #[serde(rename = "agent_id")]
     pub agent_id:       i32,
     /// Дата первого сообщения чата
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at:     chrono::DateTime<chrono::FixedOffset>,
     #[serde(rename = "first_message")]
     pub first_message:  Box<models::ChatFirstMessage>,
@@ -33,7 +37,11 @@ pub struct Chat {
     #[serde(rename = "dislikes_count")]
     pub dislikes_count: i32,
     /// Среднее время до начала ответа агента в чате, в миллисекундах
-    #[serde(rename = "uptime_avg", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "uptime_avg",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub uptime_avg:     Option<f64>
 }
 

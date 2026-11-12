@@ -26,7 +26,11 @@ pub struct DatabaseConfiguratorPrices {
     #[serde(rename = "disk")]
     pub disk:      f64,
     /// Стоимость одной единицы пропускной способности интернет-канала.
-    #[serde(rename = "bandwidth", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "bandwidth",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub bandwidth: Option<f64>
 }
 

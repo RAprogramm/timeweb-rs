@@ -12,11 +12,15 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
-pub struct BaseErrorMessage {}
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum BaseErrorMessage {
+    String(String),
+    ArrayVecString(Vec<String>)
+}
 
-impl BaseErrorMessage {
-    pub fn new() -> BaseErrorMessage {
-        BaseErrorMessage {}
+impl Default for BaseErrorMessage {
+    fn default() -> Self {
+        Self::String(Default::default())
     }
 }

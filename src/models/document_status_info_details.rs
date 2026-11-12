@@ -17,7 +17,12 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DocumentStatusInfoDetails {
     /// `indexing`: время начала индексации
-    #[serde(rename = "started_at", skip_serializing_if = "Option::is_none")]
+    #[serde(
+        rename = "started_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_optional_datetime",
+        skip_serializing_if = "Option::is_none"
+    )]
     pub started_at:           Option<chrono::DateTime<chrono::FixedOffset>>,
     /// `indexing`: текущий этап
     #[serde(rename = "current_stage", skip_serializing_if = "Option::is_none")]

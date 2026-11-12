@@ -34,7 +34,7 @@ pub struct ModelParameter {
     pub r#type:               Type,
     /// Единица измерения (`tokens`, `tokens_per_second`,
     /// `currency_per_million`, ...). `null`, если нет
-    #[serde(rename = "unit", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "unit", default, deserialize_with = "Option::deserialize")]
     pub unit:                 Option<String>,
     /// Группа характеристик: `pricing`, `quality`, `performance`,
     /// `capabilities`, `limits`, `meta`

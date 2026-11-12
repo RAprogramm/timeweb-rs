@@ -25,19 +25,27 @@ pub struct ChatMessage {
     #[serde(rename = "role")]
     pub role:       Role,
     /// Дата создания сообщения
-    #[serde(rename = "created_at")]
+    #[serde(
+        rename = "created_at",
+        default,
+        deserialize_with = "crate::datetime::deserialize_datetime"
+    )]
     pub created_at: chrono::DateTime<chrono::FixedOffset>,
     /// Текст сообщения
     #[serde(rename = "text")]
     pub text:       String,
     /// Оценка ответа: `true` — понравился, `false` — не понравился, `null` —
     /// без оценки
-    #[serde(rename = "is_good", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "is_good", default, deserialize_with = "Option::deserialize")]
     pub is_good:    Option<bool>,
     /// Время до начала ответа агента в миллисекундах (для ответов агента)
-    #[serde(rename = "uptime_ms", deserialize_with = "Option::deserialize")]
+    #[serde(
+        rename = "uptime_ms",
+        default,
+        deserialize_with = "Option::deserialize"
+    )]
     pub uptime_ms:  Option<i32>,
-    #[serde(rename = "file", deserialize_with = "Option::deserialize")]
+    #[serde(rename = "file", default, deserialize_with = "Option::deserialize")]
     pub file:       Option<Box<models::ChatMessageFile>>
 }
 

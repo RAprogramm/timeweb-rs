@@ -26,8 +26,8 @@ pub struct Image {
     pub created_at:   String,
     /// Значение времени, указанное в комбинированном формате даты и времени
     /// ISO8601, которое представляет, когда был удален образ.
-    #[serde(rename = "deleted_at")]
-    pub deleted_at:   String,
+    #[serde(rename = "deleted_at", skip_serializing_if = "Option::is_none")]
+    pub deleted_at:   Option<String>,
     /// Размер физического диска в мегабайтах.
     #[serde(rename = "size")]
     pub size:         i32,
@@ -65,7 +65,6 @@ impl Image {
         id: String,
         status: models::ImageStatus,
         created_at: String,
-        deleted_at: String,
         size: i32,
         virtual_size: i32,
         name: String,
@@ -81,7 +80,7 @@ impl Image {
             id,
             status,
             created_at,
-            deleted_at,
+            deleted_at: None,
             size,
             virtual_size,
             name,
