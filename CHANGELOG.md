@@ -7,6 +7,125 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0](https://github.com/RAprogramm/timeweb-rs/compare/timeweb-rs-v0.9.0...timeweb-rs-v0.10.0) - 2026-11-12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+| Section | Changes |
+| --- | ---: |
+| Added | 4 |
+| Fixed | 5 |
+| Documentation | 10 |
+| Testing | 2 |
+| Other | 2 |
+
+### Added
+
+- Draw the architecture diagrams with d2 ([9eb77bc](https://github.com/RAprogramm/timeweb-rs/commit/9eb77bc71e798c4dfc9ac8673bc0cb4f803f03bc))
+
+- Regenerate the SDK with the normalized models and the hardened client ([8e3032d](https://github.com/RAprogramm/timeweb-rs/commit/8e3032d2c6bb117b147974a2fbee41714a0be330))
+
+- Regenerate the SDK from the updated Timeweb API spec ([8e34101](https://github.com/RAprogramm/timeweb-rs/commit/8e3410135d24857b5ea5390996490717ece3eb2a))
+
+- Make MSRV badge dynamic from Cargo.toml ([a5fb459](https://github.com/RAprogramm/timeweb-rs/commit/a5fb45939303982374580895fbcbee8a555a9f56))
+
+
+### Fixed
+
+- Show the donation QR in the English book and drop the pay-for list ([c147618](https://github.com/RAprogramm/timeweb-rs/commit/c147618fc18c4a35e00ef509e251260ade86ae87))
+
+- Make every documentation snippet compile ([154d8c2](https://github.com/RAprogramm/timeweb-rs/commit/154d8c29b0e0b5f693d696b88fa676a4313b852c))
+
+- Make the language switch load and follow the browser language ([9439024](https://github.com/RAprogramm/timeweb-rs/commit/94390249592d58df76dad415d154c4dfda5f5a07))
+
+- Make the generated models deserialize every documented response ([139477f](https://github.com/RAprogramm/timeweb-rs/commit/139477f3373a045c7756c5bd02d6795a3dab0897))
+
+- Satisfy clippy 1.99 assert_is_empty lint in tests ([6f9f861](https://github.com/RAprogramm/timeweb-rs/commit/6f9f861203d97813f705aff4f22538f1b87271fb))
+
+
+### Documentation
+
+- Trim the support pages to the essentials ([aa558ae](https://github.com/RAprogramm/timeweb-rs/commit/aa558ae2f929886b21eccd7d3649d2fe4dc31681))
+
+- Drop the ownership wording from the support pages ([daeb6f7](https://github.com/RAprogramm/timeweb-rs/commit/daeb6f7d54917ae64362397cc9784bfd54f81fe4))
+
+- Add the donation QR code and the payment link ([0cdb81d](https://github.com/RAprogramm/timeweb-rs/commit/0cdb81d0e7fd0f9202f5b174c560e3cd9a1cf943))
+
+- Polish the Russian wording and punctuation ([f8edded](https://github.com/RAprogramm/timeweb-rs/commit/f8edded9d16c2c94d822d7364174b462bd292a44))
+
+- Rewrite the Russian pages as a professional translation ([76c3a2b](https://github.com/RAprogramm/timeweb-rs/commit/76c3a2bcdb8d80e1716c5fb2fb560bf33a67adb1))
+
+- Keep the support page about the support ([9f6b947](https://github.com/RAprogramm/timeweb-rs/commit/9f6b947eae334b62ef8ff966c23d94655b140b09))
+
+- Keep the tax details out of the SDK documentation ([602e657](https://github.com/RAprogramm/timeweb-rs/commit/602e657b0117d1340ce0c7cb45e57376d6e3f30a))
+
+- State the tax treatment of a crypto donation precisely ([c840cce](https://github.com/RAprogramm/timeweb-rs/commit/c840ccedf85581b0662b8ca482a0f78262afc84a))
+
+- Publish the donation addresses of the project ([5bfb11d](https://github.com/RAprogramm/timeweb-rs/commit/5bfb11d282453f2d515a642b833769311d66b295))
+
+- Publish the SDK documentation on GitHub Pages ([584aa9c](https://github.com/RAprogramm/timeweb-rs/commit/584aa9c3e6fe742ffe0f19a37536b745b78b3017))
+
+
+### Testing
+
+- Cover the retry jitter and the pending pagination path ([46b1d19](https://github.com/RAprogramm/timeweb-rs/commit/46b1d19f5c90d70b88160193686fb2f7e3462ab2))
+
+- Cover the retry jitter and the pending pagination path ([8b0c8e2](https://github.com/RAprogramm/timeweb-rs/commit/8b0c8e213c194ca7111f308119eb437cbc557891))
+
+
+### Other
+
+- Integrate the CodSpeed benchmarks from origin/main ([0ac9453](https://github.com/RAprogramm/timeweb-rs/commit/0ac9453ab66ba9c24f1b73dac0861f5eed30e1ef))
+
+- Add CodSpeed benchmarks and CI workflow ([#93](https://github.com/RAprogramm/timeweb-rs/pull/93))
+
+
 ## [0.9.0](https://github.com/RAprogramm/timeweb-rs/compare/v0.8.0...v0.9.0) - 2026-09-26
 
 ### Added
