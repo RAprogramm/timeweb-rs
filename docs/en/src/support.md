@@ -3,9 +3,9 @@
 `timeweb-rs` is free and open source. If it saved you time, you can say
 thanks.
 
-## СБП
+## Bank transfer
 
-<img src="donation-qr.jpg" alt="QR-код для перевода через Т-Банк или Сбербанк" width="320">
+<img src="donation-qr.jpg" alt="QR code for a transfer through T-Bank or Sberbank" width="320">
 
 [Payment link](https://t.tb.ru/c2c-qr-choose-bank?requisiteNumber=+79940043995&bankCode=100000000004)
 
@@ -20,14 +20,6 @@ are unrecoverable.
 | USDT | ERC-20 (Ethereum) | `0xD653E9c96910D44923027bB0365Ca4A8f580894F` |
 | ETH | ERC-20 (Ethereum) | `0xD653E9c96910D44923027bB0365Ca4A8f580894F` |
 | TON | TON | `UQAGpZjkvVwwHbHMSQOwyPtTA_1hUlvAHwmPfykWgxDtT3c8` |
-
-## What the support pays for
-
-- The weekly regeneration of the client when the upstream specification
-  changes.
-- The investigation of the live differences between the specification and the
-  API: the client stops failing on the responses the vendor already sends.
-- The time to answer the issues and to review the pull requests.
 
 ## Other ways to help
 
