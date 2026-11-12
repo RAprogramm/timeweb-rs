@@ -322,11 +322,13 @@ pub async fn add_additional_token_package(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<AddAdditionalTokenPackageError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -392,11 +394,13 @@ pub async fn change_agent_model(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<ChangeAgentModelError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -456,11 +460,13 @@ pub async fn create_agent(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAgentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -530,11 +536,13 @@ pub async fn create_agent_entity_limit(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAgentEntityLimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -588,11 +596,13 @@ pub async fn create_agent_v2(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAgentV2Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -637,11 +647,13 @@ pub async fn delete_agent(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteAgentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -684,11 +696,13 @@ pub async fn delete_agent_entity_limit(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteAgentEntityLimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -778,11 +792,13 @@ pub async fn export_agent_chats_csv(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<ExportAgentChatsCsvError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -839,11 +855,13 @@ pub async fn get_agent(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -955,11 +973,13 @@ pub async fn get_agent_chat_list(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentChatListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1046,11 +1066,13 @@ pub async fn get_agent_chat_messages(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentChatMessagesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1110,11 +1132,13 @@ pub async fn get_agent_entity_limit(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentEntityLimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1180,11 +1204,13 @@ pub async fn get_agent_entity_limits(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentEntityLimitsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1260,11 +1286,13 @@ pub async fn get_agent_statistics(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentStatisticsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1323,11 +1351,13 @@ pub async fn get_agent_v3(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentV3Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1380,11 +1410,13 @@ pub async fn get_agents(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1435,11 +1467,13 @@ pub async fn get_agents_v3(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentsV3Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1504,11 +1538,13 @@ pub async fn sync_agent_entity_limits(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<SyncAgentEntityLimitsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1582,11 +1618,13 @@ pub async fn update_agent(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateAgentError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1653,11 +1691,13 @@ pub async fn update_agent_entity_limit(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateAgentEntityLimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }

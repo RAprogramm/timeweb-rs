@@ -170,7 +170,7 @@ pub struct AppV2 {
         with = "::serde_with::rust::double_option",
         skip_serializing_if = "Option::is_none"
     )]
-    pub availability_zone:     Option<Option<AvailabilityZone>>,
+    pub availability_zone:     Option<Option<String>>,
     /// Ограничение количества запросов; null, если индивидуальный лимит не
     /// задан.
     #[serde(
@@ -477,36 +477,5 @@ pub enum Language {
 impl Default for Language {
     fn default() -> Language {
         Self::Javascript
-    }
-}
-/// Зона доступности сервера. Может быть null или отсутствовать до создания
-/// сервера.
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AvailabilityZone {
-    #[serde(rename = "spb-1")]
-    Spb1,
-    #[serde(rename = "spb-2")]
-    Spb2,
-    #[serde(rename = "spb-3")]
-    Spb3,
-    #[serde(rename = "spb-4")]
-    Spb4,
-    #[serde(rename = "nsk-1")]
-    Nsk1,
-    #[serde(rename = "ams-1")]
-    Ams1,
-    #[serde(rename = "gdn-1")]
-    Gdn1,
-    #[serde(rename = "ala-1")]
-    Ala1,
-    #[serde(rename = "nyc-1")]
-    Nyc1,
-    #[serde(rename = "msk-1")]
-    Msk1
-}
-
-impl Default for AvailabilityZone {
-    fn default() -> AvailabilityZone {
-        Self::Spb1
     }
 }

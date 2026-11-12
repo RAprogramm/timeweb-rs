@@ -129,8 +129,9 @@ pub struct Vds {
     /// сервере.
     #[serde(rename = "is_qemu_agent")]
     pub is_qemu_agent:     bool,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone
+    pub availability_zone: String
 }
 
 impl Vds {
@@ -164,7 +165,7 @@ impl Vds {
         networks: Vec<models::VdsNetworksInner>,
         cloud_init: Option<String>,
         is_qemu_agent: bool,
-        availability_zone: models::AvailabilityZone
+        availability_zone: String
     ) -> Vds {
         Vds {
             id,

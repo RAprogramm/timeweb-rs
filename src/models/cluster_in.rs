@@ -25,7 +25,7 @@ pub struct ClusterIn {
     pub k8s_version:          String,
     /// Зона доступности
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone:    Option<AvailabilityZone>,
+    pub availability_zone:    Option<String>,
     /// Тип используемого сетевого драйвера в кластере
     #[serde(rename = "network_driver")]
     pub network_driver:       NetworkDriver,
@@ -85,24 +85,6 @@ impl ClusterIn {
             oidc_provider: None,
             cluster_network_cidr: None
         }
-    }
-}
-/// Зона доступности
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AvailabilityZone {
-    #[serde(rename = "spb-3")]
-    Spb3,
-    #[serde(rename = "msk-1")]
-    Msk1,
-    #[serde(rename = "ams-1")]
-    Ams1,
-    #[serde(rename = "fra-1")]
-    Fra1
-}
-
-impl Default for AvailabilityZone {
-    fn default() -> AvailabilityZone {
-        Self::Spb3
     }
 }
 /// Тип используемого сетевого драйвера в кластере

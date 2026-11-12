@@ -28,15 +28,16 @@ pub struct NetworkDriveAvailableResource {
         skip_serializing_if = "Option::is_none"
     )]
     pub ip:                Option<Option<String>>,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone
+    pub availability_zone: String
 }
 
 impl NetworkDriveAvailableResource {
     pub fn new(
         resource_id: i64,
         resource_type: ResourceType,
-        availability_zone: models::AvailabilityZone
+        availability_zone: String
     ) -> NetworkDriveAvailableResource {
         NetworkDriveAvailableResource {
             resource_id,

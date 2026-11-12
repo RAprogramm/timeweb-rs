@@ -158,11 +158,13 @@ pub async fn get_agents_token_packages(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAgentsTokenPackagesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -217,11 +219,13 @@ pub async fn get_ai_model_parameters(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiModelParametersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -278,11 +282,13 @@ pub async fn get_ai_model_token_packages(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiModelTokenPackagesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -339,11 +345,13 @@ pub async fn get_ai_provider(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiProviderError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -393,11 +401,13 @@ pub async fn get_ai_providers(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiProvidersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -456,12 +466,14 @@ pub async fn get_knowledgebases_token_packages(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetKnowledgebasesTokenPackagesError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -511,11 +523,13 @@ pub async fn get_models(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetModelsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -568,11 +582,13 @@ pub async fn get_models_v3(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetModelsV3Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }

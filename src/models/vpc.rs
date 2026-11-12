@@ -40,8 +40,9 @@ pub struct Vpc {
         deserialize_with = "Option::deserialize"
     )]
     pub description:       Option<String>,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone,
+    pub availability_zone: String,
     /// Публичный IP-адрес сети.
     #[serde(
         rename = "public_ip",
@@ -65,7 +66,7 @@ impl Vpc {
         location: String,
         created_at: chrono::DateTime<chrono::FixedOffset>,
         description: Option<String>,
-        availability_zone: models::AvailabilityZone,
+        availability_zone: String,
         public_ip: Option<String>,
         r#type: Type,
         busy_address: Vec<String>

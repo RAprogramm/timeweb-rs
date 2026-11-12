@@ -349,11 +349,13 @@ pub async fn cancel_ai_gateway_batch(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CancelAiGatewayBatchError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -415,11 +417,13 @@ pub async fn cancel_ai_gateway_response(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CancelAiGatewayResponseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -473,11 +477,13 @@ pub async fn create_ai_gateway_batch(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayBatchError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -541,12 +547,14 @@ pub async fn create_ai_gateway_chat_completion(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayChatCompletionError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -603,11 +611,13 @@ pub async fn create_ai_gateway_completion(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayCompletionError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -663,11 +673,13 @@ pub async fn create_ai_gateway_embedding(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayEmbeddingError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -723,11 +735,13 @@ pub async fn create_ai_gateway_image(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayImageError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -828,11 +842,13 @@ pub async fn create_ai_gateway_image_edit(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayImageEditError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -894,11 +910,13 @@ pub async fn create_ai_gateway_response(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayResponseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -935,11 +953,13 @@ pub async fn create_ai_gateway_speech(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(resp)
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewaySpeechError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1030,12 +1050,14 @@ pub async fn create_ai_gateway_transcription(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateAiGatewayTranscriptionError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1094,11 +1116,13 @@ pub async fn delete_ai_gateway_file(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteAiGatewayFileError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1157,11 +1181,13 @@ pub async fn delete_ai_gateway_response(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteAiGatewayResponseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1201,12 +1227,14 @@ pub async fn download_ai_gateway_file_content(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(resp)
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DownloadAiGatewayFileContentError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1263,11 +1291,13 @@ pub async fn get_ai_gateway_batch(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiGatewayBatchError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1328,11 +1358,13 @@ pub async fn get_ai_gateway_batches(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiGatewayBatchesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1388,11 +1420,13 @@ pub async fn get_ai_gateway_file(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiGatewayFileError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1439,11 +1473,13 @@ pub async fn get_ai_gateway_models(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiGatewayModelsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1500,11 +1536,13 @@ pub async fn get_ai_gateway_response(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAiGatewayResponseError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1589,11 +1627,13 @@ pub async fn upload_ai_gateway_file(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UploadAiGatewayFileError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }

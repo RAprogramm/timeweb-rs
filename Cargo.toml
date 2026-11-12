@@ -112,7 +112,7 @@ full = [
 
 [dev-dependencies]
 futures-util = { version = "0.3", default-features = false }
-tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-thread"] }
 
 [profile.release]
 lto = true

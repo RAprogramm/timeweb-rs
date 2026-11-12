@@ -188,11 +188,13 @@ pub async fn add_countries_to_allowed_list(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<AddCountriesToAllowedListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -248,11 +250,13 @@ pub async fn add_ips_to_allowed_list(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<AddIpsToAllowedListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -312,12 +316,14 @@ pub async fn delete_countries_from_allowed_list(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteCountriesFromAllowedListError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -373,11 +379,13 @@ pub async fn delete_ips_from_allowed_list(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteIpsFromAllowedListError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -425,11 +433,13 @@ pub async fn get_account_status(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAccountStatusError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -479,11 +489,13 @@ pub async fn get_auth_access_settings(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAuthAccessSettingsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -532,11 +544,13 @@ pub async fn get_countries(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetCountriesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -587,11 +601,13 @@ pub async fn get_notification_settings(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetNotificationSettingsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -632,12 +648,14 @@ pub async fn update_auth_restrictions_by_countries(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateAuthRestrictionsByCountriesError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -674,11 +692,13 @@ pub async fn update_auth_restrictions_by_ip(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateAuthRestrictionsByIpError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -736,11 +756,13 @@ pub async fn update_notification_settings(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateNotificationSettingsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }

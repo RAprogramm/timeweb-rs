@@ -360,11 +360,13 @@ pub async fn add_networks(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<AddNetworksError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -418,11 +420,13 @@ pub async fn create_router(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateRouterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -464,11 +468,13 @@ pub async fn delete_dnat(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteDnatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -507,11 +513,13 @@ pub async fn delete_router(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteRouterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -572,11 +580,13 @@ pub async fn delete_router_nat(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteRouterNatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -618,11 +628,13 @@ pub async fn delete_router_network(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteRouterNetworkError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -664,11 +676,13 @@ pub async fn delete_static_route(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteStaticRouteError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -725,11 +739,13 @@ pub async fn get_available_static_routes(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetAvailableStaticRoutesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -785,11 +801,13 @@ pub async fn get_dnat(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDnatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -848,11 +866,13 @@ pub async fn get_dnat_rule(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDnatRuleError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -908,11 +928,13 @@ pub async fn get_networks(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetNetworksError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -968,11 +990,13 @@ pub async fn get_router(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetRouterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1024,11 +1048,13 @@ pub async fn get_router_available_networks(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetRouterAvailableNetworksError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1076,11 +1102,13 @@ pub async fn get_router_presets(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetRouterPresetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1150,11 +1178,13 @@ pub async fn get_router_statistics(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetRouterStatisticsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1201,11 +1231,13 @@ pub async fn get_routers(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetRoutersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1261,11 +1293,13 @@ pub async fn get_static_routes(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetStaticRoutesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1329,11 +1363,13 @@ pub async fn patch_network(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<PatchNetworkError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1394,11 +1430,13 @@ pub async fn patch_networks(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<PatchNetworksError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1459,11 +1497,13 @@ pub async fn post_dnat(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<PostDnatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1524,11 +1564,13 @@ pub async fn post_static_route(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<PostStaticRouteError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1589,11 +1631,13 @@ pub async fn update_router(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateRouterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1657,11 +1701,13 @@ pub async fn update_router_nat(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateRouterNatError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }

@@ -602,11 +602,13 @@ pub async fn create_database_backup(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateDatabaseBackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -676,12 +678,14 @@ pub async fn create_database_backup_download_url(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateDatabaseBackupDownloadUrlError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -740,11 +744,13 @@ pub async fn create_database_cluster(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateDatabaseClusterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -809,11 +815,13 @@ pub async fn create_database_instance(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateDatabaseInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -879,11 +887,13 @@ pub async fn create_database_s3_backup(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateDatabaseS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -944,11 +954,13 @@ pub async fn create_database_user(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<CreateDatabaseUserError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -990,11 +1002,13 @@ pub async fn delete_database_backup(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseBackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1052,11 +1066,13 @@ pub async fn delete_database_cluster(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseClusterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1098,11 +1114,13 @@ pub async fn delete_database_instance(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1147,11 +1165,13 @@ pub async fn delete_database_s3_backup(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1193,11 +1213,13 @@ pub async fn delete_database_user(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<DeleteDatabaseUserError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1256,12 +1278,14 @@ pub async fn get_database_auto_backups_settings(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseAutoBackupsSettingsError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1320,11 +1344,13 @@ pub async fn get_database_backup(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseBackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1390,11 +1416,13 @@ pub async fn get_database_backups(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseBackupsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1450,11 +1478,13 @@ pub async fn get_database_cluster(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseClusterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1512,11 +1542,13 @@ pub async fn get_database_cluster_replicas(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseClusterReplicasError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1564,11 +1596,13 @@ pub async fn get_database_cluster_types(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseClusterTypesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1629,11 +1663,13 @@ pub async fn get_database_clusters(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseClustersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1697,11 +1733,13 @@ pub async fn get_database_configurators(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseConfiguratorsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1772,12 +1810,14 @@ pub async fn get_database_default_parameters(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseDefaultParametersError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1836,11 +1876,13 @@ pub async fn get_database_instance(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1896,11 +1938,13 @@ pub async fn get_database_instances(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseInstancesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -1950,11 +1994,13 @@ pub async fn get_database_parameters(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseParametersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2011,11 +2057,13 @@ pub async fn get_database_preset(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabasePresetError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2078,11 +2126,13 @@ pub async fn get_database_privileges(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabasePrivilegesError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2145,11 +2195,13 @@ pub async fn get_database_s3_backup(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2211,11 +2263,13 @@ pub async fn get_database_s3_backups(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseS3BackupsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2274,11 +2328,13 @@ pub async fn get_database_user(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseUserError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2334,11 +2390,13 @@ pub async fn get_database_users(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabaseUsersError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2402,11 +2460,13 @@ pub async fn get_databases_presets(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<GetDatabasesPresetsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2450,12 +2510,14 @@ pub async fn perform_database_cluster_action(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<PerformDatabaseClusterActionError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2495,11 +2557,13 @@ pub async fn restore_database_from_backup(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<RestoreDatabaseFromBackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2547,11 +2611,13 @@ pub async fn restore_database_from_s3_backup(
     if !status.is_client_error() && !status.is_server_error() {
         Ok(())
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<RestoreDatabaseFromS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2615,12 +2681,14 @@ pub async fn update_database_auto_backups_settings(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseAutoBackupsSettingsError> =
             serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2685,11 +2753,13 @@ pub async fn update_database_backup(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseBackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2752,11 +2822,13 @@ pub async fn update_database_cluster(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseClusterError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2821,11 +2893,13 @@ pub async fn update_database_cluster_v2(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseClusterV2Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2894,11 +2968,13 @@ pub async fn update_database_instance(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseInstanceError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -2965,11 +3041,13 @@ pub async fn update_database_s3_backup(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseS3BackupError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }
@@ -3033,11 +3111,13 @@ pub async fn update_database_user(
             }
         }
     } else {
+        let headers = resp.headers().clone();
         let content = resp.text().await?;
         let entity: Option<UpdateDatabaseUserError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
+            headers,
             entity
         }))
     }

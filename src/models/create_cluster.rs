@@ -47,8 +47,9 @@ pub struct CreateCluster {
     /// Описание кластера базы данных
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:       Option<String>,
+    /// Зона доступности.
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<models::AvailabilityZone>,
+    pub availability_zone: Option<String>,
     #[serde(rename = "auto_backups", skip_serializing_if = "Option::is_none")]
     pub auto_backups:      Option<Box<models::CreateDbAutoBackups>>,
     #[serde(rename = "backup_schedule", skip_serializing_if = "Option::is_none")]

@@ -38,6 +38,11 @@ use crate::apis::Error;
 /// # Ok(())
 /// # }
 /// ```
+///
+/// The stream cannot know that a full page is the last one, so a collection
+/// whose size is a multiple of `page_size` costs one extra request that
+/// returns an empty page.
+#[must_use]
 pub const fn paginate<T, E, F, Fut>(page_size: i32, fetch: F) -> PageStream<T, F, Fut>
 where
     F: Fn(i32, i32) -> Fut + Unpin,
@@ -120,7 +125,8 @@ mod tests {
         Error::ResponseError(ResponseContent {
             status:  reqwest::StatusCode::NOT_FOUND,
             content: String::new(),
-            entity:  None
+            entity:  None,
+            headers: reqwest::header::HeaderMap::new()
         })
     }
 

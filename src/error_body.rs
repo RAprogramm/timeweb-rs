@@ -80,7 +80,8 @@ mod tests {
         Error::ResponseError(ResponseContent {
             status:  reqwest::StatusCode::BAD_REQUEST,
             content: content.to_string(),
-            entity:  None
+            entity:  None,
+            headers: reqwest::header::HeaderMap::new()
         })
     }
 

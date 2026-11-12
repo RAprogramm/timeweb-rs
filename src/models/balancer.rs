@@ -114,8 +114,9 @@ pub struct Balancer {
     /// Географическое расположение балансировщика
     #[serde(rename = "location")]
     pub location:            String,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone:   models::AvailabilityZone,
+    pub availability_zone:   String,
     /// ID проекта
     #[serde(rename = "project_id")]
     pub project_id:          i32,
@@ -155,7 +156,7 @@ impl Balancer {
         rules: Vec<models::Rule>,
         ips: Vec<String>,
         location: String,
-        availability_zone: models::AvailabilityZone,
+        availability_zone: String,
         project_id: i32,
         networks: Vec<models::BalancerNetworksInner>
     ) -> Balancer {

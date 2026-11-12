@@ -496,26 +496,6 @@ pub use self::autoreply_is_disabled::AutoreplyIsDisabled;
 pub mod autoreply_is_enabled;
 #[cfg(feature = "mail")]
 pub use self::autoreply_is_enabled::AutoreplyIsEnabled;
-#[cfg(any(
-    feature = "balancers",
-    feature = "databases",
-    feature = "floating-ip",
-    feature = "network-drives",
-    feature = "projects",
-    feature = "servers",
-    feature = "vpc"
-))]
-pub mod availability_zone;
-#[cfg(any(
-    feature = "balancers",
-    feature = "databases",
-    feature = "floating-ip",
-    feature = "network-drives",
-    feature = "projects",
-    feature = "servers",
-    feature = "vpc"
-))]
-pub use self::availability_zone::AvailabilityZone;
 pub mod available_frameworks;
 pub use self::available_frameworks::AvailableFrameworks;
 pub mod available_frameworks_backend_frameworks_inner;

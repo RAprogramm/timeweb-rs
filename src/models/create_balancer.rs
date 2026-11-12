@@ -80,8 +80,9 @@ pub struct CreateBalancer {
     pub preset_id:           i64,
     #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
     pub network:             Option<Box<models::Network>>,
+    /// Зона доступности.
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone:   Option<models::AvailabilityZone>,
+    pub availability_zone:   Option<String>,
     /// ID проекта
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
     pub project_id:          Option<i32>,

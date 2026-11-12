@@ -41,7 +41,7 @@ pub struct CreateAiSolution {
     /// умолчанию для региона аккаунта. Зона должна относиться к локации тарифа,
     /// а образ решения должен быть доступен в этой зоне
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<AvailabilityZone>
+    pub availability_zone: Option<String>
 }
 
 impl CreateAiSolution {
@@ -68,57 +68,5 @@ pub enum Type {
 impl Default for Type {
     fn default() -> Type {
         Self::Openclaw
-    }
-}
-/// Зона доступности сервера. Если не указана, используется зона по умолчанию
-/// для региона аккаунта. Зона должна относиться к локации тарифа, а образ
-/// решения должен быть доступен в этой зоне
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AvailabilityZone {
-    #[serde(rename = "spb-1")]
-    Spb1,
-    #[serde(rename = "spb-2")]
-    Spb2,
-    #[serde(rename = "spb-3")]
-    Spb3,
-    #[serde(rename = "spb-4")]
-    Spb4,
-    #[serde(rename = "spb-5")]
-    Spb5,
-    #[serde(rename = "nsk-1")]
-    Nsk1,
-    #[serde(rename = "ekb-1")]
-    Ekb1,
-    #[serde(rename = "kzn-1")]
-    Kzn1,
-    #[serde(rename = "ams-1")]
-    Ams1,
-    #[serde(rename = "gdn-1")]
-    Gdn1,
-    #[serde(rename = "ala-1")]
-    Ala1,
-    #[serde(rename = "nyc-1")]
-    Nyc1,
-    #[serde(rename = "sjc-1")]
-    Sjc1,
-    #[serde(rename = "msk-1")]
-    Msk1,
-    #[serde(rename = "fra-1")]
-    Fra1,
-    #[serde(rename = "hel-1")]
-    Hel1,
-    #[serde(rename = "sta-1")]
-    Sta1,
-    #[serde(rename = "buf-2")]
-    Buf2,
-    #[serde(rename = "par-1")]
-    Par1,
-    #[serde(rename = "lon-1")]
-    Lon1
-}
-
-impl Default for AvailabilityZone {
-    fn default() -> AvailabilityZone {
-        Self::Spb1
     }
 }

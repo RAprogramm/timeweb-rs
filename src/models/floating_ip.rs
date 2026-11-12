@@ -23,8 +23,9 @@ pub struct FloatingIp {
     /// Это логическое значение, которое показывает, включена ли защита от DDoS.
     #[serde(rename = "is_ddos_guard")]
     pub is_ddos_guard:     bool,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone,
+    pub availability_zone: String,
     /// Тип ресурса.
     #[serde(
         rename = "resource_type",
@@ -51,7 +52,7 @@ impl FloatingIp {
         id: String,
         ip: Option<String>,
         is_ddos_guard: bool,
-        availability_zone: models::AvailabilityZone,
+        availability_zone: String,
         resource_type: Option<String>,
         resource_id: Option<models::FloatingIpResourceId>,
         comment: Option<String>,

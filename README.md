@@ -164,6 +164,7 @@ To refresh manually:
 5. Regenerate the per-area feature gates, patch the generated models and
    refresh the derived files:
    ```sh
+   cargo xtask layout
    cargo xtask feature-gates
    cargo xtask patch-models
    cargo xtask example-tests

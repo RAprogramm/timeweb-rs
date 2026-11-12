@@ -59,8 +59,9 @@ pub struct CreateServer {
     /// Cloud-init скрипт. Максимальный размер — 65 535 байт в UTF-8.
     #[serde(rename = "cloud_init", skip_serializing_if = "Option::is_none")]
     pub cloud_init:        Option<String>,
+    /// Зона доступности.
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<models::AvailabilityZone>,
+    pub availability_zone: Option<String>,
     /// ID проекта.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
     pub project_id:        Option<i64>,

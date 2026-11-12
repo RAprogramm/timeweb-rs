@@ -78,8 +78,9 @@ pub struct Db {
     /// только по локальному IP адресу.
     #[serde(rename = "is_only_local_ip_access")]
     pub is_only_local_ip_access: bool,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone
+    pub availability_zone: String
 }
 
 impl Db {
@@ -102,7 +103,7 @@ impl Db {
         disk_stats: Option<models::DbDiskStats>,
         config_parameters: models::CreateClusterConfigParameters,
         is_only_local_ip_access: bool,
-        availability_zone: models::AvailabilityZone
+        availability_zone: String
     ) -> Db {
         Db {
             id,

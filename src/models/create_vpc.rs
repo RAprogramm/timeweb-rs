@@ -26,8 +26,9 @@ pub struct CreateVpc {
     /// Описание.
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:       Option<String>,
+    /// Зона доступности.
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<models::AvailabilityZone>
+    pub availability_zone: Option<String>
 }
 
 impl CreateVpc {

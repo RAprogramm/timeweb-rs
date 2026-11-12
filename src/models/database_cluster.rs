@@ -130,7 +130,7 @@ pub struct DatabaseCluster {
         default,
         deserialize_with = "Option::deserialize"
     )]
-    pub availability_zone: Option<models::AvailabilityZone>,
+    pub availability_zone: Option<String>,
     /// ID проекта, в котором находится кластер базы данных.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
     pub project_id: Option<i32>,
@@ -180,7 +180,7 @@ impl DatabaseCluster {
         is_secure_connection_enabled: bool,
         is_autobackups_enabled: bool,
         is_backup_schedule_enabled: bool,
-        availability_zone: Option<models::AvailabilityZone>,
+        availability_zone: Option<String>,
         replica_list: Vec<models::DatabaseClusterReplicaListInner>,
         domains: Vec<models::DatabaseClusterDomainsInner>,
         child_services: Vec<models::DatabaseClusterChildServicesInner>,

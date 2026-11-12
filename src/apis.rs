@@ -2,6 +2,7 @@ use std::{error, fmt};
 
 #[derive(Debug, Clone)]
 pub struct ResponseContent<T> {
+    pub headers: reqwest::header::HeaderMap,
     pub status:  reqwest::StatusCode,
     pub content: String,
     pub entity:  Option<T>
@@ -111,7 +112,6 @@ impl From<&str> for ContentType {
         }
     }
 }
-
 #[cfg(feature = "account")]
 pub mod account_api;
 #[cfg(feature = "ai-agent-integrations")]

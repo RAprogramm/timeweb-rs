@@ -35,8 +35,9 @@ pub struct NetworkDrive {
     /// Статус сетевого диска.
     #[serde(rename = "status")]
     pub status:            Status,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone,
+    pub availability_zone: String,
     /// Тип сетевого диска.
     #[serde(rename = "type")]
     pub r#type:            Type,
@@ -54,7 +55,7 @@ impl NetworkDrive {
         service_list: Vec<models::NetworkDriveServiceListInner>,
         location: String,
         status: Status,
-        availability_zone: models::AvailabilityZone,
+        availability_zone: String,
         r#type: Type,
         preset_id: i32
     ) -> NetworkDrive {

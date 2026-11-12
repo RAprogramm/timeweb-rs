@@ -74,8 +74,8 @@ mod pagination;
 mod retry;
 
 pub use client::{
-    AI_GATEWAY_BASE_URL, DEFAULT_BASE_URL, authenticated, authenticated_ai_gateway,
-    authenticated_with_base_url
+    AI_GATEWAY_BASE_URL, DEFAULT_BASE_URL, DEFAULT_TIMEOUT, authenticated,
+    authenticated_ai_gateway, authenticated_with_base_url, authenticated_with_client
 };
 pub use error_body::{ErrorDetails, ErrorMessage};
 pub use pagination::{PageStream, paginate};

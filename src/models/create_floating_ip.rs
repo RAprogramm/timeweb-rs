@@ -17,15 +17,13 @@ pub struct CreateFloatingIp {
     /// Это логическое значение, которое показывает, включена ли защита от DDoS.
     #[serde(rename = "is_ddos_guard")]
     pub is_ddos_guard:     bool,
+    /// Зона доступности.
     #[serde(rename = "availability_zone")]
-    pub availability_zone: models::AvailabilityZone
+    pub availability_zone: String
 }
 
 impl CreateFloatingIp {
-    pub fn new(
-        is_ddos_guard: bool,
-        availability_zone: models::AvailabilityZone
-    ) -> CreateFloatingIp {
+    pub fn new(is_ddos_guard: bool, availability_zone: String) -> CreateFloatingIp {
         CreateFloatingIp {
             is_ddos_guard,
             availability_zone

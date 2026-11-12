@@ -63,7 +63,7 @@ pub struct ClusterOut {
     pub disk:              Option<i32>,
     /// Зона доступности
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]
-    pub availability_zone: Option<AvailabilityZone>,
+    pub availability_zone: Option<String>,
     /// ID проекта
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
     pub project_id:        Option<i32>
@@ -119,23 +119,5 @@ pub enum NetworkDriver {
 impl Default for NetworkDriver {
     fn default() -> NetworkDriver {
         Self::Kuberouter
-    }
-}
-/// Зона доступности
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum AvailabilityZone {
-    #[serde(rename = "spb-3")]
-    Spb3,
-    #[serde(rename = "msk-1")]
-    Msk1,
-    #[serde(rename = "ams-1")]
-    Ams1,
-    #[serde(rename = "fra-1")]
-    Fra1
-}
-
-impl Default for AvailabilityZone {
-    fn default() -> AvailabilityZone {
-        Self::Spb3
     }
 }

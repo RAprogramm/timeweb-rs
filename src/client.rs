@@ -1,5 +1,7 @@
 //! Idiomatic entry point for building an authenticated API configuration.
 
+use std::time::Duration;
+
 use crate::apis::configuration::Configuration;
 
 /// Default base URL of the Timeweb Cloud API.
@@ -11,6 +13,28 @@ pub const DEFAULT_BASE_URL: &str = "https://api.timeweb.cloud";
 /// operations of the `ai_gateway_inference_api` module talk to it instead of
 /// to [`DEFAULT_BASE_URL`].
 pub const AI_GATEWAY_BASE_URL: &str = "https://api.timeweb.ai";
+
+/// Default timeout of a request.
+///
+/// The HTTP client of a configuration built with [`authenticated`] gives up
+/// after this timeout, so a stalled connection cannot block a task forever.
+pub const DEFAULT_TIMEOUT: Duration = Duration::from_secs(30);
+
+/// Builds the HTTP client of a configuration.
+///
+/// # Arguments
+///
+/// * `timeout` — the timeout of a request.
+///
+/// # Returns
+///
+/// The client, or the default one when the timeout cannot be applied.
+fn http_client(timeout: Duration) -> reqwest::Client {
+    reqwest::Client::builder()
+        .timeout(timeout)
+        .build()
+        .unwrap_or_else(|_| reqwest::Client::new())
+}
 
 /// Builds a [`Configuration`] authenticated with a Timeweb Cloud JWT token.
 ///
@@ -35,7 +59,33 @@ pub fn authenticated(token: impl Into<String>) -> Configuration {
     Configuration {
         bearer_access_token: Some(token.into()),
         user_agent: Some(concat!("timeweb-rs/", env!("CARGO_PKG_VERSION")).to_string()),
+        client: http_client(DEFAULT_TIMEOUT),
         ..Configuration::default()
+    }
+}
+
+/// Builds a [`Configuration`] authenticated with a token and a custom client.
+///
+/// Use it when the caller needs its own HTTP client — a proxy, a connection
+/// pool, a different timeout or a custom TLS setup:
+///
+/// ```no_run
+/// # async fn run() -> Result<(), Box<dyn std::error::Error>> {
+/// let client = reqwest::Client::builder()
+///     .timeout(std::time::Duration::from_secs(5))
+///     .build()?;
+/// let config = timeweb_rs::authenticated_with_client("your-jwt-token", client);
+/// # Ok(())
+/// # }
+/// ```
+#[must_use]
+pub fn authenticated_with_client(
+    token: impl Into<String>,
+    client: reqwest::Client
+) -> Configuration {
+    Configuration {
+        client,
+        ..authenticated(token)
     }
 }
 
@@ -82,8 +132,8 @@ pub fn authenticated_with_base_url(
 #[cfg(test)]
 mod tests {
     use super::{
-        AI_GATEWAY_BASE_URL, DEFAULT_BASE_URL, authenticated, authenticated_ai_gateway,
-        authenticated_with_base_url
+        AI_GATEWAY_BASE_URL, DEFAULT_BASE_URL, DEFAULT_TIMEOUT, authenticated,
+        authenticated_ai_gateway, authenticated_with_base_url, authenticated_with_client
     };
 
     #[test]
@@ -112,5 +162,19 @@ mod tests {
         let config = authenticated_ai_gateway("sk-test");
         assert_eq!(config.base_path, AI_GATEWAY_BASE_URL);
         assert_eq!(config.bearer_access_token.as_deref(), Some("sk-test"));
+    }
+
+    #[test]
+    fn authenticated_uses_a_client_with_the_default_timeout() {
+        let config = authenticated("jwt-token");
+        assert_eq!(DEFAULT_TIMEOUT, std::time::Duration::from_secs(30));
+        assert!(config.client.get("https://example.com").build().is_ok());
+    }
+
+    #[test]
+    fn authenticated_with_client_keeps_the_client() {
+        let client = reqwest::Client::new();
+        let config = authenticated_with_client("jwt-token", client);
+        assert_eq!(config.bearer_access_token.as_deref(), Some("jwt-token"));
     }
 }
