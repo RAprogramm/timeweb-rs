@@ -40,7 +40,7 @@ jobs:
           {
             "schemaVersion": 1,
             "label": "MSRV",
-            "message": "rust-$version",
+            "message": "$version",
             "color": "blue"
           }
           EOF

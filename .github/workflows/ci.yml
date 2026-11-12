@@ -109,7 +109,7 @@ jobs:
         env:
           MSRV: ${{ steps.msrv.outputs.msrv }}
         run: |
-          expected=$(jq -r '.message | sub("^rust-"; "")' .github/msrv-badge.json)
+          expected=$(jq -r '.message' .github/msrv-badge.json)
           actual=$(echo "$MSRV" | sed -E 's/^([0-9]+\.[0-9]+)\.[0-9]+$/\1/')
           if [ "$expected" != "$actual" ]; then
             echo "::error::the MSRV badge says $expected, but Cargo.toml declares $actual"
