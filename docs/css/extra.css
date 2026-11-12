@@ -2,6 +2,10 @@
 
 :root {
     --sidebar-background: #f7f8fa;
+    /* mdBook ships a 750px column, which is too narrow for wide tables and
+       code blocks on a desktop screen. Pixels, not rem: mdBook sets the root
+       font size to 10px, so a rem value here would be misread. */
+    --content-max-width: min(960px, 100%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,6 +20,13 @@ code {
 
 table {
     font-size: 0.92em;
+}
+
+/* A wide table scrolls inside its own box instead of pushing the page wider. */
+main table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
 }
 
 /* The link to the same page in the other language, added by
