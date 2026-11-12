@@ -1,12 +1,13 @@
 # Support
 
-`timeweb-rs` is free and open source. If it saved you time — a deployment
-that went smoothly, an integration that did not fight back, an afternoon you
-did not spend debugging a deserializer — you can say thanks.
+`timeweb-rs` is free and open source. If it saved you time, you can say
+thanks.
 
-> A donation is a thank-you, not a purchase. It buys no service and no
-> priority; the issues and the pull requests are handled on a best-effort
-> basis either way.
+## СБП
+
+<img src="donation-qr.jpg" alt="QR-код для перевода через Т-Банк или Сбербанк" width="320">
+
+[Payment link](https://t.tb.ru/c2c-qr-choose-bank?requisiteNumber=+79940043995&bankCode=100000000004)
 
 ## Crypto
 
