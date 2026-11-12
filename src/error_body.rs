@@ -28,13 +28,13 @@ pub struct ErrorDetails {
     /// HTTP status code repeated in the body.
     pub status_code: u16,
     /// Machine-readable error identifier.
-    pub error_code:  String,
+    pub error_code: String,
     /// One or several human-readable messages.
     #[serde(default)]
-    pub message:     Option<ErrorMessage>,
+    pub message: Option<ErrorMessage>,
     /// Request correlation id for support tickets.
     #[serde(default)]
-    pub response_id: Option<String>
+    pub response_id: Option<String>,
 }
 
 /// An error body's `message` field: the API sends a string or a list.
@@ -44,7 +44,7 @@ pub enum ErrorMessage {
     /// A single message.
     One(String),
     /// Several messages, typically one per invalid field.
-    Many(Vec<String>)
+    Many(Vec<String>),
 }
 
 impl ErrorDetails {
@@ -56,7 +56,7 @@ impl ErrorDetails {
     pub fn from_api_error<E>(error: &Error<E>) -> Option<Self> {
         match error {
             Error::ResponseError(response) => serde_json::from_str(&response.content).ok(),
-            Error::Reqwest(_) | Error::Serde(_) | Error::Io(_) => None
+            Error::Reqwest(_) | Error::Serde(_) | Error::Io(_) => None,
         }
     }
 
@@ -66,7 +66,7 @@ impl ErrorDetails {
         match &self.message {
             None => Vec::new(),
             Some(ErrorMessage::One(message)) => vec![message.clone()],
-            Some(ErrorMessage::Many(messages)) => messages.clone()
+            Some(ErrorMessage::Many(messages)) => messages.clone(),
         }
     }
 }
@@ -78,9 +78,9 @@ mod tests {
 
     fn response_error(content: &str) -> Error<()> {
         Error::ResponseError(ResponseContent {
-            status:  reqwest::StatusCode::BAD_REQUEST,
+            status: reqwest::StatusCode::BAD_REQUEST,
             content: content.to_string(),
-            entity:  None
+            entity: None,
         })
     }
 
@@ -92,7 +92,7 @@ mod tests {
                 "error_code": "bad_request",
                 "message": "invalid preset",
                 "response_id": "3037b284-a6ac-4dc7-b6d7-1f624dcfcec6"
-            }"#
+            }"#,
         );
         let details = ErrorDetails::from_api_error(&error).expect("envelope parses");
         assert_eq!(details.status_code, 400);
@@ -107,7 +107,7 @@ mod tests {
     #[test]
     fn parses_a_message_list_envelope() {
         let error = response_error(
-            r#"{"status_code": 400, "error_code": "bad_request", "message": ["a", "b"]}"#
+            r#"{"status_code": 400, "error_code": "bad_request", "message": ["a", "b"]}"#,
         );
         let details = ErrorDetails::from_api_error(&error).expect("envelope parses");
         assert_eq!(
@@ -122,7 +122,7 @@ mod tests {
         let error = response_error(r#"{"status_code": 500, "error_code": "internal"}"#);
         let details = ErrorDetails::from_api_error(&error).expect("envelope parses");
         assert!(details.message.is_none());
-        assert!(details.messages().is_empty());
+        assert_eq!(details.messages(), Vec::<String>::new());
     }
 
     #[test]

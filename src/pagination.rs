@@ -165,7 +165,7 @@ mod tests {
             .try_collect()
             .await
             .expect("empty collection succeeds");
-        assert!(items.is_empty());
+        assert_eq!(items, Vec::<u32>::new());
     }
 
     #[tokio::test]
