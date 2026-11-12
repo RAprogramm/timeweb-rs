@@ -1,7 +1,7 @@
 # Обзор
 
 - [Быстрый старт](./quickstart.md)
-- [Cargo-фичи](./features.md)
+- [Флаги Cargo](./features.md)
 - [Обработка ошибок](./errors.md)
 - [Пагинация](./pagination.md)
 - [Повторы и таймауты](./retries.md)
