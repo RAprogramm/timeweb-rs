@@ -12,99 +12,154 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// Agent : AI Agent
+/// Agent : AI агент
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Agent {
-    /// Уникальный идентификатор агента
+    /// ID агента
     #[serde(rename = "id")]
-    pub id: i64,
+    pub id: i32,
     /// Название агента
     #[serde(rename = "name")]
     pub name: String,
     /// Описание агента
-    #[serde(rename = "description")]
-    pub description: String,
-    /// ID модели
+    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    pub description: Option<String>,
+    /// ID проекта, в котором находится агент
+    #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<i32>,
+    /// ID основной модели агента
     #[serde(rename = "model_id")]
-    pub model_id: i64,
-    /// ID провайдера
+    pub model_id: i32,
+    /// ID провайдера модели
     #[serde(rename = "provider_id")]
-    pub provider_id: i64,
+    pub provider_id: i32,
     #[serde(rename = "settings")]
     pub settings: Box<models::AgentSettings>,
-    /// Статус агента
+    /// Статус агента: - `active` — работает; - `suspended` — приостановлен
+    /// владельцем; - `blocked` — заблокирован (для агентов с пакетом токенов —
+    /// закончились токены или подписка); - `deleted` — удалён.
     #[serde(rename = "status")]
     pub status: Status,
-    /// Тип доступа к агенту
+    /// Тип доступа: `public` — агент отвечает анонимным посетителям сайта через
+    /// виджет; `private` — только по токену аккаунта.
     #[serde(rename = "access_type")]
     pub access_type: AccessType,
-    /// Всего токенов выделено агенту
-    #[serde(rename = "total_tokens")]
-    pub total_tokens: f64,
-    /// Использовано токенов
-    #[serde(rename = "used_tokens")]
-    pub used_tokens: f64,
-    /// Осталось токенов
-    #[serde(rename = "remaining_tokens")]
-    pub remaining_tokens: f64,
-    /// ID пакета токенов
-    #[serde(rename = "token_package_id")]
-    pub token_package_id: i64,
-    /// Дата обновления подписки
-    #[serde(rename = "subscription_renewal_date")]
-    pub subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
-    /// ID баз знаний, связанных с агентом
-    #[serde(rename = "knowledge_bases_ids")]
-    pub knowledge_bases_ids: Vec<f64>,
-    /// ID доступа
+    /// Идентификатор доступа агента. Используется для вызова агента из своих приложений через OpenAI-совместимое API (см. https://agent.timeweb.cloud/docs) и для встраивания виджета.
     #[serde(rename = "access_id")]
-    pub access_id: i64,
+    pub access_id: uuid::Uuid,
+    /// Устарело. Дневной лимит агента в токенах без привязки к модели, если он
+    /// задан; `0` — такого лимита нет. Лимиты в деньгах, по моделям и за другие
+    /// периоды здесь не отражаются — используйте лимиты агента
+    /// (`/api/v1/cloud-ai/agents/{id}/entity-limits`).
+    #[serde(rename = "token_limit")]
+    pub token_limit: i32,
+    /// Всего токенов в пакете. Только для агентов с пакетом токенов (устаревшая
+    /// схема оплаты).
+    #[serde(rename = "total_tokens", skip_serializing_if = "Option::is_none")]
+    pub total_tokens: Option<i32>,
+    /// Использовано токенов пакета. Для агентов с поресурсной оплатой — `null`.
+    #[serde(rename = "used_tokens", deserialize_with = "Option::deserialize")]
+    pub used_tokens: Option<i32>,
+    /// Осталось токенов в пакете. Только для агентов с пакетом токенов.
+    #[serde(rename = "remaining_tokens", skip_serializing_if = "Option::is_none")]
+    pub remaining_tokens: Option<i32>,
+    /// ID пакета токенов. Только для агентов с пакетом токенов; у агентов с
+    /// поресурсной оплатой поле отсутствует.
+    #[serde(rename = "token_package_id", skip_serializing_if = "Option::is_none")]
+    pub token_package_id: Option<i32>,
+    /// Дата продления подписки на пакет токенов. Только для агентов с пакетом
+    /// токенов.
+    #[serde(
+        rename = "subscription_renewal_date",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub subscription_renewal_date: Option<chrono::DateTime<chrono::FixedOffset>>,
+    /// Включена ли автоматическая докупка пакетов токенов
+    #[serde(rename = "auto_buy_additional_tokens")]
+    pub auto_buy_additional_tokens: bool,
+    /// Инструменты, подключённые к агенту
+    #[serde(rename = "tools")]
+    pub tools: Vec<models::AgentToolsInner>,
+    /// ID дополнительных моделей агента
+    #[serde(rename = "additional_model_ids")]
+    pub additional_model_ids: Vec<i32>,
+    /// Дополнительные модели агента с настройками
+    #[serde(rename = "additional_models")]
+    pub additional_models: Vec<models::AgentAdditionalModel>,
+    /// Включён ли веб-поиск
+    #[serde(rename = "is_web_search_enabled")]
+    pub is_web_search_enabled: bool,
+    /// ID ключа AI Gateway, к которому привязан агент. `null` — агента можно
+    /// привязать к ключу (см. обновление агента); поле отсутствует — привязка
+    /// недоступна.
+    #[serde(
+        rename = "ai_gateway_key_id",
+        default,
+        with = "::serde_with::rust::double_option",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub ai_gateway_key_id: Option<Option<uuid::Uuid>>,
     /// Дата создания агента
     #[serde(rename = "created_at")]
-    pub created_at: chrono::DateTime<chrono::FixedOffset>
+    pub created_at: chrono::DateTime<chrono::FixedOffset>,
+    /// ID баз знаний, подключённых к агенту
+    #[serde(rename = "knowledge_bases_ids")]
+    pub knowledge_bases_ids: Vec<i32>
 }
 
 impl Agent {
-    /// AI Agent
+    /// AI агент
     pub fn new(
-        id: i64,
+        id: i32,
         name: String,
-        description: String,
-        model_id: i64,
-        provider_id: i64,
+        description: Option<String>,
+        model_id: i32,
+        provider_id: i32,
         settings: models::AgentSettings,
         status: Status,
         access_type: AccessType,
-        total_tokens: f64,
-        used_tokens: f64,
-        remaining_tokens: f64,
-        token_package_id: i64,
-        subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
-        knowledge_bases_ids: Vec<f64>,
-        access_id: i64,
-        created_at: chrono::DateTime<chrono::FixedOffset>
+        access_id: uuid::Uuid,
+        token_limit: i32,
+        used_tokens: Option<i32>,
+        auto_buy_additional_tokens: bool,
+        tools: Vec<models::AgentToolsInner>,
+        additional_model_ids: Vec<i32>,
+        additional_models: Vec<models::AgentAdditionalModel>,
+        is_web_search_enabled: bool,
+        created_at: chrono::DateTime<chrono::FixedOffset>,
+        knowledge_bases_ids: Vec<i32>
     ) -> Agent {
         Agent {
             id,
             name,
             description,
+            project_id: None,
             model_id,
             provider_id,
             settings: Box::new(settings),
             status,
             access_type,
-            total_tokens,
-            used_tokens,
-            remaining_tokens,
-            token_package_id,
-            subscription_renewal_date,
-            knowledge_bases_ids,
             access_id,
-            created_at
+            token_limit,
+            total_tokens: None,
+            used_tokens,
+            remaining_tokens: None,
+            token_package_id: None,
+            subscription_renewal_date: None,
+            auto_buy_additional_tokens,
+            tools,
+            additional_model_ids,
+            additional_models,
+            is_web_search_enabled,
+            ai_gateway_key_id: None,
+            created_at,
+            knowledge_bases_ids
         }
     }
 }
-/// Статус агента
+/// Статус агента: - `active` — работает; - `suspended` — приостановлен
+/// владельцем; - `blocked` — заблокирован (для агентов с пакетом токенов —
+/// закончились токены или подписка); - `deleted` — удалён.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "active")]
@@ -122,7 +177,8 @@ impl Default for Status {
         Self::Active
     }
 }
-/// Тип доступа к агенту
+/// Тип доступа: `public` — агент отвечает анонимным посетителям сайта через
+/// виджет; `private` — только по токену аккаунта.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AccessType {
     #[serde(rename = "public")]

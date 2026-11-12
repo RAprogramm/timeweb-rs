@@ -42,7 +42,13 @@ native-tls = ["reqwest/native-tls"]
 rustls = ["reqwest/rustls"]
 # BEGIN generated area features — openapi/generate_feature_gates.py
 account = []
+ai-agent-integrations = []
+ai-agent-skills = []
 ai-agents = []
+ai-gateway = []
+ai-gateway-inference = []
+ai-models = []
+ai-solutions = []
 apps = []
 balancers = []
 cdn = []
@@ -57,6 +63,7 @@ knowledge-bases = []
 kubernetes = []
 locations = []
 mail = []
+mcp = []
 network-drives = []
 payments = []
 projects = []
@@ -67,7 +74,13 @@ ssh = []
 vpc = []
 full = [
   "account",
+  "ai-agent-integrations",
+  "ai-agent-skills",
   "ai-agents",
+  "ai-gateway",
+  "ai-gateway-inference",
+  "ai-models",
+  "ai-solutions",
   "apps",
   "balancers",
   "cdn",
@@ -82,6 +95,7 @@ full = [
   "kubernetes",
   "locations",
   "mail",
+  "mcp",
   "network-drives",
   "payments",
   "projects",

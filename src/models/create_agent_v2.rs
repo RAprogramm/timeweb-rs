@@ -12,7 +12,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// CreateAgentV2 : Данные для создания AI агента через API v2
+/// CreateAgentV2 : Данные для создания AI агента
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateAgentV2 {
     /// Название агента
@@ -21,40 +21,62 @@ pub struct CreateAgentV2 {
     /// Описание агента
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:           Option<String>,
-    /// Тип доступа к агенту
+    /// Тип доступа: `public` — агент отвечает анонимным посетителям сайта через
+    /// виджет; `private` — только по токену аккаунта.
     #[serde(rename = "access_type")]
     pub access_type:           AccessType,
-    /// ID основной модели
+    /// ID основной модели агента
     #[serde(rename = "model_id")]
-    pub model_id:              i64,
-    /// Дневной лимит токенов для агента (0 — без лимита)
-    #[serde(rename = "token_limit", skip_serializing_if = "Option::is_none")]
-    pub token_limit:           Option<f64>,
+    pub model_id:              i32,
     #[serde(rename = "settings")]
     pub settings:              Box<models::AgentSettings>,
-    /// ID проекта
+    /// ID проекта, в который нужно добавить агента. По умолчанию — проект по
+    /// умолчанию.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:            Option<i64>,
-    /// Список ID дополнительных моделей агента
-    #[serde(
-        rename = "additional_model_ids",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub additional_model_ids:  Option<Vec<f64>>,
-    /// Признак использования веб-поиска агентом
+    pub project_id:            Option<i32>,
+    /// Включить веб-поиск
     #[serde(
         rename = "is_web_search_enabled",
         skip_serializing_if = "Option::is_none"
     )]
-    pub is_web_search_enabled: Option<bool>
+    pub is_web_search_enabled: Option<bool>,
+    /// Дневной лимит расходов агента в валюте аккаунта. `0` или не передан —
+    /// без лимита. Создаётся как лимит агента с периодом `day`; изменить его
+    /// можно через лимиты агента.
+    #[serde(rename = "money_limit", skip_serializing_if = "Option::is_none")]
+    pub money_limit:           Option<f64>,
+    /// Устарело: дневной лимит агента в токенах. `0` или не передан — без
+    /// лимита. Не учитывается, если передан `money_limit`.
+    #[serde(rename = "token_limit", skip_serializing_if = "Option::is_none")]
+    pub token_limit:           Option<i32>,
+    /// Устарело и не учитывается: агент всегда создаётся с поресурсной оплатой.
+    #[serde(rename = "token_package_id", skip_serializing_if = "Option::is_none")]
+    pub token_package_id:      Option<i32>,
+    /// ID дополнительных моделей агента (например, для генерации изображений).
+    /// Список заменяет текущий целиком.
+    #[serde(
+        rename = "additional_model_ids",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub additional_model_ids:  Option<Vec<i32>>,
+    /// Дополнительные модели вместе с настройками (для моделей генерации
+    /// изображений — `width`/`height`). Если переданы и `additional_models`, и
+    /// `additional_model_ids`, используется `additional_models`.
+    #[serde(rename = "additional_models", skip_serializing_if = "Option::is_none")]
+    pub additional_models:     Option<Vec<models::AgentAdditionalModel>>,
+    /// ID навыков, которые нужно подключить к агенту сразу после создания
+    /// (текущие версии навыков). Неизвестные ID пропускаются; ошибка
+    /// подключения навыков не отменяет создание агента.
+    #[serde(rename = "skill_ids", skip_serializing_if = "Option::is_none")]
+    pub skill_ids:             Option<Vec<i32>>
 }
 
 impl CreateAgentV2 {
-    /// Данные для создания AI агента через API v2
+    /// Данные для создания AI агента
     pub fn new(
         name: String,
         access_type: AccessType,
-        model_id: i64,
+        model_id: i32,
         settings: models::AgentSettings
     ) -> CreateAgentV2 {
         CreateAgentV2 {
@@ -62,15 +84,20 @@ impl CreateAgentV2 {
             description: None,
             access_type,
             model_id,
-            token_limit: None,
             settings: Box::new(settings),
             project_id: None,
+            is_web_search_enabled: None,
+            money_limit: None,
+            token_limit: None,
+            token_package_id: None,
             additional_model_ids: None,
-            is_web_search_enabled: None
+            additional_models: None,
+            skill_ids: None
         }
     }
 }
-/// Тип доступа к агенту
+/// Тип доступа: `public` — агент отвечает анонимным посетителям сайта через
+/// виджет; `private` — только по токену аккаунта.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AccessType {
     #[serde(rename = "public")]

@@ -12,51 +12,58 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// Document : Документ в базе знаний
+/// Document : Документ базы знаний
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Document {
-    /// Уникальный идентификатор документа
+    /// ID документа
     #[serde(rename = "id")]
-    pub id:               i64,
+    pub id:                i32,
     /// Название документа
     #[serde(rename = "name")]
-    pub name:             String,
-    /// Размер документа в байтах
+    pub name:              String,
+    /// Размер в байтах. Для документа по ссылке — значение заголовка
+    /// `Content-Length` на момент добавления, `0`, если сервер его не вернул
     #[serde(rename = "size")]
-    pub size:             f64,
-    /// Статус индексации документа
+    pub size:              i32,
+    /// Статус индексации: - `new` — документ добавлен и ждёт индексации -
+    /// `indexing` — индексируется - `indexed` — проиндексирован, используется в
+    /// поиске - `error` — ошибка индексации, подробности в `status_info`
     #[serde(rename = "status")]
-    pub status:           Status,
-    /// Версия индексации
-    #[serde(
-        rename = "indexing_version",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub indexing_version: Option<Option<String>>,
-    #[serde(
-        rename = "status_info",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub status_info:      Option<Option<Box<models::DocumentStatusInfo>>>,
-    /// Дата создания документа
+    pub status:            Status,
+    /// Тип документа: `file` — загруженный файл, `link` — документ по ссылке
+    #[serde(rename = "type")]
+    pub r#type:            Type,
+    /// Расписание автоматической переиндексации. `null`, если расписание не
+    /// задано
+    #[serde(rename = "indexing_schedule", deserialize_with = "Option::deserialize")]
+    pub indexing_schedule: Option<Box<models::IndexingSchedule>>,
+    /// Версия индексации документа
+    #[serde(rename = "indexing_version", deserialize_with = "Option::deserialize")]
+    pub indexing_version:  Option<String>,
+    #[serde(rename = "status_info", deserialize_with = "Option::deserialize")]
+    pub status_info:       Option<Box<models::DocumentStatusInfo>>,
+    /// URL документа. Только для документов типа `link`
+    #[serde(rename = "link", skip_serializing_if = "Option::is_none")]
+    pub link:              Option<String>,
+    /// Дата и время добавления документа
     #[serde(rename = "created_at")]
-    pub created_at:       chrono::DateTime<chrono::FixedOffset>,
-    /// Дата обновления документа
+    pub created_at:        chrono::DateTime<chrono::FixedOffset>,
+    /// Дата и время последнего изменения документа
     #[serde(rename = "updated_at")]
-    pub updated_at:       chrono::DateTime<chrono::FixedOffset>
+    pub updated_at:        chrono::DateTime<chrono::FixedOffset>
 }
 
 impl Document {
-    /// Документ в базе знаний
+    /// Документ базы знаний
     pub fn new(
-        id: i64,
+        id: i32,
         name: String,
-        size: f64,
+        size: i32,
         status: Status,
+        r#type: Type,
+        indexing_schedule: Option<models::IndexingSchedule>,
+        indexing_version: Option<String>,
+        status_info: Option<models::DocumentStatusInfo>,
         created_at: chrono::DateTime<chrono::FixedOffset>,
         updated_at: chrono::DateTime<chrono::FixedOffset>
     ) -> Document {
@@ -65,22 +72,35 @@ impl Document {
             name,
             size,
             status,
-            indexing_version: None,
-            status_info: None,
+            r#type,
+            indexing_schedule: if let Some(x) = indexing_schedule {
+                Some(Box::new(x))
+            } else {
+                None
+            },
+            indexing_version,
+            status_info: if let Some(x) = status_info {
+                Some(Box::new(x))
+            } else {
+                None
+            },
+            link: None,
             created_at,
             updated_at
         }
     }
 }
-/// Статус индексации документа
+/// Статус индексации: - `new` — документ добавлен и ждёт индексации -
+/// `indexing` — индексируется - `indexed` — проиндексирован, используется в
+/// поиске - `error` — ошибка индексации, подробности в `status_info`
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "new")]
     New,
-    #[serde(rename = "indexed")]
-    Indexed,
     #[serde(rename = "indexing")]
     Indexing,
+    #[serde(rename = "indexed")]
+    Indexed,
     #[serde(rename = "error")]
     Error
 }
@@ -88,5 +108,19 @@ pub enum Status {
 impl Default for Status {
     fn default() -> Status {
         Self::New
+    }
+}
+/// Тип документа: `file` — загруженный файл, `link` — документ по ссылке
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Type {
+    #[serde(rename = "file")]
+    File,
+    #[serde(rename = "link")]
+    Link
+}
+
+impl Default for Type {
+    fn default() -> Type {
+        Self::File
     }
 }

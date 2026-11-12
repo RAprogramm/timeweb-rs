@@ -12,46 +12,84 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// UpdateAgent : Данные для обновления AI агента
+/// UpdateAgent : Данные для обновления AI агента. Передавайте только изменяемые
+/// поля.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateAgent {
     /// Название агента
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
-    pub name:             Option<String>,
+    pub name:                  Option<String>,
     /// Описание агента
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
-    pub description:      Option<String>,
-    /// Тип доступа к агенту
+    pub description:           Option<String>,
+    /// Тип доступа
     #[serde(rename = "access_type", skip_serializing_if = "Option::is_none")]
-    pub access_type:      Option<AccessType>,
-    /// Статус агента
+    pub access_type:           Option<AccessType>,
+    /// Статус агента: `suspended` — приостановить, `active` — возобновить.
+    /// Статус заблокированного или удалённого агента изменить нельзя.
     #[serde(rename = "status", skip_serializing_if = "Option::is_none")]
-    pub status:           Option<Status>,
-    /// ID пакета токенов
-    #[serde(rename = "token_package_id", skip_serializing_if = "Option::is_none")]
-    pub token_package_id: Option<i64>,
+    pub status:                Option<Status>,
+    /// Настройки агента. Заменяются целиком (кроме `web_search_allowed_sites`,
+    /// `additional_models` и `memory_enabled`, которые сохраняются, если не
+    /// переданы), поэтому передавайте полный объект настроек, включая `widget`.
     #[serde(rename = "settings", skip_serializing_if = "Option::is_none")]
-    pub settings:         Option<Box<models::UpdateAgentSettings>>,
-    /// ID проекта
+    pub settings:              Option<Box<models::AgentSettings>>,
+    /// Не используется: перенести агента в другой проект можно методами
+    /// проектов.
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:       Option<i64>
+    pub project_id:            Option<i32>,
+    /// ID дополнительных моделей агента (например, для генерации изображений).
+    /// Список заменяет текущий целиком.
+    #[serde(
+        rename = "additional_model_ids",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub additional_model_ids:  Option<Vec<i32>>,
+    /// Дополнительные модели вместе с настройками (для моделей генерации
+    /// изображений — `width`/`height`). Если переданы и `additional_models`, и
+    /// `additional_model_ids`, используется `additional_models`.
+    #[serde(rename = "additional_models", skip_serializing_if = "Option::is_none")]
+    pub additional_models:     Option<Vec<models::AgentAdditionalModel>>,
+    /// Включить или выключить веб-поиск
+    #[serde(
+        rename = "is_web_search_enabled",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub is_web_search_enabled: Option<bool>,
+    /// ID ключа AI Gateway, к которому нужно привязать агента. Привязка
+    /// доступна, только если в ответе агента `ai_gateway_key_id` равен `null`
+    /// (агент без баз знаний, инструментов и интеграций, созданный до 9 октября
+    /// 2026 года), и делается один раз. При первой привязке на аккаунт
+    /// однократно начисляется временная скидка 10% на запросы через ключи AI
+    /// Gateway.
+    #[serde(rename = "ai_gateway_key_id", skip_serializing_if = "Option::is_none")]
+    pub ai_gateway_key_id:     Option<uuid::Uuid>,
+    /// Новый пакет токенов. Только для агентов с пакетом токенов (устаревшая
+    /// схема оплаты): пакет должен относиться к модели агента и быть не меньше
+    /// текущего, его стоимость сразу списывается с баланса.
+    #[serde(rename = "token_package_id", skip_serializing_if = "Option::is_none")]
+    pub token_package_id:      Option<i32>
 }
 
 impl UpdateAgent {
-    /// Данные для обновления AI агента
+    /// Данные для обновления AI агента. Передавайте только изменяемые поля.
     pub fn new() -> UpdateAgent {
         UpdateAgent {
-            name:             None,
-            description:      None,
-            access_type:      None,
-            status:           None,
-            token_package_id: None,
-            settings:         None,
-            project_id:       None
+            name:                  None,
+            description:           None,
+            access_type:           None,
+            status:                None,
+            settings:              None,
+            project_id:            None,
+            additional_model_ids:  None,
+            additional_models:     None,
+            is_web_search_enabled: None,
+            ai_gateway_key_id:     None,
+            token_package_id:      None
         }
     }
 }
-/// Тип доступа к агенту
+/// Тип доступа
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum AccessType {
     #[serde(rename = "public")]
@@ -65,7 +103,8 @@ impl Default for AccessType {
         Self::Public
     }
 }
-/// Статус агента
+/// Статус агента: `suspended` — приостановить, `active` — возобновить. Статус
+/// заблокированного или удалённого агента изменить нельзя.
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "active")]

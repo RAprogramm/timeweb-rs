@@ -16,15 +16,37 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AgentSettings {
     #[serde(rename = "model")]
-    pub model:         Box<models::AgentModelSettings>,
-    /// Системный промпт
+    pub model:                    models::AgentModelSettings,
+    /// Системный промпт (инструкция) агента
     #[serde(rename = "system_prompt")]
-    pub system_prompt: String,
-    /// Уточнять ли запрос перед обработкой
+    pub system_prompt:            String,
+    /// Уточнять (переформулировать) запрос пользователя перед поиском по базам
+    /// знаний
     #[serde(rename = "refine_query")]
-    pub refine_query:  bool,
+    pub refine_query:             bool,
+    /// Запоминать факты о каждом авторизованном пользователе и учитывать их в
+    /// ответах. В виджете не работает.
+    #[serde(rename = "memory_enabled", skip_serializing_if = "Option::is_none")]
+    pub memory_enabled:           Option<bool>,
+    /// Настройки виджета. При создании агента необязательны — если не переданы,
+    /// подставляются значения по умолчанию. При обновлении `settings`
+    /// заменяются целиком: чтобы не сбросить виджет, передавайте его текущие
+    /// настройки.
     #[serde(rename = "widget", skip_serializing_if = "Option::is_none")]
-    pub widget:        Option<Box<models::AgentSettingsWidget>>
+    pub widget:                   Option<Box<models::AgentWidgetSettings>>,
+    /// Домены, которыми ограничивается веб-поиск агента (не более 5). Каждый
+    /// элемент — домен (`timeweb.ru`) или домен с путём (`timeweb.ru/docs`).
+    /// Если поле не передано при обновлении, сохранённый список не меняется.
+    #[serde(
+        rename = "web_search_allowed_sites",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub web_search_allowed_sites: Option<Vec<String>>,
+    /// Настройки дополнительных моделей. Заполняется автоматически из поля
+    /// `additional_models` запроса создания или обновления агента, передавать
+    /// здесь не нужно.
+    #[serde(rename = "additional_models", skip_serializing_if = "Option::is_none")]
+    pub additional_models:        Option<Vec<models::AgentAdditionalModel>>
 }
 
 impl AgentSettings {
@@ -35,10 +57,13 @@ impl AgentSettings {
         refine_query: bool
     ) -> AgentSettings {
         AgentSettings {
-            model: Box::new(model),
+            model,
             system_prompt,
             refine_query,
-            widget: None
+            memory_enabled: None,
+            widget: None,
+            web_search_allowed_sites: None,
+            additional_models: None
         }
     }
 }

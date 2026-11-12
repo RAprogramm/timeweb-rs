@@ -14,9 +14,12 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UploadFilesToKnowledgebase200Response {
-    /// Список загруженных файлов
-    #[serde(rename = "uploaded_files")]
-    pub uploaded_files: Vec<String>,
+    /// ID созданных документов
+    #[serde(rename = "uploadedFiles")]
+    pub uploaded_files: Vec<i32>,
+    /// Созданные документы
+    #[serde(rename = "documents")]
+    pub documents:      Vec<models::Document>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
@@ -25,11 +28,13 @@ pub struct UploadFilesToKnowledgebase200Response {
 
 impl UploadFilesToKnowledgebase200Response {
     pub fn new(
-        uploaded_files: Vec<String>,
+        uploaded_files: Vec<i32>,
+        documents: Vec<models::Document>,
         response_id: Option<uuid::Uuid>
     ) -> UploadFilesToKnowledgebase200Response {
         UploadFilesToKnowledgebase200Response {
             uploaded_files,
+            documents,
             response_id
         }
     }

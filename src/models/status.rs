@@ -15,6 +15,9 @@ use crate::models;
 /// Status : Статус аккаунта
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Status {
+    /// Логин аккаунта.
+    #[serde(rename = "login")]
+    pub login:                    String,
     /// Это логическое значение, которое показывает, заблокирован ли аккаунт.
     #[serde(rename = "is_blocked")]
     pub is_blocked:               bool,
@@ -35,8 +38,6 @@ pub struct Status {
     /// ID аккаунта для яндекс метрики.
     #[serde(rename = "ym_client_id", deserialize_with = "Option::deserialize")]
     pub ym_client_id:             Option<String>,
-    #[serde(rename = "login", skip_serializing_if = "Option::is_none")]
-    pub login:                    Option<String>,
     #[serde(rename = "registered_at", skip_serializing_if = "Option::is_none")]
     pub registered_at:            Option<String>,
     #[serde(rename = "is_password_set", skip_serializing_if = "Option::is_none")]
@@ -53,6 +54,7 @@ pub struct Status {
 impl Status {
     /// Статус аккаунта
     pub fn new(
+        login: String,
         is_blocked: bool,
         is_permanent_blocked: bool,
         is_send_bill_letters: bool,
@@ -61,13 +63,13 @@ impl Status {
         ym_client_id: Option<String>
     ) -> Status {
         Status {
+            login,
             is_blocked,
             is_permanent_blocked,
             is_send_bill_letters,
             company_info: Box::new(company_info),
             last_password_changed_at,
             ym_client_id,
-            login: None,
             registered_at: None,
             is_password_set: None,
             two_factor_method: None

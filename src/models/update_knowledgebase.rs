@@ -12,19 +12,21 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// UpdateKnowledgebase : Данные для обновления базы знаний
+/// UpdateKnowledgebase : Данные для изменения базы знаний. Передайте только
+/// поля, которые нужно изменить
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct UpdateKnowledgebase {
-    /// Название базы знаний
+    /// Новое название. Пустая строка игнорируется
     #[serde(rename = "name", skip_serializing_if = "Option::is_none")]
     pub name:        Option<String>,
-    /// Описание базы знаний
+    /// Новое описание
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description: Option<String>
 }
 
 impl UpdateKnowledgebase {
-    /// Данные для обновления базы знаний
+    /// Данные для изменения базы знаний. Передайте только поля, которые нужно
+    /// изменить
     pub fn new() -> UpdateKnowledgebase {
         UpdateKnowledgebase {
             name:        None,

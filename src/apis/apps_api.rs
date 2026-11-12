@@ -40,6 +40,20 @@ pub enum CreateAppError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`create_app_v2`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAppV2Error {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`create_deploy`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -345,8 +359,10 @@ pub async fn add_provider(
     }
 }
 
+/// Метод устарел. Используйте [POST /api/v2/apps](#operation/createAppV2).
 /// Чтобы создать приложение, отправьте POST-запрос в `/api/v1/apps`, задав
 /// необходимые атрибуты.
+#[deprecated]
 pub async fn create_app(
     configuration: &configuration::Configuration,
     create_app: models::CreateApp
@@ -396,6 +412,76 @@ pub async fn create_app(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateAppError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы создать приложение, отправьте POST-запрос в `/api/v2/apps`.  Создание
+/// сервера, настройка окружения и первый деплой выполняются асинхронно. Ответ
+/// `201 Created` содержит запись приложения в статусе `new` и не означает, что
+/// приложение уже готово к работе. До создания инфраструктуры в ответе могут
+/// отсутствовать `ip`, `location`, `configuration`, `disk_status`, `language`,
+/// `framework`, `envs`, `env_version`, `build_cmd`, `run_cmd` и `index_dir`.
+/// Состояние приложения можно проверять через `GET /api/v2/apps/{app_id}`.  В
+/// v2 обязательно поле `language`, а в ответе ветка репозитория называется
+/// `branch`. Для Git-репозитория передайте параметры провайдера, репозитория,
+/// ветки, коммита и сборки. Для готового Docker-образа используйте `type:
+/// backend`, `language: custom-image`, `docker_image` и `docker_image_tag`. Для
+/// frontend обязателен `preset_id`, для backend — либо `preset_id`, либо
+/// `configuration`. ID тарифа можно получить через `GET /api/v1/presets/apps`.
+pub async fn create_app_v2(
+    configuration: &configuration::Configuration,
+    create_app_v2: models::CreateAppV2
+) -> Result<models::CreateAppV2201Response, Error<CreateAppV2Error>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_body_create_app_v2 = create_app_v2;
+
+    let uri_str = format!("{}/api/v2/apps", configuration.base_path);
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_app_v2);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateAppV2201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateAppV2201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAppV2Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

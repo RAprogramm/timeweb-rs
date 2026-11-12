@@ -14,13 +14,13 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetKnowledgebaseDocumentsV2200ResponseAllOfMeta {
-    /// Общее количество документов
+    /// Количество документов, подходящих под фильтр
     #[serde(rename = "total")]
     pub total:  f64,
-    /// Количество документов на странице
+    /// Применённый размер страницы
     #[serde(rename = "limit")]
     pub limit:  f64,
-    /// Количество пропущенных документов
+    /// Применённое смещение
     #[serde(rename = "offset")]
     pub offset: f64
 }

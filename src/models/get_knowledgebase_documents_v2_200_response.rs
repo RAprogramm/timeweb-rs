@@ -14,7 +14,7 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetKnowledgebaseDocumentsV2200Response {
-    /// Список документов
+    /// Документы
     #[serde(rename = "knowledgebase_documents")]
     pub knowledgebase_documents: Vec<models::Document>,
     #[serde(rename = "meta")]

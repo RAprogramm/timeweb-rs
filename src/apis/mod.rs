@@ -111,11 +111,22 @@ impl From<&str> for ContentType {
         }
     }
 }
-
 #[cfg(feature = "account")]
 pub mod account_api;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod ai_agent_integrations_api;
+#[cfg(feature = "ai-agent-skills")]
+pub mod ai_agent_skills_api;
 #[cfg(feature = "ai-agents")]
 pub mod ai_agents_api;
+#[cfg(feature = "ai-gateway")]
+pub mod ai_gateway_api;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_inference_api;
+#[cfg(feature = "ai-models")]
+pub mod ai_models_api;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solutions_api;
 #[cfg(feature = "apps")]
 pub mod apps_api;
 #[cfg(feature = "balancers")]
@@ -144,6 +155,8 @@ pub mod kubernetes_api;
 pub mod locations_api;
 #[cfg(feature = "mail")]
 pub mod mail_api;
+#[cfg(feature = "mcp")]
+pub mod mcp_api;
 #[cfg(feature = "network-drives")]
 pub mod network_drives_api;
 #[cfg(feature = "payments")]

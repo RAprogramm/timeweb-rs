@@ -43,7 +43,7 @@ pub struct UpdateServer {
     /// передавать вместе с `os_id`.
     #[serde(rename = "image_id", skip_serializing_if = "Option::is_none")]
     pub image_id:     Option<uuid::Uuid>,
-    /// Cloud-init скрипт
+    /// Cloud-init скрипт. Максимальный размер — 65 535 байт в UTF-8.
     #[serde(rename = "cloud_init", skip_serializing_if = "Option::is_none")]
     pub cloud_init:   Option<String>
 }

@@ -12,88 +12,110 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// Model : Модель AI
+/// Model : AI модель
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Model {
-    /// Уникальный идентификатор модели
+    /// ID модели
     #[serde(rename = "id")]
-    pub id:               i64,
-    /// ID провайдера, который предоставляет модель
+    pub id:               i32,
+    /// ID провайдера модели
     #[serde(rename = "provider_id")]
-    pub provider_id:      i64,
-    /// Название модели
+    pub provider_id:      i32,
+    /// Семейство модели
     #[serde(rename = "name")]
     pub name:             String,
-    /// Публичное имя модели
+    /// Отображаемое название модели
     #[serde(rename = "public_name")]
     pub public_name:      String,
-    /// Тип модели (llm - языковая модель, embedding - модель для эмбеддингов)
+    /// Идентификатор модели с префиксом провайдера — передаётся в поле `model`
+    /// запросов к AI Gateway
+    #[serde(rename = "model_name")]
+    pub model_name:       String,
+    /// Тип модели: - `llm` — языковая модель - `hosted-llm` — языковая модель,
+    /// размещённая в Timeweb Cloud - `embedding` — модель эмбеддингов - `image`
+    /// — генерация изображений - `audio` — работа с аудио - `video` — генерация
+    /// видео - `moderation` — модерация контента - `system-one` — служебная
+    /// модель с собственным API
     #[serde(rename = "type")]
     pub r#type:           Type,
-    /// Признак, что модель устарела
-    #[serde(rename = "is_deprecated")]
-    pub is_deprecated:    bool,
-    /// Признак, что поддержка модели остановлена в системе
-    #[serde(rename = "is_stopped")]
-    pub is_stopped:       bool,
-    /// Дата депрекейта модели у провайдера
-    #[serde(
-        rename = "deprecation_date",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub deprecation_date: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
-    /// Признак поддержки режима рассуждения
-    #[serde(rename = "is_reasoning")]
-    pub is_reasoning:     bool,
     /// Версия модели
     #[serde(rename = "version")]
     pub version:          String,
-    #[serde(
-        rename = "params_info",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub params_info:      Option<Option<Box<models::ModelParamsInfo>>>
+    /// Модель устарела и недоступна для выбора в новых агентах
+    #[serde(rename = "is_deprecated")]
+    pub is_deprecated:    bool,
+    /// Поддержка модели остановлена: запросы к ней не выполняются
+    #[serde(rename = "is_stopped")]
+    pub is_stopped:       bool,
+    /// Дата отключения модели у провайдера. `null`, если отключение не
+    /// запланировано
+    #[serde(rename = "deprecation_date", deserialize_with = "Option::deserialize")]
+    pub deprecation_date: Option<chrono::DateTime<chrono::FixedOffset>>,
+    /// Модель поддерживает режим рассуждений
+    #[serde(rename = "is_reasoning")]
+    pub is_reasoning:     bool,
+    /// Параметры генерации, которые можно настроить у агента с этой моделью.
+    /// Ключ — имя параметра (`temperature`, `top_p`, `max_tokens`,
+    /// `reasoning_effort` и т.д.). `null`, если параметры не заданы
+    #[serde(rename = "params_info", deserialize_with = "Option::deserialize")]
+    pub params_info:      Option<std::collections::HashMap<String, models::ModelParamInfo>>
 }
 
 impl Model {
-    /// Модель AI
+    /// AI модель
     pub fn new(
-        id: i64,
-        provider_id: i64,
+        id: i32,
+        provider_id: i32,
         name: String,
         public_name: String,
+        model_name: String,
         r#type: Type,
+        version: String,
         is_deprecated: bool,
         is_stopped: bool,
+        deprecation_date: Option<chrono::DateTime<chrono::FixedOffset>>,
         is_reasoning: bool,
-        version: String
+        params_info: Option<std::collections::HashMap<String, models::ModelParamInfo>>
     ) -> Model {
         Model {
             id,
             provider_id,
             name,
             public_name,
+            model_name,
             r#type,
+            version,
             is_deprecated,
             is_stopped,
-            deprecation_date: None,
+            deprecation_date,
             is_reasoning,
-            version,
-            params_info: None
+            params_info
         }
     }
 }
-/// Тип модели (llm - языковая модель, embedding - модель для эмбеддингов)
+/// Тип модели: - `llm` — языковая модель - `hosted-llm` — языковая модель,
+/// размещённая в Timeweb Cloud - `embedding` — модель эмбеддингов - `image` —
+/// генерация изображений - `audio` — работа с аудио - `video` — генерация видео
+/// - `moderation` — модерация контента - `system-one` — служебная модель с
+/// собственным API
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "llm")]
     Llm,
+    #[serde(rename = "hosted-llm")]
+    HostedLlm,
     #[serde(rename = "embedding")]
-    Embedding
+    Embedding,
+    #[serde(rename = "image")]
+    Image,
+    #[serde(rename = "audio")]
+    Audio,
+    #[serde(rename = "video")]
+    Video,
+    #[serde(rename = "moderation")]
+    Moderation,
+    #[serde(rename = "system-one")]
+    SystemOne
 }
 
 impl Default for Type {

@@ -14,21 +14,21 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct CreateKnowledgebase201Response {
-    #[serde(rename = "knowledgebase")]
-    pub knowledgebase: Box<models::Knowledgebase>,
+    #[serde(rename = "knowledge_base")]
+    pub knowledge_base: Box<models::Knowledgebase>,
     /// ID запроса, который можно указывать при обращении в службу технической
     /// поддержки, чтобы помочь определить проблему.
     #[serde(rename = "response_id", deserialize_with = "Option::deserialize")]
-    pub response_id:   Option<uuid::Uuid>
+    pub response_id:    Option<uuid::Uuid>
 }
 
 impl CreateKnowledgebase201Response {
     pub fn new(
-        knowledgebase: models::Knowledgebase,
+        knowledge_base: models::Knowledgebase,
         response_id: Option<uuid::Uuid>
     ) -> CreateKnowledgebase201Response {
         CreateKnowledgebase201Response {
-            knowledgebase: Box::new(knowledgebase),
+            knowledge_base: Box::new(knowledge_base),
             response_id
         }
     }

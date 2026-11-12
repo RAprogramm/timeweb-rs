@@ -21,27 +21,30 @@ pub struct CreateKnowledgebase {
     /// Описание базы знаний
     #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
     pub description:      Option<String>,
-    /// ID пресета базы данных
+    /// ID тарифа кластера OpenSearch, который будет создан для базы знаний.
+    /// Список тарифов баз данных — `GET /api/v2/presets/dbs`
     #[serde(rename = "dbaas_preset_id")]
-    pub dbaas_preset_id:  i64,
-    /// ID сети
+    pub dbaas_preset_id:  i32,
+    /// ID приватной сети (VPC), в которой будет создан кластер
     #[serde(rename = "network_id")]
     pub network_id:       String,
-    /// ID пакета токенов
+    /// ID пакета токенов подписки. Подходят только базовые пакеты
+    /// (`package_type: base`) из `GET
+    /// /api/v1/cloud-ai/token-packages/knowledge-bases`
     #[serde(rename = "token_package_id")]
-    pub token_package_id: i64,
-    /// ID проекта
+    pub token_package_id: i32,
+    /// ID проекта, в который нужно добавить базу знаний
     #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
-    pub project_id:       Option<i64>
+    pub project_id:       Option<i32>
 }
 
 impl CreateKnowledgebase {
     /// Данные для создания базы знаний
     pub fn new(
         name: String,
-        dbaas_preset_id: i64,
+        dbaas_preset_id: i32,
         network_id: String,
-        token_package_id: i64
+        token_package_id: i32
     ) -> CreateKnowledgebase {
         CreateKnowledgebase {
             name,

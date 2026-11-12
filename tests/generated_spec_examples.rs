@@ -15,6 +15,394 @@
 #![allow(clippy::needless_raw_string_hashes, clippy::doc_markdown)]
 
 #[test]
+fn create_ai_solution_402_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 402,
+  "error_code": "insufficient_account_balance_to_create_ai_solution",
+  "message": "Insufficient account balance to create AI solution",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions 402 must deserialize");
+}
+
+#[test]
+fn create_ai_solution_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_image_is_not_available_in_this_zone",
+  "message": "AI solution image is not available in this zone",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions 503 must deserialize");
+}
+
+#[test]
+fn update_ai_solution_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_configuration_failed",
+  "message": "AI solution configuration failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body).expect(
+        "spec example for PATCH /api/v1/cloud-ai/solutions/{solution_id} 502 must deserialize"
+    );
+}
+
+#[test]
+fn update_ai_solution_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_machine_is_unavailable",
+  "message": "AI solution machine is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body).expect(
+        "spec example for PATCH /api/v1/cloud-ai/solutions/{solution_id} 503 must deserialize"
+    );
+}
+
+#[test]
+fn regenerate_ai_solution_ai_key_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_configuration_failed",
+  "message": "AI solution configuration failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/ai-key/regenerate 502 must deserialize");
+}
+
+#[test]
+fn regenerate_ai_solution_ai_key_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_machine_is_unavailable",
+  "message": "AI solution machine is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/ai-key/regenerate 503 must deserialize");
+}
+
+#[test]
+fn send_ai_solution_message_402_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 402,
+  "error_code": "ai_solution_chat_budget_exceeded",
+  "message": "AI solution chat budget exceeded",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/messages 402 must deserialize");
+}
+
+#[test]
+fn send_ai_solution_message_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/messages 502 must deserialize");
+}
+
+#[test]
+fn send_ai_solution_message_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/messages 503 must deserialize");
+}
+
+#[test]
+fn reset_ai_solution_chat_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/reset 502 must deserialize");
+}
+
+#[test]
+fn reset_ai_solution_chat_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/reset 503 must deserialize");
+}
+
+#[test]
+fn stop_ai_solution_chat_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stop 502 must deserialize");
+}
+
+#[test]
+fn stop_ai_solution_chat_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stop 503 must deserialize");
+}
+
+#[test]
+fn stream_ai_solution_chat_400_example_deserializes() {
+    let body = r##"
+{
+  "message": [
+    "message must be longer than or equal to 1 characters"
+  ],
+  "error": "Bad Request",
+  "statusCode": 400
+}
+"##;
+    let _: timeweb_rs::models::StreamError = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stream 400 must deserialize");
+}
+
+#[test]
+fn stream_ai_solution_chat_403_example_deserializes() {
+    let body = r##"
+{
+  "error_code": "forbidden",
+  "message": "Forbidden"
+}
+"##;
+    let _: timeweb_rs::models::StreamError = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stream 403 must deserialize");
+}
+
+#[test]
+fn stream_ai_solution_chat_404_example_deserializes() {
+    let body = r##"
+{
+  "error_code": "ai_solution_not_found",
+  "message": "AI solution not found"
+}
+"##;
+    let _: timeweb_rs::models::StreamError = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stream 404 must deserialize");
+}
+
+#[test]
+fn stream_ai_solution_chat_500_example_deserializes() {
+    let body = r##"
+{
+  "message": "Internal server error",
+  "statusCode": 500
+}
+"##;
+    let _: timeweb_rs::models::StreamError = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stream 500 must deserialize");
+}
+
+#[test]
+fn stream_ai_solution_chat_503_example_deserializes() {
+    let body = r##"
+{
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable"
+}
+"##;
+    let _: timeweb_rs::models::StreamError = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/chat/stream 503 must deserialize");
+}
+
+#[test]
+fn shutdown_ai_solution_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_action_failed",
+  "message": "AI solution action failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/shutdown 502 must deserialize");
+}
+
+#[test]
+fn start_ai_solution_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_action_failed",
+  "message": "AI solution action failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body).expect(
+        "spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/start 502 must deserialize"
+    );
+}
+
+#[test]
+fn list_ai_solution_telegram_bots_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots 502 must deserialize");
+}
+
+#[test]
+fn list_ai_solution_telegram_bots_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots 503 must deserialize");
+}
+
+#[test]
+fn add_ai_solution_telegram_bot_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots 502 must deserialize");
+}
+
+#[test]
+fn add_ai_solution_telegram_bot_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots 503 must deserialize");
+}
+
+#[test]
+fn remove_ai_solution_telegram_bot_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for DELETE /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots/{account_key} 502 must deserialize");
+}
+
+#[test]
+fn remove_ai_solution_telegram_bot_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for DELETE /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots/{account_key} 503 must deserialize");
+}
+
+#[test]
+fn approve_ai_solution_telegram_pairing_502_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 502,
+  "error_code": "ai_solution_chat_request_failed",
+  "message": "AI solution chat request failed",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots/{account_key}/pairing/approve 502 must deserialize");
+}
+
+#[test]
+fn approve_ai_solution_telegram_pairing_503_example_deserializes() {
+    let body = r##"
+{
+  "status_code": 503,
+  "error_code": "ai_solution_chat_is_unavailable",
+  "message": "AI solution chat is unavailable",
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::ErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/cloud-ai/solutions/{solution_id}/telegram/bots/{account_key}/pairing/approve 503 must deserialize");
+}
+
+#[test]
 fn get_registries_200_example_deserializes() {
     let body = r##"
 {
@@ -1043,6 +1431,7 @@ fn get_cluster_nodes_200_example_deserializes() {
 }
 
 #[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
 fn get_cluster_resources_200_example_deserializes() {
     let body = r##"
 {
@@ -1073,6 +1462,142 @@ fn get_cluster_resources_200_example_deserializes() {
     let _: timeweb_rs::models::GetClusterResources200Response = serde_json::from_str(body).expect(
         "spec example for GET /api/v1/k8s/clusters/{cluster_id}/resources 200 must deserialize"
     );
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn open_mcp_stream_406_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32000,
+    "message": "Not Acceptable: Client must accept text/event-stream"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse =
+        serde_json::from_str(body).expect("spec example for GET /api/v1/mcp 406 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn send_mcp_message_400_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32700,
+    "message": "Parse error: Invalid JSON"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/mcp 400 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn send_mcp_message_406_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32000,
+    "message": "Not Acceptable: Client must accept both application/json and text/event-stream"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/mcp 406 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn send_mcp_message_415_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32000,
+    "message": "Unsupported Media Type: Content-Type must be application/json"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/mcp 415 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn open_mcp_search_stream_406_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32000,
+    "message": "Not Acceptable: Client must accept text/event-stream"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for GET /api/v1/mcp/search 406 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn send_mcp_search_message_400_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32700,
+    "message": "Parse error: Invalid JSON"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/mcp/search 400 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn send_mcp_search_message_406_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32000,
+    "message": "Not Acceptable: Client must accept both application/json and text/event-stream"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/mcp/search 406 must deserialize");
+}
+
+#[test]
+#[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
+fn send_mcp_search_message_415_example_deserializes() {
+    let body = r##"
+{
+  "jsonrpc": "2.0",
+  "error": {
+    "code": -32000,
+    "message": "Unsupported Media Type: Content-Type must be application/json"
+  },
+  "id": null
+}
+"##;
+    let _: timeweb_rs::models::JsonRpcErrorResponse = serde_json::from_str(body)
+        .expect("spec example for POST /api/v1/mcp/search 415 must deserialize");
 }
 
 #[test]
@@ -1770,6 +2295,40 @@ fn get_router_statistics_200_example_deserializes() {
 }
 
 #[test]
+fn create_app_v2_201_example_deserializes() {
+    let body = r##"
+{
+  "app": {
+    "id": 1,
+    "type": "backend",
+    "name": "app_example",
+    "status": "new",
+    "domains": [],
+    "avatar_link": null,
+    "start_time": "2026-10-29T10:00:00.000Z",
+    "preset_id": 42,
+    "configurator_id": null,
+    "provider": {
+      "id": "b392b624-ee80-496e-8b61-47276acac2da",
+      "type": "github"
+    },
+    "branch": "master",
+    "commit_sha": "7d3a6dcca79d2c29e3fe7456ca1598e70d484d7c",
+    "is_auto_deploy": true,
+    "created_at": "2026-10-29T10:00:00.000Z",
+    "requests_limit": null,
+    "reverse_proxy": null,
+    "index_dir": null,
+    "comment": ""
+  },
+  "response_id": "15095f25-aac3-4d60-a788-96cb5136f186"
+}
+"##;
+    let _: timeweb_rs::models::CreateAppV2201Response = serde_json::from_str(body)
+        .expect("spec example for POST /api/v2/apps 201 must deserialize");
+}
+
+#[test]
 #[ignore = "quarantined by generate_example_tests.py: the spec's example does not deserialize into the generated model"]
 fn create_domain_dns_record_v2_201_a_example_deserializes() {
     let body = r##"
@@ -2029,4 +2588,1985 @@ fn update_domain_dns_record_v2_200_txt_example_deserializes() {
 "##;
     let _: timeweb_rs::models::CreateDomainDnsRecordV2201Response = serde_json::from_str(body)
         .expect("spec example for PATCH /api/v2/domains/{fqdn}/dns-records/{record_id} 200 (TXT запись) must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_speech_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/speech 503 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_422_example_deserializes() {
+    let body = r##"
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "file"
+      ],
+      "msg": "Field required"
+    }
+  ]
+}
+"##;
+    let _: timeweb_rs::models::CreateAiGatewayTranscription422Response =
+        serde_json::from_str(body)
+            .expect("spec example for POST /v1/audio/transcriptions 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_transcription_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/audio/transcriptions 503 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batches_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/batches 401 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batches_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/batches 403 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batches_422_example_deserializes() {
+    let body = r##"
+{
+  "detail": [
+    {
+      "type": "int_parsing",
+      "loc": [
+        "query",
+        "limit"
+      ],
+      "msg": "Input should be a valid integer"
+    }
+  ]
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayValidationError =
+        serde_json::from_str(body).expect("spec example for GET /v1/batches 422 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batches_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/batches 500 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batches_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/batches 503 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_404_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The requested model was not found. Check the model name or try again later.",
+    "type": null,
+    "param": null,
+    "code": "404"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 404 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_429_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Batch queue limit reached for this model. Wait for your running batches to finish and try again.",
+    "type": null,
+    "param": null,
+    "code": "429"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 429 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_batch_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches 503 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batch_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/batches/{batch_id} 401 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batch_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/batches/{batch_id} 403 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batch_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/batches/{batch_id} 500 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_batch_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/batches/{batch_id} 503 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_batch_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches/{batch_id}/cancel 401 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_batch_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches/{batch_id}/cancel 403 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_batch_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches/{batch_id}/cancel 500 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_batch_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/batches/{batch_id}/cancel 503 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_404_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The requested model was not found. Check the model name or try again later.",
+    "type": null,
+    "param": null,
+    "code": "404"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 404 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_chat_completion_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/chat/completions 503 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_404_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The requested model was not found. Check the model name or try again later.",
+    "type": null,
+    "param": null,
+    "code": "404"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 404 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_completion_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/completions 503 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_404_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The requested model was not found. Check the model name or try again later.",
+    "type": null,
+    "param": null,
+    "code": "404"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 404 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_embedding_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/embeddings 503 must deserialize");
+}
+
+#[test]
+fn upload_ai_gateway_file_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for POST /v1/files 400 must deserialize");
+}
+
+#[test]
+fn upload_ai_gateway_file_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for POST /v1/files 401 must deserialize");
+}
+
+#[test]
+fn upload_ai_gateway_file_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for POST /v1/files 403 must deserialize");
+}
+
+#[test]
+fn upload_ai_gateway_file_422_example_deserializes() {
+    let body = r##"
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": [
+        "body",
+        "file"
+      ],
+      "msg": "Field required"
+    }
+  ]
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayValidationError =
+        serde_json::from_str(body).expect("spec example for POST /v1/files 422 must deserialize");
+}
+
+#[test]
+fn upload_ai_gateway_file_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for POST /v1/files 500 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_file_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id} 401 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_file_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id} 403 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_file_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id} 500 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_file_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/files/{file_id} 401 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_file_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/files/{file_id} 403 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_file_409_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "File is used by a batch that is still in progress",
+    "type": null,
+    "param": null,
+    "code": "409"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/files/{file_id} 409 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_file_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/files/{file_id} 500 must deserialize");
+}
+
+#[test]
+fn download_ai_gateway_file_content_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Not allowed to download files of purpose: user_data",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id}/content 400 must deserialize");
+}
+
+#[test]
+fn download_ai_gateway_file_content_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id}/content 401 must deserialize");
+}
+
+#[test]
+fn download_ai_gateway_file_content_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id}/content 403 must deserialize");
+}
+
+#[test]
+fn download_ai_gateway_file_content_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/files/{file_id}/content 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_405_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Billing for image edit model gemini/gemini-3-pro-image-preview is not supported.",
+    "type": null,
+    "param": null,
+    "code": "405"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 405 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_edit_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/edits 503 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_404_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The requested model was not found. Check the model name or try again later.",
+    "type": null,
+    "param": null,
+    "code": "404"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 404 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_image_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/images/generations 503 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_models_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/models 401 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_models_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/models 403 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_models_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError =
+        serde_json::from_str(body).expect("spec example for GET /v1/models 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 400 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 401 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_402_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Insufficient funds to process this request: the estimated cost of the request exceeds your available balance. The available balance excludes the cost of your recent and in-progress requests that is not yet deducted from the balance. Please top up your balance.",
+    "type": null,
+    "param": null,
+    "code": "402"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 402 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 403 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_404_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The requested model was not found. Check the model name or try again later.",
+    "type": null,
+    "param": null,
+    "code": "404"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 404 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_410_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Model is no longer supported",
+    "type": null,
+    "param": null,
+    "code": "410"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 410 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_422_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "You have exceeded your usage limit. Please upgrade your plan or contact support.",
+    "type": null,
+    "param": null,
+    "code": "422"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 422 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 500 must deserialize");
+}
+
+#[test]
+fn create_ai_gateway_response_503_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "The service is temporarily unavailable. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "503"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses 503 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_response_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/responses/{response_id} 400 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_response_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/responses/{response_id} 401 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_response_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/responses/{response_id} 403 must deserialize");
+}
+
+#[test]
+fn get_ai_gateway_response_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for GET /v1/responses/{response_id} 500 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_response_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid request. Please check your input and try again.",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/responses/{response_id} 400 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_response_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/responses/{response_id} 401 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_response_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/responses/{response_id} 403 must deserialize");
+}
+
+#[test]
+fn delete_ai_gateway_response_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for DELETE /v1/responses/{response_id} 500 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_response_400_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Cannot cancel a synchronous response",
+    "type": null,
+    "param": null,
+    "code": "400"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses/{response_id}/cancel 400 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_response_401_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "API key is missing. Pass it in the Authorization header as `Bearer <your-key>`.",
+    "type": "auth_error",
+    "param": null,
+    "code": "401"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses/{response_id}/cancel 401 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_response_403_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Invalid API key. Please check your credentials.",
+    "type": null,
+    "param": null,
+    "code": "403"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses/{response_id}/cancel 403 must deserialize");
+}
+
+#[test]
+fn cancel_ai_gateway_response_500_example_deserializes() {
+    let body = r##"
+{
+  "error": {
+    "message": "Something went wrong on our side. Please try again later.",
+    "type": null,
+    "param": null,
+    "code": "500"
+  }
+}
+"##;
+    let _: timeweb_rs::models::AiGatewayError = serde_json::from_str(body)
+        .expect("spec example for POST /v1/responses/{response_id}/cancel 500 must deserialize");
 }

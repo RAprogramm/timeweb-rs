@@ -12,86 +12,91 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// KnowledgebaseV2 : База знаний (версия API v2)
+/// KnowledgebaseV2 : База знаний (v2): вместо списка документов — их количество
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct KnowledgebaseV2 {
-    /// Уникальный идентификатор базы знаний
+    /// ID базы знаний
     #[serde(rename = "id")]
-    pub id: i64,
+    pub id: i32,
     /// Название базы знаний
     #[serde(rename = "name")]
     pub name: String,
     /// Описание базы знаний
-    #[serde(
-        rename = "description",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub description: Option<Option<String>>,
-    /// ID базы данных opensearch
+    #[serde(rename = "description", deserialize_with = "Option::deserialize")]
+    pub description: Option<String>,
+    /// ID проекта, в котором находится база знаний. Поля нет, если проект не
+    /// определён
+    #[serde(rename = "project_id", skip_serializing_if = "Option::is_none")]
+    pub project_id: Option<i32>,
+    /// ID кластера базы данных OpenSearch, который создан для базы знаний в
+    /// вашем аккаунте
     #[serde(rename = "dbaas_id")]
-    pub dbaas_id: i64,
-    /// Статус базы знаний
+    pub dbaas_id: i32,
+    /// Статус базы знаний: - `creating` — создаётся кластер базы данных,
+    /// документы будут проиндексированы после перехода в `active` - `active` —
+    /// база знаний работает - `blocked` — заблокирована: закончились токены или
+    /// не удалось продлить подписку - `deleted` — удалена
     #[serde(rename = "status")]
     pub status: Status,
-    /// Дата последней синхронизации
-    #[serde(
-        rename = "last_sync",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub last_sync: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
-    /// Всего токенов выделено
+    /// Дата и время последней синхронизации. `null`, если синхронизации не было
+    #[serde(rename = "last_sync", deserialize_with = "Option::deserialize")]
+    pub last_sync: Option<chrono::DateTime<chrono::FixedOffset>>,
+    /// Количество токенов, доступных в текущем периоде подписки (пакет подписки
+    /// и докупленные пакеты)
     #[serde(rename = "total_tokens")]
-    pub total_tokens: f64,
-    /// Использовано токенов
+    pub total_tokens: i32,
+    /// Количество израсходованных токенов
     #[serde(rename = "used_tokens")]
-    pub used_tokens: f64,
-    /// Осталось токенов
+    pub used_tokens: i32,
+    /// Количество оставшихся токенов
     #[serde(rename = "remaining_tokens")]
-    pub remaining_tokens: f64,
-    /// ID пакета токенов
+    pub remaining_tokens: i32,
+    /// ID пакета токенов подписки базы знаний
     #[serde(rename = "token_package_id")]
-    pub token_package_id: i64,
-    /// Дата обновления подписки
-    #[serde(rename = "subscription_renewal_date")]
-    pub subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
-    /// Общее количество документов в базе знаний
+    pub token_package_id: i32,
+    /// Дата следующего продления подписки (списания стоимости пакета токенов)
+    #[serde(
+        rename = "subscription_renewal_date",
+        deserialize_with = "Option::deserialize"
+    )]
+    pub subscription_renewal_date: Option<chrono::DateTime<chrono::FixedOffset>>,
+    /// Количество документов в базе знаний
     #[serde(rename = "documents_count")]
-    pub documents_count: f64,
-    /// ID агентов, связанных с базой знаний
+    pub documents_count: i32,
+    /// ID агентов, к которым привязана база знаний
     #[serde(rename = "agents_ids")]
-    pub agents_ids: Vec<f64>,
-    /// Дата создания базы знаний
+    pub agents_ids: Vec<i32>,
+    /// Дата и время создания базы знаний
     #[serde(rename = "created_at")]
     pub created_at: chrono::DateTime<chrono::FixedOffset>
 }
 
 impl KnowledgebaseV2 {
-    /// База знаний (версия API v2)
+    /// База знаний (v2): вместо списка документов — их количество
     pub fn new(
-        id: i64,
+        id: i32,
         name: String,
-        dbaas_id: i64,
+        description: Option<String>,
+        dbaas_id: i32,
         status: Status,
-        total_tokens: f64,
-        used_tokens: f64,
-        remaining_tokens: f64,
-        token_package_id: i64,
-        subscription_renewal_date: chrono::DateTime<chrono::FixedOffset>,
-        documents_count: f64,
-        agents_ids: Vec<f64>,
+        last_sync: Option<chrono::DateTime<chrono::FixedOffset>>,
+        total_tokens: i32,
+        used_tokens: i32,
+        remaining_tokens: i32,
+        token_package_id: i32,
+        subscription_renewal_date: Option<chrono::DateTime<chrono::FixedOffset>>,
+        documents_count: i32,
+        agents_ids: Vec<i32>,
         created_at: chrono::DateTime<chrono::FixedOffset>
     ) -> KnowledgebaseV2 {
         KnowledgebaseV2 {
             id,
             name,
-            description: None,
+            description,
+            project_id: None,
             dbaas_id,
             status,
-            last_sync: None,
+            last_sync,
             total_tokens,
             used_tokens,
             remaining_tokens,
@@ -103,7 +108,10 @@ impl KnowledgebaseV2 {
         }
     }
 }
-/// Статус базы знаний
+/// Статус базы знаний: - `creating` — создаётся кластер базы данных, документы
+/// будут проиндексированы после перехода в `active` - `active` — база знаний
+/// работает - `blocked` — заблокирована: закончились токены или не удалось
+/// продлить подписку - `deleted` — удалена
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Status {
     #[serde(rename = "active")]

@@ -27,6 +27,19 @@ pub enum AddAdditionalTokenPackageError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`change_agent_model`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ChangeAgentModelError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`create_agent`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -34,6 +47,21 @@ pub enum CreateAgentError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`create_agent_entity_limit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateAgentEntityLimitError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -46,6 +74,7 @@ pub enum CreateAgentV2Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -55,6 +84,32 @@ pub enum CreateAgentV2Error {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum DeleteAgentError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`delete_agent_entity_limit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum DeleteAgentEntityLimitError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`export_agent_chats_csv`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum ExportAgentChatsCsvError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
@@ -77,10 +132,75 @@ pub enum GetAgentError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`get_agent_chat_list`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentChatListError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_agent_chat_messages`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentChatMessagesError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_agent_entity_limit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentEntityLimitError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_agent_entity_limits`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentEntityLimitsError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`get_agent_statistics`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
 pub enum GetAgentStatisticsError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_agent_v3`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetAgentV3Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
@@ -97,59 +217,32 @@ pub enum GetAgentsError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
 }
 
-/// struct for typed errors of method [`get_agents_token_packages`]
+/// struct for typed errors of method [`get_agents_v3`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetAgentsTokenPackagesError {
+pub enum GetAgentsV3Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
 }
 
-/// struct for typed errors of method [`get_knowledgebases_token_packages`]
+/// struct for typed errors of method [`sync_agent_entity_limits`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetKnowledgebasesTokenPackagesError {
+pub enum SyncAgentEntityLimitsError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
-/// struct for typed errors of method [`get_models`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetModelsError {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
-    Status429(models::GetFinances429Response),
-    Status500(models::GetFinances500Response),
-    UnknownValue(serde_json::Value)
-}
-
-/// struct for typed errors of method [`get_models_v3`]
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum GetModelsV3Error {
-    Status400(models::GetFinances400Response),
-    Status401(models::GetFinances401Response),
-    Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -163,13 +256,38 @@ pub enum UpdateAgentError {
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
+    Status410(),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    Status503(),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`update_agent_entity_limit`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateAgentEntityLimitError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
 }
 
-/// Чтобы добавить дополнительный пакет токенов для AI агента, отправьте
+/// Чтобы докупить дополнительные пакеты токенов для AI агента, отправьте
 /// POST-запрос на `/api/v1/cloud-ai/agents/{id}/add-additional-token-package`.
+/// Метод относится к устаревшей схеме оплаты пакетами токенов и работает только
+/// для агентов с пакетом (`token_package_id` в ответе агента). Для агентов с
+/// поресурсной оплатой вернётся 400
+/// `per-resource_agents_do_not_support_additional_token_packages`. Стоимость
+/// (цена дополнительного пакета модели агента × `count`) сразу списывается с
+/// баланса; при нехватке средств — 400 `insufficient_balance`, если подписка
+/// агента истекла — 400 `subscription_expired`. После покупки заблокированный
+/// агент разблокируется.  Для токенов дополнительных пользователей аккаунта
+/// нужна роль `ai:write`.
+#[deprecated]
 pub async fn add_additional_token_package(
     configuration: &configuration::Configuration,
     id: i32,
@@ -214,10 +332,82 @@ pub async fn add_additional_token_package(
     }
 }
 
+/// Чтобы сменить основную модель AI агента, отправьте PATCH-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/model`.  Параметры модели из `settings.model`,
+/// которые новая модель не поддерживает, отбрасываются. Смена модели доступна
+/// только агентам с поресурсной оплатой (для агента с пакетом токенов — 400
+/// `model_change_is_allowed_only_for_per-resource_account_and_agent`). Если
+/// модель не найдена или недоступна — 404 `model_not_found`.  Для токенов
+/// дополнительных пользователей аккаунта нужна роль `ai:write`.
+pub async fn change_agent_model(
+    configuration: &configuration::Configuration,
+    id: i32,
+    change_agent_model: models::ChangeAgentModel
+) -> Result<models::CreateAgent201Response, Error<ChangeAgentModelError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_change_agent_model = change_agent_model;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/model",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_change_agent_model);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateAgent201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateAgent201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ChangeAgentModelError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы создать AI агента, отправьте POST-запрос на `/api/v1/cloud-ai/agents`,
-/// задав необходимые атрибуты.  Агент будет создан с использованием
-/// предоставленной информации. Тело ответа будет содержать объект JSON с
-/// информацией о созданном агенте.
+/// задав необходимые атрибуты.  Метод устарел — используйте `POST
+/// /api/v2/cloud-ai/agents`. Поле `token_package_id` обязательно, но не
+/// учитывается: агент всегда создаётся с поресурсной оплатой (оплачиваются
+/// фактические запросы к модели).  Для токенов дополнительных пользователей
+/// аккаунта нужна роль `ai:write`.
 #[deprecated]
 pub async fn create_agent(
     configuration: &configuration::Configuration,
@@ -276,10 +466,81 @@ pub async fn create_agent(
     }
 }
 
-/// Чтобы создать AI агента, отправьте POST-запрос на `/api/v2/cloud-ai/agents`,
-/// задав необходимые атрибуты.  Агент будет создан с использованием
-/// предоставленной информации. Тело ответа будет содержать объект JSON с
-/// информацией о созданном агенте.
+/// Чтобы создать лимит AI агента, отправьте POST-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/entity-limits`.  Лимиты агента ограничивают
+/// расход на его запросы за период (`hour`, `day`, `week`, `month`) — в токенах
+/// (`limit`) или в деньгах (`money_limit`, приоритетнее). Лимит действует на
+/// все модели агента (`model_id` = `null`) или на одну модель. При достижении
+/// лимита запросы к агенту отклоняются до конца периода.  Нужно передать
+/// `limit` или `money_limit` (иначе — 400 `entity_keys_limit_value_required`).
+/// Если лимит с тем же периодом и моделью уже есть — 409
+/// `entity_keys_limit_already_exists` (измените его или используйте
+/// синхронизацию).  Для токенов дополнительных пользователей аккаунта нужна
+/// роль `ai:write`.
+pub async fn create_agent_entity_limit(
+    configuration: &configuration::Configuration,
+    id: i32,
+    create_agent_entity_limit: models::CreateAgentEntityLimit
+) -> Result<models::CreateAgentEntityLimit201Response, Error<CreateAgentEntityLimitError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_create_agent_entity_limit = create_agent_entity_limit;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/entity-limits",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_agent_entity_limit);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateAgentEntityLimit201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateAgentEntityLimit201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateAgentEntityLimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы создать AI агента, отправьте POST-запрос на `/api/v2/cloud-ai/agents`, задав необходимые атрибуты.  Агент создаётся с поресурсной оплатой: оплачиваются фактические запросы к модели. Если не переданы настройки виджета, подставляются значения по умолчанию. Дневной лимит расходов можно задать сразу полем `money_limit`, остальные лимиты — через лимиты агента (`/api/v1/cloud-ai/agents/{id}/entity-limits`).  Если модель не найдена или недоступна, вернётся 404 `model_not_found`; если модель не поддерживается — 400 `model_not_supported`; недопустимые параметры модели в `settings.model` — 400.  Вызывать созданного агента из своих приложений можно через OpenAI-совместимое API по его `access_id` — см. [документацию](https://agent.timeweb.cloud/docs).  Для токенов дополнительных пользователей аккаунта нужна роль `ai:write`.
 pub async fn create_agent_v2(
     configuration: &configuration::Configuration,
     create_agent_v2: models::CreateAgentV2
@@ -338,18 +599,71 @@ pub async fn create_agent_v2(
 }
 
 /// Чтобы удалить AI агента, отправьте DELETE-запрос на
-/// `/api/v1/cloud-ai/agents/{id}`.
+/// `/api/v1/cloud-ai/agents/{id}`.  Вместе с агентом отключаются его базы
+/// знаний, навыки и интеграции (Telegram, MAX, Jivo, Crisp). В теле запроса
+/// можно необязательно указать причину удаления.  Для токенов дополнительных
+/// пользователей аккаунта нужна роль `ai:write`.
 pub async fn delete_agent(
     configuration: &configuration::Configuration,
-    id: i32
+    id: i32,
+    delete_agent: Option<models::DeleteAgent>
 ) -> Result<(), Error<DeleteAgentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
+    let p_body_delete_agent = delete_agent;
 
     let uri_str = format!(
         "{}/api/v1/cloud-ai/agents/{id}",
         configuration.base_path,
         id = p_path_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::DELETE, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_delete_agent);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<DeleteAgentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы удалить лимит AI агента, отправьте DELETE-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/entity-limits/{limit_id}`.  Для токенов
+/// дополнительных пользователей аккаунта нужна роль `ai:write`.
+pub async fn delete_agent_entity_limit(
+    configuration: &configuration::Configuration,
+    id: i32,
+    limit_id: &str
+) -> Result<(), Error<DeleteAgentEntityLimitError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_path_limit_id = limit_id;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/entity-limits/{limit_id}",
+        configuration.base_path,
+        id = p_path_id,
+        limit_id = crate::apis::urlencode(p_path_limit_id)
     );
     let mut req_builder = configuration
         .client
@@ -371,7 +685,101 @@ pub async fn delete_agent(
         Ok(())
     } else {
         let content = resp.text().await?;
-        let entity: Option<DeleteAgentError> = serde_json::from_str(&content).ok();
+        let entity: Option<DeleteAgentEntityLimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы выгрузить чаты AI агента в формате CSV, отправьте GET-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/chats/docs`.  CSV возвращается строкой в поле
+/// `chats_csv.csv` тела JSON. `limit` и `offset` применяются к сообщениям, а не
+/// к чатам. Если передан `from`, выгружаются сообщения от `from` до `to` (по
+/// умолчанию — до текущего момента). Чаты внешнего чата не выгружаются.  Для
+/// токенов дополнительных пользователей аккаунта нужна роль `ai:read`.
+pub async fn export_agent_chats_csv(
+    configuration: &configuration::Configuration,
+    id: i32,
+    offset: Option<i32>,
+    limit: Option<i32>,
+    order: Option<&str>,
+    from: Option<chrono::DateTime<chrono::FixedOffset>>,
+    to: Option<chrono::DateTime<chrono::FixedOffset>>,
+    locale: Option<&str>
+) -> Result<models::ExportAgentChatsCsv200Response, Error<ExportAgentChatsCsvError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_query_offset = offset;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_from = from;
+    let p_query_to = to;
+    let p_query_locale = locale;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/chats/docs",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_offset {
+        req_builder = req_builder.query(&[("offset", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from {
+        req_builder = req_builder.query(&[("from", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to {
+        req_builder = req_builder.query(&[("to", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_locale {
+        req_builder = req_builder.query(&[("locale", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::ExportAgentChatsCsv200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::ExportAgentChatsCsv200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<ExportAgentChatsCsvError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -381,7 +789,8 @@ pub async fn delete_agent(
 }
 
 /// Чтобы получить информацию об AI агенте, отправьте GET-запрос на
-/// `/api/v1/cloud-ai/agents/{id}`.
+/// `/api/v1/cloud-ai/agents/{id}`.  Для токенов дополнительных пользователей
+/// аккаунта нужна роль `ai:read`.
 pub async fn get_agent(
     configuration: &configuration::Configuration,
     id: i32
@@ -440,15 +849,360 @@ pub async fn get_agent(
     }
 }
 
+/// Чтобы получить список чатов (диалогов) AI агента, отправьте GET-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/chat-list`.  Для каждого чата возвращаются
+/// первое сообщение пользователя, количество оценок и среднее время ответа.
+/// Чаты внешнего чата сюда не входят. Фильтр по периоду применяется, только
+/// если переданы оба параметра `from` и `to`. В `meta.metrics` — сводка по
+/// чатам для фильтров.  Для токенов дополнительных пользователей аккаунта нужна
+/// роль `ai:read`.
+pub async fn get_agent_chat_list(
+    configuration: &configuration::Configuration,
+    id: i32,
+    offset: Option<i32>,
+    limit: Option<i32>,
+    order: Option<&str>,
+    from: Option<chrono::DateTime<chrono::FixedOffset>>,
+    to: Option<chrono::DateTime<chrono::FixedOffset>>,
+    reaction_type: Option<&str>,
+    response_time_ranges: Option<Vec<String>>
+) -> Result<models::GetAgentChatList200Response, Error<GetAgentChatListError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_query_offset = offset;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_from = from;
+    let p_query_to = to;
+    let p_query_reaction_type = reaction_type;
+    let p_query_response_time_ranges = response_time_ranges;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/chat-list",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_offset {
+        req_builder = req_builder.query(&[("offset", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from {
+        req_builder = req_builder.query(&[("from", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to {
+        req_builder = req_builder.query(&[("to", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_reaction_type {
+        req_builder = req_builder.query(&[("reaction_type", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_response_time_ranges {
+        req_builder = match "multi" {
+            "multi" => req_builder.query(
+                &param_value
+                    .into_iter()
+                    .map(|p| ("response_time_ranges".to_owned(), p.to_string()))
+                    .collect::<Vec<(std::string::String, std::string::String)>>()
+            ),
+            _ => req_builder.query(&[(
+                "response_time_ranges",
+                &param_value
+                    .into_iter()
+                    .map(|p| p.to_string())
+                    .collect::<Vec<String>>()
+                    .join(",")
+                    .to_string()
+            )])
+        };
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentChatList200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentChatList200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAgentChatListError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить сообщения чата AI агента, отправьте GET-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/chat-list/{chat_id}/messages`.  Возвращаются
+/// сообщения пользователя и ответы агента. Фильтр по периоду применяется,
+/// только если переданы оба параметра `from` и `to`.  Для токенов
+/// дополнительных пользователей аккаунта нужна роль `ai:read`.
+pub async fn get_agent_chat_messages(
+    configuration: &configuration::Configuration,
+    id: i32,
+    chat_id: &str,
+    offset: Option<i32>,
+    limit: Option<i32>,
+    order: Option<&str>,
+    from: Option<chrono::DateTime<chrono::FixedOffset>>,
+    to: Option<chrono::DateTime<chrono::FixedOffset>>
+) -> Result<models::GetAgentChatMessages200Response, Error<GetAgentChatMessagesError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_path_chat_id = chat_id;
+    let p_query_offset = offset;
+    let p_query_limit = limit;
+    let p_query_order = order;
+    let p_query_from = from;
+    let p_query_to = to;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/chat-list/{chat_id}/messages",
+        configuration.base_path,
+        id = p_path_id,
+        chat_id = crate::apis::urlencode(p_path_chat_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_offset {
+        req_builder = req_builder.query(&[("offset", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_limit {
+        req_builder = req_builder.query(&[("limit", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_order {
+        req_builder = req_builder.query(&[("order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_from {
+        req_builder = req_builder.query(&[("from", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_to {
+        req_builder = req_builder.query(&[("to", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentChatMessages200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentChatMessages200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAgentChatMessagesError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить лимит AI агента, отправьте GET-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/entity-limits/{limit_id}`.  Для токенов
+/// дополнительных пользователей аккаунта нужна роль `ai:read`.
+pub async fn get_agent_entity_limit(
+    configuration: &configuration::Configuration,
+    id: i32,
+    limit_id: &str
+) -> Result<models::CreateAgentEntityLimit201Response, Error<GetAgentEntityLimitError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_path_limit_id = limit_id;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/entity-limits/{limit_id}",
+        configuration.base_path,
+        id = p_path_id,
+        limit_id = crate::apis::urlencode(p_path_limit_id)
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateAgentEntityLimit201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateAgentEntityLimit201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAgentEntityLimitError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить лимиты AI агента, отправьте GET-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/entity-limits`.  Лимиты агента ограничивают
+/// расход на его запросы за период (`hour`, `day`, `week`, `month`) — в токенах
+/// (`limit`) или в деньгах (`money_limit`, приоритетнее). Лимит действует на
+/// все модели агента (`model_id` = `null`) или на одну модель. При достижении
+/// лимита запросы к агенту отклоняются до конца периода.  Для токенов
+/// дополнительных пользователей аккаунта нужна роль `ai:read`.
+pub async fn get_agent_entity_limits(
+    configuration: &configuration::Configuration,
+    id: i32,
+    limit_type: Option<&str>
+) -> Result<models::GetAgentEntityLimits200Response, Error<GetAgentEntityLimitsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_query_limit_type = limit_type;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/entity-limits",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref param_value) = p_query_limit_type {
+        req_builder = req_builder.query(&[("limit_type", &param_value.to_string())]);
+    }
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentEntityLimits200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentEntityLimits200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAgentEntityLimitsError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы получить статистику использования токенов AI агента, отправьте
-/// GET-запрос на `/api/v1/cloud-ai/agents/{id}/statistic`.  Можно указать
-/// временной диапазон и интервал агрегации.
+/// GET-запрос на `/api/v1/cloud-ai/agents/{id}/statistic`.  Статистика разбита
+/// на интервалы длиной `interval` минут: для каждого интервала возвращается по
+/// точке на каждую модель, к которой были запросы за период, а для интервалов
+/// без запросов — одна нулевая точка без `model_name`. По умолчанию
+/// возвращаются последние 24 часа.  Для токенов дополнительных пользователей
+/// аккаунта нужна роль `ai:read`.
 pub async fn get_agent_statistics(
     configuration: &configuration::Configuration,
     id: i32,
     start_time: Option<chrono::DateTime<chrono::FixedOffset>>,
     end_time: Option<chrono::DateTime<chrono::FixedOffset>>,
-    interval: Option<f64>
+    interval: Option<i32>
 ) -> Result<models::GetAgentStatistics200Response, Error<GetAgentStatisticsError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
@@ -516,9 +1270,76 @@ pub async fn get_agent_statistics(
     }
 }
 
+/// Чтобы получить информацию об AI агенте, отправьте GET-запрос на
+/// `/api/v3/cloud-ai/agents/{id}`.  Отличается от
+/// `/api/v1/cloud-ai/agents/{id}` тем, что вместо `knowledge_bases_ids`
+/// возвращает `knowledge_bases` — подключённые базы знаний с режимом поиска.
+/// Для токенов дополнительных пользователей аккаунта нужна роль `ai:read`.
+pub async fn get_agent_v3(
+    configuration: &configuration::Configuration,
+    id: i32
+) -> Result<models::GetAgentV3200Response, Error<GetAgentV3Error>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+
+    let uri_str = format!(
+        "{}/api/v3/cloud-ai/agents/{id}",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentV3200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentV3200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAgentV3Error> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы получить список AI агентов, отправьте GET-запрос на
-/// `/api/v1/cloud-ai/agents`.  Тело ответа будет представлять собой объект JSON
-/// с ключом `agents`.
+/// `/api/v1/cloud-ai/agents`.  Возвращаются все агенты аккаунта (без
+/// пагинации), включая приостановленных и заблокированных. Тело ответа будет
+/// представлять собой объект JSON с ключами `agents` и `meta`. Подключённые
+/// базы знаний вместе с режимом поиска возвращает метод
+/// `/api/v3/cloud-ai/agents`.  Для токенов дополнительных пользователей
+/// аккаунта нужна роль `ai:read`.
 pub async fn get_agents(
     configuration: &configuration::Configuration
 ) -> Result<models::GetAgents200Response, Error<GetAgentsError>> {
@@ -569,18 +1390,84 @@ pub async fn get_agents(
     }
 }
 
-/// Метод устарел.  Чтобы получить список доступных пакетов токенов для AI
-/// агентов, отправьте GET-запрос на `/api/v1/cloud-ai/token-packages/agents`.
-/// Тело ответа будет представлять собой объект JSON с ключом `token_packages`.
-#[deprecated]
-pub async fn get_agents_token_packages(
+/// Чтобы получить список AI агентов, отправьте GET-запрос на
+/// `/api/v3/cloud-ai/agents`.  Отличается от `/api/v1/cloud-ai/agents` тем, что
+/// вместо `knowledge_bases_ids` возвращает `knowledge_bases` — подключённые
+/// базы знаний с режимом поиска.  Для токенов дополнительных пользователей
+/// аккаунта нужна роль `ai:read`.
+pub async fn get_agents_v3(
     configuration: &configuration::Configuration
-) -> Result<models::GetAgentsTokenPackages200Response, Error<GetAgentsTokenPackagesError>> {
+) -> Result<models::GetAgentsV3200Response, Error<GetAgentsV3Error>> {
+    let uri_str = format!("{}/api/v3/cloud-ai/agents", configuration.base_path);
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentsV3200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentsV3200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetAgentsV3Error> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы задать полный набор лимитов AI агента за период, отправьте PUT-запрос
+/// на `/api/v1/cloud-ai/agents/{id}/entity-limits/sync`.  Лимиты из запроса
+/// создаются или обновляются (сопоставление по `model_id`), а лимиты этого
+/// периода, которых нет в запросе, удаляются. Лимиты других периодов не
+/// затрагиваются. В ответе — актуальные лимиты периода. Если лимиты
+/// одновременно изменил другой запрос, вернётся 409
+/// `entity_keys_limits_sync_conflict` — повторите запрос.  Для токенов
+/// дополнительных пользователей аккаунта нужна роль `ai:write`.
+pub async fn sync_agent_entity_limits(
+    configuration: &configuration::Configuration,
+    id: i32,
+    sync_agent_entity_limits: models::SyncAgentEntityLimits
+) -> Result<models::GetAgentEntityLimits200Response, Error<SyncAgentEntityLimitsError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_sync_agent_entity_limits = sync_agent_entity_limits;
+
     let uri_str = format!(
-        "{}/api/v1/cloud-ai/token-packages/agents",
-        configuration.base_path
+        "{}/api/v1/cloud-ai/agents/{id}/entity-limits/sync",
+        configuration.base_path,
+        id = p_path_id
     );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+    let mut req_builder = configuration.client.request(reqwest::Method::PUT, &uri_str);
 
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -588,6 +1475,7 @@ pub async fn get_agents_token_packages(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
+    req_builder = req_builder.json(&p_body_sync_agent_entity_limits);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -606,187 +1494,18 @@ pub async fn get_agents_token_packages(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => {
                 return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentsTokenPackages200Response`"
+                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentEntityLimits200Response`"
                 )));
             }
             ContentType::Unsupported(unknown_type) => {
                 return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentsTokenPackages200Response`"
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentEntityLimits200Response`"
                 ))));
             }
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetAgentsTokenPackagesError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
-/// Чтобы получить список доступных пакетов токенов для баз знаний, отправьте
-/// GET-запрос на `/api/v1/cloud-ai/token-packages/knowledge-bases`.  Тело
-/// ответа будет представлять собой объект JSON с ключом `token_packages`.
-pub async fn get_knowledgebases_token_packages(
-    configuration: &configuration::Configuration
-) -> Result<models::GetAgentsTokenPackages200Response, Error<GetKnowledgebasesTokenPackagesError>>
-{
-    let uri_str = format!(
-        "{}/api/v1/cloud-ai/token-packages/knowledge-bases",
-        configuration.base_path
-    );
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetAgentsTokenPackages200Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetAgentsTokenPackages200Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetKnowledgebasesTokenPackagesError> =
-            serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
-/// Метод устарел — используйте `GET /api/v3/cloud-ai/models`.  Чтобы получить
-/// список доступных AI моделей, отправьте GET-запрос на
-/// `/api/v1/cloud-ai/models`.  Тело ответа будет представлять собой объект JSON
-/// с ключом `models`.
-#[deprecated]
-pub async fn get_models(
-    configuration: &configuration::Configuration
-) -> Result<models::GetModels200Response, Error<GetModelsError>> {
-    let uri_str = format!("{}/api/v1/cloud-ai/models", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetModels200Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetModels200Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetModelsError> = serde_json::from_str(&content).ok();
-        Err(Error::ResponseError(ResponseContent {
-            status,
-            content,
-            entity
-        }))
-    }
-}
-
-/// Чтобы получить список доступных AI моделей с их характеристиками, отправьте
-/// GET-запрос на `/api/v3/cloud-ai/models`.  Тело ответа будет представлять
-/// собой объект JSON с ключом `models`.  Характеристики модели (цены, лимиты,
-/// возможности) возвращаются в словаре `parameter_values`. Актуальные цены за
-/// токены — в ключах `parameter_values.cost_in` и `parameter_values.cost_out`
-/// (в рублях за 1 токен).
-pub async fn get_models_v3(
-    configuration: &configuration::Configuration
-) -> Result<models::GetModelsV3200Response, Error<GetModelsV3Error>> {
-    let uri_str = format!("{}/api/v3/cloud-ai/models", configuration.base_path);
-    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
-
-    if let Some(ref user_agent) = configuration.user_agent {
-        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
-    }
-    if let Some(ref token) = configuration.bearer_access_token {
-        req_builder = req_builder.bearer_auth(token.to_owned());
-    };
-
-    let req = req_builder.build()?;
-    let resp = configuration.client.execute(req).await?;
-
-    let status = resp.status();
-    let content_type = resp
-        .headers()
-        .get("content-type")
-        .and_then(|v| v.to_str().ok())
-        .unwrap_or("application/octet-stream");
-    let content_type = super::ContentType::from(content_type);
-
-    if !status.is_client_error() && !status.is_server_error() {
-        let content = resp.text().await?;
-        match content_type {
-            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
-            ContentType::Text => {
-                return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetModelsV3200Response`"
-                )));
-            }
-            ContentType::Unsupported(unknown_type) => {
-                return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetModelsV3200Response`"
-                ))));
-            }
-        }
-    } else {
-        let content = resp.text().await?;
-        let entity: Option<GetModelsV3Error> = serde_json::from_str(&content).ok();
+        let entity: Option<SyncAgentEntityLimitsError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -796,7 +1515,20 @@ pub async fn get_models_v3(
 }
 
 /// Чтобы обновить AI агента, отправьте PATCH-запрос на
-/// `/api/v1/cloud-ai/agents/{id}`.
+/// `/api/v1/cloud-ai/agents/{id}`, передав изменяемые поля.  Особенности: -
+/// `settings` заменяются целиком (кроме `web_search_allowed_sites`,
+/// `additional_models` и `memory_enabled`, которые сохраняются, если не
+/// переданы) — передавайте полный объект настроек, включая `widget`; - основную
+/// модель меняет отдельный метод `PATCH /api/v1/cloud-ai/agents/{id}/model`; -
+/// поле `token_limit` больше не поддерживается: запрос с ним отклоняется с
+/// кодом 410 — лимиты задаются через
+/// `/api/v1/cloud-ai/agents/{id}/entity-limits`; - ошибки привязки
+/// `ai_gateway_key_id`: 400 `ai_gateway_key_not_found`,
+/// `agent_is_already_migrated_to_another_ai_gateway_key`,
+/// `agent_is_not_eligible_for_ai_gateway_migration`; 503 — проверку временно не
+/// удалось выполнить; - изменить статус заблокированного или удалённого агента
+/// нельзя (400 `agent_can't_change_status`).  Для токенов дополнительных
+/// пользователей аккаунта нужна роль `ai:write`.
 pub async fn update_agent(
     configuration: &configuration::Configuration,
     id: i32,
@@ -852,6 +1584,77 @@ pub async fn update_agent(
     } else {
         let content = resp.text().await?;
         let entity: Option<UpdateAgentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы изменить значение лимита AI агента, отправьте PATCH-запрос на
+/// `/api/v1/cloud-ai/agents/{id}/entity-limits/{limit_id}`.  Непереданные поля
+/// не меняются. Снять денежный лимит (`money_limit`: `null`) можно только
+/// вместе с передачей `limit`.  Для токенов дополнительных пользователей
+/// аккаунта нужна роль `ai:write`.
+pub async fn update_agent_entity_limit(
+    configuration: &configuration::Configuration,
+    id: i32,
+    limit_id: &str,
+    update_agent_entity_limit: models::UpdateAgentEntityLimit
+) -> Result<models::CreateAgentEntityLimit201Response, Error<UpdateAgentEntityLimitError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_path_limit_id = limit_id;
+    let p_body_update_agent_entity_limit = update_agent_entity_limit;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/agents/{id}/entity-limits/{limit_id}",
+        configuration.base_path,
+        id = p_path_id,
+        limit_id = crate::apis::urlencode(p_path_limit_id)
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_agent_entity_limit);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateAgentEntityLimit201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateAgentEntityLimit201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateAgentEntityLimitError> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

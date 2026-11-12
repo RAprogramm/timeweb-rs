@@ -12,20 +12,68 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// DocumentStatusInfoDetails : Дополнительные детали, зависящие от типа статуса
-/// Дополнительные детали, зависящие от типа статуса
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum DocumentStatusInfoDetails {
-    DocumentStatusInfoDetailsOneOf(Box<models::DocumentStatusInfoDetailsOneOf>),
-    DocumentStatusInfoDetailsOneOf1(Box<models::DocumentStatusInfoDetailsOneOf1>),
-    DocumentStatusInfoDetailsOneOf2(Box<models::DocumentStatusInfoDetailsOneOf2>),
-    DocumentStatusInfoDetailsOneOf3(Box<models::DocumentStatusInfoDetailsOneOf3>),
-    DocumentStatusInfoDetailsOneOf4(Box<models::DocumentStatusInfoDetailsOneOf4>)
+/// DocumentStatusInfoDetails : Подробности, набор полей зависит от состояния.
+/// Могут присутствовать и другие поля
+#[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
+pub struct DocumentStatusInfoDetails {
+    /// `indexing`: время начала индексации
+    #[serde(rename = "started_at", skip_serializing_if = "Option::is_none")]
+    pub started_at:           Option<chrono::DateTime<chrono::FixedOffset>>,
+    /// `indexing`: текущий этап
+    #[serde(rename = "current_stage", skip_serializing_if = "Option::is_none")]
+    pub current_stage:        Option<String>,
+    /// `indexing`: прогресс в процентах
+    #[serde(rename = "progress", skip_serializing_if = "Option::is_none")]
+    pub progress:             Option<f64>,
+    /// `indexed`: длительность индексации в миллисекундах
+    #[serde(
+        rename = "indexing_duration_ms",
+        skip_serializing_if = "Option::is_none"
+    )]
+    pub indexing_duration_ms: Option<f64>,
+    /// `indexed`: израсходовано токенов
+    #[serde(rename = "tokens_used", skip_serializing_if = "Option::is_none")]
+    pub tokens_used:          Option<f64>,
+    /// `indexed`: оценка количества токенов перед индексацией
+    #[serde(rename = "tokens_estimated", skip_serializing_if = "Option::is_none")]
+    pub tokens_estimated:     Option<f64>,
+    /// `indexed`: количество фрагментов, на которые разбит документ
+    #[serde(rename = "chunks_count", skip_serializing_if = "Option::is_none")]
+    pub chunks_count:         Option<f64>,
+    /// `INSUFFICIENT_TOKENS`: сколько токенов нужно
+    #[serde(rename = "needed", skip_serializing_if = "Option::is_none")]
+    pub needed:               Option<f64>,
+    /// `INSUFFICIENT_TOKENS`: сколько токенов доступно
+    #[serde(rename = "available", skip_serializing_if = "Option::is_none")]
+    pub available:            Option<f64>,
+    /// `INSUFFICIENT_TOKENS`: оценка без запаса
+    #[serde(rename = "estimated", skip_serializing_if = "Option::is_none")]
+    pub estimated:            Option<f64>,
+    /// `CRITICAL_BALANCE`, `NEGATIVE_BALANCE`: текущий остаток токенов
+    #[serde(rename = "balance", skip_serializing_if = "Option::is_none")]
+    pub balance:              Option<f64>,
+    /// `CRITICAL_BALANCE`: минимально необходимый остаток
+    #[serde(rename = "min_required", skip_serializing_if = "Option::is_none")]
+    pub min_required:         Option<f64>
 }
 
-impl Default for DocumentStatusInfoDetails {
-    fn default() -> Self {
-        Self::DocumentStatusInfoDetailsOneOf(Default::default())
+impl DocumentStatusInfoDetails {
+    /// Подробности, набор полей зависит от состояния. Могут присутствовать и
+    /// другие поля
+    pub fn new() -> DocumentStatusInfoDetails {
+        DocumentStatusInfoDetails {
+            started_at:           None,
+            current_stage:        None,
+            progress:             None,
+            indexing_duration_ms: None,
+            tokens_used:          None,
+            tokens_estimated:     None,
+            chunks_count:         None,
+            needed:               None,
+            available:            None,
+            estimated:            None,
+            balance:              None,
+            min_required:         None
+        }
     }
 }

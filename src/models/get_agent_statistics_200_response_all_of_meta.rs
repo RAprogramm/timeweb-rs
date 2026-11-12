@@ -14,13 +14,13 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAgentStatistics200ResponseAllOfMeta {
-    /// Количество полученных временных отрезков
+    /// Количество точек статистики
     #[serde(rename = "total")]
-    pub total: f64
+    pub total: i32
 }
 
 impl GetAgentStatistics200ResponseAllOfMeta {
-    pub fn new(total: f64) -> GetAgentStatistics200ResponseAllOfMeta {
+    pub fn new(total: i32) -> GetAgentStatistics200ResponseAllOfMeta {
         GetAgentStatistics200ResponseAllOfMeta {
             total
         }

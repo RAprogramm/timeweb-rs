@@ -14,7 +14,7 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetModelsV3200ResponseAllOfMeta {
-    /// Общее количество моделей
+    /// Количество моделей
     #[serde(rename = "total")]
     pub total: f64
 }

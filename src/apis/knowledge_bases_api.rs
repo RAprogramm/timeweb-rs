@@ -37,6 +37,20 @@ pub enum CreateKnowledgebaseError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`create_knowledgebase_document`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateKnowledgebaseDocumentError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -74,6 +88,7 @@ pub enum DeleteKnowledgebaseError {
 pub enum DownloadDocumentError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
     Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
@@ -106,10 +121,10 @@ pub enum GetKnowledgebaseDocumentsV2Error {
     UnknownValue(serde_json::Value)
 }
 
-/// struct for typed errors of method [`get_knowledgebase_statistics`]
+/// struct for typed errors of method [`get_knowledgebase_v3`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum GetKnowledgebaseStatisticsError {
+pub enum GetKnowledgebaseV3Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
@@ -126,7 +141,6 @@ pub enum GetKnowledgebasesError {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -139,7 +153,18 @@ pub enum GetKnowledgebasesV2Error {
     Status400(models::GetFinances400Response),
     Status401(models::GetFinances401Response),
     Status403(models::GetAccountStatus403Response),
-    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`get_knowledgebases_v3`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum GetKnowledgebasesV3Error {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
     Status429(models::GetFinances429Response),
     Status500(models::GetFinances500Response),
     UnknownValue(serde_json::Value)
@@ -197,6 +222,32 @@ pub enum UpdateKnowledgebaseError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`update_knowledgebase_agent_link`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateKnowledgebaseAgentLinkError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
+/// struct for typed errors of method [`update_knowledgebase_document`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum UpdateKnowledgebaseDocumentError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`upload_files_to_knowledgebase`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -210,17 +261,24 @@ pub enum UploadFilesToKnowledgebaseError {
     UnknownValue(serde_json::Value)
 }
 
-/// Чтобы добавить дополнительный пакет токенов для базы знаний, отправьте
-/// POST-запрос на
+/// Чтобы докупить токены для базы знаний, отправьте POST-запрос на
 /// `/api/v1/cloud-ai/knowledge-bases/{id}/add-additional-token-package`.
+/// Покупается дополнительный пакет (`package_type: additional`) из `GET
+/// /api/v1/cloud-ai/token-packages/knowledge-bases` в количестве `count`.
+/// Стоимость списывается с баланса, токены добавляются к текущему периоду
+/// подписки, заблокированная база знаний разблокируется.  Возможные ошибки: -
+/// `400 insufficient_balance` — на балансе недостаточно средств - `400
+/// subscription_expired` — база знаний заблокирована и дата продления подписки
+/// прошла: продлите подписку в панели управления - `404
+/// additional_token_package_not_found` — дополнительный пакет недоступен
 pub async fn add_additional_token_package_to_knowledgebase(
     configuration: &configuration::Configuration,
     id: i32,
-    add_token_package: Option<models::AddTokenPackage>
+    knowledgebase_add_token_package: Option<models::KnowledgebaseAddTokenPackage>
 ) -> Result<(), Error<AddAdditionalTokenPackageToKnowledgebaseError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_body_add_token_package = add_token_package;
+    let p_body_knowledgebase_add_token_package = knowledgebase_add_token_package;
 
     let uri_str = format!(
         "{}/api/v1/cloud-ai/knowledge-bases/{id}/add-additional-token-package",
@@ -237,7 +295,7 @@ pub async fn add_additional_token_package_to_knowledgebase(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
-    req_builder = req_builder.json(&p_body_add_token_package);
+    req_builder = req_builder.json(&p_body_knowledgebase_add_token_package);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -259,9 +317,17 @@ pub async fn add_additional_token_package_to_knowledgebase(
 }
 
 /// Чтобы создать базу знаний, отправьте POST-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases`, задав необходимые атрибуты.  База знаний
-/// будет создана с использованием предоставленной информации. Тело ответа будет
-/// содержать объект JSON с информацией о созданной базе знаний.
+/// `/api/v1/cloud-ai/knowledge-bases`, задав необходимые атрибуты.  Для базы
+/// знаний в вашем аккаунте создаётся кластер базы данных OpenSearch по
+/// выбранному тарифу в указанной приватной сети, а с баланса сразу списывается
+/// стоимость пакета токенов. Подписка продлевается автоматически раз в период
+/// пакета.  Пока кластер создаётся, база знаний находится в статусе `creating`;
+/// документы, добавленные в это время, будут проиндексированы после перехода в
+/// `active`.  Возможные ошибки: - `404 token_package_not_found` — пакет токенов
+/// не найден или недоступен - `400 invalid_token_package_type` — пакет не
+/// является базовым пакетом для баз знаний - `400 insufficient_balance` — на
+/// балансе недостаточно средств для оплаты пакета  Тело ответа будет
+/// представлять собой объект JSON с ключом `knowledge_base`.
 pub async fn create_knowledgebase(
     configuration: &configuration::Configuration,
     create_knowledgebase: models::CreateKnowledgebase
@@ -322,8 +388,84 @@ pub async fn create_knowledgebase(
     }
 }
 
+/// Чтобы добавить в базу знаний документ по ссылке, отправьте POST-запрос на
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/documents`.  Перед добавлением
+/// выполняется HEAD-запрос к `url`: адрес должен быть публично доступен, а
+/// ответ — содержать заголовок `Content-Type` одного из поддерживаемых форматов
+/// (текст, Markdown, HTML, XML, CSV, PDF, DOC, DOCX, XLS, XLSX; JSON не
+/// поддерживается). Документ сразу ставится в очередь на индексацию. Чтобы
+/// содержимое по ссылке переиндексировалось автоматически, задайте
+/// `indexing_schedule`.  Возможные ошибки: - `400 url_is_not_accessible` —
+/// адрес недоступен или вернул ошибку - `400 unsupported_file_type` —
+/// неподдерживаемый `Content-Type`  Тело ответа будет представлять собой объект
+/// JSON с ключом `document`.
+pub async fn create_knowledgebase_document(
+    configuration: &configuration::Configuration,
+    id: i32,
+    create_document: models::CreateDocument
+) -> Result<models::CreateKnowledgebaseDocument201Response, Error<CreateKnowledgebaseDocumentError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_body_create_document = create_document;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/knowledge-bases/{id}/documents",
+        configuration.base_path,
+        id = p_path_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_create_document);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateKnowledgebaseDocument201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateKnowledgebaseDocument201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateKnowledgebaseDocumentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы удалить документ из базы знаний, отправьте DELETE-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}/documents/{document_id}`.
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/documents/{document_id}`.  Документ
+/// удаляется вместе с его фрагментами в поисковом индексе.
 pub async fn delete_document(
     configuration: &configuration::Configuration,
     id: i32,
@@ -369,7 +511,8 @@ pub async fn delete_document(
 }
 
 /// Чтобы удалить базу знаний, отправьте DELETE-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}`.
+/// `/api/v1/cloud-ai/knowledge-bases/{id}`.  База знаний отвязывается от всех
+/// агентов, её кластер базы данных OpenSearch удаляется, подписка закрывается.
 pub async fn delete_knowledgebase(
     configuration: &configuration::Configuration,
     id: i32
@@ -411,8 +554,11 @@ pub async fn delete_knowledgebase(
     }
 }
 
-/// Чтобы скачать документ из базы знаний, отправьте GET-запрос на
+/// Чтобы скачать загруженный файл документа, отправьте GET-запрос на
 /// `/api/v1/cloud-ai/knowledge-bases/{id}/documents/{document_id}/download`.
+/// Доступно только для документов типа `file`. Файл возвращается потоком с
+/// исходным MIME-типом в заголовке `Content-Type` и именем в
+/// `Content-Disposition`.
 pub async fn download_document(
     configuration: &configuration::Configuration,
     id: i32,
@@ -455,8 +601,9 @@ pub async fn download_document(
     }
 }
 
-/// Чтобы получить информацию о базе знаний, отправьте GET-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}`.
+/// Чтобы получить информацию о базе знаний вместе со всеми её документами,
+/// отправьте GET-запрос на `/api/v1/cloud-ai/knowledge-bases/{id}`.  Тело
+/// ответа будет представлять собой объект JSON с ключом `knowledge_base`.
 pub async fn get_knowledgebase(
     configuration: &configuration::Configuration,
     id: i32
@@ -515,8 +662,10 @@ pub async fn get_knowledgebase(
     }
 }
 
-/// Чтобы получить список документов базы знаний, отправьте GET-запрос на
-/// `/api/v2/cloud-ai/knowledge-bases/{id}/documents`.  Тело ответа будет
+/// Чтобы получить список документов базы знаний с пагинацией, отправьте
+/// GET-запрос на `/api/v2/cloud-ai/knowledge-bases/{id}/documents`.
+/// Некорректные значения параметров пагинации и сортировки не приводят к ошибке
+/// — вместо них применяются значения по умолчанию.  Тело ответа будет
 /// представлять собой объект JSON с ключами `knowledgebase_documents` и `meta`.
 pub async fn get_knowledgebase_documents_v2(
     configuration: &configuration::Configuration,
@@ -524,7 +673,8 @@ pub async fn get_knowledgebase_documents_v2(
     limit: Option<i32>,
     offset: Option<i32>,
     sort_by: Option<&str>,
-    sort_order: Option<&str>
+    sort_order: Option<&str>,
+    search: Option<&str>
 ) -> Result<models::GetKnowledgebaseDocumentsV2200Response, Error<GetKnowledgebaseDocumentsV2Error>>
 {
     // add a prefix to parameters to efficiently prevent name collisions
@@ -533,6 +683,7 @@ pub async fn get_knowledgebase_documents_v2(
     let p_query_offset = offset;
     let p_query_sort_by = sort_by;
     let p_query_sort_order = sort_order;
+    let p_query_search = search;
 
     let uri_str = format!(
         "{}/api/v2/cloud-ai/knowledge-bases/{id}/documents",
@@ -552,6 +703,9 @@ pub async fn get_knowledgebase_documents_v2(
     }
     if let Some(ref param_value) = p_query_sort_order {
         req_builder = req_builder.query(&[("sort_order", &param_value.to_string())]);
+    }
+    if let Some(ref param_value) = p_query_search {
+        req_builder = req_builder.query(&[("search", &param_value.to_string())]);
     }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
@@ -597,39 +751,23 @@ pub async fn get_knowledgebase_documents_v2(
     }
 }
 
-/// Чтобы получить статистику использования токенов базы знаний, отправьте
-/// GET-запрос на `/api/v1/cloud-ai/knowledge-bases/{id}/statistic`.  Можно
-/// указать временной диапазон и интервал агрегации.
-pub async fn get_knowledgebase_statistics(
+/// Чтобы получить информацию о базе знаний, отправьте GET-запрос на
+/// `/api/v3/cloud-ai/knowledge-bases/{id}`.  Тело ответа будет представлять
+/// собой объект JSON с ключом `knowledge_base`.
+pub async fn get_knowledgebase_v3(
     configuration: &configuration::Configuration,
-    id: i32,
-    start_time: Option<chrono::DateTime<chrono::FixedOffset>>,
-    end_time: Option<chrono::DateTime<chrono::FixedOffset>>,
-    interval: Option<f64>
-) -> Result<models::GetKnowledgebaseStatistics200Response, Error<GetKnowledgebaseStatisticsError>>
-{
+    id: i32
+) -> Result<models::GetKnowledgebaseV3200Response, Error<GetKnowledgebaseV3Error>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
-    let p_query_start_time = start_time;
-    let p_query_end_time = end_time;
-    let p_query_interval = interval;
 
     let uri_str = format!(
-        "{}/api/v1/cloud-ai/knowledge-bases/{id}/statistic",
+        "{}/api/v3/cloud-ai/knowledge-bases/{id}",
         configuration.base_path,
         id = p_path_id
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
-    if let Some(ref param_value) = p_query_start_time {
-        req_builder = req_builder.query(&[("startTime", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_end_time {
-        req_builder = req_builder.query(&[("endTime", &param_value.to_string())]);
-    }
-    if let Some(ref param_value) = p_query_interval {
-        req_builder = req_builder.query(&[("interval", &param_value.to_string())]);
-    }
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
@@ -654,18 +792,18 @@ pub async fn get_knowledgebase_statistics(
             ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
             ContentType::Text => {
                 return Err(Error::from(serde_json::Error::custom(
-                    "Received `text/plain` content type response that cannot be converted to `models::GetKnowledgebaseStatistics200Response`"
+                    "Received `text/plain` content type response that cannot be converted to `models::GetKnowledgebaseV3200Response`"
                 )));
             }
             ContentType::Unsupported(unknown_type) => {
                 return Err(Error::from(serde_json::Error::custom(format!(
-                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetKnowledgebaseStatistics200Response`"
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetKnowledgebaseV3200Response`"
                 ))));
             }
         }
     } else {
         let content = resp.text().await?;
-        let entity: Option<GetKnowledgebaseStatisticsError> = serde_json::from_str(&content).ok();
+        let entity: Option<GetKnowledgebaseV3Error> = serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,
@@ -674,9 +812,10 @@ pub async fn get_knowledgebase_statistics(
     }
 }
 
-/// Чтобы получить список баз знаний, отправьте GET-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases`.  Тело ответа будет представлять собой
-/// объект JSON с ключом `knowledgebases`.
+/// Метод устарел — используйте `GET /api/v3/cloud-ai/knowledge-bases`.  Чтобы
+/// получить список баз знаний вместе со всеми их документами, отправьте
+/// GET-запрос на `/api/v1/cloud-ai/knowledge-bases`.  Тело ответа будет
+/// представлять собой объект JSON с ключами `knowledge_bases` и `meta`.
 #[deprecated]
 pub async fn get_knowledgebases(
     configuration: &configuration::Configuration
@@ -732,10 +871,10 @@ pub async fn get_knowledgebases(
 }
 
 /// Чтобы получить список баз знаний, отправьте GET-запрос на
-/// `/api/v2/cloud-ai/knowledge-bases`.  Версия API v2 возвращает
-/// оптимизированный ответ с количеством документов вместо полного списка
-/// документов.  Тело ответа будет представлять собой объект JSON с ключом
-/// `knowledgebases`.
+/// `/api/v2/cloud-ai/knowledge-bases`.  Вместо списка документов возвращается
+/// их количество, привязанные агенты — списком ID. Режим поиска для каждого
+/// агента возвращает `GET /api/v3/cloud-ai/knowledge-bases`.  Тело ответа будет
+/// представлять собой объект JSON с ключами `knowledge_bases` и `meta`.
 pub async fn get_knowledgebases_v2(
     configuration: &configuration::Configuration
 ) -> Result<models::GetKnowledgebasesV2200Response, Error<GetKnowledgebasesV2Error>> {
@@ -789,16 +928,81 @@ pub async fn get_knowledgebases_v2(
     }
 }
 
+/// Чтобы получить список баз знаний, отправьте GET-запрос на
+/// `/api/v3/cloud-ai/knowledge-bases`.  Ответ содержит количество документов и
+/// привязанных агентов с режимом поиска. Документы базы знаний запрашивайте
+/// отдельно — `GET /api/v2/cloud-ai/knowledge-bases/{id}/documents`.  Тело
+/// ответа будет представлять собой объект JSON с ключами `knowledge_bases` и
+/// `meta`.
+pub async fn get_knowledgebases_v3(
+    configuration: &configuration::Configuration
+) -> Result<models::GetKnowledgebasesV3200Response, Error<GetKnowledgebasesV3Error>> {
+    let uri_str = format!(
+        "{}/api/v3/cloud-ai/knowledge-bases",
+        configuration.base_path
+    );
+    let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::GetKnowledgebasesV3200Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::GetKnowledgebasesV3200Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<GetKnowledgebasesV3Error> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы привязать базу знаний к AI агенту, отправьте POST-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}`.
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}`.  Тело запроса
+/// необязательно: в нём можно выбрать режим поиска `retrievalMode` (по
+/// умолчанию `agentic`). Изменить режим для существующей привязки можно
+/// запросом PATCH на тот же адрес.  Возможные ошибки: `404
+/// knowledgebase_not_found`, `404 agent_not_found`.
 pub async fn link_knowledgebase_to_agent(
     configuration: &configuration::Configuration,
     id: i32,
-    agent_id: i32
+    agent_id: i32,
+    link_knowledgebase: Option<models::LinkKnowledgebase>
 ) -> Result<(), Error<LinkKnowledgebaseToAgentError>> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_path_id = id;
     let p_path_agent_id = agent_id;
+    let p_body_link_knowledgebase = link_knowledgebase;
 
     let uri_str = format!(
         "{}/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}",
@@ -816,6 +1020,7 @@ pub async fn link_knowledgebase_to_agent(
     if let Some(ref token) = configuration.bearer_access_token {
         req_builder = req_builder.bearer_auth(token.to_owned());
     };
+    req_builder = req_builder.json(&p_body_link_knowledgebase);
 
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
@@ -835,8 +1040,13 @@ pub async fn link_knowledgebase_to_agent(
     }
 }
 
-/// Чтобы переиндексировать документ в базе знаний, отправьте POST-запрос на
+/// Чтобы переиндексировать документ, отправьте POST-запрос на
 /// `/api/v1/cloud-ai/knowledge-bases/{id}/documents/{document_id}/reindex`.
+/// Документ ставится в очередь на индексацию; следите за полем `status`
+/// документа. Для документа по ссылке содержимое скачивается заново. Если база
+/// знаний не в статусе `active`, документ будет проиндексирован после
+/// активации.  Возможные ошибки: `404 knowledgebase_not_found`, `404
+/// document_not_found`.
 pub async fn reindex_document(
     configuration: &configuration::Configuration,
     id: i32,
@@ -882,7 +1092,8 @@ pub async fn reindex_document(
 }
 
 /// Чтобы отвязать базу знаний от AI агента, отправьте DELETE-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}`.
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}`.  Возможные ошибки:
+/// `404 knowledgebase_not_found`, `404 agent_not_found`.
 pub async fn unlink_knowledgebase_from_agent(
     configuration: &configuration::Configuration,
     id: i32,
@@ -928,8 +1139,9 @@ pub async fn unlink_knowledgebase_from_agent(
     }
 }
 
-/// Чтобы обновить базу знаний, отправьте PATCH-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}`.
+/// Чтобы изменить название или описание базы знаний, отправьте PATCH-запрос на
+/// `/api/v1/cloud-ai/knowledge-bases/{id}`.  Тело ответа будет представлять
+/// собой объект JSON с ключом `knowledge_base`.
 pub async fn update_knowledgebase(
     configuration: &configuration::Configuration,
     id: i32,
@@ -993,10 +1205,145 @@ pub async fn update_knowledgebase(
     }
 }
 
+/// Чтобы изменить режим поиска по привязанной базе знаний для AI агента,
+/// отправьте PATCH-запрос на
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}`.  Если
+/// `retrievalMode` не передан, устанавливается `agentic`. Если база знаний не
+/// привязана к агенту, запрос ничего не меняет и также возвращает `204`.
+/// Возможные ошибки: `404 knowledgebase_not_found`, `404 agent_not_found`.
+pub async fn update_knowledgebase_agent_link(
+    configuration: &configuration::Configuration,
+    id: i32,
+    agent_id: i32,
+    link_knowledgebase: Option<models::LinkKnowledgebase>
+) -> Result<(), Error<UpdateKnowledgebaseAgentLinkError>> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_path_agent_id = agent_id;
+    let p_body_link_knowledgebase = link_knowledgebase;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/knowledge-bases/{id}/link/{agent_id}",
+        configuration.base_path,
+        id = p_path_id,
+        agent_id = p_path_agent_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_link_knowledgebase);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+
+    if !status.is_client_error() && !status.is_server_error() {
+        Ok(())
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateKnowledgebaseAgentLinkError> =
+            serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы изменить документ базы знаний, отправьте PATCH-запрос на
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/documents/{document_id}`.  Можно
+/// изменить название, расписание переиндексации и — только для документов типа
+/// `link` — адрес. После смены адреса документ переиндексируется; изменение
+/// названия и расписания переиндексацию не запускает. Новый адрес проверяется
+/// так же, как при добавлении документа.  Тело ответа будет представлять собой
+/// объект JSON с ключом `document`.
+pub async fn update_knowledgebase_document(
+    configuration: &configuration::Configuration,
+    id: i32,
+    document_id: i32,
+    update_document: models::UpdateDocument
+) -> Result<models::CreateKnowledgebaseDocument201Response, Error<UpdateKnowledgebaseDocumentError>>
+{
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_id = id;
+    let p_path_document_id = document_id;
+    let p_body_update_document = update_document;
+
+    let uri_str = format!(
+        "{}/api/v1/cloud-ai/knowledge-bases/{id}/documents/{document_id}",
+        configuration.base_path,
+        id = p_path_id,
+        document_id = p_path_document_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::PATCH, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_update_document);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateKnowledgebaseDocument201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateKnowledgebaseDocument201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<UpdateKnowledgebaseDocumentError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
 /// Чтобы загрузить файлы в базу знаний, отправьте POST-запрос на
-/// `/api/v1/cloud-ai/knowledge-bases/{id}/upload` с файлами в формате
-/// multipart/form-data.  Поддерживаемые форматы: CSV, XML, Markdown (md), HTML,
-/// TXT. JSON не поддерживается. Максимум 10 файлов, до 10 МБ каждый.
+/// `/api/v1/cloud-ai/knowledge-bases/{id}/upload` с файлами в поле `files`
+/// формата `multipart/form-data`. Для каждого файла создаётся документ типа
+/// `file`, после загрузки документы ставятся в очередь на индексацию (если база
+/// знаний в статусе `active`; иначе — после активации).  Поддерживаемые
+/// форматы: TXT, Markdown (`md`, `markdown`), HTML (`html`, `htm`), XML, CSV,
+/// PDF, DOC, DOCX, XLS, XLSX, а также другие файлы с MIME-типом `text/_*`. JSON
+/// (`json`, `jsonl`, `ndjson`) не поддерживается. Размер одного файла — не
+/// более 50 МБ.  Если хотя бы один файл неподдерживаемого формата, запрос
+/// завершается ошибкой.  Тело ответа будет представлять собой объект JSON с
+/// ключами `uploadedFiles` и `documents`.
 pub async fn upload_files_to_knowledgebase(
     configuration: &configuration::Configuration,
     id: i32,

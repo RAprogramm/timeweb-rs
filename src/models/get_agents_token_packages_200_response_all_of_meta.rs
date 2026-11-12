@@ -14,7 +14,7 @@ use crate::models;
 
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAgentsTokenPackages200ResponseAllOfMeta {
-    /// Общее количество пакетов токенов
+    /// Количество пакетов токенов
     #[serde(rename = "total")]
     pub total: f64
 }

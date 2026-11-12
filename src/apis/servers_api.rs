@@ -107,6 +107,20 @@ pub enum CreateServerDiskBackupError {
     UnknownValue(serde_json::Value)
 }
 
+/// struct for typed errors of method [`create_server_disk_backup_download_url`]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum CreateServerDiskBackupDownloadUrlError {
+    Status400(models::GetFinances400Response),
+    Status401(models::GetFinances401Response),
+    Status403(models::GetAccountStatus403Response),
+    Status404(models::GetImage404Response),
+    Status409(models::UpdateDatabaseInstance409Response),
+    Status429(models::GetFinances429Response),
+    Status500(models::GetFinances500Response),
+    UnknownValue(serde_json::Value)
+}
+
 /// struct for typed errors of method [`delete_server`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
@@ -1039,6 +1053,87 @@ pub async fn create_server_disk_backup(
     } else {
         let content = resp.text().await?;
         let entity: Option<CreateServerDiskBackupError> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+}
+
+/// Чтобы получить ссылку для скачивания бэкапа диска сервера, отправьте
+/// POST-запрос на
+/// `/api/v1/servers/{server_id}/disks/{disk_id}/backups/{backup_id}/
+/// download-url`.   Скачивание бэкапов доступно для серверов в локациях `ru-1`
+/// (Санкт-Петербург) и `ru-3` (Москва). Для серверов в других локациях метод
+/// вернет ошибку со статусом `400`.   Ссылка действует 7 дней. Скачать бэкап по
+/// ней может любой, у кого она есть, поэтому не передавайте ее третьим лицам.
+/// Тело ответа будет представлять собой объект JSON с ключом `backup_url`.
+pub async fn create_server_disk_backup_download_url(
+    configuration: &configuration::Configuration,
+    server_id: i32,
+    disk_id: i32,
+    backup_id: i32,
+    server_backup_download_url_request: models::ServerBackupDownloadUrlRequest
+) -> Result<
+    models::CreateServerDiskBackupDownloadUrl201Response,
+    Error<CreateServerDiskBackupDownloadUrlError>
+> {
+    // add a prefix to parameters to efficiently prevent name collisions
+    let p_path_server_id = server_id;
+    let p_path_disk_id = disk_id;
+    let p_path_backup_id = backup_id;
+    let p_body_server_backup_download_url_request = server_backup_download_url_request;
+
+    let uri_str = format!(
+        "{}/api/v1/servers/{server_id}/disks/{disk_id}/backups/{backup_id}/download-url",
+        configuration.base_path,
+        server_id = p_path_server_id,
+        disk_id = p_path_disk_id,
+        backup_id = p_path_backup_id
+    );
+    let mut req_builder = configuration
+        .client
+        .request(reqwest::Method::POST, &uri_str);
+
+    if let Some(ref user_agent) = configuration.user_agent {
+        req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
+    }
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token.to_owned());
+    };
+    req_builder = req_builder.json(&p_body_server_backup_download_url_request);
+
+    let req = req_builder.build()?;
+    let resp = configuration.client.execute(req).await?;
+
+    let status = resp.status();
+    let content_type = resp
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("application/octet-stream");
+    let content_type = super::ContentType::from(content_type);
+
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        match content_type {
+            ContentType::Json => serde_json::from_str(&content).map_err(Error::from),
+            ContentType::Text => {
+                return Err(Error::from(serde_json::Error::custom(
+                    "Received `text/plain` content type response that cannot be converted to `models::CreateServerDiskBackupDownloadUrl201Response`"
+                )));
+            }
+            ContentType::Unsupported(unknown_type) => {
+                return Err(Error::from(serde_json::Error::custom(format!(
+                    "Received `{unknown_type}` content type response that cannot be converted to `models::CreateServerDiskBackupDownloadUrl201Response`"
+                ))));
+            }
+        }
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<CreateServerDiskBackupDownloadUrlError> =
+            serde_json::from_str(&content).ok();
         Err(Error::ResponseError(ResponseContent {
             status,
             content,

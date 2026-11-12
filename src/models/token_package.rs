@@ -15,67 +15,69 @@ use crate::models;
 /// TokenPackage : Пакет токенов
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct TokenPackage {
-    /// Уникальный идентификатор пакета
+    /// ID пакета
     #[serde(rename = "id")]
-    pub id:            i64,
-    /// ID модели, к которой применяется пакет токенов
+    pub id:              i32,
+    /// ID модели, к которой относится пакет
     #[serde(rename = "model_id")]
-    pub model_id:      i64,
-    /// Название пакета токенов
+    pub model_id:        i32,
+    /// ID тарифа пакета в биллинге
+    #[serde(rename = "service_type_id")]
+    pub service_type_id: i32,
+    /// Название пакета
     #[serde(rename = "name")]
-    pub name:          String,
-    /// Тип пакета (base - базовый, additional - дополнительный, promo - промо)
+    pub name:            String,
+    /// Тип пакета: `base` — пакет подписки, `additional` — дополнительный
+    /// пакет, `promo` — промо-пакет
     #[serde(rename = "package_type")]
-    pub package_type:  PackageType,
-    /// Тип сущности, к которой относится пакет (agent - агент, knowledgebase -
-    /// база знаний)
+    pub package_type:    PackageType,
+    /// Для чего пакет: `agent` — AI агент, `knowledgebase` — база знаний
     #[serde(rename = "type")]
-    pub r#type:        Type,
+    pub r#type:          Type,
     /// Количество токенов в пакете
     #[serde(rename = "token_amount")]
-    pub token_amount:  f64,
-    /// Цена пакета в целых единицах
+    pub token_amount:    i32,
+    /// Цена пакета в рублях
     #[serde(rename = "price")]
-    pub price:         f64,
-    /// Продолжительность пакета в днях (null для дополнительных пакетов)
-    #[serde(
-        rename = "duration_days",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub duration_days: Option<Option<f64>>,
-    /// Флаг, указывающий доступность пакета
+    pub price:           f64,
+    /// Период подписки в днях. `null` для дополнительных пакетов
+    #[serde(rename = "duration_days", deserialize_with = "Option::deserialize")]
+    pub duration_days:   Option<i32>,
+    /// Пакет доступен для покупки
     #[serde(rename = "is_available")]
-    pub is_available:  bool
+    pub is_available:    bool
 }
 
 impl TokenPackage {
     /// Пакет токенов
     pub fn new(
-        id: i64,
-        model_id: i64,
+        id: i32,
+        model_id: i32,
+        service_type_id: i32,
         name: String,
         package_type: PackageType,
         r#type: Type,
-        token_amount: f64,
+        token_amount: i32,
         price: f64,
+        duration_days: Option<i32>,
         is_available: bool
     ) -> TokenPackage {
         TokenPackage {
             id,
             model_id,
+            service_type_id,
             name,
             package_type,
             r#type,
             token_amount,
             price,
-            duration_days: None,
+            duration_days,
             is_available
         }
     }
 }
-/// Тип пакета (base - базовый, additional - дополнительный, promo - промо)
+/// Тип пакета: `base` — пакет подписки, `additional` — дополнительный пакет,
+/// `promo` — промо-пакет
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum PackageType {
     #[serde(rename = "base")]
@@ -91,8 +93,7 @@ impl Default for PackageType {
         Self::Base
     }
 }
-/// Тип сущности, к которой относится пакет (agent - агент, knowledgebase - база
-/// знаний)
+/// Для чего пакет: `agent` — AI агент, `knowledgebase` — база знаний
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "agent")]

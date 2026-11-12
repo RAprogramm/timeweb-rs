@@ -12,37 +12,48 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// AgentModelSettings : Настройки модели агента
+/// AgentModelSettings : Параметры модели агента. Допустимые параметры и их
+/// границы зависят от модели (см. параметры модели в разделе «AI Модели»):
+/// параметры, которые модель не поддерживает, отбрасываются при сохранении, а
+/// значения вне допустимых границ отклоняются с ошибкой 400.
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct AgentModelSettings {
-    /// Контролирует случайность вывода модели.
+    /// Температура: чем выше, тем случайнее ответы модели.
     #[serde(rename = "temperature", skip_serializing_if = "Option::is_none")]
     pub temperature:       Option<f64>,
-    /// Контролирует разнообразие вывода модели.
+    /// Nucleus sampling: доля вероятностной массы, из которой выбираются
+    /// токены.
     #[serde(rename = "top_p", skip_serializing_if = "Option::is_none")]
     pub top_p:             Option<f64>,
-    /// Максимальное количество токенов в выводе.
+    /// Максимальное количество токенов в ответе модели.
     #[serde(rename = "max_tokens", skip_serializing_if = "Option::is_none")]
-    pub max_tokens:        Option<f64>,
-    /// Положительные значения штрафуют новые токены на основе их существующей
-    /// частоты.
+    pub max_tokens:        Option<i32>,
+    /// Штраф за частоту: положительные значения снижают повторы уже
+    /// использованных токенов.
     #[serde(rename = "frequency_penalty", skip_serializing_if = "Option::is_none")]
     pub frequency_penalty: Option<f64>,
-    /// Положительные значения штрафуют новые токены на основе того, встречались
-    /// ли они в тексте ранее.
+    /// Штраф за присутствие: положительные значения поощряют новые темы.
     #[serde(rename = "presence_penalty", skip_serializing_if = "Option::is_none")]
-    pub presence_penalty:  Option<f64>
+    pub presence_penalty:  Option<f64>,
+    /// Включает режим рассуждений (thinking) для моделей, которые его
+    /// поддерживают.
+    #[serde(rename = "enable_thinking", skip_serializing_if = "Option::is_none")]
+    pub enable_thinking:   Option<bool>
 }
 
 impl AgentModelSettings {
-    /// Настройки модели агента
+    /// Параметры модели агента. Допустимые параметры и их границы зависят от
+    /// модели (см. параметры модели в разделе «AI Модели»): параметры, которые
+    /// модель не поддерживает, отбрасываются при сохранении, а значения вне
+    /// допустимых границ отклоняются с ошибкой 400.
     pub fn new() -> AgentModelSettings {
         AgentModelSettings {
             temperature:       None,
             top_p:             None,
             max_tokens:        None,
             frequency_penalty: None,
-            presence_penalty:  None
+            presence_penalty:  None,
+            enable_thinking:   None
         }
     }
 }

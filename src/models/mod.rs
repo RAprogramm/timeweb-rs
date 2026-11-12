@@ -6,6 +6,10 @@ pub use self::a_______::A;
 pub mod aaaa_______;
 #[cfg(feature = "domains")]
 pub use self::aaaa_______::Aaaa;
+#[cfg(feature = "ai-solutions")]
+pub mod add_ai_solution_telegram_bot_201_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::add_ai_solution_telegram_bot_201_response::AddAiSolutionTelegramBot201Response;
 #[cfg(feature = "projects")]
 pub mod add_balancer_to_project_200_response;
 #[cfg(feature = "projects")]
@@ -130,9 +134,9 @@ pub use self::add_storage_to_project_request::AddStorageToProjectRequest;
 pub mod add_subdomain_201_response;
 #[cfg(feature = "domains")]
 pub use self::add_subdomain_201_response::AddSubdomain201Response;
-#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
+#[cfg(feature = "ai-agents")]
 pub mod add_token_package;
-#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
+#[cfg(feature = "ai-agents")]
 pub use self::add_token_package::AddTokenPackage;
 #[cfg(feature = "s3")]
 pub mod added_subdomain;
@@ -151,6 +155,14 @@ pub mod agent;
 #[cfg(feature = "ai-agents")]
 pub use self::agent::Agent;
 #[cfg(feature = "ai-agents")]
+pub mod agent_additional_model;
+#[cfg(feature = "ai-agents")]
+pub use self::agent_additional_model::AgentAdditionalModel;
+#[cfg(feature = "ai-agents")]
+pub mod agent_entity_limit;
+#[cfg(feature = "ai-agents")]
+pub use self::agent_entity_limit::AgentEntityLimit;
+#[cfg(feature = "ai-agents")]
 pub mod agent_model_settings;
 #[cfg(feature = "ai-agents")]
 pub use self::agent_model_settings::AgentModelSettings;
@@ -158,10 +170,260 @@ pub use self::agent_model_settings::AgentModelSettings;
 pub mod agent_settings;
 #[cfg(feature = "ai-agents")]
 pub use self::agent_settings::AgentSettings;
+#[cfg(feature = "ai-agent-skills")]
+pub mod agent_skill;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::agent_skill::AgentSkill;
 #[cfg(feature = "ai-agents")]
-pub mod agent_settings_widget;
+pub mod agent_token_statistic;
 #[cfg(feature = "ai-agents")]
-pub use self::agent_settings_widget::AgentSettingsWidget;
+pub use self::agent_token_statistic::AgentTokenStatistic;
+#[cfg(feature = "ai-agents")]
+pub mod agent_tools_inner;
+#[cfg(feature = "ai-agents")]
+pub use self::agent_tools_inner::AgentToolsInner;
+#[cfg(feature = "ai-agents")]
+pub mod agent_v3;
+#[cfg(feature = "ai-agents")]
+pub use self::agent_v3::AgentV3;
+#[cfg(feature = "ai-agents")]
+pub mod agent_v3_knowledge_bases_inner;
+#[cfg(feature = "ai-agents")]
+pub use self::agent_v3_knowledge_bases_inner::AgentV3KnowledgeBasesInner;
+#[cfg(feature = "ai-agents")]
+pub mod agent_widget_settings;
+#[cfg(feature = "ai-agents")]
+pub use self::agent_widget_settings::AgentWidgetSettings;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_batch;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_batch::AiGatewayBatch;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_batch_create_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_batch_create_request::AiGatewayBatchCreateRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_batch_list;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_batch_list::AiGatewayBatchList;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_batch_request_counts;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_batch_request_counts::AiGatewayBatchRequestCounts;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_completion;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_completion::AiGatewayChatCompletion;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_completion_choices_inner;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_completion_choices_inner::AiGatewayChatCompletionChoicesInner;
+pub mod ai_gateway_chat_completion_chunk;
+pub use self::ai_gateway_chat_completion_chunk::AiGatewayChatCompletionChunk;
+pub mod ai_gateway_chat_completion_chunk_choices_inner;
+pub use self::ai_gateway_chat_completion_chunk_choices_inner::AiGatewayChatCompletionChunkChoicesInner;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_completion_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_completion_request::AiGatewayChatCompletionRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_completion_request_stop;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_completion_request_stop::AiGatewayChatCompletionRequestStop;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_completion_request_stream_options;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_completion_request_stream_options::AiGatewayChatCompletionRequestStreamOptions;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_completion_request_tool_choice;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_completion_request_tool_choice::AiGatewayChatCompletionRequestToolChoice;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_chat_message;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_chat_message::AiGatewayChatMessage;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_completion;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_completion::AiGatewayCompletion;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_completion_choices_inner;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_completion_choices_inner::AiGatewayCompletionChoicesInner;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_completion_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_completion_request::AiGatewayCompletionRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_completion_request_prompt;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_completion_request_prompt::AiGatewayCompletionRequestPrompt;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_completion_request_stop;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_completion_request_stop::AiGatewayCompletionRequestStop;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_embedding_list;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_embedding_list::AiGatewayEmbeddingList;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_embedding_list_data_inner;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_embedding_list_data_inner::AiGatewayEmbeddingListDataInner;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_embedding_list_usage;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_embedding_list_usage::AiGatewayEmbeddingListUsage;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_embedding_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_embedding_request::AiGatewayEmbeddingRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_embedding_request_input;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_embedding_request_input::AiGatewayEmbeddingRequestInput;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_error;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_error::AiGatewayError;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_error_error;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_error_error::AiGatewayErrorError;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_file;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_file::AiGatewayFile;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_file_deleted;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_file_deleted::AiGatewayFileDeleted;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_image_generation_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_image_generation_request::AiGatewayImageGenerationRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_images_response;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_images_response::AiGatewayImagesResponse;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_images_response_data_inner;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_images_response_data_inner::AiGatewayImagesResponseDataInner;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_model;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_model::AiGatewayModel;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_model_list;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_model_list::AiGatewayModelList;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_response;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_response::AiGatewayResponse;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_response_create_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_response_create_request::AiGatewayResponseCreateRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_response_create_request_reasoning;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_response_create_request_reasoning::AiGatewayResponseCreateRequestReasoning;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_response_deleted;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_response_deleted::AiGatewayResponseDeleted;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_response_incomplete_details;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_response_incomplete_details::AiGatewayResponseIncompleteDetails;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_response_usage;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_response_usage::AiGatewayResponseUsage;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_speech_request;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_speech_request::AiGatewaySpeechRequest;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_tool_call;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_tool_call::AiGatewayToolCall;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_tool_call_function;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_tool_call_function::AiGatewayToolCallFunction;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_transcription;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_transcription::AiGatewayTranscription;
+pub mod ai_gateway_usage;
+pub use self::ai_gateway_usage::AiGatewayUsage;
+pub mod ai_gateway_usage_completion_tokens_details;
+pub use self::ai_gateway_usage_completion_tokens_details::AiGatewayUsageCompletionTokensDetails;
+pub mod ai_gateway_usage_prompt_tokens_details;
+pub use self::ai_gateway_usage_prompt_tokens_details::AiGatewayUsagePromptTokensDetails;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod ai_gateway_validation_error;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::ai_gateway_validation_error::AiGatewayValidationError;
+#[cfg(feature = "ai-gateway")]
+pub mod ai_key;
+#[cfg(feature = "ai-gateway")]
+pub use self::ai_key::AiKey;
+#[cfg(feature = "ai-gateway")]
+pub mod ai_key_calls_statistic_point;
+#[cfg(feature = "ai-gateway")]
+pub use self::ai_key_calls_statistic_point::AiKeyCallsStatisticPoint;
+#[cfg(feature = "ai-gateway")]
+pub mod ai_key_limit;
+#[cfg(feature = "ai-gateway")]
+pub use self::ai_key_limit::AiKeyLimit;
+#[cfg(feature = "ai-gateway")]
+pub mod ai_key_token_statistic_point;
+#[cfg(feature = "ai-gateway")]
+pub use self::ai_key_token_statistic_point::AiKeyTokenStatisticPoint;
+#[cfg(feature = "ai-models")]
+pub mod ai_provider;
+#[cfg(feature = "ai-models")]
+pub use self::ai_provider::AiProvider;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution::AiSolution;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_ai_key;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_ai_key::AiSolutionAiKey;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_chat_message;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_chat_message::AiSolutionChatMessage;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_chat_reply;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_chat_reply::AiSolutionChatReply;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_chat_status;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_chat_status::AiSolutionChatStatus;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_conversation;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_conversation::AiSolutionConversation;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_telegram_bot;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_telegram_bot::AiSolutionTelegramBot;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_type;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_type::AiSolutionType;
+#[cfg(feature = "ai-solutions")]
+pub mod ai_solution_type_requirements;
+#[cfg(feature = "ai-solutions")]
+pub use self::ai_solution_type_requirements::AiSolutionTypeRequirements;
 #[cfg(any(feature = "apps", feature = "projects"))]
 pub mod app;
 #[cfg(any(feature = "apps", feature = "projects"))]
@@ -182,12 +444,38 @@ pub use self::app_domains_inner::AppDomainsInner;
 pub mod app_provider;
 #[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::app_provider::AppProvider;
+#[cfg(feature = "apps")]
+pub mod app_v2;
+#[cfg(feature = "apps")]
+pub use self::app_v2::AppV2;
+#[cfg(feature = "apps")]
+pub mod app_v2_configuration;
+#[cfg(feature = "apps")]
+pub use self::app_v2_configuration::AppV2Configuration;
+#[cfg(feature = "apps")]
+pub mod app_v2_disk_status;
+#[cfg(feature = "apps")]
+pub use self::app_v2_disk_status::AppV2DiskStatus;
+#[cfg(feature = "apps")]
+pub mod app_v2_domains_inner;
+#[cfg(feature = "apps")]
+pub use self::app_v2_domains_inner::AppV2DomainsInner;
+#[cfg(feature = "apps")]
+pub mod app_v2_provider;
+#[cfg(feature = "apps")]
+pub use self::app_v2_provider::AppV2Provider;
+#[cfg(feature = "ai-solutions")]
+pub mod approve_telegram_pairing;
+#[cfg(feature = "ai-solutions")]
+pub use self::approve_telegram_pairing::ApproveTelegramPairing;
 pub mod apps_presets;
 pub use self::apps_presets::AppsPresets;
 pub mod apps_presets_backend_presets_inner;
 pub use self::apps_presets_backend_presets_inner::AppsPresetsBackendPresetsInner;
 pub mod apps_presets_frontend_presets_inner;
 pub use self::apps_presets_frontend_presets_inner::AppsPresetsFrontendPresetsInner;
+pub mod authorize_url;
+pub use self::authorize_url::AuthorizeUrl;
 #[cfg(any(feature = "databases", feature = "servers"))]
 pub mod auto_backup;
 #[cfg(any(feature = "databases", feature = "servers"))]
@@ -286,6 +574,10 @@ pub use self::bind_floating_ip_resource_id::BindFloatingIpResourceId;
 pub mod bonus;
 #[cfg(feature = "domains")]
 pub use self::bonus::Bonus;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod bot;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::bot::Bot;
 #[cfg(feature = "apps")]
 pub mod branch;
 #[cfg(feature = "apps")]
@@ -318,6 +610,34 @@ pub use self::certificate::Certificate;
 pub mod certificate_task;
 #[cfg(feature = "cdn")]
 pub use self::certificate_task::CertificateTask;
+#[cfg(feature = "ai-agents")]
+pub mod change_agent_model;
+#[cfg(feature = "ai-agents")]
+pub use self::change_agent_model::ChangeAgentModel;
+#[cfg(feature = "ai-agents")]
+pub mod chat;
+#[cfg(feature = "ai-agents")]
+pub use self::chat::Chat;
+#[cfg(feature = "ai-agents")]
+pub mod chat_first_message;
+#[cfg(feature = "ai-agents")]
+pub use self::chat_first_message::ChatFirstMessage;
+#[cfg(feature = "ai-agents")]
+pub mod chat_list_metrics;
+#[cfg(feature = "ai-agents")]
+pub use self::chat_list_metrics::ChatListMetrics;
+#[cfg(feature = "ai-agents")]
+pub mod chat_message;
+#[cfg(feature = "ai-agents")]
+pub use self::chat_message::ChatMessage;
+#[cfg(feature = "ai-agents")]
+pub mod chat_message_file;
+#[cfg(feature = "ai-agents")]
+pub use self::chat_message_file::ChatMessageFile;
+#[cfg(feature = "ai-agents")]
+pub mod chats_csv;
+#[cfg(feature = "ai-agents")]
+pub use self::chats_csv::ChatsCsv;
 #[cfg(feature = "domains")]
 pub mod check_domain_200_response;
 #[cfg(feature = "domains")]
@@ -462,6 +782,22 @@ pub use self::config_security::ConfigSecurity;
 pub mod config_security_secure_token;
 #[cfg(feature = "cdn")]
 pub use self::config_security_secure_token::ConfigSecuritySecureToken;
+#[cfg(feature = "mcp")]
+pub mod connect_agent_tool;
+#[cfg(feature = "mcp")]
+pub use self::connect_agent_tool::ConnectAgentTool;
+#[cfg(feature = "ai-agent-skills")]
+pub mod connect_skill_item;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::connect_skill_item::ConnectSkillItem;
+#[cfg(feature = "ai-agent-skills")]
+pub mod connect_skills;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::connect_skills::ConnectSkills;
+#[cfg(feature = "ai-solutions")]
+pub mod connect_telegram;
+#[cfg(feature = "ai-solutions")]
+pub use self::connect_telegram::ConnectTelegram;
 pub mod container_registry_presets_inner;
 pub use self::container_registry_presets_inner::ContainerRegistryPresetsInner;
 pub mod container_registry_repositories_inner;
@@ -478,10 +814,58 @@ pub use self::create_agent::CreateAgent;
 pub mod create_agent_201_response;
 #[cfg(feature = "ai-agents")]
 pub use self::create_agent_201_response::CreateAgent201Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod create_agent_bot_telegram_bot_201_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::create_agent_bot_telegram_bot_201_response::CreateAgentBotTelegramBot201Response;
+#[cfg(feature = "ai-agents")]
+pub mod create_agent_entity_limit;
+#[cfg(feature = "ai-agents")]
+pub use self::create_agent_entity_limit::CreateAgentEntityLimit;
+#[cfg(feature = "ai-agents")]
+pub mod create_agent_entity_limit_201_response;
+#[cfg(feature = "ai-agents")]
+pub use self::create_agent_entity_limit_201_response::CreateAgentEntityLimit201Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod create_agent_skill_201_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::create_agent_skill_201_response::CreateAgentSkill201Response;
+#[cfg(feature = "mcp")]
+pub mod create_agent_tool_201_response;
+#[cfg(feature = "mcp")]
+pub use self::create_agent_tool_201_response::CreateAgentTool201Response;
 #[cfg(feature = "ai-agents")]
 pub mod create_agent_v2;
 #[cfg(feature = "ai-agents")]
 pub use self::create_agent_v2::CreateAgentV2;
+#[cfg(feature = "ai-gateway-inference")]
+pub mod create_ai_gateway_transcription_422_response;
+#[cfg(feature = "ai-gateway-inference")]
+pub use self::create_ai_gateway_transcription_422_response::CreateAiGatewayTranscription422Response;
+#[cfg(feature = "ai-gateway")]
+pub mod create_ai_key;
+#[cfg(feature = "ai-gateway")]
+pub use self::create_ai_key::CreateAiKey;
+#[cfg(feature = "ai-gateway")]
+pub mod create_ai_key_201_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::create_ai_key_201_response::CreateAiKey201Response;
+#[cfg(feature = "ai-gateway")]
+pub mod create_ai_key_limit;
+#[cfg(feature = "ai-gateway")]
+pub use self::create_ai_key_limit::CreateAiKeyLimit;
+#[cfg(feature = "ai-gateway")]
+pub mod create_ai_key_limit_201_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::create_ai_key_limit_201_response::CreateAiKeyLimit201Response;
+#[cfg(feature = "ai-solutions")]
+pub mod create_ai_solution;
+#[cfg(feature = "ai-solutions")]
+pub use self::create_ai_solution::CreateAiSolution;
+#[cfg(feature = "ai-solutions")]
+pub mod create_ai_solution_201_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::create_ai_solution_201_response::CreateAiSolution201Response;
 #[cfg(feature = "apps")]
 pub mod create_app;
 #[cfg(feature = "apps")]
@@ -490,6 +874,22 @@ pub use self::create_app::CreateApp;
 pub mod create_app_201_response;
 #[cfg(feature = "apps")]
 pub use self::create_app_201_response::CreateApp201Response;
+#[cfg(feature = "apps")]
+pub mod create_app_v2;
+#[cfg(feature = "apps")]
+pub use self::create_app_v2::CreateAppV2;
+#[cfg(feature = "apps")]
+pub mod create_app_v2_201_response;
+#[cfg(feature = "apps")]
+pub use self::create_app_v2_201_response::CreateAppV2201Response;
+#[cfg(feature = "apps")]
+pub mod create_app_v2_configuration;
+#[cfg(feature = "apps")]
+pub use self::create_app_v2_configuration::CreateAppV2Configuration;
+#[cfg(feature = "apps")]
+pub mod create_app_v2_network;
+#[cfg(feature = "apps")]
+pub use self::create_app_v2_network::CreateAppV2Network;
 #[cfg(feature = "balancers")]
 pub mod create_balancer;
 #[cfg(feature = "balancers")]
@@ -506,6 +906,10 @@ pub use self::create_balancer_certificates::CreateBalancerCertificates;
 pub mod create_balancer_rule_200_response;
 #[cfg(feature = "balancers")]
 pub use self::create_balancer_rule_200_response::CreateBalancerRule200Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod create_bot;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::create_bot::CreateBot;
 #[cfg(feature = "cdn")]
 pub mod create_cdn_resource_201_response;
 #[cfg(feature = "cdn")]
@@ -550,6 +954,10 @@ pub use self::create_cluster_maintenance_slot::CreateClusterMaintenanceSlot;
 pub mod create_cluster_node_group_201_response;
 #[cfg(feature = "kubernetes")]
 pub use self::create_cluster_node_group_201_response::CreateClusterNodeGroup201Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod create_crisp_integration;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::create_crisp_integration::CreateCrispIntegration;
 #[cfg(feature = "databases")]
 pub mod create_database_backup_201_response;
 #[cfg(feature = "databases")]
@@ -602,6 +1010,10 @@ pub use self::create_dns::CreateDns;
 pub mod create_dns_v2;
 #[cfg(feature = "domains")]
 pub use self::create_dns_v2::CreateDnsV2;
+#[cfg(feature = "knowledge-bases")]
+pub mod create_document;
+#[cfg(feature = "knowledge-bases")]
+pub use self::create_document::CreateDocument;
 #[cfg(feature = "domains")]
 pub mod create_domain_dns_record_201_response;
 #[cfg(feature = "domains")]
@@ -666,6 +1078,10 @@ pub use self::create_image_download_url_201_response::CreateImageDownloadUrl201R
 pub mod create_instance;
 #[cfg(feature = "databases")]
 pub use self::create_instance::CreateInstance;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod create_jivo_integration;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::create_jivo_integration::CreateJivoIntegration;
 #[cfg(feature = "ssh")]
 pub mod create_key_201_response;
 #[cfg(feature = "ssh")]
@@ -682,6 +1098,14 @@ pub use self::create_knowledgebase::CreateKnowledgebase;
 pub mod create_knowledgebase_201_response;
 #[cfg(feature = "knowledge-bases")]
 pub use self::create_knowledgebase_201_response::CreateKnowledgebase201Response;
+#[cfg(feature = "knowledge-bases")]
+pub mod create_knowledgebase_document_201_response;
+#[cfg(feature = "knowledge-bases")]
+pub use self::create_knowledgebase_document_201_response::CreateKnowledgebaseDocument201Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod create_max_bot;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::create_max_bot::CreateMaxBot;
 #[cfg(feature = "mail")]
 pub mod create_multiple_domain_mailboxes_201_response;
 #[cfg(feature = "mail")]
@@ -763,6 +1187,10 @@ pub mod create_server_disk_backup_201_response;
 #[cfg(feature = "servers")]
 pub use self::create_server_disk_backup_201_response::CreateServerDiskBackup201Response;
 #[cfg(feature = "servers")]
+pub mod create_server_disk_backup_download_url_201_response;
+#[cfg(feature = "servers")]
+pub use self::create_server_disk_backup_download_url_201_response::CreateServerDiskBackupDownloadUrl201Response;
+#[cfg(feature = "servers")]
 pub mod create_server_disk_backup_request;
 #[cfg(feature = "servers")]
 pub use self::create_server_disk_backup_request::CreateServerDiskBackupRequest;
@@ -774,6 +1202,10 @@ pub use self::create_server_disk_request::CreateServerDiskRequest;
 pub mod create_server_network;
 #[cfg(feature = "servers")]
 pub use self::create_server_network::CreateServerNetwork;
+#[cfg(feature = "ai-agent-skills")]
+pub mod create_skill;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::create_skill::CreateSkill;
 #[cfg(feature = "s3")]
 pub mod create_storage_201_response;
 #[cfg(feature = "s3")]
@@ -786,6 +1218,10 @@ pub use self::create_storage_request::CreateStorageRequest;
 pub mod create_storage_request_configurator;
 #[cfg(feature = "s3")]
 pub use self::create_storage_request_configurator::CreateStorageRequestConfigurator;
+#[cfg(feature = "mcp")]
+pub mod create_tool;
+#[cfg(feature = "mcp")]
+pub use self::create_tool::CreateTool;
 #[cfg(feature = "vpc")]
 pub mod create_vpc;
 #[cfg(feature = "vpc")]
@@ -794,6 +1230,10 @@ pub use self::create_vpc::CreateVpc;
 pub mod create_vpc_201_response;
 #[cfg(feature = "vpc")]
 pub use self::create_vpc_201_response::CreateVpc201Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod crisp_integration;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::crisp_integration::CrispIntegration;
 #[cfg(feature = "databases")]
 pub mod database_admin;
 #[cfg(feature = "databases")]
@@ -952,6 +1392,10 @@ pub use self::dedicated_server_preset_disk::DedicatedServerPresetDisk;
 pub mod dedicated_server_preset_memory;
 #[cfg(feature = "dedicated-servers")]
 pub use self::dedicated_server_preset_memory::DedicatedServerPresetMemory;
+#[cfg(feature = "ai-agents")]
+pub mod delete_agent;
+#[cfg(feature = "ai-agents")]
+pub use self::delete_agent::DeleteAgent;
 #[cfg(feature = "balancers")]
 pub mod delete_balancer_200_response;
 #[cfg(feature = "balancers")]
@@ -1056,38 +1500,12 @@ pub use self::dns_record_v2::DnsRecordV2;
 pub mod dns_record_v2_data;
 #[cfg(feature = "domains")]
 pub use self::dns_record_v2_data::DnsRecordV2Data;
-#[cfg(feature = "knowledge-bases")]
 pub mod document;
-#[cfg(feature = "knowledge-bases")]
 pub use self::document::Document;
-#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info;
-#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info::DocumentStatusInfo;
-#[cfg(feature = "knowledge-bases")]
 pub mod document_status_info_details;
-#[cfg(feature = "knowledge-bases")]
 pub use self::document_status_info_details::DocumentStatusInfoDetails;
-#[cfg(feature = "knowledge-bases")]
-pub mod document_status_info_details_one_of;
-#[cfg(feature = "knowledge-bases")]
-pub use self::document_status_info_details_one_of::DocumentStatusInfoDetailsOneOf;
-#[cfg(feature = "knowledge-bases")]
-pub mod document_status_info_details_one_of_1;
-#[cfg(feature = "knowledge-bases")]
-pub use self::document_status_info_details_one_of_1::DocumentStatusInfoDetailsOneOf1;
-#[cfg(feature = "knowledge-bases")]
-pub mod document_status_info_details_one_of_2;
-#[cfg(feature = "knowledge-bases")]
-pub use self::document_status_info_details_one_of_2::DocumentStatusInfoDetailsOneOf2;
-#[cfg(feature = "knowledge-bases")]
-pub mod document_status_info_details_one_of_3;
-#[cfg(feature = "knowledge-bases")]
-pub use self::document_status_info_details_one_of_3::DocumentStatusInfoDetailsOneOf3;
-#[cfg(feature = "knowledge-bases")]
-pub mod document_status_info_details_one_of_4;
-#[cfg(feature = "knowledge-bases")]
-pub use self::document_status_info_details_one_of_4::DocumentStatusInfoDetailsOneOf4;
 #[cfg(feature = "domains")]
 pub mod domain;
 #[cfg(feature = "domains")]
@@ -1132,6 +1550,18 @@ pub use self::domain_request::DomainRequest;
 pub mod domain_transfer;
 #[cfg(feature = "domains")]
 pub use self::domain_transfer::DomainTransfer;
+#[cfg(feature = "ai-solutions")]
+pub mod error_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::error_response::ErrorResponse;
+#[cfg(feature = "ai-solutions")]
+pub mod error_response_message;
+#[cfg(feature = "ai-solutions")]
+pub use self::error_response_message::ErrorResponseMessage;
+#[cfg(feature = "ai-agents")]
+pub mod export_agent_chats_csv_200_response;
+#[cfg(feature = "ai-agents")]
+pub use self::export_agent_chats_csv_200_response::ExportAgentChatsCsv200Response;
 #[cfg(feature = "payments")]
 pub mod finances;
 #[cfg(feature = "payments")]
@@ -1218,7 +1648,12 @@ pub mod get_account_status_200_response;
 pub use self::get_account_status_200_response::GetAccountStatus200Response;
 #[cfg(any(
     feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1230,6 +1665,7 @@ pub use self::get_account_status_200_response::GetAccountStatus200Response;
     feature = "kubernetes",
     feature = "locations",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1241,7 +1677,12 @@ pub use self::get_account_status_200_response::GetAccountStatus200Response;
 pub mod get_account_status_403_response;
 #[cfg(any(
     feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1253,6 +1694,7 @@ pub mod get_account_status_403_response;
     feature = "kubernetes",
     feature = "locations",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1264,7 +1706,12 @@ pub mod get_account_status_403_response;
 pub use self::get_account_status_403_response::GetAccountStatus403Response;
 #[cfg(any(
     feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1276,6 +1723,7 @@ pub use self::get_account_status_403_response::GetAccountStatus403Response;
     feature = "kubernetes",
     feature = "locations",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1287,7 +1735,12 @@ pub use self::get_account_status_403_response::GetAccountStatus403Response;
 pub mod get_account_status_403_response_message;
 #[cfg(any(
     feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1299,6 +1752,7 @@ pub mod get_account_status_403_response_message;
     feature = "kubernetes",
     feature = "locations",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1308,14 +1762,154 @@ pub mod get_account_status_403_response_message;
     feature = "vpc"
 ))]
 pub use self::get_account_status_403_response_message::GetAccountStatus403ResponseMessage;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_max_bots_200_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_max_bots_200_response::GetAgentBotMaxBots200Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_max_bots_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_max_bots_200_response_all_of_meta::GetAgentBotMaxBots200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_max_bots_by_agent_200_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_max_bots_by_agent_200_response::GetAgentBotMaxBotsByAgent200Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_max_bots_by_agent_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_max_bots_by_agent_200_response_all_of_meta::GetAgentBotMaxBotsByAgent200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_telegram_bots_200_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_telegram_bots_200_response::GetAgentBotTelegramBots200Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_telegram_bots_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_telegram_bots_200_response_all_of_meta::GetAgentBotTelegramBots200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_telegram_bots_by_agent_200_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_telegram_bots_by_agent_200_response::GetAgentBotTelegramBotsByAgent200Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_bot_telegram_bots_by_agent_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_bot_telegram_bots_by_agent_200_response_all_of_meta::GetAgentBotTelegramBotsByAgent200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_chat_list_200_response;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_chat_list_200_response::GetAgentChatList200Response;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_chat_list_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_chat_list_200_response_all_of_meta::GetAgentChatList200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_chat_messages_200_response;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_chat_messages_200_response::GetAgentChatMessages200Response;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_chat_messages_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_chat_messages_200_response_all_of_meta::GetAgentChatMessages200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_entity_limits_200_response;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_entity_limits_200_response::GetAgentEntityLimits200Response;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_entity_limits_200_response_all_of_meta;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_entity_limits_200_response_all_of_meta::GetAgentEntityLimits200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_integration_crisp_200_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_integration_crisp_200_response::GetAgentIntegrationCrisp200Response;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod get_agent_integration_jivo_200_response;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::get_agent_integration_jivo_200_response::GetAgentIntegrationJivo200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_200_response::GetAgentSkill200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_catalog_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_catalog_200_response::GetAgentSkillCatalog200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_catalog_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_catalog_200_response_all_of_meta::GetAgentSkillCatalog200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_library_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_library_200_response::GetAgentSkillLibrary200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_library_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_library_200_response_all_of_meta::GetAgentSkillLibrary200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_version_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_version_200_response::GetAgentSkillVersion200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_versions_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_versions_200_response::GetAgentSkillVersions200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skill_versions_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skill_versions_200_response_all_of_meta::GetAgentSkillVersions200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skills_for_agent_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skills_for_agent_200_response::GetAgentSkillsForAgent200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod get_agent_skills_for_agent_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::get_agent_skills_for_agent_200_response_all_of_meta::GetAgentSkillsForAgent200ResponseAllOfMeta;
 #[cfg(feature = "ai-agents")]
 pub mod get_agent_statistics_200_response;
 #[cfg(feature = "ai-agents")]
 pub use self::get_agent_statistics_200_response::GetAgentStatistics200Response;
-#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
+#[cfg(feature = "ai-agents")]
 pub mod get_agent_statistics_200_response_all_of_meta;
-#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
+#[cfg(feature = "ai-agents")]
 pub use self::get_agent_statistics_200_response_all_of_meta::GetAgentStatistics200ResponseAllOfMeta;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tool_o_auth2_authorize_url_200_response;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tool_o_auth2_authorize_url_200_response::GetAgentToolOAuth2AuthorizeUrl200Response;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tool_template_prices_200_response;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tool_template_prices_200_response::GetAgentToolTemplatePrices200Response;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tool_templates_200_response;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tool_templates_200_response::GetAgentToolTemplates200Response;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tool_templates_200_response_all_of_meta;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tool_templates_200_response_all_of_meta::GetAgentToolTemplates200ResponseAllOfMeta;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tools_200_response;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tools_200_response::GetAgentTools200Response;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tools_200_response_all_of_meta;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tools_200_response_all_of_meta::GetAgentTools200ResponseAllOfMeta;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tools_by_agent_200_response;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tools_by_agent_200_response::GetAgentToolsByAgent200Response;
+#[cfg(feature = "mcp")]
+pub mod get_agent_tools_by_agent_200_response_all_of_meta;
+#[cfg(feature = "mcp")]
+pub use self::get_agent_tools_by_agent_200_response_all_of_meta::GetAgentToolsByAgent200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
+pub mod get_agent_v3_200_response;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agent_v3_200_response::GetAgentV3200Response;
 #[cfg(feature = "ai-agents")]
 pub mod get_agents_200_response;
 #[cfg(feature = "ai-agents")]
@@ -1324,14 +1918,90 @@ pub use self::get_agents_200_response::GetAgents200Response;
 pub mod get_agents_200_response_all_of_meta;
 #[cfg(feature = "ai-agents")]
 pub use self::get_agents_200_response_all_of_meta::GetAgents200ResponseAllOfMeta;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub mod get_agents_token_packages_200_response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::get_agents_token_packages_200_response::GetAgentsTokenPackages200Response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub mod get_agents_token_packages_200_response_all_of_meta;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::get_agents_token_packages_200_response_all_of_meta::GetAgentsTokenPackages200ResponseAllOfMeta;
+#[cfg(feature = "ai-agents")]
+pub mod get_agents_v3_200_response;
+#[cfg(feature = "ai-agents")]
+pub use self::get_agents_v3_200_response::GetAgentsV3200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_calls_statistic_200_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_calls_statistic_200_response::GetAiKeyCallsStatistic200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_limits_200_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_limits_200_response::GetAiKeyLimits200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_limits_200_response_all_of_meta;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_limits_200_response_all_of_meta::GetAiKeyLimits200ResponseAllOfMeta;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_models_statistic_200_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_models_statistic_200_response::GetAiKeyModelsStatistic200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_models_statistic_200_response_all_of_meta;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_models_statistic_200_response_all_of_meta::GetAiKeyModelsStatistic200ResponseAllOfMeta;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_token_usage_statistic_200_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_token_usage_statistic_200_response::GetAiKeyTokenUsageStatistic200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_key_token_usage_statistic_200_response_all_of_meta;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_key_token_usage_statistic_200_response_all_of_meta::GetAiKeyTokenUsageStatistic200ResponseAllOfMeta;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_keys_200_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_keys_200_response::GetAiKeys200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod get_ai_keys_200_response_all_of_meta;
+#[cfg(feature = "ai-gateway")]
+pub use self::get_ai_keys_200_response_all_of_meta::GetAiKeys200ResponseAllOfMeta;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_model_parameters_200_response;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_model_parameters_200_response::GetAiModelParameters200Response;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_model_parameters_200_response_all_of_meta;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_model_parameters_200_response_all_of_meta::GetAiModelParameters200ResponseAllOfMeta;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_model_token_packages_200_response;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_model_token_packages_200_response::GetAiModelTokenPackages200Response;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_model_token_packages_200_response_all_of_meta;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_model_token_packages_200_response_all_of_meta::GetAiModelTokenPackages200ResponseAllOfMeta;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_provider_200_response;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_provider_200_response::GetAiProvider200Response;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_providers_200_response;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_providers_200_response::GetAiProviders200Response;
+#[cfg(feature = "ai-models")]
+pub mod get_ai_providers_200_response_all_of_meta;
+#[cfg(feature = "ai-models")]
+pub use self::get_ai_providers_200_response_all_of_meta::GetAiProviders200ResponseAllOfMeta;
+#[cfg(feature = "ai-solutions")]
+pub mod get_ai_solution_chat_status_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::get_ai_solution_chat_status_200_response::GetAiSolutionChatStatus200Response;
+#[cfg(feature = "ai-solutions")]
+pub mod get_ai_solution_main_chat_history_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::get_ai_solution_main_chat_history_200_response::GetAiSolutionMainChatHistory200Response;
 #[cfg(feature = "mail")]
 pub mod get_all_mailboxes_v2_200_response;
 #[cfg(feature = "mail")]
@@ -1564,21 +2234,533 @@ pub use self::get_domains_200_response::GetDomains200Response;
 pub mod get_finances_200_response;
 #[cfg(feature = "payments")]
 pub use self::get_finances_200_response::GetFinances200Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_400_response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_400_response::GetFinances400Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_400_response_message;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_400_response_message::GetFinances400ResponseMessage;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_401_response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_401_response::GetFinances401Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_401_response_message;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_401_response_message::GetFinances401ResponseMessage;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_429_response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_429_response::GetFinances429Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_429_response_message;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_429_response_message::GetFinances429ResponseMessage;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_500_response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_500_response::GetFinances500Response;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub mod get_finances_500_response_message;
+#[cfg(any(
+    feature = "account",
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-models",
+    feature = "ai-solutions",
+    feature = "apps",
+    feature = "balancers",
+    feature = "cdn",
+    feature = "container-registry",
+    feature = "databases",
+    feature = "dedicated-servers",
+    feature = "domains",
+    feature = "firewall",
+    feature = "floating-ip",
+    feature = "images",
+    feature = "knowledge-bases",
+    feature = "kubernetes",
+    feature = "locations",
+    feature = "mail",
+    feature = "mcp",
+    feature = "network-drives",
+    feature = "payments",
+    feature = "projects",
+    feature = "routers",
+    feature = "s3",
+    feature = "servers",
+    feature = "ssh",
+    feature = "vpc"
+))]
 pub use self::get_finances_500_response_message::GetFinances500ResponseMessage;
 #[cfg(feature = "floating-ip")]
 pub mod get_floating_ips_200_response;
@@ -1601,7 +2783,11 @@ pub mod get_groups_200_response;
 #[cfg(feature = "firewall")]
 pub use self::get_groups_200_response::GetGroups200Response;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1615,6 +2801,7 @@ pub use self::get_groups_200_response::GetGroups200Response;
     feature = "knowledge-bases",
     feature = "kubernetes",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1625,7 +2812,11 @@ pub use self::get_groups_200_response::GetGroups200Response;
 ))]
 pub mod get_image_404_response;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1639,6 +2830,7 @@ pub mod get_image_404_response;
     feature = "knowledge-bases",
     feature = "kubernetes",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1649,7 +2841,11 @@ pub mod get_image_404_response;
 ))]
 pub use self::get_image_404_response::GetImage404Response;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1663,6 +2859,7 @@ pub use self::get_image_404_response::GetImage404Response;
     feature = "knowledge-bases",
     feature = "kubernetes",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1673,7 +2870,11 @@ pub use self::get_image_404_response::GetImage404Response;
 ))]
 pub mod get_image_404_response_message;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
     feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "balancers",
     feature = "cdn",
@@ -1687,6 +2888,7 @@ pub mod get_image_404_response_message;
     feature = "knowledge-bases",
     feature = "kubernetes",
     feature = "mail",
+    feature = "mcp",
     feature = "network-drives",
     feature = "projects",
     feature = "routers",
@@ -1729,21 +2931,33 @@ pub mod get_knowledgebase_documents_v2_200_response_all_of_meta;
 #[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebase_documents_v2_200_response_all_of_meta::GetKnowledgebaseDocumentsV2200ResponseAllOfMeta;
 #[cfg(feature = "knowledge-bases")]
-pub mod get_knowledgebase_statistics_200_response;
+pub mod get_knowledgebase_v3_200_response;
 #[cfg(feature = "knowledge-bases")]
-pub use self::get_knowledgebase_statistics_200_response::GetKnowledgebaseStatistics200Response;
+pub use self::get_knowledgebase_v3_200_response::GetKnowledgebaseV3200Response;
 #[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebases_200_response;
 #[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebases_200_response::GetKnowledgebases200Response;
+#[cfg(feature = "ai-models")]
+pub mod get_knowledgebases_token_packages_200_response;
+#[cfg(feature = "ai-models")]
+pub use self::get_knowledgebases_token_packages_200_response::GetKnowledgebasesTokenPackages200Response;
+#[cfg(feature = "ai-models")]
+pub mod get_knowledgebases_token_packages_200_response_all_of_meta;
+#[cfg(feature = "ai-models")]
+pub use self::get_knowledgebases_token_packages_200_response_all_of_meta::GetKnowledgebasesTokenPackages200ResponseAllOfMeta;
 #[cfg(feature = "knowledge-bases")]
 pub mod get_knowledgebases_v2_200_response;
 #[cfg(feature = "knowledge-bases")]
 pub use self::get_knowledgebases_v2_200_response::GetKnowledgebasesV2200Response;
 #[cfg(feature = "knowledge-bases")]
-pub mod get_knowledgebases_v2_200_response_all_of_meta;
+pub mod get_knowledgebases_v3_200_response;
 #[cfg(feature = "knowledge-bases")]
-pub use self::get_knowledgebases_v2_200_response_all_of_meta::GetKnowledgebasesV2200ResponseAllOfMeta;
+pub use self::get_knowledgebases_v3_200_response::GetKnowledgebasesV3200Response;
+#[cfg(feature = "knowledge-bases")]
+pub mod get_knowledgebases_v3_200_response_all_of_meta;
+#[cfg(feature = "knowledge-bases")]
+pub use self::get_knowledgebases_v3_200_response_all_of_meta::GetKnowledgebasesV3200ResponseAllOfMeta;
 #[cfg(feature = "kubernetes")]
 pub mod get_kubernetes_addons_200_response;
 #[cfg(feature = "kubernetes")]
@@ -1764,17 +2978,17 @@ pub use self::get_locations_200_response::GetLocations200Response;
 pub mod get_mailboxes_200_response;
 #[cfg(feature = "mail")]
 pub use self::get_mailboxes_200_response::GetMailboxes200Response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub mod get_models_200_response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::get_models_200_response::GetModels200Response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub mod get_models_v3_200_response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::get_models_v3_200_response::GetModelsV3200Response;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub mod get_models_v3_200_response_all_of_meta;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::get_models_v3_200_response_all_of_meta::GetModelsV3200ResponseAllOfMeta;
 #[cfg(feature = "network-drives")]
 pub mod get_network_drives_200_response;
@@ -2022,10 +3236,44 @@ pub use self::images_out_response::ImagesOutResponse;
 pub mod increase_nodes;
 #[cfg(feature = "kubernetes")]
 pub use self::increase_nodes::IncreaseNodes;
+pub mod indexing_schedule;
+pub use self::indexing_schedule::IndexingSchedule;
 #[cfg(feature = "payments")]
 pub mod info_service_price;
 #[cfg(feature = "payments")]
 pub use self::info_service_price::InfoServicePrice;
+pub mod initialize_params;
+pub use self::initialize_params::InitializeParams;
+pub mod initialize_params_client_info;
+pub use self::initialize_params_client_info::InitializeParamsClientInfo;
+#[cfg(feature = "mcp")]
+pub mod initialize_result;
+#[cfg(feature = "mcp")]
+pub use self::initialize_result::InitializeResult;
+#[cfg(feature = "mcp")]
+pub mod initialize_result_server_info;
+#[cfg(feature = "mcp")]
+pub use self::initialize_result_server_info::InitializeResultServerInfo;
+#[cfg(feature = "ai-agent-skills")]
+pub mod install_agent_skill_from_catalog_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::install_agent_skill_from_catalog_200_response::InstallAgentSkillFromCatalog200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod install_agent_skill_from_catalog_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::install_agent_skill_from_catalog_200_response_all_of_meta::InstallAgentSkillFromCatalog200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-skills")]
+pub mod install_and_connect_agent_skill_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::install_and_connect_agent_skill_200_response::InstallAndConnectAgentSkill200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod install_and_connect_skill;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::install_and_connect_skill::InstallAndConnectSkill;
+#[cfg(feature = "mcp")]
+pub mod install_tool;
+#[cfg(feature = "mcp")]
+pub use self::install_tool::InstallTool;
 #[cfg(feature = "domains")]
 pub mod invoice;
 #[cfg(feature = "domains")]
@@ -2038,6 +3286,38 @@ pub use self::ip::Ip;
 pub mod issue_certificate;
 #[cfg(feature = "cdn")]
 pub use self::issue_certificate::IssueCertificate;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod jivo_integration;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::jivo_integration::JivoIntegration;
+#[cfg(feature = "mcp")]
+pub mod json_rpc_error;
+#[cfg(feature = "mcp")]
+pub use self::json_rpc_error::JsonRpcError;
+#[cfg(feature = "mcp")]
+pub mod json_rpc_error_response;
+#[cfg(feature = "mcp")]
+pub use self::json_rpc_error_response::JsonRpcErrorResponse;
+#[cfg(feature = "mcp")]
+pub mod json_rpc_error_response_id;
+#[cfg(feature = "mcp")]
+pub use self::json_rpc_error_response_id::JsonRpcErrorResponseId;
+pub mod json_rpc_notification;
+pub use self::json_rpc_notification::JsonRpcNotification;
+pub mod json_rpc_request;
+pub use self::json_rpc_request::JsonRpcRequest;
+pub mod json_rpc_request_id;
+pub use self::json_rpc_request_id::JsonRpcRequestId;
+pub mod json_rpc_request_params;
+pub use self::json_rpc_request_params::JsonRpcRequestParams;
+#[cfg(feature = "mcp")]
+pub mod json_rpc_result_response;
+#[cfg(feature = "mcp")]
+pub use self::json_rpc_result_response::JsonRpcResultResponse;
+#[cfg(feature = "mcp")]
+pub mod json_rpc_result_response_result;
+#[cfg(feature = "mcp")]
+pub use self::json_rpc_result_response_result::JsonRpcResultResponseResult;
 pub mod k8_s_presets_inner;
 pub use self::k8_s_presets_inner::K8SPresetsInner;
 pub mod k8_s_versions_response;
@@ -2053,9 +3333,37 @@ pub mod knowledgebase;
 #[cfg(feature = "knowledge-bases")]
 pub use self::knowledgebase::Knowledgebase;
 #[cfg(feature = "knowledge-bases")]
+pub mod knowledgebase_add_token_package;
+#[cfg(feature = "knowledge-bases")]
+pub use self::knowledgebase_add_token_package::KnowledgebaseAddTokenPackage;
+#[cfg(feature = "knowledge-bases")]
 pub mod knowledgebase_v2;
 #[cfg(feature = "knowledge-bases")]
 pub use self::knowledgebase_v2::KnowledgebaseV2;
+#[cfg(feature = "knowledge-bases")]
+pub mod knowledgebase_v3;
+#[cfg(feature = "knowledge-bases")]
+pub use self::knowledgebase_v3::KnowledgebaseV3;
+#[cfg(feature = "knowledge-bases")]
+pub mod link_knowledgebase;
+#[cfg(feature = "knowledge-bases")]
+pub use self::link_knowledgebase::LinkKnowledgebase;
+#[cfg(feature = "ai-solutions")]
+pub mod list_ai_solution_conversations_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::list_ai_solution_conversations_200_response::ListAiSolutionConversations200Response;
+#[cfg(feature = "ai-solutions")]
+pub mod list_ai_solution_telegram_bots_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::list_ai_solution_telegram_bots_200_response::ListAiSolutionTelegramBots200Response;
+#[cfg(feature = "ai-solutions")]
+pub mod list_ai_solution_types_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::list_ai_solution_types_200_response::ListAiSolutionTypes200Response;
+#[cfg(feature = "ai-solutions")]
+pub mod list_ai_solutions_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::list_ai_solutions_200_response::ListAiSolutions200Response;
 #[cfg(feature = "locations")]
 pub mod location_dto;
 #[cfg(feature = "locations")]
@@ -2100,30 +3408,38 @@ pub mod meta;
 pub use self::meta::Meta;
 pub mod meta_1;
 pub use self::meta_1::Meta1;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub mod model;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::model::Model;
-#[cfg(feature = "ai-agents")]
-pub mod model_params_info;
-#[cfg(feature = "ai-agents")]
-pub use self::model_params_info::ModelParamsInfo;
-#[cfg(feature = "ai-agents")]
-pub mod model_params_info_max_tokens;
-#[cfg(feature = "ai-agents")]
-pub use self::model_params_info_max_tokens::ModelParamsInfoMaxTokens;
-#[cfg(feature = "ai-agents")]
-pub mod model_params_info_reasoning_effort;
-#[cfg(feature = "ai-agents")]
-pub use self::model_params_info_reasoning_effort::ModelParamsInfoReasoningEffort;
-#[cfg(feature = "ai-agents")]
-pub mod model_params_info_temperature;
-#[cfg(feature = "ai-agents")]
-pub use self::model_params_info_temperature::ModelParamsInfoTemperature;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
+pub mod model_batch;
+#[cfg(feature = "ai-models")]
+pub use self::model_batch::ModelBatch;
+#[cfg(feature = "ai-models")]
+pub mod model_param_info;
+#[cfg(feature = "ai-models")]
+pub use self::model_param_info::ModelParamInfo;
+#[cfg(feature = "ai-models")]
+pub mod model_param_info_default;
+#[cfg(feature = "ai-models")]
+pub use self::model_param_info_default::ModelParamInfoDefault;
+#[cfg(feature = "ai-models")]
+pub mod model_parameter;
+#[cfg(feature = "ai-models")]
+pub use self::model_parameter::ModelParameter;
+#[cfg(feature = "ai-models")]
+pub mod model_price_tier;
+#[cfg(feature = "ai-models")]
+pub use self::model_price_tier::ModelPriceTier;
+#[cfg(feature = "ai-models")]
 pub mod model_v3;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::model_v3::ModelV3;
+#[cfg(feature = "ai-models")]
+pub mod model_v3_parameter_values_value;
+#[cfg(feature = "ai-models")]
+pub use self::model_v3_parameter_values_value::ModelV3ParameterValuesValue;
 pub mod mongodb;
 pub use self::mongodb::Mongodb;
 #[cfg(feature = "network-drives")]
@@ -2328,6 +3644,10 @@ pub use self::rabbitmq::Rabbitmq;
 pub mod reduce_nodes;
 #[cfg(feature = "kubernetes")]
 pub use self::reduce_nodes::ReduceNodes;
+#[cfg(feature = "ai-solutions")]
+pub mod regenerate_ai_solution_ai_key_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::regenerate_ai_solution_ai_key_200_response::RegenerateAiSolutionAiKey200Response;
 pub mod registries_response;
 pub use self::registries_response::RegistriesResponse;
 #[cfg(feature = "container-registry")]
@@ -2370,6 +3690,14 @@ pub use self::repositories_response::RepositoriesResponse;
 pub mod repository;
 #[cfg(any(feature = "apps", feature = "projects"))]
 pub use self::repository::Repository;
+#[cfg(feature = "ai-solutions")]
+pub mod reset_ai_solution_chat;
+#[cfg(feature = "ai-solutions")]
+pub use self::reset_ai_solution_chat::ResetAiSolutionChat;
+#[cfg(feature = "ai-solutions")]
+pub mod reset_ai_solution_chat_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::reset_ai_solution_chat_200_response::ResetAiSolutionChat200Response;
 pub mod resource;
 pub use self::resource::Resource;
 #[cfg(feature = "projects")]
@@ -2380,12 +3708,34 @@ pub mod resource_type;
 pub use self::resource_type::ResourceType;
 pub mod resources;
 pub use self::resources::Resources;
+#[cfg(feature = "mcp")]
+pub mod resources_list_result;
+#[cfg(feature = "mcp")]
+pub use self::resources_list_result::ResourcesListResult;
+pub mod resources_read_params;
+pub use self::resources_read_params::ResourcesReadParams;
+#[cfg(feature = "mcp")]
+pub mod resources_read_result;
+#[cfg(feature = "mcp")]
+pub use self::resources_read_result::ResourcesReadResult;
+#[cfg(feature = "mcp")]
+pub mod resources_read_result_contents_inner;
+#[cfg(feature = "mcp")]
+pub use self::resources_read_result_contents_inner::ResourcesReadResultContentsInner;
 pub mod resources_response;
 pub use self::resources_response::ResourcesResponse;
 #[cfg(feature = "servers")]
 pub mod restore_point;
 #[cfg(feature = "servers")]
 pub use self::restore_point::RestorePoint;
+#[cfg(feature = "knowledge-bases")]
+pub mod retrieval_mode;
+#[cfg(feature = "knowledge-bases")]
+pub use self::retrieval_mode::RetrievalMode;
+#[cfg(feature = "knowledge-bases")]
+pub mod retrieval_mode_ref;
+#[cfg(feature = "knowledge-bases")]
+pub use self::retrieval_mode_ref::RetrievalModeRef;
 #[cfg(feature = "routers")]
 pub mod router_edit;
 #[cfg(feature = "routers")]
@@ -2458,10 +3808,34 @@ pub mod schemas_meta;
 pub use self::schemas_meta::SchemasMeta;
 pub mod schemas_presets_response;
 pub use self::schemas_presets_response::SchemasPresetsResponse;
+#[cfg(feature = "ai-solutions")]
+pub mod send_ai_solution_message;
+#[cfg(feature = "ai-solutions")]
+pub use self::send_ai_solution_message::SendAiSolutionMessage;
+#[cfg(feature = "ai-solutions")]
+pub mod send_ai_solution_message_200_response;
+#[cfg(feature = "ai-solutions")]
+pub use self::send_ai_solution_message_200_response::SendAiSolutionMessage200Response;
+#[cfg(feature = "mcp")]
+pub mod send_mcp_message_200_response;
+#[cfg(feature = "mcp")]
+pub use self::send_mcp_message_200_response::SendMcpMessage200Response;
+#[cfg(feature = "mcp")]
+pub mod send_mcp_message_request;
+#[cfg(feature = "mcp")]
+pub use self::send_mcp_message_request::SendMcpMessageRequest;
 #[cfg(feature = "servers")]
 pub mod server_backup;
 #[cfg(feature = "servers")]
 pub use self::server_backup::ServerBackup;
+#[cfg(feature = "servers")]
+pub mod server_backup_download_url;
+#[cfg(feature = "servers")]
+pub use self::server_backup_download_url::ServerBackupDownloadUrl;
+#[cfg(feature = "servers")]
+pub mod server_backup_download_url_request;
+#[cfg(feature = "servers")]
+pub use self::server_backup_download_url_request::ServerBackupDownloadUrlRequest;
 #[cfg(feature = "servers")]
 pub mod server_disk;
 #[cfg(feature = "servers")]
@@ -2542,6 +3916,14 @@ pub use self::service_service_price::ServiceServicePrice;
 pub mod service_service_price_node_groups_inner;
 #[cfg(feature = "payments")]
 pub use self::service_service_price_node_groups_inner::ServiceServicePriceNodeGroupsInner;
+#[cfg(feature = "ai-agent-skills")]
+pub mod set_agent_skill;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::set_agent_skill::SetAgentSkill;
+#[cfg(feature = "ai-agent-skills")]
+pub mod set_agent_skill_for_agent_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::set_agent_skill_for_agent_200_response::SetAgentSkillForAgent200Response;
 #[cfg(feature = "kubernetes")]
 pub mod set_labels;
 #[cfg(feature = "kubernetes")]
@@ -2550,6 +3932,38 @@ pub use self::set_labels::SetLabels;
 pub mod setting_condition;
 #[cfg(feature = "account")]
 pub use self::setting_condition::SettingCondition;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill::Skill;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_agent;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_agent::SkillAgent;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_catalog_item;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_catalog_item::SkillCatalogItem;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_details;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_details::SkillDetails;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_save_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_save_meta::SkillSaveMeta;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_script;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_script::SkillScript;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_script_input;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_script_input::SkillScriptInput;
+#[cfg(feature = "ai-agent-skills")]
+pub mod skill_version;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::skill_version::SkillVersion;
 #[cfg(feature = "mail")]
 pub mod spam_filter_is_disabled;
 #[cfg(feature = "mail")]
@@ -2608,20 +4022,110 @@ pub use self::status::Status;
 pub mod status_company_info;
 #[cfg(feature = "account")]
 pub use self::status_company_info::StatusCompanyInfo;
+#[cfg(feature = "ai-solutions")]
+pub mod stop_ai_solution_chat;
+#[cfg(feature = "ai-solutions")]
+pub use self::stop_ai_solution_chat::StopAiSolutionChat;
+#[cfg(feature = "ai-solutions")]
+pub mod stream_error;
+#[cfg(feature = "ai-solutions")]
+pub use self::stream_error::StreamError;
+#[cfg(feature = "ai-solutions")]
+pub mod stream_error_message;
+#[cfg(feature = "ai-solutions")]
+pub use self::stream_error_message::StreamErrorMessage;
 #[cfg(feature = "domains")]
 pub mod subdomain;
 #[cfg(feature = "domains")]
 pub use self::subdomain::Subdomain;
+#[cfg(feature = "ai-agents")]
+pub mod sync_agent_entity_limits;
+#[cfg(feature = "ai-agents")]
+pub use self::sync_agent_entity_limits::SyncAgentEntityLimits;
+#[cfg(feature = "ai-agents")]
+pub mod sync_agent_entity_limits_limits_inner;
+#[cfg(feature = "ai-agents")]
+pub use self::sync_agent_entity_limits_limits_inner::SyncAgentEntityLimitsLimitsInner;
+#[cfg(feature = "ai-agent-skills")]
+pub mod sync_agent_skill_agents_versions_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::sync_agent_skill_agents_versions_200_response::SyncAgentSkillAgentsVersions200Response;
+#[cfg(feature = "ai-agent-skills")]
+pub mod sync_agent_skill_agents_versions_200_response_all_of_meta;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::sync_agent_skill_agents_versions_200_response_all_of_meta::SyncAgentSkillAgentsVersions200ResponseAllOfMeta;
+#[cfg(feature = "ai-agent-skills")]
+pub mod sync_agent_skill_versions_for_agent_200_response;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::sync_agent_skill_versions_for_agent_200_response::SyncAgentSkillVersionsForAgent200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod sync_ai_key_limits;
+#[cfg(feature = "ai-gateway")]
+pub use self::sync_ai_key_limits::SyncAiKeyLimits;
+#[cfg(feature = "ai-gateway")]
+pub mod sync_ai_key_limits_limits_inner;
+#[cfg(feature = "ai-gateway")]
+pub use self::sync_ai_key_limits_limits_inner::SyncAiKeyLimitsLimitsInner;
 pub mod tags;
 pub use self::tags::Tags;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "mcp")]
+pub mod text_content;
+#[cfg(feature = "mcp")]
+pub use self::text_content::TextContent;
+#[cfg(feature = "ai-models")]
 pub mod token_package;
-#[cfg(feature = "ai-agents")]
+#[cfg(feature = "ai-models")]
 pub use self::token_package::TokenPackage;
-#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
-pub mod token_statistic;
-#[cfg(any(feature = "ai-agents", feature = "knowledge-bases"))]
-pub use self::token_statistic::TokenStatistic;
+#[cfg(feature = "mcp")]
+pub mod tool;
+#[cfg(feature = "mcp")]
+pub use self::tool::Tool;
+#[cfg(feature = "mcp")]
+pub mod tool_2;
+#[cfg(feature = "mcp")]
+pub use self::tool_2::Tool2;
+#[cfg(feature = "mcp")]
+pub mod tool_2_annotations;
+#[cfg(feature = "mcp")]
+pub use self::tool_2_annotations::Tool2Annotations;
+#[cfg(feature = "mcp")]
+pub mod tool_auth_data;
+#[cfg(feature = "mcp")]
+pub use self::tool_auth_data::ToolAuthData;
+#[cfg(feature = "mcp")]
+pub mod tool_auth_data_params;
+#[cfg(feature = "mcp")]
+pub use self::tool_auth_data_params::ToolAuthDataParams;
+#[cfg(feature = "mcp")]
+pub mod tool_config_field;
+#[cfg(feature = "mcp")]
+pub use self::tool_config_field::ToolConfigField;
+#[cfg(feature = "mcp")]
+pub mod tool_method;
+#[cfg(feature = "mcp")]
+pub use self::tool_method::ToolMethod;
+#[cfg(feature = "mcp")]
+pub mod tool_price;
+#[cfg(feature = "mcp")]
+pub use self::tool_price::ToolPrice;
+#[cfg(feature = "mcp")]
+pub mod tool_template;
+#[cfg(feature = "mcp")]
+pub use self::tool_template::ToolTemplate;
+#[cfg(feature = "mcp")]
+pub mod tool_template_config_schema;
+#[cfg(feature = "mcp")]
+pub use self::tool_template_config_schema::ToolTemplateConfigSchema;
+pub mod tools_call_params;
+pub use self::tools_call_params::ToolsCallParams;
+#[cfg(feature = "mcp")]
+pub mod tools_call_result;
+#[cfg(feature = "mcp")]
+pub use self::tools_call_result::ToolsCallResult;
+#[cfg(feature = "mcp")]
+pub mod tools_list_result;
+#[cfg(feature = "mcp")]
+pub use self::tools_list_result::ToolsListResult;
 #[cfg(feature = "domains")]
 pub mod top_level_domain;
 #[cfg(feature = "domains")]
@@ -2659,9 +4163,29 @@ pub mod update_agent;
 #[cfg(feature = "ai-agents")]
 pub use self::update_agent::UpdateAgent;
 #[cfg(feature = "ai-agents")]
-pub mod update_agent_settings;
+pub mod update_agent_entity_limit;
 #[cfg(feature = "ai-agents")]
-pub use self::update_agent_settings::UpdateAgentSettings;
+pub use self::update_agent_entity_limit::UpdateAgentEntityLimit;
+#[cfg(feature = "mcp")]
+pub mod update_agent_tool;
+#[cfg(feature = "mcp")]
+pub use self::update_agent_tool::UpdateAgentTool;
+#[cfg(feature = "ai-gateway")]
+pub mod update_ai_key;
+#[cfg(feature = "ai-gateway")]
+pub use self::update_ai_key::UpdateAiKey;
+#[cfg(feature = "ai-gateway")]
+pub mod update_ai_key_200_response;
+#[cfg(feature = "ai-gateway")]
+pub use self::update_ai_key_200_response::UpdateAiKey200Response;
+#[cfg(feature = "ai-gateway")]
+pub mod update_ai_key_limit;
+#[cfg(feature = "ai-gateway")]
+pub use self::update_ai_key_limit::UpdateAiKeyLimit;
+#[cfg(feature = "ai-solutions")]
+pub mod update_ai_solution;
+#[cfg(feature = "ai-solutions")]
+pub use self::update_ai_solution::UpdateAiSolution;
 #[cfg(feature = "apps")]
 pub mod update_app_settings_200_response;
 #[cfg(feature = "apps")]
@@ -2678,6 +4202,10 @@ pub use self::update_auto_backup::UpdateAutoBackup;
 pub mod update_balancer;
 #[cfg(feature = "balancers")]
 pub use self::update_balancer::UpdateBalancer;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod update_bot;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::update_bot::UpdateBot;
 #[cfg(feature = "databases")]
 pub mod update_cluster;
 #[cfg(feature = "databases")]
@@ -2707,6 +4235,11 @@ pub mod update_database_cluster_200_response;
 #[cfg(feature = "databases")]
 pub use self::update_database_cluster_200_response::UpdateDatabaseCluster200Response;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "cdn",
     feature = "databases",
@@ -2720,6 +4253,11 @@ pub use self::update_database_cluster_200_response::UpdateDatabaseCluster200Resp
 ))]
 pub mod update_database_instance_409_response;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "cdn",
     feature = "databases",
@@ -2733,6 +4271,11 @@ pub mod update_database_instance_409_response;
 ))]
 pub use self::update_database_instance_409_response::UpdateDatabaseInstance409Response;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "cdn",
     feature = "databases",
@@ -2746,6 +4289,11 @@ pub use self::update_database_instance_409_response::UpdateDatabaseInstance409Re
 ))]
 pub mod update_database_instance_409_response_message;
 #[cfg(any(
+    feature = "ai-agent-integrations",
+    feature = "ai-agent-skills",
+    feature = "ai-agents",
+    feature = "ai-gateway",
+    feature = "ai-solutions",
     feature = "apps",
     feature = "cdn",
     feature = "databases",
@@ -2762,6 +4310,10 @@ pub use self::update_database_instance_409_response_message::UpdateDatabaseInsta
 pub mod update_dedicated_server_request;
 #[cfg(feature = "dedicated-servers")]
 pub use self::update_dedicated_server_request::UpdateDedicatedServerRequest;
+#[cfg(feature = "knowledge-bases")]
+pub mod update_document;
+#[cfg(feature = "knowledge-bases")]
+pub use self::update_document::UpdateDocument;
 #[cfg(feature = "domains")]
 pub mod update_domain;
 #[cfg(feature = "domains")]
@@ -2854,6 +4406,10 @@ pub use self::update_mailbox_v2_outgoing_settings::UpdateMailboxV2OutgoingSettin
 pub mod update_mailbox_v2_spam_protection_settings;
 #[cfg(feature = "mail")]
 pub use self::update_mailbox_v2_spam_protection_settings::UpdateMailboxV2SpamProtectionSettings;
+#[cfg(feature = "ai-agent-integrations")]
+pub mod update_max_bot;
+#[cfg(feature = "ai-agent-integrations")]
+pub use self::update_max_bot::UpdateMaxBot;
 #[cfg(feature = "network-drives")]
 pub mod update_network_drive;
 #[cfg(feature = "network-drives")]
@@ -2918,6 +4474,10 @@ pub use self::update_server_os_boot_mode_request::UpdateServerOsBootModeRequest;
 pub mod update_settings;
 #[cfg(feature = "apps")]
 pub use self::update_settings::UpdateSettings;
+#[cfg(feature = "ai-agent-skills")]
+pub mod update_skill;
+#[cfg(feature = "ai-agent-skills")]
+pub use self::update_skill::UpdateSkill;
 #[cfg(feature = "s3")]
 pub mod update_storage_request;
 #[cfg(feature = "s3")]
@@ -2934,6 +4494,10 @@ pub use self::update_storage_user_200_response::UpdateStorageUser200Response;
 pub mod update_storage_user_request;
 #[cfg(feature = "s3")]
 pub use self::update_storage_user_request::UpdateStorageUserRequest;
+#[cfg(feature = "mcp")]
+pub mod update_tool;
+#[cfg(feature = "mcp")]
+pub use self::update_tool::UpdateTool;
 #[cfg(feature = "vpc")]
 pub mod update_vpc;
 #[cfg(feature = "vpc")]
@@ -2946,6 +4510,8 @@ pub use self::upload_files_to_knowledgebase_200_response::UploadFilesToKnowledge
 pub mod upload_image_200_response;
 #[cfg(feature = "images")]
 pub use self::upload_image_200_response::UploadImage200Response;
+pub mod upload_result;
+pub use self::upload_result::UploadResult;
 pub mod upload_successful;
 pub use self::upload_successful::UploadSuccessful;
 pub mod upload_successful_response;

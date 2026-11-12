@@ -12,29 +12,49 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
+/// Resource : Ресурс MCP
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Resource {
-    /// Запрошенное количество ресурса
-    #[serde(rename = "requested", skip_serializing_if = "Option::is_none")]
-    pub requested:   Option<f64>,
-    /// Доступное количество
-    #[serde(rename = "allocatable", skip_serializing_if = "Option::is_none")]
-    pub allocatable: Option<f64>,
-    /// Общее количество
-    #[serde(rename = "capacity", skip_serializing_if = "Option::is_none")]
-    pub capacity:    Option<f64>,
-    /// Используемое количество
-    #[serde(rename = "used", skip_serializing_if = "Option::is_none")]
-    pub used:        Option<f64>
+    /// URI ресурса
+    #[serde(rename = "uri")]
+    pub uri:         Uri,
+    /// Имя ресурса
+    #[serde(rename = "name")]
+    pub name:        String,
+    /// Описание ресурса
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none")]
+    pub description: Option<String>,
+    /// Тип содержимого
+    #[serde(rename = "mimeType", skip_serializing_if = "Option::is_none")]
+    pub mime_type:   Option<String>
 }
 
 impl Resource {
-    pub fn new() -> Resource {
+    /// Ресурс MCP
+    pub fn new(uri: Uri, name: String) -> Resource {
         Resource {
-            requested:   None,
-            allocatable: None,
-            capacity:    None,
-            used:        None
+            uri,
+            name,
+            description: None,
+            mime_type: None
         }
+    }
+}
+/// URI ресурса
+#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
+pub enum Uri {
+    #[serde(rename = "billing://me/finances")]
+    BillingColonSlashSlashMeSlashFinances,
+    #[serde(rename = "services://me/active")]
+    ServicesColonSlashSlashMeSlashActive,
+    #[serde(rename = "services://cloud/catalog")]
+    ServicesColonSlashSlashCloudSlashCatalog,
+    #[serde(rename = "locations://cloud/list")]
+    LocationsColonSlashSlashCloudSlashList
+}
+
+impl Default for Uri {
+    fn default() -> Uri {
+        Self::BillingColonSlashSlashMeSlashFinances
     }
 }

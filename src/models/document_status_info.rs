@@ -12,25 +12,36 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// DocumentStatusInfo : Детальная информация о текущем состоянии документа в
-/// базе знаний
+/// DocumentStatusInfo : Подробности о состоянии индексации документа. `null`,
+/// если информации нет
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct DocumentStatusInfo {
-    /// Тип статуса документа
+    /// Тип состояния, совпадает со статусом документа
     #[serde(rename = "type")]
     pub r#type:     Type,
-    /// Время записи информации (ISO string)
+    /// Время, когда записано состояние
     #[serde(rename = "timestamp")]
     pub timestamp:  chrono::DateTime<chrono::FixedOffset>,
-    /// Код ошибки (только для type: 'error')
+    /// Код ошибки, только для `type: error`: - `INSUFFICIENT_TOKENS` —
+    /// недостаточно токенов для индексации - `CRITICAL_BALANCE` — критически
+    /// низкий остаток токенов - `NEGATIVE_BALANCE` — отрицательный остаток
+    /// токенов - `INDEXING_ERROR` — не удалось обработать документ
     #[serde(rename = "error_code", skip_serializing_if = "Option::is_none")]
     pub error_code: Option<ErrorCode>,
+    /// Этап индексации, на котором произошла ошибка
+    #[serde(rename = "stage", skip_serializing_if = "Option::is_none")]
+    pub stage:      Option<String>,
+    /// Идентификатор операции индексации — укажите его при обращении в
+    /// поддержку
+    #[serde(rename = "trace_id", skip_serializing_if = "Option::is_none")]
+    pub trace_id:   Option<String>,
     #[serde(rename = "details", skip_serializing_if = "Option::is_none")]
-    pub details:    Option<Box<models::DocumentStatusInfoDetails>>
+    pub details:    Option<models::DocumentStatusInfoDetails>
 }
 
 impl DocumentStatusInfo {
-    /// Детальная информация о текущем состоянии документа в базе знаний
+    /// Подробности о состоянии индексации документа. `null`, если информации
+    /// нет
     pub fn new(
         r#type: Type,
         timestamp: chrono::DateTime<chrono::FixedOffset>
@@ -39,11 +50,13 @@ impl DocumentStatusInfo {
             r#type,
             timestamp,
             error_code: None,
+            stage: None,
+            trace_id: None,
             details: None
         }
     }
 }
-/// Тип статуса документа
+/// Тип состояния, совпадает со статусом документа
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "new")]
@@ -61,7 +74,10 @@ impl Default for Type {
         Self::New
     }
 }
-/// Код ошибки (только для type: 'error')
+/// Код ошибки, только для `type: error`: - `INSUFFICIENT_TOKENS` — недостаточно
+/// токенов для индексации - `CRITICAL_BALANCE` — критически низкий остаток
+/// токенов - `NEGATIVE_BALANCE` — отрицательный остаток токенов -
+/// `INDEXING_ERROR` — не удалось обработать документ
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum ErrorCode {
     #[serde(rename = "INSUFFICIENT_TOKENS")]

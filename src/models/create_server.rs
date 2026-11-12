@@ -56,7 +56,7 @@ pub struct CreateServer {
     pub is_local_network:  Option<bool>,
     #[serde(rename = "network", skip_serializing_if = "Option::is_none")]
     pub network:           Option<Box<models::CreateServerNetwork>>,
-    /// Cloud-init скрипт
+    /// Cloud-init скрипт. Максимальный размер — 65 535 байт в UTF-8.
     #[serde(rename = "cloud_init", skip_serializing_if = "Option::is_none")]
     pub cloud_init:        Option<String>,
     #[serde(rename = "availability_zone", skip_serializing_if = "Option::is_none")]

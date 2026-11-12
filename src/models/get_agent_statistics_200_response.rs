@@ -15,7 +15,7 @@ use crate::models;
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct GetAgentStatistics200Response {
     #[serde(rename = "agent_statistics")]
-    pub agent_statistics: Vec<models::TokenStatistic>,
+    pub agent_statistics: Vec<models::AgentTokenStatistic>,
     #[serde(rename = "meta")]
     pub meta:             Box<models::GetAgentStatistics200ResponseAllOfMeta>,
     /// ID запроса, который можно указывать при обращении в службу технической
@@ -26,7 +26,7 @@ pub struct GetAgentStatistics200Response {
 
 impl GetAgentStatistics200Response {
     pub fn new(
-        agent_statistics: Vec<models::TokenStatistic>,
+        agent_statistics: Vec<models::AgentTokenStatistic>,
         meta: models::GetAgentStatistics200ResponseAllOfMeta,
         response_id: Option<uuid::Uuid>
     ) -> GetAgentStatistics200Response {

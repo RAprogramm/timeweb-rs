@@ -12,89 +12,93 @@ use serde::{Deserialize, Serialize};
 
 use crate::models;
 
-/// ModelV3 : Модель AI (v3). Идентификация и управляющие поля находятся на
-/// верхнем уровне, все сравнимые характеристики (цены, лимиты, возможности) — в
-/// словаре `parameter_values`
+/// ModelV3 : AI модель с характеристиками для сравнения (v3). Цены и
+/// характеристики — в `parameter_values`
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct ModelV3 {
-    /// Уникальный идентификатор модели
+    /// ID модели
     #[serde(rename = "id")]
-    pub id:               i64,
-    /// ID провайдера, который предоставляет модель
+    pub id:               i32,
+    /// ID провайдера модели
     #[serde(rename = "provider_id")]
-    pub provider_id:      i64,
-    /// Название модели
+    pub provider_id:      i32,
+    /// Семейство модели
     #[serde(rename = "name")]
     pub name:             String,
-    /// Публичное имя модели
+    /// Отображаемое название модели
     #[serde(rename = "public_name")]
     pub public_name:      String,
-    /// Идентификатор модели, который передаётся в поле `model` тела запроса
+    /// Идентификатор модели с префиксом провайдера — передаётся в поле `model`
+    /// запросов к AI Gateway
     #[serde(rename = "model_name")]
     pub model_name:       String,
-    /// Тип модели (llm — языковая модель, hosted-llm — self-hosted языковая
-    /// модель, embedding — модель для эмбеддингов, image — генерация
-    /// изображений, audio — работа с аудио, moderation — модерация контента)
+    /// Тип модели: - `llm` — языковая модель - `hosted-llm` — языковая модель,
+    /// размещённая в Timeweb Cloud - `embedding` — модель эмбеддингов - `image`
+    /// — генерация изображений - `audio` — работа с аудио - `video` — генерация
+    /// видео - `moderation` — модерация контента - `system-one` — служебная
+    /// модель с собственным API
     #[serde(rename = "type")]
     pub r#type:           Type,
     /// Версия модели
     #[serde(rename = "version")]
     pub version:          String,
-    /// Признак, что модель устарела
+    /// Модель устарела и недоступна для выбора в новых агентах
     #[serde(rename = "is_deprecated")]
     pub is_deprecated:    bool,
-    /// Признак, что поддержка модели остановлена
+    /// Поддержка модели остановлена: запросы к ней не выполняются
     #[serde(rename = "is_stopped")]
     pub is_stopped:       bool,
     /// Дата отключения модели у провайдера. `null`, если отключение не
     /// запланировано
-    #[serde(
-        rename = "deprecation_date",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub deprecation_date: Option<Option<chrono::DateTime<chrono::FixedOffset>>>,
+    #[serde(rename = "deprecation_date", deserialize_with = "Option::deserialize")]
+    pub deprecation_date: Option<chrono::DateTime<chrono::FixedOffset>>,
     /// Дата и время добавления модели
     #[serde(rename = "created_at")]
     pub created_at:       chrono::DateTime<chrono::FixedOffset>,
-    /// Дата и время последнего обновления модели
+    /// Дата и время последнего изменения модели
     #[serde(rename = "updated_at")]
     pub updated_at:       chrono::DateTime<chrono::FixedOffset>,
-    /// Информация о доступных параметрах модели с их ограничениями. Ключ —
-    /// название параметра, значение — его тип, ограничения и значение по
-    /// умолчанию
-    #[serde(
-        rename = "params_info",
-        default,
-        with = "::serde_with::rust::double_option",
-        skip_serializing_if = "Option::is_none"
-    )]
-    pub params_info:      Option<Option<serde_json::Value>>,
-    /// Характеристики модели. Ключ — код характеристики, значение — число,
-    /// строка, булево значение или массив строк.  Основные коды: - `cost_in` —
-    /// цена за 1 входной токен в рублях - `cost_out` — цена за 1 выходной токен
-    /// в рублях - `context_window` — размер контекстного окна в токенах -
-    /// `max_output_tokens` — максимальное количество токенов в ответе -
-    /// `is_reasoning` — поддержка режима рассуждений -
-    /// `supports_function_calling` — поддержка function calling -
-    /// `supported_input_modalities` — поддерживаемые входные модальности
-    /// (например, `text`, `image`) - `supported_output_modalities` —
-    /// поддерживаемые выходные модальности - `avg_speed` — средняя скорость
-    /// генерации в токенах в секунду - `aa_intelligence_index`,
-    /// `aa_coding_index`, `aa_agentic_index` — индексы качества Artificial
-    /// Analysis - `release_date` — дата релиза модели
+    /// Параметры генерации, которые можно настроить у агента с этой моделью.
+    /// Ключ — имя параметра (`temperature`, `top_p`, `max_tokens`,
+    /// `reasoning_effort` и т.д.). `null`, если параметры не заданы
+    #[serde(rename = "params_info", deserialize_with = "Option::deserialize")]
+    pub params_info:      Option<std::collections::HashMap<String, models::ModelParamInfo>>,
+    /// Характеристики модели. Ключ — `code` из справочника `GET
+    /// /api/v3/cloud-ai/model-parameters`, значение — число, строка, булево
+    /// значение или массив строк. Если значение неизвестно, ключа нет.
+    /// Основные коды: - `cost_in`, `cost_out` — цена 1 входного / выходного
+    /// токена в рублях - `cost_cache_read`, `cost_cache_write` — цена 1 токена
+    /// чтения / записи кэша промпта в рублях; ключа нет, если отдельной цены
+    /// нет (тарифицируется по `cost_in`) - `pricing_unit` — единица
+    /// тарификации: `token` (по умолчанию), `megapixel`, `credit` -
+    /// `cost_per_image` — цена изображения базового размера (1 МП) в рублях -
+    /// `credits_from`, `cost_per_second_from` — минимальная ставка в кредитах
+    /// провайдера и цена от, в рублях, за секунду видео - `context_window`,
+    /// `max_output_tokens` — размер контекста и максимум токенов в ответе -
+    /// `is_reasoning`, `supports_function_calling` — поддержка рассуждений и
+    /// вызова инструментов - `supported_input_modalities`,
+    /// `supported_output_modalities` — входные и выходные модальности (`text`,
+    /// `image`, ...) - `avg_speed` — средняя скорость генерации, токенов в
+    /// секунду - `aa_intelligence_index`, `aa_coding_index`, `aa_agentic_index`
+    /// — индексы Artificial Analysis - `release_date` — дата релиза
+    /// (`YYYY-MM-DD`)
     #[serde(rename = "parameter_values")]
-    pub parameter_values: std::collections::HashMap<String, serde_json::Value>
+    pub parameter_values: std::collections::HashMap<String, models::ModelV3ParameterValuesValue>,
+    /// Ступени цены по размеру входного контекста, по возрастанию порога.
+    /// Пустой массив — у модели одна цена при любом контексте
+    #[serde(rename = "price_tiers")]
+    pub price_tiers:      Vec<models::ModelPriceTier>,
+    /// Условия Batch API. `null` — модель недоступна в Batch API
+    #[serde(rename = "batch", deserialize_with = "Option::deserialize")]
+    pub batch:            Option<Box<models::ModelBatch>>
 }
 
 impl ModelV3 {
-    /// Модель AI (v3). Идентификация и управляющие поля находятся на верхнем
-    /// уровне, все сравнимые характеристики (цены, лимиты, возможности) — в
-    /// словаре `parameter_values`
+    /// AI модель с характеристиками для сравнения (v3). Цены и характеристики —
+    /// в `parameter_values`
     pub fn new(
-        id: i64,
-        provider_id: i64,
+        id: i32,
+        provider_id: i32,
         name: String,
         public_name: String,
         model_name: String,
@@ -102,9 +106,13 @@ impl ModelV3 {
         version: String,
         is_deprecated: bool,
         is_stopped: bool,
+        deprecation_date: Option<chrono::DateTime<chrono::FixedOffset>>,
         created_at: chrono::DateTime<chrono::FixedOffset>,
         updated_at: chrono::DateTime<chrono::FixedOffset>,
-        parameter_values: std::collections::HashMap<String, serde_json::Value>
+        params_info: Option<std::collections::HashMap<String, models::ModelParamInfo>>,
+        parameter_values: std::collections::HashMap<String, models::ModelV3ParameterValuesValue>,
+        price_tiers: Vec<models::ModelPriceTier>,
+        batch: Option<models::ModelBatch>
     ) -> ModelV3 {
         ModelV3 {
             id,
@@ -116,17 +124,25 @@ impl ModelV3 {
             version,
             is_deprecated,
             is_stopped,
-            deprecation_date: None,
+            deprecation_date,
             created_at,
             updated_at,
-            params_info: None,
-            parameter_values
+            params_info,
+            parameter_values,
+            price_tiers,
+            batch: if let Some(x) = batch {
+                Some(Box::new(x))
+            } else {
+                None
+            }
         }
     }
 }
-/// Тип модели (llm — языковая модель, hosted-llm — self-hosted языковая модель,
-/// embedding — модель для эмбеддингов, image — генерация изображений, audio —
-/// работа с аудио, moderation — модерация контента)
+/// Тип модели: - `llm` — языковая модель - `hosted-llm` — языковая модель,
+/// размещённая в Timeweb Cloud - `embedding` — модель эмбеддингов - `image` —
+/// генерация изображений - `audio` — работа с аудио - `video` — генерация видео
+/// - `moderation` — модерация контента - `system-one` — служебная модель с
+/// собственным API
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
 pub enum Type {
     #[serde(rename = "llm")]
@@ -139,8 +155,12 @@ pub enum Type {
     Image,
     #[serde(rename = "audio")]
     Audio,
+    #[serde(rename = "video")]
+    Video,
     #[serde(rename = "moderation")]
-    Moderation
+    Moderation,
+    #[serde(rename = "system-one")]
+    SystemOne
 }
 
 impl Default for Type {
