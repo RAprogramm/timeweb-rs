@@ -20,12 +20,16 @@ sending** — funds sent on the wrong network are unrecoverable.
 | ETH | ERC-20 (Ethereum) | `0xD653E9c96910D44923027bB0365Ca4A8f580894F` |
 | TON | TON | `UQAGpZjkvVwwHbHMSQOwyPtTA_1hUlvAHwmPfykWgxDtT3c8` |
 
-> **Inside Russia, crypto cannot be accepted for works and services** — that is
-> a restriction of the law, not of this project. If you are a Russian resident
-> and want to support the project, use the Russian version of this page — the
-> link in the header switches the language. Converting received crypto into
-> rubles is a taxable operation with its own consequences; the tax treatment
-> depends on your status and is yours to assess.
+> **A note for Russian residents.** A crypto donation is income, and since
+> 2025 the tax on the professional income regime (НПД) does not apply to the
+> acquisition or the disposal of digital currency — converting the donation
+> into rubles is such a disposal. The tax treatment therefore depends on your
+> status: the personal income tax of 13–15% with a 3-НДФЛ declaration, or
+> the simplified taxation of an individual entrepreneur at 6%. Inside Russia,
+> crypto cannot be accepted as a payment for works and services since
+> September 2026. If you are a Russian resident, use the Russian version of
+> this page — the link in the header switches the language. The tax treatment
+> of your donation is yours to assess.
 
 ## What the support pays for
 
