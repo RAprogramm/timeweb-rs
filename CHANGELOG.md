@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.1](https://github.com/RAprogramm/timeweb-rs/compare/timeweb-rs-v0.10.0...timeweb-rs-v0.10.1) - 2026-11-12
+
+
+
+
+
+
+
+| Section | Changes |
+| --- | ---: |
+| Documentation | 1 |
+| Other | 1 |
+
+### Documentation
+
+- Widen the content column and let wide tables scroll ([5b9186a](https://github.com/RAprogramm/timeweb-rs/commit/5b9186a556c947beeded848b08160c138615121f))
+
+
+### Other
+
+- Cut qr image ([d28fdf6](https://github.com/RAprogramm/timeweb-rs/commit/d28fdf60a0f29e9c35223dd8f74efbd1ef5dc2ac))
+
+
 ## [0.10.0](https://github.com/RAprogramm/timeweb-rs/compare/timeweb-rs-v0.9.0...timeweb-rs-v0.10.0) - 2026-11-12
 
 
