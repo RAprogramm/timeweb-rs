@@ -2,7 +2,7 @@
 name = "timeweb-rs"
 version = "0.10.1"
 edition = "2024"
-rust-version = "1.99"
+rust-version = "1.100"
 description = "Async Rust SDK for the Timeweb Cloud API"
 license = "MIT"
 repository = "https://github.com/RAprogramm/timeweb-rs"
@@ -120,9 +120,14 @@ full = [
 [dev-dependencies]
 # The CodSpeed benchmark harness. It pins `divan-macros` to an exact version,
 # so the macro crate follows the harness instead of the latest release.
-divan = { version = "6.0.0", package = "codspeed-divan-compat" }
+divan = { version = "6", package = "codspeed-divan-compat" }
 futures-util = { version = "0.3", default-features = false }
-tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-thread"] }
+tokio = { version = "1", features = [
+  "io-util",
+  "macros",
+  "net",
+  "rt-multi-thread",
+] }
 
 [profile.release]
 lto = true
