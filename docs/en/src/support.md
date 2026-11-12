@@ -10,8 +10,8 @@ did not spend debugging a deserializer — you can say thanks.
 
 ## Crypto
 
-The wallets below are the project's own. **Double-check the network before
-sending** — funds sent on the wrong network are unrecoverable.
+**Double-check the network before sending** — funds sent on the wrong network
+are unrecoverable.
 
 | Asset | Network | Address |
 | --- | --- | --- |
