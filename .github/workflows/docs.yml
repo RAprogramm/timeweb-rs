@@ -79,8 +79,14 @@ jobs:
         run: |
           set -euo pipefail
           cargo build --tests
-          mdbook test docs/en -L target/debug/deps
-          mdbook test docs/ru -L target/debug/deps
+          # Since Cargo 1.100 the intermediate artifact layout is not a stable
+          # interface, so the doctest library search path is collected from
+          # Cargo's JSON messages instead of hard-coding target/debug/deps.
+          lib_dirs="$(cargo build --tests --message-format=json \
+            | jq -r 'select(.reason == "compiler-artifact") | .filenames[]?' \
+            | xargs -r -n1 dirname | sort -u | paste -sd, -)"
+          mdbook test docs/en -L "$lib_dirs"
+          mdbook test docs/ru -L "$lib_dirs"
       - name: Build the book
         run: |
           mdbook build docs/en -d public
