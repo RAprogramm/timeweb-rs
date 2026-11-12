@@ -1,0 +1,85 @@
+name: Documentation
+
+# The book is built from `docs/` and published to GitHub Pages. The pull
+# request runs only validate the build; the deployment happens on `main`.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "src/**"
+      - "xtask/**"
+      - "Cargo.toml"
+      - "openapi/timeweb-cloud.json"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    paths:
+      - "docs/**"
+      - "src/**"
+      - "xtask/**"
+      - "Cargo.toml"
+      - "openapi/timeweb-cloud.json"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  MDBOOK_VERSION: "0.5.4"
+  MDBOOK_SHA256: "3f28de05dafca9d0f2eab99c662116b0e37b89b1d96a08f8f430b9eeae958cd7"
+
+jobs:
+  build:
+    name: Build the book
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install mdBook
+        run: |
+          set -euo pipefail
+          tarball="mdbook-v${MDBOOK_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+          url="https://github.com/rust-lang/mdBook/releases/download/v${MDBOOK_VERSION}/${tarball}"
+          curl -fsSL --proto '=https' --tlsv1.2 -o "/tmp/${tarball}" "$url"
+          echo "${MDBOOK_SHA256}  /tmp/${tarball}" | sha256sum --check --strict -
+          tar -xzf "/tmp/${tarball}" -C "$HOME/.cargo/bin"
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@29eef336d9b2848a0b548edc03f92a220660cdb8 # stable
+      - uses: Swatinem/rust-cache@f0d9c3887740aee45f6153b24b3a6b815192ec16 # v2
+      - name: Check that the generated pages are up to date
+        run: cargo xtask api-index --check
+      - name: Build the book
+        run: |
+          mdbook build docs/en -d public
+          mdbook build docs/ru -d public/ru
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
+      - name: Upload the book
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@5f327015a708106f6f1b7c9a633901af30fe80cb # v5
+        with:
+          path: public
+
+  deploy:
+    name: Deploy to GitHub Pages
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5

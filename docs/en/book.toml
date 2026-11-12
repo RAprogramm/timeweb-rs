@@ -1,0 +1,36 @@
+[book]
+title = "timeweb-rs"
+description = "Async Rust SDK for the Timeweb Cloud API"
+authors = ["RAprogramm"]
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "navy"
+git-repository-url = "https://github.com/RAprogramm/timeweb-rs"
+site-url = "/timeweb-rs/"
+additional-css = ["../css/extra.css"]
+additional-js = ["../js/language-switch.js"]
+
+[output.html.fold]
+enable = true
+level = 1
+
+[output.html.search]
+enable = true
+limit-results = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 2
+boost-paragraph = 1
+
+[output.html.print]
+enable = true
+
+[output.html.playground]
+editable = false

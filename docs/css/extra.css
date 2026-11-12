@@ -1,0 +1,19 @@
+/* Extra styles for the timeweb-rs documentation. */
+
+:root {
+    --sidebar-background: #f7f8fa;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --sidebar-background: #16191d;
+    }
+}
+
+code {
+    font-size: 0.92em;
+}
+
+table {
+    font-size: 0.92em;
+}

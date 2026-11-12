@@ -4,6 +4,7 @@
 [![docs.rs](https://img.shields.io/docsrs/timeweb-rs)](https://docs.rs/timeweb-rs)
 [![CI](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/RAprogramm/timeweb-rs/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/RAprogramm/timeweb-rs/graph/badge.svg?token=iKNwLuK8au)](https://codecov.io/gh/RAprogramm/timeweb-rs)
+[![Docs](https://img.shields.io/badge/docs-timeweb--rs-blue)](https://raprogramm.github.io/timeweb-rs/)
 [![CodSpeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://app.codspeed.io/RAprogramm/timeweb-rs?utm_source=badge)
 [![MSRV](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/RAprogramm/timeweb-rs/main/.github/msrv-badge.json)](https://www.rust-lang.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -26,6 +27,12 @@ with exponential backoff, offset pagination as a `Stream` and a uniform view
 of the API's error bodies. The generated code is committed to the repository,
 so building the crate needs no code generation step and no extra build
 dependencies.
+
+The documentation is published at
+[**raprogramm.github.io/timeweb-rs**](https://raprogramm.github.io/timeweb-rs/):
+a quickstart, the guides for the features, the errors, the pagination and the
+retries, the internals of the generation pipeline and the API reference of
+every operation.
 
 ## Installation
 

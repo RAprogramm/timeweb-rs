@@ -19,6 +19,7 @@
 //! cargo xtask readme --check
 //! ```
 
+mod api_index;
 mod examples;
 mod features;
 mod layout;
@@ -61,6 +62,12 @@ enum Command {
     Layout,
     /// Regenerate the deserialization tests built from the spec examples.
     ExampleTests,
+    /// Regenerate the API reference pages of the documentation book.
+    ApiIndex {
+        /// Fail instead of rewriting the pages when they are stale.
+        #[arg(long)]
+        check: bool
+    },
     /// Post-process the generated models so the API responses deserialize.
     PatchModels,
     /// Refresh the statistics quoted in the README.
@@ -81,6 +88,9 @@ fn main() -> AppResult<()> {
         Command::FeatureGates => features::regenerate(),
         Command::Layout => layout::apply(),
         Command::ExampleTests => examples::regenerate(),
+        Command::ApiIndex {
+            check
+        } => api_index::regenerate(check),
         Command::PatchModels => models::patch_all(),
         Command::Readme {
             check
