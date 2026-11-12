@@ -111,6 +111,7 @@ full = [
 # END generated area features
 
 [dev-dependencies]
+divan = { version = "6.0.0", package = "codspeed-divan-compat" }
 futures-util = { version = "0.3", default-features = false }
 tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-thread"] }
 
@@ -118,6 +119,11 @@ tokio = { version = "1", features = ["io-util", "macros", "net", "rt-multi-threa
 lto = true
 codegen-units = 1
 opt-level = 3
+
+[[bench]]
+name = "sdk"
+harness = false
+required-features = ["servers", "routers"]
 
 [package.metadata.docs.rs]
 all-features = true
