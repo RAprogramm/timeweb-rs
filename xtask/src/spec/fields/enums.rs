@@ -1,5 +1,6 @@
 //! The enums the API extends beyond the published specification.
 
+use regex::Regex;
 use serde_json::Value;
 
 use crate::spec::json::{as_str, schema_mut, walk_objects};
@@ -15,6 +16,9 @@ const OBSERVED_PROPERTY_ENUMS: [(&str, &str, &[&str]); 2] = [
 
 /// The resource kinds the floating-ip type enumerates.
 const RESOURCE_KINDS: [&str; 4] = ["server", "balancer", "database", "network"];
+
+/// The shape of an availability zone, e.g. `spb-1` or `ru-4`.
+const ZONE_PATTERN: &str = r"^[a-z]{2,4}-\d+$";
 
 /// Drops the closed enums on the fields the API extends with new values.
 ///
@@ -36,6 +40,7 @@ const RESOURCE_KINDS: [&str; 4] = ["server", "balancer", "database", "network"];
 ///
 /// * `spec` — the specification to normalize in place.
 pub(super) fn relax_open(spec: &mut Value) {
+    let zone_pattern = Regex::new(ZONE_PATTERN).expect("the zone pattern is valid");
     walk_objects(spec, &mut |map| {
         let is_open = map
             .get("enum")
@@ -49,6 +54,7 @@ pub(super) fn relax_open(spec: &mut Value) {
                     || members.contains(&"postgres14")
                     || members.contains(&"ipv4")
                     || members == kinds
+                    || members.iter().any(|member| zone_pattern.is_match(member))
             });
         if !is_open {
             return;
@@ -133,6 +139,28 @@ mod tests {
         assert!(spec["properties"]["location"].get("enum").is_none());
         assert_eq!(spec["properties"]["location"]["type"], json!("string"));
         assert!(spec["properties"]["status"].get("enum").is_some());
+    }
+
+    #[test]
+    fn availability_zones_are_stripped() {
+        let mut spec = json!({
+            "properties": {
+                "availability_zone": {
+                    "type": "string",
+                    "enum": ["spb-1", "spb-2", "msk-1", "nsk-1", "ams-1", "ala-1", "fra-1"]
+                }
+            }
+        });
+        relax_open(&mut spec);
+        assert!(
+            spec["properties"]["availability_zone"]
+                .get("enum")
+                .is_none()
+        );
+        assert_eq!(
+            spec["properties"]["availability_zone"]["type"],
+            json!("string")
+        );
     }
 
     #[test]

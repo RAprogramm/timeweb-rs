@@ -21,6 +21,7 @@
 
 mod examples;
 mod features;
+mod layout;
 mod models;
 mod paths;
 mod readme;
@@ -56,6 +57,8 @@ enum Command {
     },
     /// Regenerate the Cargo features and the `cfg` gates of the generated code.
     FeatureGates,
+    /// Move the generated modules to the sibling file of their directory.
+    Layout,
     /// Regenerate the deserialization tests built from the spec examples.
     ExampleTests,
     /// Post-process the generated models so the API responses deserialize.
@@ -76,6 +79,7 @@ fn main() -> AppResult<()> {
             output
         } => spec::normalize_file(&input, &output),
         Command::FeatureGates => features::regenerate(),
+        Command::Layout => layout::apply(),
         Command::ExampleTests => examples::regenerate(),
         Command::PatchModels => models::patch_all(),
         Command::Readme {

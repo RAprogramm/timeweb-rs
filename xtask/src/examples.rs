@@ -213,7 +213,7 @@ fn operation_return_models() -> AppResult<BTreeMap<String, String>> {
 
 /// Every model type re-exported from `src/models/mod.rs`.
 fn exported_models() -> AppResult<Vec<String>> {
-    let text = fs::read_to_string(paths::models_dir().join("mod.rs"))?;
+    let text = fs::read_to_string(paths::models_module())?;
     let exports =
         Regex::new(r"pub use self::[A-Za-z0-9_]+::([A-Za-z0-9_]+);").expect("valid pattern");
     let models = exports

@@ -45,6 +45,12 @@ const UNIMPLEMENTED_PANIC: &str =
 /// The replacement of the generated panic.
 const EMPTY_LIST: &str = "Vec::new()";
 
+/// The declaration of the generated error envelope.
+const RESPONSE_CONTENT: &str = "pub struct ResponseContent<T> {";
+
+/// The response headers the error envelope carries.
+const RESPONSE_CONTENT_HEADERS: &str = "    pub headers: reqwest::header::HeaderMap,";
+
 /// Splits a `serde` attribute into its items.
 fn split_attributes(attributes: &str) -> Vec<String> {
     attributes
@@ -191,7 +197,50 @@ fn patch_model_source(text: &str) -> (String, bool) {
 ///
 /// The patched source and whether anything changed.
 fn patch_apis_source(text: &str) -> (String, bool) {
-    let patched = text.replace(UNIMPLEMENTED_PANIC, EMPTY_LIST);
+    let mut patched = text.replace(UNIMPLEMENTED_PANIC, EMPTY_LIST);
+    let mut changed = patched != text;
+
+    if patched.contains(RESPONSE_CONTENT) && !patched.contains("pub headers:") {
+        let declaration = format!("{RESPONSE_CONTENT}\n{RESPONSE_CONTENT_HEADERS}");
+        patched = patched.replace(RESPONSE_CONTENT, &declaration);
+        changed = true;
+    }
+    (patched, changed)
+}
+
+/// Patches the error envelope of a generated API module.
+///
+/// The generated operations drop the response headers when they report an
+/// error, so the client cannot honor the `Retry-After` header the API sends
+/// with its rate-limit responses. The patch keeps the headers next to the
+/// body.
+///
+/// # Arguments
+///
+/// * `text` — the source of an API module.
+///
+/// # Returns
+///
+/// The patched source and whether anything changed.
+fn patch_error_envelope(text: &str) -> (String, bool) {
+    let content = Regex::new(r"(?s)\} else \{\n(\s*)let content = resp\.text\(\)\.await\?;")
+        .expect("the response pattern is valid");
+    let mut patched = text.to_string();
+    if !patched.contains("let headers = resp.headers().clone();") {
+        patched = content
+            .replace_all(
+                &patched,
+                "} else {\n${1}let headers = resp.headers().clone();\n${1}let content = resp.text().await?;",
+            )
+            .to_string();
+    }
+    let envelope = Regex::new(r"(?s)(ResponseContent \{\n\s*status,\n\s*content,\n)(\s*entity)")
+        .expect("the envelope pattern is valid");
+    if !patched.contains("headers,") {
+        patched = envelope
+            .replace_all(&patched, "${1}            headers,\n${2}")
+            .to_string();
+    }
     let changed = patched != text;
     (patched, changed)
 }
@@ -218,20 +267,36 @@ pub fn patch_all() -> AppResult<()> {
         }
     }
 
-    let apis = paths::apis_dir().join("mod.rs");
+    let apis = paths::apis_module();
     let text = fs::read_to_string(&apis)?;
     let (patched, changed) = patch_apis_source(&text);
     if changed {
         fs::write(&apis, patched)?;
     }
 
-    println!("patched {patched_models} model files and the shared API module");
+    let mut patched_apis = 0;
+    let mut entries = fs::read_dir(paths::apis_dir())?.collect::<Result<Vec<_>, _>>()?;
+    entries.sort_by_key(std::fs::DirEntry::path);
+    for entry in entries {
+        let path = entry.path();
+        if path.extension().is_none_or(|extension| extension != "rs") {
+            continue;
+        }
+        let text = fs::read_to_string(&path)?;
+        let (patched, changed) = patch_error_envelope(&text);
+        if changed {
+            fs::write(&path, patched)?;
+            patched_apis += 1;
+        }
+    }
+
+    println!("patched {patched_models} model files and {patched_apis} API modules");
     Ok(())
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{patch_apis_source, patch_model_source, split_attributes};
+    use super::{patch_apis_source, patch_error_envelope, patch_model_source, split_attributes};
 
     #[test]
     fn nullable_fields_gain_a_default() {
@@ -287,6 +352,49 @@ mod tests {
         let (patched, changed) = patch_apis_source(source);
         assert!(changed);
         assert_eq!(patched, "    Vec::new()\n");
+    }
+
+    #[test]
+    fn the_error_envelope_keeps_the_response_headers() {
+        let source = r#"
+    if !status.is_client_error() && !status.is_server_error() {
+        let content = resp.text().await?;
+        serde_json::from_str(&content).map_err(Error::from)
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<X> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+"#;
+        let (patched, changed) = patch_error_envelope(source);
+        assert!(changed);
+        assert!(patched.contains("let headers = resp.headers().clone();"));
+        assert!(patched.contains("headers,"));
+        assert_eq!(patched.matches("resp.headers().clone()").count(), 1);
+    }
+
+    #[test]
+    fn patching_the_error_envelope_is_idempotent() {
+        let source = r#"
+    } else {
+        let content = resp.text().await?;
+        let entity: Option<X> = serde_json::from_str(&content).ok();
+        Err(Error::ResponseError(ResponseContent {
+            status,
+            content,
+            entity
+        }))
+    }
+"#;
+        let (once, changed) = patch_error_envelope(source);
+        assert!(changed);
+        let (twice, changed) = patch_error_envelope(&once);
+        assert!(!changed);
+        assert_eq!(once, twice);
     }
 
     #[test]

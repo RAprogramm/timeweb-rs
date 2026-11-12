@@ -38,7 +38,7 @@ const END_MARK: &str = "# END generated area features";
 
 /// The exported model types of `src/models/mod.rs`.
 fn exported_models() -> AppResult<BTreeMap<String, String>> {
-    let text = fs::read_to_string(paths::models_dir().join("mod.rs"))?;
+    let text = fs::read_to_string(paths::models_module())?;
     let exports = Regex::new(r"pub use self::(\w+)::(\w+);").expect("the export pattern is valid");
     let mut mapping = BTreeMap::new();
     for capture in exports.captures_iter(&text) {
@@ -188,7 +188,7 @@ fn cfg_attribute(areas: &[String]) -> String {
 
 /// Rewrites `src/apis/mod.rs` with one gate per API area.
 fn gate_apis_mod(areas: &[String]) -> AppResult<()> {
-    let path = paths::apis_dir().join("mod.rs");
+    let path = paths::apis_module();
     let text = fs::read_to_string(&path)?;
     let strip =
         Regex::new(r"(?m)^\s*#\[cfg\((?:feature|any)[^\n]*\)\]\s*\n").expect("valid pattern");
@@ -211,7 +211,7 @@ fn gate_models_mod(
     closures: &BTreeMap<String, BTreeSet<String>>,
     always: &BTreeSet<String>
 ) -> AppResult<()> {
-    let path = paths::models_dir().join("mod.rs");
+    let path = paths::models_module();
     let text = fs::read_to_string(&path)?;
     let modules = Regex::new(r"(?m)^\s*pub mod (\w+);").expect("valid pattern");
     let exports = Regex::new(r"(?m)^\s*pub use self::(\w+)::(\w+);").expect("valid pattern");

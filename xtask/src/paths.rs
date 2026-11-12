@@ -31,10 +31,22 @@ pub fn apis_dir() -> PathBuf {
     repo_root().join("src/apis")
 }
 
+/// The module with the generated API modules.
+#[must_use]
+pub fn apis_module() -> PathBuf {
+    repo_root().join("src/apis.rs")
+}
+
 /// The directory with the generated models.
 #[must_use]
 pub fn models_dir() -> PathBuf {
     repo_root().join("src/models")
+}
+
+/// The module with the generated models.
+#[must_use]
+pub fn models_module() -> PathBuf {
+    repo_root().join("src/models.rs")
 }
 
 /// The manifest of the published crate.
