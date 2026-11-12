@@ -19,7 +19,7 @@ pub fn repo_root() -> PathBuf {
         .map_or_else(|| PathBuf::from("."), Path::to_path_buf)
 }
 
-/// The vendored Timeweb Cloud OpenAPI specification.
+/// The vendored Timeweb Cloud `OpenAPI` specification.
 #[must_use]
 pub fn spec_file() -> PathBuf {
     repo_root().join("openapi/timeweb-cloud.json")

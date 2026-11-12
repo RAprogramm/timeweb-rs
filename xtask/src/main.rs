@@ -1,6 +1,6 @@
 //! Repository automation for the `timeweb-rs` workspace.
 //!
-//! The published crate is generated from the Timeweb Cloud OpenAPI
+//! The published crate is generated from the Timeweb Cloud `OpenAPI`
 //! specification. This binary carries the whole generation pipeline: it
 //! normalizes the upstream specification, regenerates the Cargo features and
 //! the `cfg` gates of the generated modules, post-processes the generated
@@ -49,7 +49,7 @@ struct Cli {
 /// The tasks the automation binary provides.
 #[derive(Debug, Subcommand)]
 enum Command {
-    /// Normalize an OpenAPI specification before the client generation.
+    /// Normalize an `OpenAPI` specification before the client generation.
     NormalizeSpec {
         /// The specification to read.
         input:  PathBuf,

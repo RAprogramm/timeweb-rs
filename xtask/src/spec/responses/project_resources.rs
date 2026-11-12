@@ -29,13 +29,13 @@ pub(super) fn add_fields(spec: &mut Value) {
         let properties = app
             .entry("properties".to_string())
             .or_insert_with(|| Value::Object(Map::new()));
-        if let Some(properties) = as_object_mut(properties) {
-            if !properties.contains_key("project_id") {
-                let mut schema = Map::new();
-                schema.insert("type".to_string(), Value::String("integer".to_string()));
-                schema.insert("nullable".to_string(), Value::Bool(true));
-                properties.insert("project_id".to_string(), Value::Object(schema));
-            }
+        if let Some(properties) = as_object_mut(properties)
+            && !properties.contains_key("project_id")
+        {
+            let mut schema = Map::new();
+            schema.insert("type".to_string(), Value::String("integer".to_string()));
+            schema.insert("nullable".to_string(), Value::Bool(true));
+            properties.insert("project_id".to_string(), Value::Object(schema));
         }
     }
 

@@ -24,7 +24,7 @@ pub(super) fn relax(spec: &mut Value) {
             };
             let documented_as_null = property_map
                 .get("example")
-                .is_some_and(|example| example.is_null());
+                .is_some_and(serde_json::Value::is_null);
             if documented_as_null {
                 property_map.insert("nullable".to_string(), Value::Bool(true));
             }

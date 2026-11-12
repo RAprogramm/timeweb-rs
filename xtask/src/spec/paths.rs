@@ -65,7 +65,7 @@ fn fix_parameter_list(
         } else {
             inlined_map.insert("in".to_string(), Value::String("query".to_string()));
         }
-        *map = inlined_map.clone();
+        map.clone_from(inlined_map);
     }
 }
 
@@ -83,10 +83,10 @@ pub(super) fn fix_path_parameters(spec: &mut Value) {
     let mut shared_by_name: BTreeMap<String, Value> = BTreeMap::new();
     if let Some(components) = &components {
         for component in components.values() {
-            if component.get("in").and_then(as_str) == Some("path") {
-                if let Some(name) = component.get("name").and_then(as_str) {
-                    shared_by_name.insert(name.replace('-', "_"), component.clone());
-                }
+            if component.get("in").and_then(as_str) == Some("path")
+                && let Some(name) = component.get("name").and_then(as_str)
+            {
+                shared_by_name.insert(name.replace('-', "_"), component.clone());
             }
         }
     }
@@ -121,10 +121,10 @@ pub(super) fn fix_path_parameters(spec: &mut Value) {
             let mut declared: Vec<String> = Vec::new();
             for parameter in shared.iter().chain(parameters.iter()) {
                 let resolved = resolve(parameter, components.as_ref());
-                if resolved.get("in").and_then(as_str) == Some("path") {
-                    if let Some(name) = resolved.get("name").and_then(as_str) {
-                        declared.push(name.to_string());
-                    }
+                if resolved.get("in").and_then(as_str) == Some("path")
+                    && let Some(name) = resolved.get("name").and_then(as_str)
+                {
+                    declared.push(name.to_string());
                 }
             }
             for name in &names {

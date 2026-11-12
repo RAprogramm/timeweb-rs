@@ -1,4 +1,4 @@
-//! Normalization of the upstream Timeweb Cloud OpenAPI specification.
+//! Normalization of the upstream Timeweb Cloud `OpenAPI` specification.
 //!
 //! The vendor publishes a specification the Rust generator cannot turn into a
 //! compiling client without adjustments. This module applies them, grouped by

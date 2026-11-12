@@ -8,7 +8,7 @@
 //! The pages are committed, and the documentation workflow checks that they
 //! match the specification.
 
-use std::{collections::BTreeMap, fs};
+use std::{collections::BTreeMap, fmt::Write, fs};
 
 use masterror::AppResult;
 use serde_json::{Map, Value};
@@ -174,21 +174,23 @@ fn render(operations: &[Operation], language: &str) -> String {
     }
 
     let mut page = String::from(HEADER);
-    page.push_str(&format!("# {heading}\n\n{intro}\n\n"));
+    let _ = write!(page, "# {heading}\n\n{intro}\n\n");
     for (area, operations) in areas {
         let feature = feature_name(area);
-        page.push_str(&format!(
+        let _ = write!(
+            page,
             "## {area}\n\nCargo feature: `{feature}` · operations: {}\n\n",
             operations.len()
-        ));
+        );
         page.push_str("| Method | Path | Function | Summary |\n");
         page.push_str("| --- | --- | --- | --- |\n");
         for operation in operations {
             let summary = operation.summary.replace('|', "\\|");
-            page.push_str(&format!(
-                "| `{}` | `{}` | `{}` | {summary} |\n",
+            let _ = writeln!(
+                page,
+                "| `{}` | `{}` | `{}` | {summary} |",
                 operation.method, operation.path, operation.function
-            ));
+            );
         }
         page.push('\n');
     }

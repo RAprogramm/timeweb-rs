@@ -52,8 +52,8 @@ pub(super) fn rename(spec: &mut Value) {
         let (keeper, colliding) = names.split_first().expect("the group is not empty");
         let _ = keeper;
         for (index, name) in colliding.iter().enumerate() {
-            let renamed = format!("{name}{}", index + 2);
-            renames.push((name.clone(), renamed));
+            let suffixed = format!("{name}{}", index + 2);
+            renames.push((name.clone(), suffixed));
         }
     }
     if renames.is_empty() {
@@ -64,10 +64,10 @@ pub(super) fn rename(spec: &mut Value) {
         let reference = format!("#/components/schemas/{from}");
         let replacement = format!("#/components/schemas/{to}");
         walk_objects(spec, &mut |map| {
-            if let Some(value) = map.get_mut("$ref") {
-                if as_str(value) == Some(reference.as_str()) {
-                    *value = Value::String(replacement.clone());
-                }
+            if let Some(value) = map.get_mut("$ref")
+                && as_str(value) == Some(reference.as_str())
+            {
+                *value = Value::String(replacement.clone());
             }
         });
     }

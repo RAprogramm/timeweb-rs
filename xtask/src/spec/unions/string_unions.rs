@@ -8,7 +8,7 @@ use crate::spec::json::{as_str, walk_objects};
 ///
 /// A property the spec describes as "an IPv4 or an IPv6 address" becomes an
 /// empty struct model, and the string the API sends fails to deserialize with
-/// "invalid type: string, expected struct FirewallRuleCidr".
+/// "invalid type: string, expected struct `FirewallRuleCidr`".
 ///
 /// # Arguments
 ///

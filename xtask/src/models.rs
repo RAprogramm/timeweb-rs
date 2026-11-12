@@ -198,13 +198,15 @@ fn patch_model_source(text: &str) -> (String, bool) {
 /// The patched source and whether anything changed.
 fn patch_apis_source(text: &str) -> (String, bool) {
     let mut patched = text.replace(UNIMPLEMENTED_PANIC, EMPTY_LIST);
-    let mut changed = patched != text;
+    let panic_replaced = patched != text;
 
-    if patched.contains(RESPONSE_CONTENT) && !patched.contains("pub headers:") {
+    let changed = if patched.contains(RESPONSE_CONTENT) && !patched.contains("pub headers:") {
         let declaration = format!("{RESPONSE_CONTENT}\n{RESPONSE_CONTENT_HEADERS}");
         patched = patched.replace(RESPONSE_CONTENT, &declaration);
-        changed = true;
-    }
+        true
+    } else {
+        panic_replaced
+    };
     (patched, changed)
 }
 
@@ -356,7 +358,7 @@ mod tests {
 
     #[test]
     fn the_error_envelope_keeps_the_response_headers() {
-        let source = r#"
+        let source = r"
     if !status.is_client_error() && !status.is_server_error() {
         let content = resp.text().await?;
         serde_json::from_str(&content).map_err(Error::from)
@@ -369,7 +371,7 @@ mod tests {
             entity
         }))
     }
-"#;
+";
         let (patched, changed) = patch_error_envelope(source);
         assert!(changed);
         assert!(patched.contains("let headers = resp.headers().clone();"));
@@ -379,7 +381,7 @@ mod tests {
 
     #[test]
     fn patching_the_error_envelope_is_idempotent() {
-        let source = r#"
+        let source = r"
     } else {
         let content = resp.text().await?;
         let entity: Option<X> = serde_json::from_str(&content).ok();
@@ -389,7 +391,7 @@ mod tests {
             entity
         }))
     }
-"#;
+";
         let (once, changed) = patch_error_envelope(source);
         assert!(changed);
         let (twice, changed) = patch_error_envelope(&once);

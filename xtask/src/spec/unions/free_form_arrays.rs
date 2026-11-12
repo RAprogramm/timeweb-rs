@@ -29,7 +29,7 @@ pub(super) fn relax(spec: &mut Value) {
                 let free_form = member_map
                     .get("items")
                     .and_then(Value::as_object)
-                    .is_some_and(|items| items.is_empty());
+                    .is_some_and(serde_json::Map::is_empty);
                 if !free_form {
                     continue;
                 }

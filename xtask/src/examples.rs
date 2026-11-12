@@ -1,6 +1,6 @@
 //! Regeneration of the deserialization tests built from the spec examples.
 //!
-//! Every `application/json` response example in the vendored OpenAPI spec is
+//! Every `application/json` response example in the vendored `OpenAPI` spec is
 //! evidence of a body the API is documented to produce. This module emits one
 //! integration test per example asserting that the corresponding generated
 //! model still deserializes it, and writes them to
@@ -84,9 +84,7 @@ fn chunks(word: &str) -> Vec<String> {
             while end < characters.len() && characters[end].is_ascii_uppercase() {
                 end += 1;
             }
-            let followed_by_lowercase = characters
-                .get(end)
-                .is_some_and(|character| character.is_ascii_lowercase());
+            let followed_by_lowercase = characters.get(end).is_some_and(char::is_ascii_lowercase);
             if !followed_by_lowercase {
                 result.push(characters[index..end].iter().collect());
                 index = end;
@@ -143,7 +141,7 @@ fn pascal(identifier: &str) -> String {
     parts.concat()
 }
 
-/// Converts a type or an operation name to a snake_case test identifier.
+/// Converts a type or an operation name to a `snake_case` test identifier.
 fn snake(identifier: &str) -> String {
     let pascal = pascal(identifier);
     let mut snake = String::new();
@@ -166,7 +164,7 @@ fn normalize(identifier: &str) -> String {
     identifier
         .to_lowercase()
         .chars()
-        .filter(|character| character.is_ascii_alphanumeric())
+        .filter(char::is_ascii_alphanumeric)
         .collect()
 }
 
@@ -394,15 +392,14 @@ pub fn regenerate() -> AppResult<()> {
             format!("{provenance} ({})", example.variant)
         };
         let model = if example.status.starts_with('2') {
-            match returns.get(&normalize(&example.operation_id)) {
-                Some(model) => model.clone(),
-                None => {
-                    unresolved.push(format!(
-                        "{provenance}: no generated operation for {}",
-                        example.operation_id
-                    ));
-                    continue;
-                }
+            if let Some(model) = returns.get(&normalize(&example.operation_id)) {
+                model.clone()
+            } else {
+                unresolved.push(format!(
+                    "{provenance}: no generated operation for {}",
+                    example.operation_id
+                ));
+                continue;
             }
         } else {
             let model = error_model(&example.operation_id, &example.status, &example.schema);

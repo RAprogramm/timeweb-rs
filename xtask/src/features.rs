@@ -22,6 +22,7 @@
 
 use std::{
     collections::{BTreeMap, BTreeSet, VecDeque},
+    fmt::Write,
     fs
 };
 
@@ -80,7 +81,7 @@ fn module_references(
             .captures_iter(&text)
             .filter_map(|capture| capture.get(1))
             .filter_map(|name| types.get(name.as_str()))
-            .map(|module| (*module).to_string())
+            .map(|module| (*module).clone())
             .collect::<BTreeSet<String>>();
         let mut referenced = referenced;
         referenced.remove(stem);
@@ -89,11 +90,15 @@ fn module_references(
     Ok(edges)
 }
 
+/// The ordered list of API areas paired with the model modules each area
+/// transitively uses.
+type AreaClosures = (Vec<String>, BTreeMap<String, BTreeSet<String>>);
+
 /// The API areas and the model modules each of them transitively uses.
 fn area_closures(
     types: &BTreeMap<String, String>,
     edges: &BTreeMap<String, BTreeSet<String>>
-) -> AppResult<(Vec<String>, BTreeMap<String, BTreeSet<String>>)> {
+) -> AppResult<AreaClosures> {
     let pattern =
         Regex::new(r"\bmodels::([A-Za-z0-9_]+)").expect("the reference pattern is valid");
     let mut areas = Vec::new();
@@ -115,7 +120,7 @@ fn area_closures(
             .captures_iter(&text)
             .filter_map(|capture| capture.get(1))
             .filter_map(|name| types.get(name.as_str()))
-            .map(|module| (*module).to_string())
+            .map(|module| (*module).clone())
             .collect();
         let mut closure = BTreeSet::new();
         while let Some(module) = queue.pop_front() {
@@ -262,9 +267,9 @@ fn gate_models_mod(
                 attribute = format!("{}\n", cfg_attribute(&areas_using));
             }
         }
-        output.push_str(&format!("{attribute}pub mod {module};\n"));
+        let _ = writeln!(output, "{attribute}pub mod {module};");
         for exported in module_exports.get(module).into_iter().flatten() {
-            output.push_str(&format!("{attribute}pub use self::{module}::{exported};\n"));
+            let _ = writeln!(output, "{attribute}pub use self::{module}::{exported};");
         }
     }
     fs::write(path, output)?;
@@ -282,14 +287,14 @@ fn rewrite_cargo_features(areas: &[String]) -> AppResult<()> {
     }
     let mut block = String::from(BEGIN_MARK);
     for area in areas {
-        block.push_str(&format!("\n{} = []", feature_name(area)));
+        let _ = write!(block, "\n{} = []", feature_name(area));
     }
     block.push_str("\nfull = [");
     for area in areas {
-        block.push_str(&format!("\n  \"{}\",", feature_name(area)));
+        let _ = write!(block, "\n  \"{}\",", feature_name(area));
     }
     block.push_str("\n]");
-    block.push_str(&format!("\n{END_MARK}"));
+    let _ = write!(block, "\n{END_MARK}");
 
     let pattern = Regex::new(&format!(
         "{}(?s).*?{}",

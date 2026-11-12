@@ -8,7 +8,7 @@ use crate::spec::json::{as_str, walk_objects};
 ///
 /// The generator turns an `anyOf` of a string and a list into an empty
 /// struct model, so a string body fails to deserialize with "invalid type:
-/// string, expected struct BaseErrorMessage". The same union written as a
+/// string, expected struct `BaseErrorMessage`". The same union written as a
 /// `oneOf` becomes an untagged enum with a variant per member, which parses
 /// both shapes.
 ///
