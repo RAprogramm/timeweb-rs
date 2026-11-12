@@ -21,11 +21,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #   ### Added / Fixed / Changed / Performance / Documentation
 #   - message ([#PR](pull/PR))   (or a commit link when there is no PR)
 # The `<!-- n -->` group prefixes force a stable section order and are stripped
-# from the rendered title.
+# from the rendered title. A release that carries breaking changes opens with a
+# GitHub alert, so the warning is visible before the entries.
 body = """
 
 ## [{{ version | trim_start_matches(pat="v") }}]\
 {% if release_link %}({{ release_link }}){% endif %} - {{ timestamp | date(format="%Y-%m-%d") }}
+{% set_global has_breaking = false %}
+{% for commit in commits %}
+{% if commit.breaking %}{% set_global has_breaking = true %}{% endif %}
+{% endfor %}
+{% if has_breaking %}
+> [!WARNING]
+> This release changes the public API of the crate. The entries marked
+> **BREAKING:** below describe what a consumer has to adapt to.
+{% endif %}
+| Section | Changes |
+| --- | ---: |
+{% for group, group_commits in commits | group_by(attribute="group") -%}
+| {{ group | striptags | trim | upper_first }} | {{ group_commits | length }} |
+{% endfor -%}
 {% for group, commits in commits | group_by(attribute="group") %}
 ### {{ group | striptags | trim | upper_first }}
 {% for commit in commits %}

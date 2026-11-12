@@ -137,30 +137,50 @@ jobs:
           BREAKING: ${{ steps.semver.outputs.breaking }}
         run: |
           {
-            echo "The upstream Timeweb Cloud OpenAPI specification changed."
+            echo "> [!IMPORTANT]"
+            echo "> This pull request was opened automatically by the \`API spec sync\`"
+            echo "> workflow: it vendors the new Timeweb Cloud OpenAPI specification,"
+            echo "> regenerates \`src/apis\` and \`src/models\` and refreshes the derived"
+            echo "> files. The regenerated SDK builds and its tests pass."
             echo
-            echo "This pull request was opened automatically: it vendors the new"
-            echo "spec, regenerates \`src/apis\` and \`src/models\` and refreshes"
-            echo "the README statistics. The regenerated SDK builds and its tests"
-            echo "pass."
+            echo "> [!TIP]"
+            echo "> Reproduce the regeneration locally:"
+            echo "> \`\`\`sh"
+            echo "> cargo xtask normalize-spec openapi/timeweb-cloud.json /tmp/normalized.json"
+            echo "> # ... openapi-generator ..."
+            echo "> cargo xtask layout"
+            echo "> cargo xtask feature-gates"
+            echo "> cargo xtask patch-models"
+            echo "> cargo xtask example-tests"
+            echo "> cargo xtask readme"
+            echo "> cargo +nightly fmt --all"
+            echo "> \`\`\`"
             echo
             if [ "$BREAKING" = "true" ]; then
-              echo "**cargo-semver-checks reports breaking changes** (or could"
-              echo "not complete); this pull request stays open for review."
+              echo "> [!WARNING]"
+              echo "> **cargo-semver-checks reports breaking changes** (or could not"
+              echo "> complete). This pull request stays open for review under the"
+              echo "> \`breaking-change\` label."
             else
-              echo "cargo-semver-checks found no breaking changes; this pull"
-              echo "request merges automatically once CI is green."
+              echo "> [!NOTE]"
+              echo "> cargo-semver-checks found no breaking changes; this pull request"
+              echo "> merges automatically once CI is green."
             fi
             echo
-            echo "## API changes"
-            echo
             if [ -s /tmp/api-changes.md ]; then
+              echo "<details>"
+              echo "<summary><b>API changes</b> — $(wc -l < /tmp/api-changes.md) lines of the oasdiff report</summary>"
+              echo
               head -c 60000 /tmp/api-changes.md
               if [ "$(stat -c%s /tmp/api-changes.md)" -gt 60000 ]; then
                 echo
-                echo "_Summary truncated; see the spec diff for the rest._"
+                echo "_Report truncated; see the spec diff for the rest._"
               fi
+              echo
+              echo "</details>"
             else
+              echo "## API changes"
+              echo
               echo "_No summary available (oasdiff produced no output)._"
             fi
           } > /tmp/pr-body.md
