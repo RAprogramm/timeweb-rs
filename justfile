@@ -66,15 +66,15 @@ yaml-check:
     actionlint
     yamllint .
 
-# Verify the MSRV badge and compile with the minimum supported toolchain.
-# CI pins the exact toolchain from Cargo.toml; the local stable must match it.
+# Verify the MSRV badge and compile with the pinned minimum supported toolchain
+# read from Cargo.toml, exactly like CI does.
 msrv:
     #!/usr/bin/env bash
     set -euo pipefail
     expected=$(jq -r '.message' .github/msrv-badge.json)
     actual=$(sed -nE 's/^rust-version = "([0-9]+\.[0-9]+).*$$/\1/p' Cargo.toml | head -1)
     test "$expected" = "$actual" || { echo "badge says $expected, Cargo.toml says $actual"; exit 1; }
-    cargo check --all-features --all-targets
+    cargo +"$actual" check --all-features --all-targets
 
 # Check that every feature combination compiles.
 features-check:
