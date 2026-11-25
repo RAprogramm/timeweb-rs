@@ -28,7 +28,7 @@ jobs:
 
       - name: Read MSRV from Cargo.toml
         id: msrv
-        uses: actions-rust-lang/msrv@d3d2883c667da4f83d8af52be9f236ea3fcdd82c # main
+        uses: actions-rust-lang/msrv@1a949f1676189d08efa2d67a207cf1546e538688 # main
 
       - name: Generate badge JSON
         env:
